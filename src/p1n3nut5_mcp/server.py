@@ -12,7 +12,14 @@ from __future__ import annotations
 
 from typing import Literal
 
-from p1n3nut5_mcp import pineapple_api, pineapple_ssh, pineapple_transport, recon
+from p1n3nut5_mcp import (
+    detect,
+    hashcat as hashcat_mod,
+    pineapple_api,
+    pineapple_ssh,
+    pineapple_transport,
+    recon,
+)
 from p1n3nut5_mcp.runtime import Config, envelope
 
 URI_SCHEME = "p1n3nut5"
@@ -207,6 +214,74 @@ async def filter_client_set(
     )
 
 
+# --- Perceive (local, no radio) ---------------------------------------------
+
+
+def parse_pcap(path: str) -> dict:
+    summary = detect.parse_pcap(path)
+    return {
+        "ok": True,
+        "payload": {
+            "total_frames": summary.total_frames,
+            "frame_type_counts": summary.frame_type_counts,
+            "bssids": summary.bssids,
+            "ssids": summary.ssids,
+            "clients": summary.clients,
+        },
+    }
+
+
+def _hashline_dicts(lines) -> list[dict]:
+    return [
+        {
+            "type": h.type,
+            "hash_hex": h.hash_hex,
+            "mac_ap": h.mac_ap,
+            "mac_client": h.mac_client,
+            "essid": h.essid,
+            "line": h.line,
+        }
+        for h in lines
+    ]
+
+
+async def convert_to_hashcat(pcap_path: str, out_path: str) -> dict:
+    r = await detect.convert_to_hashcat(pcap_path, out_path)
+    return {"ok": r["ok"], "payload": _hashline_dicts(r["hash_lines"]), "warnings": r["warnings"]}
+
+
+async def extract_handshakes(pcap_path: str, out_path: str) -> dict:
+    r = await detect.extract_handshakes(pcap_path, out_path)
+    return {"ok": r["ok"], "payload": _hashline_dicts(r["hash_lines"]), "warnings": r["warnings"]}
+
+
+async def extract_pmkids(pcap_path: str, out_path: str) -> dict:
+    r = await detect.extract_pmkids(pcap_path, out_path)
+    return {"ok": r["ok"], "payload": _hashline_dicts(r["hash_lines"]), "warnings": r["warnings"]}
+
+
+async def crack_start(
+    hash_path: str,
+    wordlist_path: str,
+    mode: int = 22000,
+    config: Config | None = None,
+) -> dict:
+    job = await hashcat_mod.crack_start(hash_path, wordlist_path, mode=mode, config=config)
+    return {"ok": True, "payload": {"job_id": job.id, "mode": job.mode}}
+
+
+def crack_status(job_id: str) -> dict:
+    return hashcat_mod.crack_status(job_id)
+
+
+def crack_result(job_id: str) -> dict:
+    return hashcat_mod.crack_result(job_id)
+
+
+async def crack_stop(job_id: str) -> dict:
+    return await hashcat_mod.crack_stop(job_id)
+
+
 def main() -> None:
     """FastMCP entry point.
 
@@ -233,6 +308,14 @@ def main() -> None:
         filter_ssid_set,
         filter_client_list,
         filter_client_set,
+        parse_pcap,
+        convert_to_hashcat,
+        extract_handshakes,
+        extract_pmkids,
+        crack_start,
+        crack_status,
+        crack_result,
+        crack_stop,
     ):
         app.tool()(tool)
     app.run()
