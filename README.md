@@ -12,15 +12,24 @@ capture handshakes, and hand them to hashcat.
 
 ## Status
 
-Planning only. Two documents describe what we're building:
+The **acting half** — `src/p1n3nut5_mcp/` — is landed: transport
+(API + SSH), recon + PineAP + filter tools, perception (pcap,
+handshake / PMKID extraction, hashcat handoff), attack primitives
+(deauth, capture, rogue AP, evil twin), and `run_sequence`
+orchestration. 59+ tests pass against injected fake transports —
+no live radio needed in CI.
+
+The **knowing half** — `knowledge/` — is scaffolding only:
+`knowledge/MANIFEST.md` and `knowledge/records/README.md` document
+the shape; the prose topics and JSON records will land in Phase 2
+per [`plan-knowledge.md`](plan-knowledge.md).
+
+Two documents describe what we're building:
 
 - [`plan-organize.md`](plan-organize.md) — repo layout, MCP tool
   surface, and the API-vs-SSH transport split
 - [`plan-knowledge.md`](plan-knowledge.md) — the knowledge base: prose
   topics, typed records, bibliography discipline
-
-Nothing under `src/`, `knowledge/`, `skills/`, `scripts/`, `docs/`, or
-`tests/` has been authored yet. The plans specify what will land there.
 
 ## Three tiers, from knowing to acting
 

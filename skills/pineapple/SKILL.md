@@ -141,24 +141,88 @@ other.
 
 ## Playbook — first 60 seconds of a WCTF puzzle
 
-Phase 0 has not authored the CTF-facing prose yet
-(`knowledge/ctf/*.md` — see the "Tier 5" section in
-plan-knowledge.md). Once it lands, this section expands into the
-per-subgenre playbook (`hidden-ssid-mazes`, `pmf-required-targets`,
-`wpa2-crack-flags`, `wpa3-transition-downgrade`, `evil-twin-farms`,
-`captive-portal-cred-flags`, `pmkid-fastpath`, `beacon-flag-stego`,
-`probe-request-flag`, `deauth-forensics`, `rogue-radius-eap-flag`,
-`wps-pin-flag`). The pattern is the same across all of them:
+The per-subgenre CTF prose (`knowledge/ctf/*.md` — Tier 5 in
+plan-knowledge.md) is deferred to Phase 2, but the tool orchestration
+below already works today. When you land in an unfamiliar WCTF room:
 
-1. `recon_start(band="both", dwell_ms=250)` and wait ~15 s.
-2. `list_aps()` — sort by security. WPA2-PSK with an active client is
-   the fast lane; a PMKID-leaking AP is even faster.
-3. Cross-reference beacon IEs with `lookup_ie` / `get_ap_details` for
-   trap flags (evil twin markers, WPS-locked, PMF-required,
-   transition-mode indicator).
-4. Pick the right attack — `verify_claim` any assumption the puzzle
-   description hands you before spending shots on it.
-5. Capture, convert (mode 22000), crack. Feed the flag back.
+1. `pineapple_status()` — is the device reachable? Which transport
+   answered? If SSH is down but API is up, transmit tools will fail
+   later — flag it now.
+2. `recon_start(band="both", dwell_ms=250)`, then `wait(s=15)`, then
+   `recon_stop()`. Or one call: `run_sequence([
+     {"action":"recon_start","band":"both","dwell_ms":250},
+     {"action":"wait","s":15},
+     {"action":"recon_stop"}])`.
+3. `list_aps(seen_since_s=20)` — sort by security. Reach order:
+   - **`open`** — no attack needed; just associate. Usually a trap
+     (evil twin / captive portal). Diff against a known-good AP with
+     `beacon_diff` before you trust it.
+   - **`wpa2-psk` with PMKID in the beacon** — fastest lane. Go
+     straight to `capture_pmkid(bssid=…)` → `convert_to_hashcat(mode=22000)`
+     → `crack_start(wordlist_path="rockyou.txt")`. No client
+     needed.
+   - **`wpa2-psk` with a live client** — targeted deauth + capture:
+     `capture_handshake(bssid=…, deauth_client=<mac>, timeout_s=60)`.
+   - **`wpa3-sae` in transition mode** — RSN IE carries both
+     AKM=2 (PSK) and AKM=8 (SAE). A WPA2-capable client can be
+     kicked and its WPA2 side captured. The Dragonblood side-channel
+     attacks are corpus material for later.
+   - **`wpa3-sae` only, PMF-required** — offline crack is not on the
+     table; look for a Dragonblood-style side channel, or pivot to
+     the captive-portal / rogue-RADIUS side of the room.
+   - **`wep`** — still real, still crack-in-under-a-minute-with-ARP-
+     replay. If you see it in a WCTF, it's the puzzle.
+
+Composing the crack pipeline as one call:
+
+```python
+run_sequence([
+    {"action": "recon_start", "band": "2.4", "dwell_ms": 250},
+    {"action": "wait", "s": 20},
+    {"action": "recon_stop"},
+    {"action": "capture_handshake",
+     "bssid": "AA:BB:CC:DD:EE:FF", "timeout_s": 60,
+     "deauth_client": "11:22:33:44:55:66"},
+    {"action": "convert_to_hashcat",
+     "pcap_path": "/tmp/handshake-AABBCCDDEEFF-01.pcap",
+     "out_path":  "/tmp/handshake.22000"},
+    {"action": "crack_start",
+     "hash_path": "/tmp/handshake.22000",
+     "wordlist_path": "rockyou.txt",
+     "mode": 22000},
+])
+```
+
+## Common WCTF patterns (tool-orchestration; corpus prose deferred)
+
+- **PMKID fastpath.** `list_aps` shows AKM=2 (WPA2-PSK), then
+  `capture_pmkid(bssid=…)` → check `extract_pmkids()` on the pcap →
+  crack. Faster than a 4-way handshake because no client interaction.
+- **Evil twin farm.** Multiple APs advertise the same SSID. `beacon_diff`
+  (Phase 4+ when scapy is available) highlights the odd one out.
+  Once identified, `evil_twin(target_bssid=…)` builds your own next to
+  it — but for triage, the goal is usually to *find* the real one and
+  associate with that.
+- **Hidden SSID.** The SSID IE is null in beacons. `list_probe_requests`
+  reveals it — a client that has *ever* seen the network volunteers
+  the name on association. Wait, don't attack.
+- **Captive-portal cred-flag.** `create_rogue_ap(security="open")`
+  next to a target SSID, deauth clients off, serve a portal that
+  templates the target's login page. The flag is what a user types.
+- **Deauth against PMF.** Refuses. `respect_pmf=True` is the default;
+  the refusal envelope cites the record so you can explain to a
+  teammate why the shot didn't fire without a follow-up lookup.
+
+## Diagnosing what happened
+
+- `call_log` — every SSH command sent, verbatim, with exit codes and
+  stderr. When `capture_handshake` returns ok=True but no handshake
+  landed, the airodump/aireplay lines in `call_log` tell you whether
+  the deauth actually went out.
+- Every Pineapple-touching tool returns `{ok, transport, payload,
+  timing_ms, warnings[]}`. `warnings[]` is where the interesting
+  half-successes live — HTTP 5xx from the WebUI, non-zero exit codes
+  from hcxdumptool, PMF-required refusals with citations.
 
 ## Legal & consent
 

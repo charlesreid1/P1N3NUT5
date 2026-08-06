@@ -5,8 +5,10 @@ zine-flavored, cited, historically-aware corpus material the MCP
 serves as resources; `docs/` is operator documentation for humans
 using the tool.
 
-Phase 0 has authored none of the guides below. Same shape as
-PHR34CKER5's `docs/`.
+Same shape as PHR34CKER5's `docs/`. The `wctf_playbook.md` and
+`transport_split.md` bodies are deferred to Phase 2 (they cross-
+reference the corpus files that Phase 2 will author); the
+tool-orchestration side already ships in `skills/pineapple/SKILL.md`.
 
 ## Planned
 
