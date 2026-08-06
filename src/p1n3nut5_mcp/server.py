@@ -16,6 +16,7 @@ from p1n3nut5_mcp import (
     attacks,
     detect,
     hashcat as hashcat_mod,
+    orchestrate,
     pineapple_api,
     pineapple_ssh,
     pineapple_transport,
@@ -401,6 +402,24 @@ async def crack_stop(job_id: str) -> dict:
     return await hashcat_mod.crack_stop(job_id)
 
 
+# --- Orchestrate ------------------------------------------------------------
+
+
+async def run_sequence(
+    steps: list[dict],
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+) -> dict:
+    """Atomic scripted engagement — the run_sequence tool.
+
+    See plan-organize.md § 'Orchestrate — one atomic scripted engagement'
+    for the action vocabulary.
+    """
+    return await orchestrate.run_sequence(
+        steps, i_own_the_airspace=i_own_the_airspace, config=config
+    )
+
+
 def main() -> None:
     """FastMCP entry point.
 
@@ -440,6 +459,7 @@ def main() -> None:
         do_capture_pmkid,
         do_create_rogue_ap,
         do_evil_twin,
+        run_sequence,
     ):
         app.tool()(tool)
     app.run()

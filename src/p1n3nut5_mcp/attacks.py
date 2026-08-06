@@ -310,6 +310,28 @@ async def stop_rogue_ap(
     )
 
 
+async def stop_all_rogue_aps(
+    ssh: PineappleSSH, authorization: Authorization | None = None
+) -> dict:
+    """Sweep — kills every hostapd this MCP instance launched.
+
+    Backs the MAX_ROGUE_MINUTES cost/safety guardrail: the runtime
+    watches wall-clock on each rogue AP and calls this when the
+    limit is hit.
+    """
+    _require_authz(authorization)
+    started = time.monotonic()
+    cmd = "for p in /tmp/hostapd-*.pid; do [ -f \"$p\" ] && kill $(cat \"$p\") 2>/dev/null; rm -f \"$p\"; done"
+    r = await ssh.run(cmd)
+    return envelope(
+        ok=r.exit_status == 0,
+        transport="ssh",
+        payload={"cmd": cmd, "stdout": r.stdout},
+        started_at=started,
+        warnings=[],
+    )
+
+
 async def evil_twin(
     target_bssid: str,
     target_ssid: str,
