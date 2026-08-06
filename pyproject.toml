@@ -31,7 +31,7 @@ pcap = ["scapy>=2.5.0"]
 # Reserved for future: run only the offline knowledge tools.
 minimal = []
 # Test + lint tooling.
-dev = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "pytest-asyncio>=0.23.0"]
 
 [project.scripts]
 p1n3nut5-mcp = "p1n3nut5_mcp.__main__:main"
@@ -61,3 +61,4 @@ include = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+asyncio_mode = "auto"

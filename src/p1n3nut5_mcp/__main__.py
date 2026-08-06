@@ -1,17 +1,8 @@
-"""Entry point for `p1n3nut5-mcp`.
-
-Phase 0 stub. The MCP server itself lives in `server.py`; this module wires
-argument parsing and dispatches into `server.main()` once that is authored.
-"""
+"""Entry point for `p1n3nut5-mcp`."""
 
 from __future__ import annotations
 
-
-def main() -> None:
-    raise NotImplementedError(
-        "p1n3nut5-mcp is Phase 0 (skeleton only). See plan-organize.md."
-    )
-
+from p1n3nut5_mcp.server import main
 
 if __name__ == "__main__":
     main()
