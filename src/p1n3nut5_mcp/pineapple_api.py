@@ -72,6 +72,62 @@ class PineappleAPI:
         payload, warnings = await self.get("/api/dashboard/status")
         return {"payload": payload, "warnings": warnings}
 
+    # --- recon --------------------------------------------------------------
+
+    async def recon_start(self, band: str, dwell_ms: int) -> dict:
+        payload, warnings = await self.post(
+            "/api/recon/start", {"band": band, "dwell_ms": dwell_ms}
+        )
+        return {"payload": payload, "warnings": warnings}
+
+    async def recon_stop(self) -> dict:
+        payload, warnings = await self.post("/api/recon/stop", {})
+        return {"payload": payload, "warnings": warnings}
+
+    async def recon_status(self) -> dict:
+        payload, warnings = await self.get("/api/recon/status")
+        return {"payload": payload, "warnings": warnings}
+
+    async def list_aps_raw(self) -> dict:
+        payload, warnings = await self.get("/api/recon/ap")
+        return {"payload": payload, "warnings": warnings}
+
+    async def list_clients_raw(self) -> dict:
+        payload, warnings = await self.get("/api/recon/client")
+        return {"payload": payload, "warnings": warnings}
+
+    async def list_probe_requests_raw(self) -> dict:
+        payload, warnings = await self.get("/api/recon/probes")
+        return {"payload": payload, "warnings": warnings}
+
+    # --- PineAP -------------------------------------------------------------
+
+    async def pineap_status(self) -> dict:
+        payload, warnings = await self.get("/api/pineap/status")
+        return {"payload": payload, "warnings": warnings}
+
+    async def pineap_start(self) -> dict:
+        payload, warnings = await self.post("/api/pineap/start", {})
+        return {"payload": payload, "warnings": warnings}
+
+    async def pineap_stop(self) -> dict:
+        payload, warnings = await self.post("/api/pineap/stop", {})
+        return {"payload": payload, "warnings": warnings}
+
+    async def pineap_config(self, config: dict) -> dict:
+        payload, warnings = await self.post("/api/pineap/config", config)
+        return {"payload": payload, "warnings": warnings}
+
+    async def filter_list(self, kind: str) -> dict:
+        payload, warnings = await self.get(f"/api/filter/{kind}")
+        return {"payload": payload, "warnings": warnings}
+
+    async def filter_set(self, kind: str, mode: str, items: list[str]) -> dict:
+        payload, warnings = await self.post(
+            f"/api/filter/{kind}", {"mode": mode, "items": items}
+        )
+        return {"payload": payload, "warnings": warnings}
+
 
 async def status(config: Config, client: httpx.AsyncClient | None = None) -> dict:
     """Envelope-returning `pineapple_status()` — API transport."""
