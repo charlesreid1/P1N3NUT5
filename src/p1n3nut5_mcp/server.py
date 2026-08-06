@@ -13,6 +13,7 @@ from __future__ import annotations
 from typing import Literal
 
 from p1n3nut5_mcp import (
+    attacks,
     detect,
     hashcat as hashcat_mod,
     pineapple_api,
@@ -20,6 +21,7 @@ from p1n3nut5_mcp import (
     pineapple_transport,
     recon,
 )
+from p1n3nut5_mcp.attacks import Authorization
 from p1n3nut5_mcp.runtime import Config, envelope
 
 URI_SCHEME = "p1n3nut5"
@@ -214,6 +216,123 @@ async def filter_client_set(
     )
 
 
+# --- Act — attack primitives (SSH-heavy) -----------------------------------
+
+
+async def _with_ssh(coro_factory, config: Config | None = None) -> dict:
+    cfg = config or Config.from_env()
+    ssh = pineapple_ssh.PineappleSSH(cfg)
+    try:
+        return await coro_factory(ssh)
+    finally:
+        await ssh.close()
+
+
+async def do_deauth(
+    bssid: str,
+    client_mac: str | None = None,
+    count: int = 5,
+    reason: int = 7,
+    iface: str = "wlan1mon",
+    respect_pmf: bool = True,
+    i_own_the_airspace: bool = False,
+    target_pmf: str | None = None,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    if ssh is not None:
+        return await attacks.deauth(
+            bssid=bssid, client_mac=client_mac, count=count, reason=reason,
+            iface=iface, respect_pmf=respect_pmf, authorization=authz,
+            ssh=ssh, target_pmf=target_pmf,
+        )
+    return await _with_ssh(
+        lambda s: attacks.deauth(
+            bssid=bssid, client_mac=client_mac, count=count, reason=reason,
+            iface=iface, respect_pmf=respect_pmf, authorization=authz,
+            ssh=s, target_pmf=target_pmf,
+        ),
+        config,
+    )
+
+
+async def do_capture_handshake(
+    bssid: str,
+    timeout_s: int = 60,
+    out_path: str | None = None,
+    deauth_client: str | None = None,
+    iface: str = "wlan1mon",
+    channel: int | None = None,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(bssid=bssid, timeout_s=timeout_s, out_path=out_path,
+              deauth_client=deauth_client, iface=iface, channel=channel,
+              authorization=authz)
+    if ssh is not None:
+        return await attacks.capture_handshake(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.capture_handshake(**kw, ssh=s), config)
+
+
+async def do_capture_pmkid(
+    bssid: str | None = None,
+    timeout_s: int = 60,
+    out_path: str | None = None,
+    iface: str = "wlan1",
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(bssid=bssid, timeout_s=timeout_s, out_path=out_path, iface=iface,
+              authorization=authz)
+    if ssh is not None:
+        return await attacks.capture_pmkid(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.capture_pmkid(**kw, ssh=s), config)
+
+
+async def do_create_rogue_ap(
+    ssid: str,
+    channel: int,
+    security: str = "open",
+    psk: str | None = None,
+    bssid: str | None = None,
+    iface: str = "wlan0",
+    band: str = "2.4",
+    hidden: bool = False,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(ssid=ssid, channel=channel, security=security, psk=psk, bssid=bssid,
+              iface=iface, band=band, hidden=hidden, authorization=authz)
+    if ssh is not None:
+        return await attacks.create_rogue_ap(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.create_rogue_ap(**kw, ssh=s), config)
+
+
+async def do_evil_twin(
+    target_bssid: str,
+    target_ssid: str,
+    target_channel: int,
+    deauth_clients: bool = True,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(target_bssid=target_bssid, target_ssid=target_ssid,
+              target_channel=target_channel, deauth_clients=deauth_clients,
+              authorization=authz)
+    if ssh is not None:
+        return await attacks.evil_twin(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.evil_twin(**kw, ssh=s), config)
+
+
 # --- Perceive (local, no radio) ---------------------------------------------
 
 
@@ -316,6 +435,11 @@ def main() -> None:
         crack_status,
         crack_result,
         crack_stop,
+        do_deauth,
+        do_capture_handshake,
+        do_capture_pmkid,
+        do_create_rogue_ap,
+        do_evil_twin,
     ):
         app.tool()(tool)
     app.run()
