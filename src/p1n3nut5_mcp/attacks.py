@@ -291,6 +291,173 @@ async def create_rogue_ap(
     )
 
 
+async def beacon_flood(
+    iface: str,
+    ssid_file: str,
+    channel: int | None = None,
+    duration_s: int = 60,
+    authorization: Authorization | None = None,
+    *,
+    ssh: PineappleSSH,
+) -> dict:
+    """Flood beacons via `mdk4 <iface> b -f <ssid_file>`.
+
+    See `attacks.json:beacon-flood`. `ssid_file` is a path already on the
+    Pineapple; upload with a heredoc first if needed. `mdk4` is preferred
+    (mdk3 falls back on older firmwares).
+    """
+    _require_authz(authorization)
+    started = time.monotonic()
+    ch = f"-c {int(channel)} " if channel else ""
+    cmd = (
+        f"timeout {int(duration_s)} mdk4 {shlex.quote(iface)} b "
+        f"-f {shlex.quote(ssid_file)} {ch}".strip()
+    )
+    r = await ssh.run(cmd)
+    warnings: list[str] = []
+    if r.exit_status not in (0, 124):
+        warnings.append(f"mdk4 exit {r.exit_status}: {r.stderr.strip()}")
+    return envelope(
+        ok=r.exit_status in (0, 124),
+        transport="ssh",
+        payload={
+            "cmd": cmd,
+            "iface": iface,
+            "ssid_file": ssid_file,
+            "channel": channel,
+            "duration_s": duration_s,
+            "stdout": r.stdout,
+        },
+        started_at=started,
+        warnings=warnings,
+    )
+
+
+async def packet_inject(
+    pcap_path: str,
+    iface: str,
+    count: int = 1,
+    interval_ms: int = 100,
+    authorization: Authorization | None = None,
+    *,
+    ssh: PineappleSSH,
+) -> dict:
+    """Replay frames from an on-Pineapple pcap via aireplay-ng.
+
+    See `attacks.json` for the injection preconditions. `pcap_path` must
+    already exist on the Pineapple (upload it first with a heredoc or
+    scp).
+    """
+    _require_authz(authorization)
+    started = time.monotonic()
+    cmd = (
+        f"aireplay-ng --interactive -r {shlex.quote(pcap_path)} "
+        f"-x {max(1, int(1000 / max(1, interval_ms)))} "
+        f"--count {int(count)} {shlex.quote(iface)}"
+    )
+    r = await ssh.run(cmd)
+    warnings: list[str] = []
+    if r.exit_status != 0:
+        warnings.append(f"aireplay-ng exit {r.exit_status}: {r.stderr.strip()}")
+    return envelope(
+        ok=r.exit_status == 0,
+        transport="ssh",
+        payload={
+            "cmd": cmd,
+            "pcap_path": pcap_path,
+            "iface": iface,
+            "count": count,
+            "interval_ms": interval_ms,
+            "stdout": r.stdout,
+        },
+        started_at=started,
+        warnings=warnings,
+    )
+
+
+async def channel_hop_start(
+    iface: str,
+    channels: list[int],
+    dwell_ms: int = 250,
+    authorization: Authorization | None = None,
+    *,
+    ssh: PineappleSSH,
+) -> dict:
+    """Launch a background channel-hop loop against `iface`.
+
+    Same pattern as `create_rogue_ap`: heredoc a small shell script,
+    launch it under `nohup`, record the pid file as the returned
+    `handle` so `channel_hop_stop(handle)` can kill it.
+    """
+    _require_authz(authorization)
+    started = time.monotonic()
+    warnings: list[str] = []
+    if not channels:
+        raise ValueError("channel_hop_start requires channels[]")
+
+    handle = f"/tmp/chanhop-{iface}.pid"
+    script_path = f"/tmp/chanhop-{iface}.sh"
+    ch_list = " ".join(str(int(c)) for c in channels)
+    sleep_s = max(0.05, float(dwell_ms) / 1000.0)
+    script = (
+        "#!/bin/sh\n"
+        f"CHANS=\"{ch_list}\"\n"
+        "while true; do\n"
+        "  for c in $CHANS; do\n"
+        f"    iw dev {shlex.quote(iface)} set channel $c 2>/dev/null\n"
+        f"    sleep {sleep_s:g}\n"
+        "  done\n"
+        "done\n"
+    )
+    r_upload = await ssh.run(
+        f"cat > {shlex.quote(script_path)} <<'P1N3EOF'\n{script}\nP1N3EOF"
+    )
+    if r_upload.exit_status != 0:
+        warnings.append("failed to upload channel-hop script")
+
+    launch = (
+        f"chmod +x {shlex.quote(script_path)} && "
+        f"nohup {shlex.quote(script_path)} >/dev/null 2>&1 & echo $! > {shlex.quote(handle)}"
+    )
+    r_launch = await ssh.run(launch)
+    if r_launch.exit_status != 0:
+        warnings.append(f"channel-hop launch exit {r_launch.exit_status}")
+    return envelope(
+        ok=r_launch.exit_status == 0,
+        transport="ssh",
+        payload={
+            "cmd": launch,
+            "handle": handle,
+            "script_path": script_path,
+            "iface": iface,
+            "channels": list(channels),
+            "dwell_ms": dwell_ms,
+        },
+        started_at=started,
+        warnings=warnings,
+    )
+
+
+async def channel_hop_stop(
+    handle: str,
+    authorization: Authorization | None = None,
+    *,
+    ssh: PineappleSSH,
+) -> dict:
+    """Kill the channel-hop loop by pid file path (returned by channel_hop_start)."""
+    _require_authz(authorization)
+    started = time.monotonic()
+    cmd = f"kill $(cat {shlex.quote(handle)}) 2>/dev/null; rm -f {shlex.quote(handle)}"
+    r = await ssh.run(cmd)
+    return envelope(
+        ok=r.exit_status == 0,
+        transport="ssh",
+        payload={"cmd": cmd, "handle": handle, "stdout": r.stdout},
+        started_at=started,
+        warnings=[f"exit {r.exit_status}: {r.stderr.strip()}"] if r.exit_status != 0 else [],
+    )
+
+
 async def stop_rogue_ap(
     handle: str,
     authorization: Authorization | None = None,

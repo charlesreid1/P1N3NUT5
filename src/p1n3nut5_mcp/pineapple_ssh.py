@@ -148,6 +148,30 @@ def _parse_iw_dev(text: str) -> list[dict]:
     return radios
 
 
+async def list_interfaces(
+    config: Config, connect: ConnectFn = _asyncssh_connect
+) -> dict:
+    """Envelope-returning `list_interfaces()` — SSH transport."""
+    from p1n3nut5_mcp.runtime import envelope
+
+    started = time.monotonic()
+    ssh = PineappleSSH(config, connect=connect)
+    try:
+        r = await ssh.run("iw dev 2>/dev/null")
+        warnings: list[str] = []
+        if r.exit_status != 0:
+            warnings.append(f"iw dev exit {r.exit_status}")
+        return envelope(
+            ok=r.exit_status == 0,
+            transport="ssh",
+            payload=_parse_iw_dev(r.stdout),
+            started_at=started,
+            warnings=warnings,
+        )
+    finally:
+        await ssh.close()
+
+
 async def status(config: Config, connect: ConnectFn = _asyncssh_connect) -> dict:
     """Envelope-returning `pineapple_status()` — SSH transport."""
     from p1n3nut5_mcp.runtime import envelope

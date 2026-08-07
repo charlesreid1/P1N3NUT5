@@ -72,6 +72,21 @@ async def test_filter_ssid_set(api_config: Config):
         await api.aclose()
 
 
+async def test_list_associations_pulls_from_pineap_endpoint(api_config: Config):
+    payload = [
+        {"mac": "aa:bb:cc:dd:ee:ff", "bssid": "00:c0:ca:12:34:56", "since": 100},
+        {"mac": "11:22:33:44:55:66", "bssid": "00:c0:ca:12:34:56", "since": 200},
+    ]
+    api = _api_with_routes(api_config, {"/api/pineap/associations": payload})
+    try:
+        result = await server.list_associations(api=api)
+        assert result["ok"] is True
+        assert result["transport"] == "api"
+        assert result["payload"] == payload
+    finally:
+        await api.aclose()
+
+
 async def test_list_probe_requests_normalizes(api_config: Config):
     probes_raw = [
         {"mac": "DE:AD:BE:EF:00:01", "ssid": "home-wifi", "seen_at": 100, "rssi": -40},

@@ -82,6 +82,22 @@ async def test_ssh_records_nonzero_exit_as_warning(ssh_config: Config):
     assert any("iw dev" in w for w in result["warnings"])
 
 
+# --- list_interfaces ---------------------------------------------------------
+
+
+async def test_list_interfaces_returns_parsed_radios(ssh_config: Config):
+    from p1n3nut5_mcp.pineapple_ssh import list_interfaces
+
+    iw = (FIXTURES / "ssh" / "iw_dev.txt").read_text()
+    connect = make_ssh_connect({"iw dev 2>/dev/null": FakeProcResult(stdout=iw)})
+    result = await list_interfaces(ssh_config, connect=connect)
+    assert result["ok"] is True
+    assert result["transport"] == "ssh"
+    ifaces = [r["iface"] for r in result["payload"]]
+    assert "wlan1mon" in ifaces
+    assert "wlan0" in ifaces
+
+
 # --- transport-dispatch smoke ------------------------------------------------
 
 

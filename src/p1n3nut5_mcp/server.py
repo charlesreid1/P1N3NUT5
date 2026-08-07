@@ -317,6 +317,116 @@ async def do_create_rogue_ap(
     return await _with_ssh(lambda s: attacks.create_rogue_ap(**kw, ssh=s), config)
 
 
+async def do_stop_rogue_ap(
+    handle: str,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    if ssh is not None:
+        return await attacks.stop_rogue_ap(handle=handle, authorization=authz, ssh=ssh)
+    return await _with_ssh(
+        lambda s: attacks.stop_rogue_ap(handle=handle, authorization=authz, ssh=s),
+        config,
+    )
+
+
+async def do_stop_all_rogue_aps(
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    if ssh is not None:
+        return await attacks.stop_all_rogue_aps(ssh=ssh, authorization=authz)
+    return await _with_ssh(
+        lambda s: attacks.stop_all_rogue_aps(ssh=s, authorization=authz),
+        config,
+    )
+
+
+async def do_beacon_flood(
+    iface: str,
+    ssid_file: str,
+    channel: int | None = None,
+    duration_s: int = 60,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(iface=iface, ssid_file=ssid_file, channel=channel,
+              duration_s=duration_s, authorization=authz)
+    if ssh is not None:
+        return await attacks.beacon_flood(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.beacon_flood(**kw, ssh=s), config)
+
+
+async def do_packet_inject(
+    pcap_path: str,
+    iface: str,
+    count: int = 1,
+    interval_ms: int = 100,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(pcap_path=pcap_path, iface=iface, count=count,
+              interval_ms=interval_ms, authorization=authz)
+    if ssh is not None:
+        return await attacks.packet_inject(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.packet_inject(**kw, ssh=s), config)
+
+
+async def do_channel_hop_start(
+    iface: str,
+    channels: list[int],
+    dwell_ms: int = 250,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    kw = dict(iface=iface, channels=list(channels), dwell_ms=dwell_ms,
+              authorization=authz)
+    if ssh is not None:
+        return await attacks.channel_hop_start(**kw, ssh=ssh)
+    return await _with_ssh(lambda s: attacks.channel_hop_start(**kw, ssh=s), config)
+
+
+async def do_channel_hop_stop(
+    handle: str,
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    if ssh is not None:
+        return await attacks.channel_hop_stop(handle=handle, authorization=authz, ssh=ssh)
+    return await _with_ssh(
+        lambda s: attacks.channel_hop_stop(handle=handle, authorization=authz, ssh=s),
+        config,
+    )
+
+
+async def do_list_interfaces(
+    config: Config | None = None,
+) -> dict:
+    cfg = config or Config.from_env()
+    return await pineapple_ssh.list_interfaces(cfg)
+
+
+async def list_associations(
+    config: Config | None = None,
+    api: pineapple_api.PineappleAPI | None = None,
+) -> dict:
+    return await _api_call(
+        "list_associations", lambda a: a.list_associations_raw(), config, api
+    )
+
+
 async def do_evil_twin(
     target_bssid: str,
     target_ssid: str,
@@ -459,6 +569,14 @@ def main() -> None:
         do_capture_handshake,
         do_capture_pmkid,
         do_create_rogue_ap,
+        do_stop_rogue_ap,
+        do_stop_all_rogue_aps,
+        do_beacon_flood,
+        do_packet_inject,
+        do_channel_hop_start,
+        do_channel_hop_stop,
+        do_list_interfaces,
+        list_associations,
         do_evil_twin,
         run_sequence,
         # Know — typed records (Phase-2 KR tools; see plan-knowledge.md)

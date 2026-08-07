@@ -195,6 +195,102 @@ async def test_create_rogue_ap_wpa2_psk_requires_psk():
 # --- evil_twin --------------------------------------------------------------
 
 
+async def test_beacon_flood_records_mdk4_invocation():
+    cmd = "timeout 60 mdk4 wlan1mon b -f /tmp/ssids.txt -c 6"
+    ssh = _ssh({cmd: FakeProcResult(stdout="", exit_status=124)})
+    authz = Authorization(i_own_the_airspace=True)
+    r = await attacks.beacon_flood(
+        iface="wlan1mon",
+        ssid_file="/tmp/ssids.txt",
+        channel=6,
+        duration_s=60,
+        authorization=authz,
+        ssh=ssh,
+    )
+    assert r["ok"] is True
+    assert r["payload"]["cmd"] == cmd
+    assert [c.cmd for c in ssh.call_log] == [cmd]
+
+
+async def test_beacon_flood_refuses_without_authorization():
+    ssh = _ssh({})
+    with pytest.raises(AuthorizationRequired):
+        await attacks.beacon_flood(
+            iface="wlan1mon", ssid_file="/tmp/x", ssh=ssh
+        )
+
+
+async def test_packet_inject_records_aireplay_invocation():
+    cmd = (
+        "aireplay-ng --interactive -r /tmp/frames.pcap "
+        "-x 10 --count 5 wlan1mon"
+    )
+    ssh = _ssh({cmd: FakeProcResult(stdout="")})
+    authz = Authorization(i_own_the_airspace=True)
+    r = await attacks.packet_inject(
+        pcap_path="/tmp/frames.pcap",
+        iface="wlan1mon",
+        count=5,
+        interval_ms=100,
+        authorization=authz,
+        ssh=ssh,
+    )
+    assert r["ok"] is True
+    assert r["payload"]["cmd"] == cmd
+
+
+async def test_channel_hop_start_uploads_and_launches():
+    from tests.conftest import FakeSSHConn
+
+    class RecorderSSH(FakeSSHConn):
+        async def run(self, command: str, check: bool = False):
+            self.calls.append(command)
+            return FakeProcResult(stdout="", exit_status=0)
+
+    async def connect(cfg):
+        return RecorderSSH({})
+
+    ssh = PineappleSSH(
+        Config.from_env({"PINEAPPLE_HOST": "x", "PINEAPPLE_SSH_PASSWORD": "y"}),
+        connect=connect,
+    )
+    authz = Authorization(i_own_the_airspace=True)
+    r = await attacks.channel_hop_start(
+        iface="wlan1mon",
+        channels=[1, 6, 11],
+        dwell_ms=250,
+        authorization=authz,
+        ssh=ssh,
+    )
+    assert r["ok"] is True
+    cmds = [c.cmd for c in ssh.call_log]
+    assert any(c.startswith("cat > ") and "chanhop-wlan1mon.sh" in c for c in cmds)
+    assert any(c.startswith("chmod +x ") and "nohup " in c for c in cmds)
+    upload = next(c for c in cmds if c.startswith("cat > "))
+    assert "CHANS=\"1 6 11\"" in upload
+    assert r["payload"]["handle"] == "/tmp/chanhop-wlan1mon.pid"
+
+
+async def test_channel_hop_stop_kills_by_handle():
+    cmd = "kill $(cat /tmp/chanhop-wlan1mon.pid) 2>/dev/null; rm -f /tmp/chanhop-wlan1mon.pid"
+    ssh = _ssh({cmd: FakeProcResult(stdout="")})
+    authz = Authorization(i_own_the_airspace=True)
+    r = await attacks.channel_hop_stop(
+        handle="/tmp/chanhop-wlan1mon.pid", authorization=authz, ssh=ssh
+    )
+    assert r["ok"] is True
+    assert r["payload"]["cmd"] == cmd
+
+
+async def test_channel_hop_start_requires_channels():
+    ssh = _ssh({})
+    authz = Authorization(i_own_the_airspace=True)
+    with pytest.raises(ValueError, match="channels"):
+        await attacks.channel_hop_start(
+            iface="wlan1mon", channels=[], authorization=authz, ssh=ssh
+        )
+
+
 async def test_evil_twin_clones_and_deauths_when_target_not_pmf():
     from tests.conftest import FakeSSHConn
 

@@ -100,6 +100,10 @@ class PineappleAPI:
         payload, warnings = await self.get("/api/recon/probes")
         return {"payload": payload, "warnings": warnings}
 
+    async def list_associations_raw(self) -> dict:
+        payload, warnings = await self.get("/api/pineap/associations")
+        return {"payload": payload, "warnings": warnings}
+
     # --- PineAP -------------------------------------------------------------
 
     async def pineap_status(self) -> dict:
