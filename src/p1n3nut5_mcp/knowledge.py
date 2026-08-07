@@ -663,16 +663,18 @@ def search_lore(query: str, max_results: int = 20) -> dict:
 def random_lore() -> dict:
     """One arbitrary markdown file — for inspiration.
 
-    Deterministic within a process: picks the first sorted file. Callers
-    who want cryptographic randomness should draw their own selector.
+    Independent draw per call via `secrets.choice` so concurrent
+    callers in one process get different files.
     """
+    import secrets  # noqa: PLC0415
+
     root = _knowledge_root()
     if not root.exists():
         return {"ok": False, "payload": {"error": "no knowledge/ directory"}}
     files = sorted(root.glob("*/*.md"))
     if not files:
         return {"ok": False, "payload": {"error": "no markdown files"}}
-    md = files[0]
+    md = secrets.choice(files)
     return read_lore(md.parent.name, md.stem)
 
 
