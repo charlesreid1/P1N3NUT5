@@ -63,7 +63,7 @@ class Config:
             raise MissingConfig(
                 f"PINEAPPLE_TRANSPORT_PREF must be 'api' or 'ssh', got {pref_raw!r}"
             )
-        return cls(
+        cfg = cls(
             host=host,
             token=e.get("PINEAPPLE_TOKEN"),
             ssh_user=e.get("PINEAPPLE_SSH_USER", "root"),
@@ -76,6 +76,23 @@ class Config:
             hashcat_path=e.get("HASHCAT_PATH"),
             wordlist_dir=e.get("WORDLIST_DIR"),
         )
+        # Eager warn on missing SSH creds — the first SSH tool call
+        # (do_deauth, do_capture_handshake, …) is often mid-engagement,
+        # not at process start. Warn now so the operator sees the gap
+        # before it matters. Warn, don't raise: an API-only engagement
+        # is legitimate.
+        if env is None and not cfg.ssh_key and not cfg.ssh_password:
+            import warnings as _warnings  # noqa: PLC0415
+
+            _warnings.warn(
+                "no PINEAPPLE_SSH_KEY or PINEAPPLE_SSH_PASSWORD set; "
+                "SSH-transport tools (do_deauth, do_capture_*, "
+                "do_create_rogue_ap, …) will fail with MissingConfig "
+                "on first invocation.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+        return cfg
 
     def require_api(self) -> None:
         if not self.token:
