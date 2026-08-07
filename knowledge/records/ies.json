@@ -2,19 +2,46 @@
   {
     "id": "ie-ssid",
     "name": "SSID Information Element (IE 0)",
-    "aliases": ["ssid ie"],
+    "aliases": [
+      "ssid ie"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["frame-mgmt-beacon", "frame-mgmt-probe-request"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "frame-mgmt-beacon",
+      "frame-mgmt-probe-request"
+    ],
     "technical_body": {
       "element_id": 0,
-      "length_range_bytes": [0, 32],
-      "appears_in": ["beacon", "probe-request", "probe-response", "assoc-request", "reassoc-request"],
-      "notes": "Length 0 = 'hidden SSID' in a beacon. Client probes reveal it."
+      "length_range_bytes": [
+        0,
+        32
+      ],
+      "appears_in": [
+        "beacon",
+        "probe-request",
+        "probe-response",
+        "assoc-request",
+        "reassoc-request"
+      ],
+      "notes": "Length 0 = 'hidden SSID' in a beacon. Client probes reveal it.",
+      "layout": [
+        {
+          "name": "SSID",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "0–32 bytes; length 0 = hidden SSID beacon; not NUL-terminated"
+        }
+      ]
     }
   },
   {
@@ -22,25 +49,81 @@
     "name": "DS Parameter Set (IE 3)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 3, "length_bytes": 1, "contents": "current channel number", "appears_in": ["beacon", "probe-response"]}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 3,
+      "length_bytes": 1,
+      "contents": "current channel number",
+      "appears_in": [
+        "beacon",
+        "probe-response"
+      ],
+      "layout": [
+        {
+          "name": "Current Channel",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "channel number (1..14 for 2.4 GHz, 36..165 for 5 GHz)"
+        }
+      ]
+    }
   },
   {
     "id": "ie-tim",
     "name": "Traffic Indication Map / TIM (IE 5)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 5,
-      "contents": ["DTIM count", "DTIM period", "bitmap of AID with pending traffic"],
-      "attack_surface": "Framing Frames (Vanhoef 2023) — power-save queue poisoning."
+      "contents": [
+        "DTIM count",
+        "DTIM period",
+        "bitmap of AID with pending traffic"
+      ],
+      "attack_surface": "Framing Frames (Vanhoef 2023) — power-save queue poisoning.",
+      "layout": [
+        {
+          "name": "DTIM Count",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "beacons remaining until the next DTIM"
+        },
+        {
+          "name": "DTIM Period",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": "beacons between DTIMs (typically 1..10)"
+        },
+        {
+          "name": "Bitmap Control",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": "bit 0 = broadcast traffic pending; bits 1–7 = bitmap offset"
+        },
+        {
+          "name": "Partial Virtual Bitmap",
+          "offset_bytes": 3,
+          "length_bytes": null,
+          "notes": "1–251 bytes; each bit = AID with buffered traffic"
+        }
+      ]
     }
   },
   {
@@ -48,22 +131,53 @@
     "name": "Country IE (IE 7)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1999", null],
+    "era_bounds": [
+      "1999",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 7, "contents": "country code + regulatory triplets", "notes": "Client uses this to select TX power / DFS / TPC. Spoofable."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 7,
+      "contents": "country code + regulatory triplets",
+      "notes": "Client uses this to select TX power / DFS / TPC. Spoofable.",
+      "layout": [
+        {
+          "name": "Country String",
+          "offset_bytes": 0,
+          "length_bytes": 3,
+          "notes": "2-char ISO 3166 country code + third char (O=outdoor, I=indoor, ' '=any)"
+        },
+        {
+          "name": "Regulatory Triplets",
+          "offset_bytes": 3,
+          "length_bytes": null,
+          "notes": "sequence of 3-byte {First Channel, Number of Channels, Max TX Power dBm} triples"
+        }
+      ]
+    }
   },
   {
     "id": "ie-rsn",
     "name": "Robust Security Network / RSN IE (IE 48)",
-    "aliases": ["rsn ie", "rsne"],
+    "aliases": [
+      "rsn ie",
+      "rsne"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 48,
       "fields": [
@@ -101,6 +215,68 @@
         "beacon-RSN inspection is the first-60-seconds triage",
         "AKM 2 + AKM 8 both present = WPA3 transition mode = downgrade opportunity",
         "PMKID present in M1 = client-free crack path (Steube 2018)"
+      ],
+      "layout": [
+        {
+          "name": "Version",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "always 0x0001"
+        },
+        {
+          "name": "Group Cipher Suite",
+          "offset_bytes": 2,
+          "length_bytes": 4,
+          "notes": "OUI (3B: 00-0F-AC) + Suite Type (1B): 1=WEP-40 2=TKIP 4=CCMP-128 5=WEP-104 6=BIP-CMAC-128 8=GCMP-128 9=GCMP-256"
+        },
+        {
+          "name": "Pairwise Cipher Suite Count",
+          "offset_bytes": 6,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Pairwise Cipher Suite List",
+          "offset_bytes": 8,
+          "length_bytes": null,
+          "notes": "N × 4 bytes (OUI + Suite Type)"
+        },
+        {
+          "name": "AKM Suite Count",
+          "offset_bytes": null,
+          "length_bytes": 2,
+          "notes": "offset depends on pairwise count"
+        },
+        {
+          "name": "AKM Suite List",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": "N × 4 bytes: 1=802.1X, 2=PSK, 3=FT-802.1X, 4=FT-PSK, 5=802.1X-SHA256, 6=PSK-SHA256, 8=SAE, 9=FT-SAE, 11=Suite B 192, 12=OWE, 18=SAE-EXT-KEY (H2E)"
+        },
+        {
+          "name": "RSN Capabilities",
+          "offset_bytes": null,
+          "length_bytes": 2,
+          "notes": "MFPR/MFPC (bits 6/7), PeerKey / SPP-A-MSDU / …"
+        },
+        {
+          "name": "PMKID Count",
+          "offset_bytes": null,
+          "length_bytes": 2,
+          "notes": "may be absent"
+        },
+        {
+          "name": "PMKID List",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": "N × 16 bytes; M1 with a PMKID here is the Steube-2018 crack path"
+        },
+        {
+          "name": "Group Management Cipher Suite",
+          "offset_bytes": null,
+          "length_bytes": 4,
+          "notes": "PMF group cipher — BIP-CMAC-128 by default"
+        }
       ]
     }
   },
@@ -109,72 +285,259 @@
     "name": "HT Capabilities (IE 45)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 45, "spec": "802.11n"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 45,
+      "spec": "802.11n",
+      "layout": [
+        {
+          "name": "HT Capabilities Info",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "LDPC, Supported Channel Width Set, SM Power Save, HT Greenfield, Short GI 20/40, TX/RX STBC, HT Delayed Block Ack, MaxA-MSDU, DSSS-CCK Mode 40 MHz, LSIG TXOP Protection"
+        },
+        {
+          "name": "A-MPDU Parameters",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Supported MCS Set",
+          "offset_bytes": 3,
+          "length_bytes": 16,
+          "notes": "16-byte bitmap of supported MCS indices — strong device fingerprint"
+        },
+        {
+          "name": "HT Extended Capabilities",
+          "offset_bytes": 19,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "TX Beamforming Capabilities",
+          "offset_bytes": 21,
+          "length_bytes": 4,
+          "notes": ""
+        },
+        {
+          "name": "ASEL Capabilities",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": ""
+        }
+      ]
+    }
   },
   {
     "id": "ie-vht-capabilities",
     "name": "VHT Capabilities (IE 191)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 191, "spec": "802.11ac"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 191,
+      "spec": "802.11ac",
+      "layout": [
+        {
+          "name": "VHT Capabilities Info",
+          "offset_bytes": 0,
+          "length_bytes": 4,
+          "notes": "Max MPDU Length, Supported Channel Width Set, RX LDPC, Short GI 80/160, TX/RX STBC, SU/MU Beamformer/Beamformee, MU MPDU Length Exponent, VHT TXOP PS"
+        },
+        {
+          "name": "Supported VHT-MCS and NSS Set",
+          "offset_bytes": 4,
+          "length_bytes": 8,
+          "notes": ""
+        }
+      ]
+    }
   },
   {
     "id": "ie-he-capabilities",
     "name": "HE Capabilities (Extension IE 35)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11ax-2021"],
-    "technical_body": {"element_id": 255, "element_id_ext": 35, "spec": "802.11ax"}
+    "citations": [
+      "ieee-802-11ax-2021"
+    ],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 35,
+      "spec": "802.11ax",
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x23 (35) = HE Capabilities"
+        },
+        {
+          "name": "HE MAC Capabilities Info",
+          "offset_bytes": 1,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "HE PHY Capabilities Info",
+          "offset_bytes": 7,
+          "length_bytes": 11,
+          "notes": ""
+        },
+        {
+          "name": "Supported HE-MCS and NSS Set",
+          "offset_bytes": 18,
+          "length_bytes": null,
+          "notes": "variable — 4/8/12 bytes based on max NSS + BW combinations"
+        }
+      ]
+    }
   },
   {
     "id": "ie-eht-capabilities",
     "name": "EHT Capabilities (Extension IE 108)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2024", null],
+    "era_bounds": [
+      "2024",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11be-2024"],
-    "technical_body": {"element_id": 255, "element_id_ext": 108, "spec": "802.11be (Wi-Fi 7)"}
+    "citations": [
+      "ieee-802-11be-2024"
+    ],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 108,
+      "spec": "802.11be (Wi-Fi 7)",
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x6C (108) = EHT Capabilities"
+        },
+        {
+          "name": "EHT MAC Capabilities Info",
+          "offset_bytes": 1,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "EHT PHY Capabilities Info",
+          "offset_bytes": 3,
+          "length_bytes": 9,
+          "notes": ""
+        },
+        {
+          "name": "Supported EHT-MCS and NSS Set",
+          "offset_bytes": 12,
+          "length_bytes": null,
+          "notes": ""
+        }
+      ]
+    }
   },
   {
     "id": "ie-wps",
     "name": "WPS Information Element (IE 221 / Microsoft OUI)",
-    "aliases": ["wsc", "wps ie"],
+    "aliases": [
+      "wsc",
+      "wps ie"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2007", null],
+    "era_bounds": [
+      "2007",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wps-2-0"],
+    "citations": [
+      "wfa-wps-2-0"
+    ],
     "technical_body": {
       "element_id": 221,
       "oui": "00-50-F2:04 (Microsoft)",
-      "notable_fields": ["Manufacturer", "Model Name", "Model Number", "Serial Number", "Primary Device Type", "Config Methods", "WPS State", "AP Setup Locked"],
-      "wctf_uses": ["vendor-derivable PIN algorithms", "AP fingerprinting even with WPS 'disabled'", "WPS-Locked timing"]
+      "notable_fields": [
+        "Manufacturer",
+        "Model Name",
+        "Model Number",
+        "Serial Number",
+        "Primary Device Type",
+        "Config Methods",
+        "WPS State",
+        "AP Setup Locked"
+      ],
+      "wctf_uses": [
+        "vendor-derivable PIN algorithms",
+        "AP fingerprinting even with WPS 'disabled'",
+        "WPS-Locked timing"
+      ],
+      "layout": [
+        {
+          "name": "Vendor OUI",
+          "offset_bytes": 0,
+          "length_bytes": 3,
+          "notes": "00-50-F2 (Microsoft)"
+        },
+        {
+          "name": "OUI Type",
+          "offset_bytes": 3,
+          "length_bytes": 1,
+          "notes": "0x04 (WPS)"
+        },
+        {
+          "name": "WPS Attribute List",
+          "offset_bytes": 4,
+          "length_bytes": null,
+          "notes": "sequence of TLVs: Manufacturer (0x1021), Model Name (0x1023), Model Number (0x1024), Serial Number (0x1042), Primary Device Type (0x1054), Config Methods (0x1008), WPS State (0x1044), AP Setup Locked (0x1057), Version (0x104A)"
+        }
+      ]
     }
   },
   {
     "id": "ie-vendor-specific",
     "name": "Vendor-Specific IE (IE 221)",
-    "aliases": ["vendor ie", "microsoft wpa ie"],
+    "aliases": [
+      "vendor ie",
+      "microsoft wpa ie"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1999", null],
+    "era_bounds": [
+      "1999",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 221,
       "format": "OUI (3 bytes) + OUI type + vendor-defined body",
@@ -184,24 +547,75 @@
         "00-90-4C": "Broadcom",
         "00-40-96": "Cisco"
       },
-      "wctf_uses": ["beacon-IE stego", "AP fingerprinting via OUI+subtype patterns", "legacy WPA1 detection"]
+      "wctf_uses": [
+        "beacon-IE stego",
+        "AP fingerprinting via OUI+subtype patterns",
+        "legacy WPA1 detection"
+      ],
+      "layout": [
+        {
+          "name": "Vendor OUI",
+          "offset_bytes": 0,
+          "length_bytes": 3,
+          "notes": "identifies the vendor (00-50-F2 Microsoft, 00-90-4C Broadcom, 00-40-96 Cisco)"
+        },
+        {
+          "name": "OUI Type",
+          "offset_bytes": 3,
+          "length_bytes": 1,
+          "notes": "vendor-defined subtype (WPA=1 for OUI 00-50-F2, WPS=4, WMM=2)"
+        },
+        {
+          "name": "Vendor-Defined Body",
+          "offset_bytes": 4,
+          "length_bytes": null,
+          "notes": "opaque per vendor; primary beacon-stego channel"
+        }
+      ]
     }
   },
   {
     "id": "ie-mobility-domain",
     "name": "Mobility Domain Element / MDE (IE 54)",
-    "aliases": ["mde"],
+    "aliases": [
+      "mde",
+      "ie-mde"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 54,
       "spec": "802.11r",
-      "contents": ["Mobility Domain ID (2 bytes)", "FT Capability + Policy (1 byte)"],
-      "wctf_uses": ["identifies FT-capable APs; MDE presence = potential FT-handshake capture path"]
+      "contents": [
+        "Mobility Domain ID (2 bytes)",
+        "FT Capability + Policy (1 byte)"
+      ],
+      "wctf_uses": [
+        "identifies FT-capable APs; MDE presence = potential FT-handshake capture path"
+      ],
+      "layout": [
+        {
+          "name": "Mobility Domain ID",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "identifies the FT roaming group"
+        },
+        {
+          "name": "FT Capability + Policy",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": "bit 0 = Fast BSS Transition Over DS; bit 1 = Resource Request Protocol Capability"
+        }
+      ]
     }
   },
   {
@@ -209,47 +623,162 @@
     "name": "Interworking IE (IE 107)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 107,
       "spec": "802.11u",
-      "contents": ["Access Network Type", "Internet bit", "Venue Group/Type", "HESSID (optional)"],
-      "wctf_uses": ["ANQP-Capable bit indicates GAS-queryable AP (pre-association recon)"]
-    }
+      "contents": [
+        "Access Network Type",
+        "Internet bit",
+        "Venue Group/Type",
+        "HESSID (optional)"
+      ],
+      "wctf_uses": [
+        "ANQP-Capable bit indicates GAS-queryable AP (pre-association recon)"
+      ],
+      "layout": [
+        {
+          "name": "Access Network Options",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "Access Network Type (4 bits): 0=Private, 1=Private w/ guest, 2=Chargeable public, 3=Free public, 15=Test; Internet bit; ASRA bit; ESR bit; UESA bit"
+        },
+        {
+          "name": "Venue Info",
+          "offset_bytes": 1,
+          "length_bytes": 2,
+          "notes": "Group + Type — optional; present when Venue subfield bit set"
+        },
+        {
+          "name": "HESSID",
+          "offset_bytes": 3,
+          "length_bytes": 6,
+          "notes": "Homogeneous ESSID — optional MAC-formatted identifier"
+        }
+      ]
+    },
+    "aliases": [
+      "ie-anqp"
+    ]
   },
   {
     "id": "ie-roaming-consortium",
     "name": "Roaming Consortium IE (IE 111)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 111,
       "spec": "802.11u",
-      "wctf_uses": ["spoof a Roaming Consortium OI to auto-associate Passpoint clients without a matching SSID"]
+      "wctf_uses": [
+        "spoof a Roaming Consortium OI to auto-associate Passpoint clients without a matching SSID"
+      ],
+      "layout": [
+        {
+          "name": "Number of ANQP OIs",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "OI Lengths",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": "high nibble: OI 1 length; low nibble: OI 2 length"
+        },
+        {
+          "name": "OI 1",
+          "offset_bytes": 2,
+          "length_bytes": null,
+          "notes": "3-15 bytes — the Roaming Consortium OI to auto-associate"
+        },
+        {
+          "name": "OI 2 (optional)",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": ""
+        },
+        {
+          "name": "OI 3 (optional)",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": ""
+        }
+      ]
     }
   },
   {
     "id": "ie-rnr",
     "name": "Reduced Neighbor Report / RNR (IE 201)",
-    "aliases": ["rnr"],
+    "aliases": [
+      "rnr"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11ax-2021"],
+    "citations": [
+      "ieee-802-11ax-2021"
+    ],
     "technical_body": {
       "element_id": 201,
       "spec": "802.11ax",
       "contents": "Neighbor AP information across bands (BSSID, operating class, channel)",
-      "wctf_uses": ["6 GHz APs advertise themselves via RNR in 2.4/5 GHz beacons — enumerate 6 GHz targets from a card that can't tune 6 GHz"]
+      "wctf_uses": [
+        "6 GHz APs advertise themselves via RNR in 2.4/5 GHz beacons — enumerate 6 GHz targets from a card that can't tune 6 GHz"
+      ],
+      "layout": [
+        {
+          "name": "TBTT Information Field(s)",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "list of {TBTT Info Header, Operating Class, Channel Number, TBTT Info Set}"
+        },
+        {
+          "name": "TBTT Info Header",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "TBTT Info Field Type, Filtered Neighbor AP bit, TBTT Info Count, TBTT Info Length"
+        },
+        {
+          "name": "Operating Class",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Channel Number",
+          "offset_bytes": 3,
+          "length_bytes": 1,
+          "notes": "the 6 GHz channel — enumerable without a 6 GHz radio"
+        },
+        {
+          "name": "TBTT Information Set",
+          "offset_bytes": 4,
+          "length_bytes": null,
+          "notes": "per-AP BSSID + Short SSID + BSS Parameters"
+        }
+      ]
     }
   },
   {
@@ -257,15 +786,52 @@
     "name": "Multi-Link Basic ML Element / MLD",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2024", null],
+    "era_bounds": [
+      "2024",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11be-2024"],
+    "citations": [
+      "ieee-802-11be-2024"
+    ],
     "technical_body": {
       "element_id": 255,
       "spec": "802.11be (Wi-Fi 7)",
-      "contents": ["MLD MAC", "per-link setup elements", "MLO capabilities"],
-      "wctf_uses": ["MLD MAC vs. link MAC exposes cross-link correlation; MLO link-desync research anchors here"]
+      "contents": [
+        "MLD MAC",
+        "per-link setup elements",
+        "MLO capabilities"
+      ],
+      "wctf_uses": [
+        "MLD MAC vs. link MAC exposes cross-link correlation; MLO link-desync research anchors here"
+      ],
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x6B (107) = Basic Multi-Link"
+        },
+        {
+          "name": "Multi-Link Control",
+          "offset_bytes": 1,
+          "length_bytes": 2,
+          "notes": "Type + Presence Bitmap"
+        },
+        {
+          "name": "Common Info",
+          "offset_bytes": 3,
+          "length_bytes": null,
+          "notes": "MLD MAC (6 B), Link ID Info, BSS Parameters Change Count, Medium Sync Delay Info, EML Capabilities, MLD Capabilities and Operations"
+        },
+        {
+          "name": "Per-STA Profile Sub-Elements",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": "per-link setup info (STA MAC, Link ID, per-link capabilities)"
+        }
+      ]
     }
   },
   {
@@ -273,13 +839,32 @@
     "name": "Extended Capabilities (IE 127)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 127,
-      "notable_bits": ["11k Neighbor Report", "11v BSS Transition", "Interworking (11u)", "TDLS", "Operating Mode Notification (11ac)"]
+      "notable_bits": [
+        "11k Neighbor Report",
+        "11v BSS Transition",
+        "Interworking (11u)",
+        "TDLS",
+        "Operating Mode Notification (11ac)"
+      ],
+      "layout": [
+        {
+          "name": "Extended Capabilities Bitmap",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "1..N bytes; bit 0 = 2040 BSS Coex Mgmt Support; bit 22 = TDLS; bit 24 = TDLS Prohibited; bit 30 = Interworking (11u); bit 31 = QoS Map; bit 33 = TDLS Peer PSM Sup; bit 46 = WNM Sleep Mode; bit 51 = Operating Mode Notification (11ac); bit 62 = TWT Requester"
+        }
+      ]
     }
   },
   {
@@ -287,16 +872,42 @@
     "name": "Supported Rates (IE 1)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 1,
-      "length_range_bytes": [1, 8],
+      "length_range_bytes": [
+        1,
+        8
+      ],
       "contents": "up to 8 rates, one byte each; high bit set = 'basic rate'",
-      "appears_in": ["beacon", "probe-request", "probe-response", "assoc-request", "assoc-response", "reassoc-request", "reassoc-response"],
-      "wctf_uses": ["fingerprint — real APs typically advertise every rate 1..54 Mbps; rogues sometimes omit low rates"]
+      "appears_in": [
+        "beacon",
+        "probe-request",
+        "probe-response",
+        "assoc-request",
+        "assoc-response",
+        "reassoc-request",
+        "reassoc-response"
+      ],
+      "wctf_uses": [
+        "fingerprint — real APs typically advertise every rate 1..54 Mbps; rogues sometimes omit low rates"
+      ],
+      "layout": [
+        {
+          "name": "Supported Rates",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "1–8 bytes; each byte = rate in 500 kbps units; high bit = 'basic rate'"
+        }
+      ]
     }
   },
   {
@@ -304,80 +915,198 @@
     "name": "FH Parameter Set (IE 2)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", "2003"],
+    "era_bounds": [
+      "1997",
+      "2003"
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 2, "note": "802.11 FHSS PHY — essentially extinct."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 2,
+      "note": "802.11 FHSS PHY — essentially extinct.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-cf-parameter-set",
     "name": "CF Parameter Set (IE 4)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 4, "note": "Contention-Free (PCF) periods — legacy; rarely seen."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 4,
+      "note": "Contention-Free (PCF) periods — legacy; rarely seen.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-ibss-parameter-set",
     "name": "IBSS Parameter Set (IE 6)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 6, "contents": "ATIM Window (2 bytes) — ad-hoc mode only"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 6,
+      "contents": "ATIM Window (2 bytes) — ad-hoc mode only",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-hopping-pattern-parameters",
     "name": "Hopping Pattern Parameters (IE 8)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", "2003"],
+    "era_bounds": [
+      "1997",
+      "2003"
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 8, "note": "FHSS legacy."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 8,
+      "note": "FHSS legacy.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-hopping-pattern-table",
     "name": "Hopping Pattern Table (IE 9)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", "2003"],
+    "era_bounds": [
+      "1997",
+      "2003"
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 9, "note": "FHSS legacy."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 9,
+      "note": "FHSS legacy.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-request",
     "name": "Request (IE 10)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 10, "contents": "list of element IDs the requester wants echoed back", "appears_in": ["probe-request"]}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 10,
+      "contents": "list of element IDs the requester wants echoed back",
+      "appears_in": [
+        "probe-request"
+      ],
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-bss-load",
     "name": "BSS Load (IE 11)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 11,
-      "contents": ["Station Count (2 bytes)", "Channel Utilization (1 byte)", "Available Admission Capacity (2 bytes)"],
-      "wctf_uses": ["airtime-load fingerprinting — a suspiciously idle 'popular' AP is a rogue"]
+      "contents": [
+        "Station Count (2 bytes)",
+        "Channel Utilization (1 byte)",
+        "Available Admission Capacity (2 bytes)"
+      ],
+      "wctf_uses": [
+        "airtime-load fingerprinting — a suspiciously idle 'popular' AP is a rogue"
+      ],
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
     }
   },
   {
@@ -385,48 +1114,133 @@
     "name": "Power Constraint (IE 32)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 32, "contents": "Local Power Constraint (dB below regulatory max)", "appears_in": ["beacon", "probe-response"]}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 32,
+      "contents": "Local Power Constraint (dB below regulatory max)",
+      "appears_in": [
+        "beacon",
+        "probe-response"
+      ],
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-tpc-report",
     "name": "TPC Report (IE 35)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 35, "role": "Transmit Power Control response (802.11h)"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 35,
+      "role": "Transmit Power Control response (802.11h)",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-supported-channels",
     "name": "Supported Channels (IE 36)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 36, "contents": "pairs of (First Channel Number, Number of Channels)"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 36,
+      "contents": "pairs of (First Channel Number, Number of Channels)",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-channel-switch-announcement",
     "name": "Channel Switch Announcement (IE 37)",
-    "aliases": ["csa"],
+    "aliases": [
+      "csa"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 37,
-      "contents": ["Channel Switch Mode (1B)", "New Channel Number (1B)", "Channel Switch Count (1B)"],
-      "attack_surface": ["spoofed CSA drags a client to a rogue channel — mitigated on modern clients via CSA protection but still real on legacy stacks"]
+      "contents": [
+        "Channel Switch Mode (1B)",
+        "New Channel Number (1B)",
+        "Channel Switch Count (1B)"
+      ],
+      "attack_surface": [
+        "spoofed CSA drags a client to a rogue channel — mitigated on modern clients via CSA protection but still real on legacy stacks"
+      ],
+      "layout": [
+        {
+          "name": "Channel Switch Mode",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0 = no restriction on Tx before switch; 1 = STA must stop Tx until switch"
+        },
+        {
+          "name": "New Channel Number",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Channel Switch Count",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": "beacons until switch (0 = immediate)"
+        }
+      ]
     }
   },
   {
@@ -434,60 +1248,145 @@
     "name": "Measurement Request (IE 38)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 38, "spec": "802.11k Radio Resource Measurement"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 38,
+      "spec": "802.11k Radio Resource Measurement",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-measurement-report",
     "name": "Measurement Report (IE 39)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 39, "spec": "802.11k"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 39,
+      "spec": "802.11k",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-quiet",
     "name": "Quiet (IE 40)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 40, "role": "802.11h DFS quiet interval scheduling"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 40,
+      "role": "802.11h DFS quiet interval scheduling",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-ibss-dfs",
     "name": "IBSS DFS (IE 41)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 41}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 41,
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-erp-info",
     "name": "ERP Information (IE 42)",
-    "aliases": ["erp"],
+    "aliases": [
+      "erp"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2003", null],
+    "era_bounds": [
+      "2003",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 42,
-      "contents": ["NonERP_Present bit", "Use_Protection bit", "Barker_Preamble_Mode bit"],
-      "appears_in": ["beacon", "probe-response"],
-      "note": "802.11g mixed-mode signal — a fingerprint hint (real APs in mixed environments toggle Use_Protection)."
+      "contents": [
+        "NonERP_Present bit",
+        "Use_Protection bit",
+        "Barker_Preamble_Mode bit"
+      ],
+      "appears_in": [
+        "beacon",
+        "probe-response"
+      ],
+      "note": "802.11g mixed-mode signal — a fingerprint hint (real APs in mixed environments toggle Use_Protection).",
+      "layout": [
+        {
+          "name": "ERP Information",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "bit 0 NonERP_Present; bit 1 Use_Protection; bit 2 Barker_Preamble_Mode"
+        }
+      ]
     }
   },
   {
@@ -495,36 +1394,82 @@
     "name": "HCCA TSPEC (IE 45 or 221 vendor)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"note": "802.11e HCCA TSPEC; largely superseded by WMM in practice."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "note": "802.11e HCCA TSPEC; largely superseded by WMM in practice.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-qos-capability",
     "name": "QoS Capability (IE 46)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 46, "spec": "802.11e"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 46,
+      "spec": "802.11e",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-extended-supported-rates",
     "name": "Extended Supported Rates (IE 50)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2003", null],
+    "era_bounds": [
+      "2003",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 50,
       "contents": "up to 255 rates when Supported Rates (IE 1) overflows",
-      "wctf_uses": ["client fingerprint — the union of rates 1..54 Mbps splits IE 1 + IE 50 the same way per driver family"]
+      "wctf_uses": [
+        "client fingerprint — the union of rates 1..54 Mbps splits IE 1 + IE 50 the same way per driver family"
+      ],
+      "layout": [
+        {
+          "name": "Extended Supported Rates",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "1..255 bytes; format identical to IE 1 — used when IE 1 overflows 8 rates"
+        }
+      ]
     }
   },
   {
@@ -532,27 +1477,97 @@
     "name": "AP Channel Report (IE 51)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 51, "spec": "802.11k"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 51,
+      "spec": "802.11k",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-neighbor-report",
     "name": "Neighbor Report (IE 52)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["std-802-11k", "neighbor-report-spoof"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11k",
+      "neighbor-report-spoof"
+    ],
     "technical_body": {
       "element_id": 52,
       "spec": "802.11k",
-      "contents": ["BSSID", "BSSID Info", "Operating Class", "Channel Number", "PHY Type"],
-      "attack_surface": ["spoofed Neighbor Report steers a client onto a rogue BSSID"]
+      "contents": [
+        "BSSID",
+        "BSSID Info",
+        "Operating Class",
+        "Channel Number",
+        "PHY Type"
+      ],
+      "attack_surface": [
+        "spoofed Neighbor Report steers a client onto a rogue BSSID"
+      ],
+      "layout": [
+        {
+          "name": "BSSID",
+          "offset_bytes": 0,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "BSSID Info",
+          "offset_bytes": 6,
+          "length_bytes": 4,
+          "notes": "AP Reachability, Security, Key Scope, Capability bits"
+        },
+        {
+          "name": "Operating Class",
+          "offset_bytes": 10,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Channel Number",
+          "offset_bytes": 11,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "PHY Type",
+          "offset_bytes": 12,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Optional Sub-Elements",
+          "offset_bytes": 13,
+          "length_bytes": null,
+          "notes": ""
+        }
+      ]
     }
   },
   {
@@ -560,28 +1575,94 @@
     "name": "RCPI (IE 53)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 53, "role": "Received Channel Power Indicator (802.11k)"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 53,
+      "role": "Received Channel Power Indicator (802.11k)",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-fast-bss-transition",
     "name": "Fast BSS Transition (IE 55)",
-    "aliases": ["fte"],
+    "aliases": [
+      "fte"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["std-802-11r", "ft-handshake-capture"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11r",
+      "ft-handshake-capture"
+    ],
     "technical_body": {
       "element_id": 55,
       "spec": "802.11r",
-      "contents": ["MIC control", "MIC (16 B)", "ANonce", "SNonce", "Optional Parameters (R1KH-ID, GTK, IGTK, R0KH-ID)"],
-      "wctf_uses": ["carries the FT roam PMKID-analogue that hashcat mode 22000 handles"]
+      "contents": [
+        "MIC control",
+        "MIC (16 B)",
+        "ANonce",
+        "SNonce",
+        "Optional Parameters (R1KH-ID, GTK, IGTK, R0KH-ID)"
+      ],
+      "wctf_uses": [
+        "carries the FT roam PMKID-analogue that hashcat mode 22000 handles"
+      ],
+      "layout": [
+        {
+          "name": "MIC Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "IE Count byte + reserved"
+        },
+        {
+          "name": "MIC",
+          "offset_bytes": 2,
+          "length_bytes": 16,
+          "notes": "MIC over the FT reassoc"
+        },
+        {
+          "name": "ANonce",
+          "offset_bytes": 18,
+          "length_bytes": 32,
+          "notes": ""
+        },
+        {
+          "name": "SNonce",
+          "offset_bytes": 50,
+          "length_bytes": 32,
+          "notes": ""
+        },
+        {
+          "name": "Optional Parameters",
+          "offset_bytes": 82,
+          "length_bytes": null,
+          "notes": "R1KH-ID, GTK, IGTK, R0KH-ID sub-elements"
+        }
+      ]
     }
   },
   {
@@ -589,138 +1670,344 @@
     "name": "Timeout Interval (IE 56)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 56, "spec": "802.11r"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 56,
+      "spec": "802.11r",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-ric-data",
     "name": "RIC Data (IE 57)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 57, "spec": "802.11r Resource Information Container"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 57,
+      "spec": "802.11r Resource Information Container",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-supported-operating-classes",
     "name": "Supported Operating Classes (IE 59)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 59}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 59,
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-extended-channel-switch-announcement",
     "name": "Extended Channel Switch Announcement (IE 60)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 60, "note": "adds Operating Class + New Channel to plain CSA"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 60,
+      "note": "adds Operating Class + New Channel to plain CSA",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-ht-operation",
     "name": "HT Operation (IE 61)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 61, "spec": "802.11n"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 61,
+      "spec": "802.11n",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-secondary-channel-offset",
     "name": "Secondary Channel Offset (IE 62)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 62, "spec": "802.11n"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 62,
+      "spec": "802.11n",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-rrm-enabled-capabilities",
     "name": "RRM Enabled Capabilities (IE 70)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 70, "spec": "802.11k"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 70,
+      "spec": "802.11k",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-mobility-domain-parameters",
     "name": "Mobility Domain Parameters — extended attributes",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["ie-mobility-domain", "std-802-11r"],
-    "technical_body": {"note": "MDE plus FTE + Timeout Interval together are the full 11r attachment set."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-mobility-domain",
+      "std-802-11r"
+    ],
+    "technical_body": {
+      "note": "MDE plus FTE + Timeout Interval together are the full 11r attachment set.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-20-40-bss-coexistence",
     "name": "20/40 BSS Coexistence (IE 72)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 72, "spec": "802.11n"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 72,
+      "spec": "802.11n",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-overlapping-bss-scan-parameters",
     "name": "Overlapping BSS Scan Parameters (IE 74)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 74}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 74,
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-ric-descriptor",
     "name": "RIC Descriptor (IE 75)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 75, "spec": "802.11r"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 75,
+      "spec": "802.11r",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-management-mic",
     "name": "Management MIC (IE 76)",
-    "aliases": ["mmie"],
+    "aliases": [
+      "mmie"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["std-802-11w", "cipher-bip-cmac-128"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11w",
+      "cipher-bip-cmac-128"
+    ],
     "technical_body": {
       "element_id": 76,
       "spec": "802.11w",
-      "role": "MIC over broadcast/multicast robust management frames — BIP-CMAC-128 by default"
+      "role": "MIC over broadcast/multicast robust management frames — BIP-CMAC-128 by default",
+      "layout": [
+        {
+          "name": "Key ID",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "IPN (IGTK Packet Number)",
+          "offset_bytes": 2,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "MIC",
+          "offset_bytes": 8,
+          "length_bytes": 8,
+          "notes": "8-byte MIC by default (BIP-CMAC-128); 16 for BIP-GMAC-256"
+        }
+      ]
     }
   },
   {
@@ -728,36 +2015,84 @@
     "name": "Time Advertisement (IE 69)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 69, "spec": "802.11v"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 69,
+      "spec": "802.11v",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-tim-broadcast-request",
     "name": "TIM Broadcast Request (IE 94)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 94, "spec": "802.11v"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 94,
+      "spec": "802.11v",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-advertisement-protocol",
     "name": "Advertisement Protocol (IE 108)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["std-802-11u", "roaming-11u-anqp-gas"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11u",
+      "roaming-11u-anqp-gas"
+    ],
     "technical_body": {
       "element_id": 108,
-      "role": "carried in GAS frames; identifies the query protocol (ANQP = 0)"
+      "role": "carried in GAS frames; identifies the query protocol (ANQP = 0)",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
     }
   },
   {
@@ -765,92 +2100,220 @@
     "name": "Mesh Configuration (IE 113)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 113, "spec": "802.11s mesh"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 113,
+      "spec": "802.11s mesh",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-mesh-id",
     "name": "Mesh ID (IE 114)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 114, "spec": "802.11s mesh"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 114,
+      "spec": "802.11s mesh",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-tdls-discovery",
     "name": "TDLS Peer PSM Request (IE 118)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"note": "Tunneled Direct-Link Setup family — carriers a family of IEs 118+"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "note": "Tunneled Direct-Link Setup family — carriers a family of IEs 118+",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-multi-band",
     "name": "Multi-band (IE 158)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 158, "note": "declares the AP participates in fast-session-transfer across bands"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 158,
+      "note": "declares the AP participates in fast-session-transfer across bands",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-fils-indication",
     "name": "FILS Indication (IE 240)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 240, "spec": "802.11ai (Fast Initial Link Setup)"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 240,
+      "spec": "802.11ai (Fast Initial Link Setup)",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-vht-operation",
     "name": "VHT Operation (IE 192)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 192, "spec": "802.11ac"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 192,
+      "spec": "802.11ac",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-vht-tx-power-envelope",
     "name": "VHT Transmit Power Envelope (IE 195)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 195, "spec": "802.11ac"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 195,
+      "spec": "802.11ac",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-he-operation",
     "name": "HE Operation (Extension IE 36)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11ax-2021"],
+    "citations": [
+      "ieee-802-11ax-2021"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 36,
       "spec": "802.11ax",
-      "notable_fields": ["HE Operation Parameters", "BSS Color Info", "Basic HE-MCS/NSS Set"]
+      "notable_fields": [
+        "HE Operation Parameters",
+        "BSS Color Info",
+        "Basic HE-MCS/NSS Set"
+      ],
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
     }
   },
   {
@@ -858,34 +2321,113 @@
     "name": "6 GHz Operation (Extension IE 59)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11ax-2021", "wfa-wpa3-6ghz-mandate"],
+    "citations": [
+      "ieee-802-11ax-2021",
+      "wfa-wpa3-6ghz-mandate"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 59,
       "spec": "802.11ax 6 GHz",
-      "note": "Present only in 6 GHz beacons; carries Regulatory Info + Channel-Center-Frequency-Segment fields."
+      "note": "Present only in 6 GHz beacons; carries Regulatory Info + Channel-Center-Frequency-Segment fields.",
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x3B (59) = 6 GHz Operation"
+        },
+        {
+          "name": "Primary Channel Number",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Control",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": "Channel Width, Duplicate Beacon, Regulatory Info bits"
+        },
+        {
+          "name": "Channel Center Frequency Segment 0",
+          "offset_bytes": 3,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Channel Center Frequency Segment 1",
+          "offset_bytes": 4,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Minimum Rate",
+          "offset_bytes": 5,
+          "length_bytes": 1,
+          "notes": ""
+        }
+      ]
     }
   },
   {
     "id": "ie-twt",
     "name": "TWT (Target Wake Time, Extension IE 78)",
-    "aliases": ["twt-ie"],
+    "aliases": [
+      "twt-ie"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11ax-2021"],
-    "see_also": ["twt-forced-sleep-abuse"],
+    "citations": [
+      "ieee-802-11ax-2021"
+    ],
+    "see_also": [
+      "twt-forced-sleep-abuse"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 78,
       "spec": "802.11ax",
-      "notable_fields": ["Target Wake Time", "Wake Interval", "Wake Duration"],
-      "attack_surface": ["spoofed TWT with long Wake Interval forces client into extended sleep"]
+      "notable_fields": [
+        "Target Wake Time",
+        "Wake Interval",
+        "Wake Duration"
+      ],
+      "attack_surface": [
+        "spoofed TWT with long Wake Interval forces client into extended sleep"
+      ],
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x4E (78) = TWT"
+        },
+        {
+          "name": "Control",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": "NDP Paging Indicator, Responder PM Mode, Negotiation Type"
+        },
+        {
+          "name": "TWT Parameters",
+          "offset_bytes": 2,
+          "length_bytes": null,
+          "notes": "Target Wake Time (8 B), Nominal Minimum TWT Wake Duration (1 B), TWT Wake Interval Mantissa (2 B), TWT Wake Interval Exponent (5 bits) — encoded per §9.4.2.199"
+        }
+      ]
     }
   },
   {
@@ -893,32 +2435,63 @@
     "name": "EHT Operation (Extension IE 106)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2024", null],
+    "era_bounds": [
+      "2024",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11be-2024"],
+    "citations": [
+      "ieee-802-11be-2024"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 106,
-      "spec": "802.11be (Wi-Fi 7)"
+      "spec": "802.11be (Wi-Fi 7)",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
     }
   },
   {
     "id": "ie-mlo-basic-ml",
     "name": "Basic Multi-Link ML Element (Extension IE 107)",
-    "aliases": ["mle-basic"],
+    "aliases": [
+      "mle-basic"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2024", null],
+    "era_bounds": [
+      "2024",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11be-2024"],
-    "see_also": ["ie-mld-basic", "wifi7-mlo-link-desync"],
+    "citations": [
+      "ieee-802-11be-2024"
+    ],
+    "see_also": [
+      "ie-mld-basic",
+      "wifi7-mlo-link-desync"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 107,
       "spec": "802.11be",
-      "note": "Alternate name for the ML element — the fine-grained per-link fields inside MLD."
+      "note": "Alternate name for the ML element — the fine-grained per-link fields inside MLD.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
     }
   },
   {
@@ -926,48 +2499,123 @@
     "name": "Probe Response — Mesh subset",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"note": "Mesh probe responses include Mesh ID + Mesh Configuration IEs."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "note": "Mesh probe responses include Mesh ID + Mesh Configuration IEs.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-fils-key-confirmation",
     "name": "FILS Key Confirmation (IE 241)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 241, "spec": "802.11ai"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 241,
+      "spec": "802.11ai",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-fils-session",
     "name": "FILS Session (IE 242)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 242, "spec": "802.11ai"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 242,
+      "spec": "802.11ai",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-owe-diffie-hellman",
     "name": "OWE Diffie-Hellman Parameter (Extension IE 32)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2018", null],
+    "era_bounds": [
+      "2018",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wpa3-spec", "ieee-802-11-2020"],
-    "see_also": ["km-owe"],
+    "citations": [
+      "wfa-wpa3-spec",
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "km-owe"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 32,
-      "role": "carries the ECDH public key used in the OWE association exchange"
+      "role": "carries the ECDH public key used in the OWE association exchange",
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x20 (32) = OWE DH"
+        },
+        {
+          "name": "Group",
+          "offset_bytes": 1,
+          "length_bytes": 2,
+          "notes": "ECDH group ID (19 = P-256)"
+        },
+        {
+          "name": "Public Key",
+          "offset_bytes": 3,
+          "length_bytes": null,
+          "notes": "compressed ECDH public key"
+        }
+      ]
     }
   },
   {
@@ -975,14 +2623,45 @@
     "name": "Operating Channel Information / OCI (Extension IE 54)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2018", null],
+    "era_bounds": [
+      "2018",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 54,
-      "note": "Introduced as a partial KRACK mitigation — binds the negotiated channel into the 4-way handshake."
+      "note": "Introduced as a partial KRACK mitigation — binds the negotiated channel into the 4-way handshake.",
+      "layout": [
+        {
+          "name": "Element ID Extension",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": "0x36 (54) = OCI"
+        },
+        {
+          "name": "Operating Class",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Primary Channel Number",
+          "offset_bytes": 2,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Frequency Segment 1 Channel Number",
+          "offset_bytes": 3,
+          "length_bytes": 1,
+          "notes": ""
+        }
+      ]
     }
   },
   {
@@ -990,14 +2669,35 @@
     "name": "Transition Disable KDE (per WFA WPA3)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wpa3-spec"],
-    "see_also": ["wpa3-transition-downgrade"],
+    "citations": [
+      "wfa-wpa3-spec"
+    ],
+    "see_also": [
+      "wpa3-transition-downgrade"
+    ],
     "technical_body": {
       "role": "Wi-Fi Alliance-defined KDE delivered in M3; instructs the client to disable WPA2 fallback for this network from now on",
-      "note": "Only clients that honor the KDE benefit — many do not, which keeps transition-downgrade viable in 2026."
+      "note": "Only clients that honor the KDE benefit — many do not, which keeps transition-downgrade viable in 2026.",
+      "layout": [
+        {
+          "name": "KDE Type",
+          "offset_bytes": 0,
+          "length_bytes": 4,
+          "notes": "WFA-defined OUI 50:6F:9A + Data Type 0x20 (Transition Disable) — delivered in EAPOL-Key M3 Key Data"
+        },
+        {
+          "name": "Transition Disable Bitmap",
+          "offset_bytes": 4,
+          "length_bytes": null,
+          "notes": "bit 0 = WPA3 Personal; bit 1 = SAE-PK; bit 2 = WPA3 Enterprise; bit 3 = Enhanced Open (OWE)"
+        }
+      ]
     }
   },
   {
@@ -1005,60 +2705,146 @@
     "name": "Supported MCS Set (part of HT Capabilities)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"note": "Sub-field inside IE 45; 16-byte bitmap of supported MCS indices — a strong device fingerprint."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "note": "Sub-field inside IE 45; 16-byte bitmap of supported MCS indices — a strong device fingerprint.",
+      "layout": [
+        {
+          "name": "Supported MCS Set",
+          "offset_bytes": 0,
+          "length_bytes": 16,
+          "notes": "sub-field inside IE 45; 16-byte bitmap of supported MCS indices"
+        }
+      ]
+    }
   },
   {
     "id": "ie-power-capability",
     "name": "Power Capability (IE 33)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 33, "contents": ["Min Transmit Power", "Max Transmit Power"], "spec": "802.11h"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 33,
+      "contents": [
+        "Min Transmit Power",
+        "Max Transmit Power"
+      ],
+      "spec": "802.11h",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-schedule",
     "name": "Schedule (IE 15)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 15, "spec": "802.11e"}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 15,
+      "spec": "802.11e",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-challenge-text",
     "name": "Challenge Text (IE 16)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"element_id": 16, "note": "Shared Key authentication challenge — WEP-era only."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "element_id": 16,
+      "note": "Shared Key authentication challenge — WEP-era only.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
   },
   {
     "id": "ie-rsnxe",
     "name": "RSN Extension (RSNXE, IE 244)",
-    "aliases": ["rsnxe"],
+    "aliases": [
+      "rsnxe"
+    ],
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
-    "see_also": ["km-wpa3-sae", "km-wpa3-sae-ext-key"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec"
+    ],
+    "see_also": [
+      "km-wpa3-sae",
+      "km-wpa3-sae-ext-key"
+    ],
     "technical_body": {
       "element_id": 244,
       "contents": "extension capabilities bitmap including 'SAE Hash-to-Element' + 'SAE PK'",
-      "note": "Presence of the H2E bit is what allows a WPA3-SAE client + AP to negotiate SAE-EXT-KEY (AKM 18)."
+      "note": "Presence of the H2E bit is what allows a WPA3-SAE client + AP to negotiate SAE-EXT-KEY (AKM 18).",
+      "layout": [
+        {
+          "name": "Extension Capabilities Bitmap",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "bit 0 = Field Length; bit 4 = Protected TWT Operations Support; bit 5 = SAE Hash-to-Element; bit 6 = SAE PK Only"
+        }
+      ]
     }
   },
   {
@@ -1066,10 +2852,266 @@
     "name": "HT Information (legacy alias for IE 61)",
     "category": "information_element",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "technical_body": {"note": "Older references call IE 61 'HT Information'; 802.11-2020 canonicalizes it as HT Operation."}
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "note": "Older references call IE 61 'HT Information'; 802.11-2020 canonicalizes it as HT Operation.",
+      "layout": [
+        {
+          "name": "opaque",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.4"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ie-anqp-nai-realm",
+    "name": "ANQP NAI Realm List (ANQP element 268)",
+    "aliases": [
+      "nai-realm"
+    ],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-interworking",
+      "std-802-11u",
+      "anqp-realm-enum"
+    ],
+    "technical_body": {
+      "anqp_element_id": 268,
+      "spec": "802.11u §9.4.5.10",
+      "layout": [
+        {
+          "name": "NAI Realm Count",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "NAI Realm Entries",
+          "offset_bytes": 2,
+          "length_bytes": null,
+          "notes": "list of {Length, Encoding, NAI Realm Length, NAI Realm, EAP Method Count, EAP Method List}"
+        }
+      ],
+      "wctf_uses": [
+        "enterprise realm string leaks the target org's domain (@corp.example) before any auth exchange"
+      ]
+    }
+  },
+  {
+    "id": "ie-anqp-roaming-consortium",
+    "name": "ANQP Roaming Consortium List (ANQP element 264)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-roaming-consortium",
+      "passpoint-roaming-consortium-spoof"
+    ],
+    "technical_body": {
+      "anqp_element_id": 264,
+      "spec": "802.11u §9.4.5.6",
+      "layout": [
+        {
+          "name": "OI Duples",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "list of {OI Length, OI (3..15 bytes)}"
+        }
+      ],
+      "wctf_uses": [
+        "Passpoint clients auto-associate to any AP advertising a matching Roaming Consortium OI"
+      ]
+    }
+  },
+  {
+    "id": "ie-anqp-venue-info",
+    "name": "ANQP Venue Name (ANQP element 262)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-interworking"
+    ],
+    "technical_body": {
+      "anqp_element_id": 262,
+      "spec": "802.11u §9.4.5.4",
+      "layout": [
+        {
+          "name": "Venue Group",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Venue Type",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Venue Name Duples",
+          "offset_bytes": 2,
+          "length_bytes": null,
+          "notes": "list of {Length, Language Code (3 B), Venue Name (UTF-8)}"
+        }
+      ],
+      "wctf_uses": [
+        "WCTF flag lives in the Venue Name string on some Passpoint puzzles"
+      ]
+    }
+  },
+  {
+    "id": "ie-anqp-3gpp-network",
+    "name": "ANQP 3GPP Cellular Network (ANQP element 267)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-interworking"
+    ],
+    "technical_body": {
+      "anqp_element_id": 267,
+      "spec": "802.11u §9.4.5.9",
+      "layout": [
+        {
+          "name": "GUD Version",
+          "offset_bytes": 0,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "User Data Length",
+          "offset_bytes": 1,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "PLMN List",
+          "offset_bytes": 2,
+          "length_bytes": null,
+          "notes": "list of MCC+MNC pairs advertising cellular offload"
+        }
+      ],
+      "wctf_uses": [
+        "carrier Wi-Fi offload — the PLMN list leaks which cellular networks the AP will accept"
+      ]
+    }
+  },
+  {
+    "id": "ie-anqp-domain-name",
+    "name": "ANQP Domain Name List (ANQP element 271)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-interworking"
+    ],
+    "technical_body": {
+      "anqp_element_id": 271,
+      "spec": "802.11u §9.4.5.13",
+      "layout": [
+        {
+          "name": "Domain Name Duples",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "list of {Length, Domain Name (UTF-8, e.g. 'example.com')}"
+        }
+      ],
+      "wctf_uses": [
+        "operator/venue domain revealed pre-association — useful for phishing-page brand match"
+      ]
+    }
+  },
+  {
+    "id": "ie-anqp-osu-providers",
+    "name": "ANQP OSU Providers List (Hotspot 2.0)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "ie-interworking",
+      "anqp-realm-enum"
+    ],
+    "technical_body": {
+      "anqp_vendor_specific": true,
+      "spec": "Hotspot 2.0 OSU Providers List — vendor-specific ANQP-VS OUI 50:6F:9A subtype 0x0B",
+      "layout": [
+        {
+          "name": "OSU SSID",
+          "offset_bytes": 0,
+          "length_bytes": null,
+          "notes": "friendly name of the OSU SSID"
+        },
+        {
+          "name": "OSU Providers",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": "list of {URI, Friendly Name, Icons, Server-cert Hash}"
+        }
+      ],
+      "wctf_uses": [
+        "OSU URI often contains attacker-plantable stego on rogue Passpoint APs"
+      ]
+    }
   }
 ]
