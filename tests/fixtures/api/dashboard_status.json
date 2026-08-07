@@ -1,0 +1,10 @@
+{
+  "firmware": "3.1.0",
+  "hostname": "Pineapple",
+  "uptime_s": 4213,
+  "radios": [
+    {"iface": "wlan0", "band": "2.4", "mode": "managed"},
+    {"iface": "wlan1", "band": "5", "mode": "managed"},
+    {"iface": "wlan2", "band": "2.4", "mode": "monitor"}
+  ]
+}

@@ -1,0 +1,223 @@
+[
+  {
+    "id": "dos-mdk4-d-deauth",
+    "name": "mdk4 mode d — deauth flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["deauth-broadcast", "deauth-targeted", "frame-mgmt-deauth"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> d -B <bssid>",
+      "frame": "management/deauth (subtype 12)",
+      "counter": "802.11w PMF"
+    }
+  },
+  {
+    "id": "dos-mdk4-a-auth-flood",
+    "name": "mdk4 mode a — authentication flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["authentication-flood", "frame-mgmt-auth"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> a -a <bssid>",
+      "target": "AP auth-request state table"
+    }
+  },
+  {
+    "id": "dos-mdk4-p-probe-flood",
+    "name": "mdk4 mode p — probe request flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["probe-flood-mdk4", "frame-mgmt-probe-request"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> p -f <ssidlist>",
+      "target": "WIDS false-positive generation; SSID enum decoy"
+    }
+  },
+  {
+    "id": "dos-mdk4-b-beacon-flood",
+    "name": "mdk4 mode b — beacon flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["beacon-flood-mdk4", "frame-mgmt-beacon"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> b -f <ssidlist>",
+      "target": "STA scan UI (fills client's visible network list with fakes)"
+    }
+  },
+  {
+    "id": "dos-mdk4-v-rts-cts-nav",
+    "name": "mdk4 mode v — RTS/CTS NAV DoS",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["rts-cts-nav-dos", "frame-ctrl-rts", "frame-ctrl-cts"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> v",
+      "target": "every neighbor's NAV timer; silences the channel"
+    }
+  },
+  {
+    "id": "dos-mdk4-m-michael-mic",
+    "name": "mdk4 mode m — TKIP Michael MIC failure",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["tkip-michael-mic-dos", "cipher-tkip"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> m",
+      "target": "TKIP-only APs — 2 MIC failures within 60s triggers 60s AP shutdown",
+      "target_availability_2026": "rare — TKIP mostly extinct"
+    }
+  },
+  {
+    "id": "dos-mdk4-e-eapol-start",
+    "name": "mdk4 mode e — EAPOL-Start flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs", "ieee-802-1x-2020"],
+    "see_also": ["eapol-start-flood"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> e",
+      "target": "802.1X authenticator / RADIUS state table"
+    }
+  },
+  {
+    "id": "dos-mdk4-f-fuzzed",
+    "name": "mdk4 mode f — fuzzed beacon / probe response",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["aircrack-ng-docs"],
+    "technical_body": {
+      "cmd": "mdk4 <iface> f",
+      "target": "client stacks that OOM on malformed IEs (historical but not gone)"
+    }
+  },
+  {
+    "id": "dos-cts-to-self",
+    "name": "CTS-to-self silencing",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["cts-to-self-silencing", "frame-ctrl-cts"],
+    "technical_body": {
+      "frame": "CTS with own MAC in RA and long NAV duration",
+      "target": "every neighbor on the channel"
+    }
+  },
+  {
+    "id": "dos-tim-dtim-poison",
+    "name": "TIM / DTIM poisoning (power-save queue)",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2023", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["vanhoef-framing-frames-2023"],
+    "see_also": ["framing-frames-power-save-poison", "ie-tim"],
+    "technical_body": {
+      "role": "part of Framing Frames primitive; NOT a plain DoS but a delivery-hijack",
+      "target": "sleeping STA + AP queue"
+    }
+  },
+  {
+    "id": "dos-block-ack-flood",
+    "name": "Block Ack Request flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["frame-ctrl-blockack-req"],
+    "technical_body": {"target": "802.11e/n Block Ack state table on the AP", "tools": ["scapy custom BAR frames"]}
+  },
+  {
+    "id": "dos-radius-accounting-flood",
+    "name": "RADIUS Accounting-Start flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-1x-2020"],
+    "technical_body": {"target": "RADIUS accounting backend", "note": "Adjacent — the LAN side of a rogue-RADIUS engagement."}
+  },
+  {
+    "id": "dos-oversized-vendor-ie",
+    "name": "Oversized Vendor-Specific IE crash-boot",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ap-fuzzed-ies-crash"],
+    "technical_body": {"target": "STA drivers that mis-parse oversized IEs; some cheap consumer stacks OOM."}
+  },
+  {
+    "id": "dos-null-data-pm-toggle",
+    "name": "Null-Data PM-bit toggle DoS",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["framing-frames-power-save-poison", "frame-data-null"],
+    "technical_body": {"target": "Toggle a STA in/out of power-save by spoofing Null Data frames — the AP queues+releases arbitrarily until the STA times out."}
+  },
+  {
+    "id": "dos-rrm-flood",
+    "name": "802.11k RRM Beacon-Request flood",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"target": "STA driver's RRM handler; some cheap stacks crash on burst Radio Measurement Requests."}
+  },
+  {
+    "id": "dos-tim-manipulation",
+    "name": "TIM bitmap manipulation",
+    "category": "dos",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ie-tim"],
+    "technical_body": {"target": "Beacon TIM bitmap manipulation to convince STA it has queued frames when none exist — wastes battery + drops throughput."}
+  }
+]

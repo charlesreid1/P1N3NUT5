@@ -1,0 +1,143 @@
+[
+  {
+    "id": "vendor-cisco",
+    "name": "Cisco (Aironet / Meraki / Catalyst WLC)",
+    "aliases": ["Cisco Aironet", "Cisco Meraki", "Cisco WLC"],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "wright-asleap"],
+    "see_also": ["eap-leap", "leap-legacy-crack", "ie-vendor-specific", "def-wids-deauth-flood", "def-rogue-radius-hardening"],
+    "technical_body": {
+      "vendor_oui_examples": ["00-40-96", "00-1B-D4"],
+      "roles": ["enterprise WLC", "campus AP", "SMB Meraki cloud AP"],
+      "era_footprint": {
+        "wpa2_era": "widespread on enterprise WLCs; canonical LEAP deployments",
+        "wpa3_era": "Catalyst 9800 + Meraki cloud APs support WPA3-Personal / Enterprise",
+        "wifi6_6e_era": "Catalyst 9130 / Meraki MR57 / MR56 lines; Wi-Fi 6E support 2022+"
+      },
+      "attack_surface_summary": "Historical LEAP (asleap crack), enterprise MSCHAPv2 capture via rogue RADIUS, WLC WIDS to evade."
+    }
+  },
+  {
+    "id": "vendor-ubiquiti",
+    "name": "Ubiquiti (UniFi / EdgeMAX)",
+    "aliases": ["UniFi", "Ubiquiti Networks"],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "hostapd-docs"],
+    "see_also": ["km-wpa2-psk", "km-wpa3-sae", "km-wpa2-eap", "wpa3-transition-downgrade", "std-802-11r", "std-802-11k", "std-802-11v"],
+    "technical_body": {
+      "vendor_oui_examples": ["00-27-22", "24-A4-3C", "78-8A-20"],
+      "roles": ["prosumer / SMB", "campus WiFi via UniFi Controller"],
+      "era_footprint": {
+        "wpa2_era": "AC-Pro / AC-LR / AC-Lite were the workhorses ~2015–2020",
+        "wpa3_era": "UniFi 6 / U6-LR / U6-Pro / U6-Enterprise support WPA3-Personal and transition mode",
+        "wifi6_6e_era": "U6-Enterprise / U6-Mesh support Wi-Fi 6E on 6 GHz UNII-5/6/7/8"
+      },
+      "notable_defaults": ["802.11r/k/v enabled by default on modern controllers", "PMF-optional (mixed) by default"],
+      "attack_surface_summary": "Transition-mode downgrade against UniFi 6 with legacy clients; FT-handshake capture on 11r roams; UniFi controller ships default WPA2 evil-twin targets."
+    }
+  },
+  {
+    "id": "vendor-tp-link",
+    "name": "TP-Link",
+    "aliases": ["TPLink", "TP Link", "Archer"],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wps-2-0"],
+    "see_also": ["wps-vendor-pin-derivation", "wps-pixie-dust", "wps-reaver-online", "chipset-realtek-rtl8xxx-cve-2021-28492", "chipset-broadcom-bcm43xx-broadpwn"],
+    "technical_body": {
+      "vendor_oui_examples": ["50-C7-BF", "C4-6E-1F", "AC-84-C6"],
+      "roles": ["consumer / SOHO", "outdoor CPE (Pharos)"],
+      "era_footprint": {
+        "wpa2_era": "Archer C7 / C1200 / C2300 were the volume plays; WPS PIN derivation viable on many generations",
+        "wpa3_era": "Archer AX line (AX10/AX50/AX55/AX73) supports WPA3-Personal from 2019+",
+        "wifi6_6e_era": "Archer AXE / Deco XE lines support Wi-Fi 6E"
+      },
+      "attack_surface_summary": "WPS with vendor-derivable PIN algorithms on older generations; Realtek chipset on cheaper models (RTL8xxx CVE surface); AP firmware update discipline is variable."
+    }
+  },
+  {
+    "id": "vendor-mikrotik",
+    "name": "MikroTik (RouterOS)",
+    "aliases": ["RouterOS", "MikroTik RB", "hAP"],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": ["2003", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "hostapd-docs"],
+    "see_also": ["km-wpa2-psk", "km-wpa2-eap", "km-wpa3-sae", "std-802-11r"],
+    "technical_body": {
+      "vendor_oui_examples": ["4C-5E-0C", "6C-3B-6B", "B8-69-F4"],
+      "roles": ["ISP-grade / WISP", "prosumer routers", "outdoor point-to-point (Metal / SXT / LHG)"],
+      "era_footprint": {
+        "wpa2_era": "Widespread on WISP and small-ISP deployments 2010+",
+        "wpa3_era": "RouterOS 7.x adds WPA3 support (2021+)",
+        "wifi6_6e_era": "hAP ax² / hAP ax³ / cAP ax lines support Wi-Fi 6"
+      },
+      "notable_defaults": ["hostapd underneath but exposed through RouterOS wireless config", "default admin creds on old RouterBOARDs are a persistent problem"],
+      "attack_surface_summary": "Unusual RouterOS beacon fingerprints (see AP fingerprinting); administrative interface CVEs are OUT OF SCOPE (see plan-knowledge.md scope rule)."
+    }
+  },
+  {
+    "id": "vendor-ruckus",
+    "name": "Ruckus (Commscope) — R-series / T-series",
+    "aliases": ["Ruckus Wireless", "Commscope Ruckus", "SmartZone"],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": ["2007", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["km-wpa2-eap", "km-wpa3-enterprise", "def-wids-deauth-flood", "def-rogue-radius-hardening", "std-802-11r"],
+    "technical_body": {
+      "vendor_oui_examples": ["00-1D-2E", "24-79-2A", "58-93-96"],
+      "roles": ["large-venue enterprise", "hospitality / stadium"],
+      "era_footprint": {
+        "wpa2_era": "R710 / R610 workhorses in enterprise deployments 2015+",
+        "wpa3_era": "R750 / R850 support WPA3-Enterprise + 192-bit suite",
+        "wifi6_6e_era": "R760 / R770 support Wi-Fi 6E"
+      },
+      "notable_features": ["BeamFlex adaptive antennas (proprietary)", "SmartZone controller stack"],
+      "attack_surface_summary": "Aggressive WIDS on SmartZone — noisy attacks get logged; enterprise cert-pinning discipline typically strong; targets are the misconfigured 802.1X profiles, not the AP itself."
+    }
+  },
+  {
+    "id": "vendor-consumer-mesh",
+    "name": "Consumer mesh (eero / Google Nest WiFi / TP-Link Deco / Netgear Orbi)",
+    "aliases": ["eero", "Google Nest WiFi", "Deco", "Orbi", "consumer-mesh"],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
+    "see_also": ["km-wpa2-psk", "km-wpa3-sae", "wpa3-transition-downgrade", "std-802-11r", "std-802-11k", "std-802-11v", "captive-portal-cred-capture", "chipset-broadcom-bcm4358-kr00k"],
+    "technical_body": {
+      "vendor_oui_examples": {
+        "eero": ["18-93-7F", "AC-63-BE"],
+        "google_nest": ["F4-F5-D8", "CC-3A-61"],
+        "netgear_orbi": ["9C-D3-6D", "B0-B9-8A"],
+        "tplink_deco": ["50-D4-F7"]
+      },
+      "roles": ["consumer whole-home mesh"],
+      "era_footprint": {
+        "wpa2_era": "eero Gen 1 / 2, Google WiFi Gen 1, Orbi RBK50 — WPA2-Personal only",
+        "wpa3_era": "eero 6 / 6+ / Pro 6, Nest WiFi Pro, Deco X60 / X68, Orbi RBK850 all support WPA3-Personal (mostly in transition mode by default)",
+        "wifi6_6e_era": "eero Pro 6E, Nest WiFi Pro (6E), Deco XE75, Orbi RBKE960 support Wi-Fi 6E"
+      },
+      "notable_defaults": ["WPA3 transition mode almost universally the default in 2024–2026", "802.11k/v enabled by default; 11r off on many for compatibility", "PMF-optional (mixed) — not required"],
+      "attack_surface_summary": "The dominant WPA3-transition-downgrade target class. Aggressive band-steering makes MC-MitM effective. Kr00k tail exists on Broadcom-based older units. Captive-portal cred capture works well against guest-network configurations."
+    }
+  }
+]

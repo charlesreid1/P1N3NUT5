@@ -1,0 +1,818 @@
+[
+  {
+    "id": "wpa2-pmkid-hashcat-mode",
+    "q": "Which hashcat mode cracks a captured PMKID from a WPA2-PSK network?",
+    "tool": "lookup_attack",
+    "args": {"name": "pmkid-capture"},
+    "expect": {"payload.hashcat_mode": 22000, "payload.transport": "ssh"},
+    "src": "steube-pmkid-2018"
+  },
+  {
+    "id": "wpa2-4way-hashcat-mode",
+    "q": "Which hashcat mode handles a captured WPA2 4-way handshake in 2026?",
+    "tool": "lookup_attack",
+    "args": {"name": "wpa2-4way-capture"},
+    "expect": {"payload.hashcat_mode": 22000},
+    "src": "hashcat-modes"
+  },
+  {
+    "id": "wpa2-4way-legacy-mode",
+    "q": "What was the legacy hashcat mode for WPA-EAPOL-PBKDF2 before mode 22000?",
+    "tool": "lookup_hashcat_mode",
+    "args": {"name_or_number": 2500},
+    "expect": {"payload.technical_body.mode": 2500},
+    "src": "hashcat-modes"
+  },
+  {
+    "id": "hashcat-5500-role",
+    "q": "Which hashcat mode cracks a captured MSCHAPv2 challenge/response?",
+    "tool": "lookup_hashcat_mode",
+    "args": {"name_or_number": 5500},
+    "expect": {"payload.technical_body.mode": 5500},
+    "src": "hashcat-modes"
+  },
+  {
+    "id": "deauth-reason-7",
+    "q": "What is deauth reason code 7?",
+    "tool": "verify_claim",
+    "args": {"text": "Deauth reason 7 is class 3 frame received from nonassociated STA"},
+    "expect": {"payload.verdict": "true"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "rsn-akm-psk",
+    "q": "What is the RSN AKM selector for WPA2-PSK?",
+    "tool": "lookup_cipher",
+    "args": {"name": "wpa2-psk"},
+    "expect": {"payload.technical_body.akm_selector": 2},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "rsn-akm-sae",
+    "q": "What is the RSN AKM selector for WPA3-SAE?",
+    "tool": "lookup_cipher",
+    "args": {"name": "wpa3-sae"},
+    "expect": {"payload.technical_body.akm_selector": 8},
+    "src": "wfa-wpa3-spec"
+  },
+  {
+    "id": "rsn-akm-owe",
+    "q": "What is the RSN AKM selector for OWE?",
+    "tool": "lookup_cipher",
+    "args": {"name": "owe"},
+    "expect": {"payload.technical_body.akm_selector": 12},
+    "src": "wfa-wpa3-spec"
+  },
+  {
+    "id": "rsn-akm-sae-ext-key",
+    "q": "What is the RSN AKM selector for WPA3-SAE-EXT-KEY / H2E?",
+    "tool": "lookup_cipher",
+    "args": {"name": "sae-h2e"},
+    "expect": {"payload.technical_body.akm_selector": 18},
+    "src": "wfa-wpa3-spec"
+  },
+  {
+    "id": "ccmp-selector",
+    "q": "What is the RSN cipher-suite hex for CCMP-128?",
+    "tool": "lookup_cipher",
+    "args": {"name": "ccmp"},
+    "expect": {"payload.technical_body.rsn_selector_hex": "00-0F-AC:04"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "gcmp-256-selector",
+    "q": "What is the RSN cipher-suite hex for GCMP-256?",
+    "tool": "lookup_cipher",
+    "args": {"name": "gcmp-256"},
+    "expect": {"payload.technical_body.rsn_selector_hex": "00-0F-AC:09"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "bip-cmac-selector",
+    "q": "What is the RSN group-management cipher selector for BIP-CMAC-128?",
+    "tool": "lookup_cipher",
+    "args": {"name": "bip-cmac-128"},
+    "expect": {"payload.technical_body.rsn_selector_hex": "00-0F-AC:06"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "wpa2-psk-pmf",
+    "q": "Does WPA2-PSK require PMF?",
+    "tool": "lookup_cipher",
+    "args": {"name": "wpa2-psk"},
+    "expect": {"payload.technical_body.requires_pmf": false},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "wpa3-sae-pmf",
+    "q": "Does WPA3-SAE require PMF?",
+    "tool": "lookup_cipher",
+    "args": {"name": "wpa3-sae"},
+    "expect": {"payload.technical_body.requires_pmf": true},
+    "src": "wfa-wpa3-spec"
+  },
+  {
+    "id": "wpa3-enterprise-pmf",
+    "q": "Does WPA3-Enterprise require PMF?",
+    "tool": "lookup_cipher",
+    "args": {"name": "wpa3-enterprise"},
+    "expect": {"payload.technical_body.requires_pmf": true},
+    "src": "wfa-wpa3-spec"
+  },
+  {
+    "id": "rsn-ie-element-id",
+    "q": "What is the Element ID of the RSN IE?",
+    "tool": "lookup_ie",
+    "args": {"id_or_name": 48},
+    "expect": {"payload.id": "ie-rsn"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "ssid-ie-element-id",
+    "q": "What is the Element ID of the SSID IE?",
+    "tool": "lookup_ie",
+    "args": {"id_or_name": 0},
+    "expect": {"payload.id": "ie-ssid"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "mde-element-id",
+    "q": "Which IE identifies an 802.11r FT-capable AP?",
+    "tool": "lookup_ie",
+    "args": {"id_or_name": "mde"},
+    "expect": {"payload.technical_body.element_id": 54},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "rnr-element-id",
+    "q": "Which IE lets a 5 GHz beacon advertise a 6 GHz neighbor AP?",
+    "tool": "lookup_ie",
+    "args": {"id_or_name": "rnr"},
+    "expect": {"payload.technical_body.element_id": 201},
+    "src": "ieee-802-11ax-2021"
+  },
+  {
+    "id": "wps-ie-oui",
+    "q": "Which OUI identifies the WPS Vendor-Specific IE?",
+    "tool": "lookup_ie",
+    "args": {"id_or_name": "wps"},
+    "expect": {"payload.technical_body.oui": "00-50-F2:04 (Microsoft)"},
+    "src": "wfa-wps-2-0"
+  },
+  {
+    "id": "deauth-frame-subtype",
+    "q": "What subtype identifies a Deauthentication management frame?",
+    "tool": "lookup_frame",
+    "args": {"type_or_name": 0, "subtype": 12},
+    "expect": {"payload.id": "frame-mgmt-deauth"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "disassoc-frame-subtype",
+    "q": "What subtype identifies a Disassociation management frame?",
+    "tool": "lookup_frame",
+    "args": {"type_or_name": 0, "subtype": 10},
+    "expect": {"payload.id": "frame-mgmt-disassoc"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "beacon-frame-subtype",
+    "q": "What subtype identifies a Beacon management frame?",
+    "tool": "lookup_frame",
+    "args": {"type_or_name": 0, "subtype": 8},
+    "expect": {"payload.id": "frame-mgmt-beacon"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "probe-req-subtype",
+    "q": "What subtype identifies a Probe Request?",
+    "tool": "lookup_frame",
+    "args": {"type_or_name": 0, "subtype": 4},
+    "expect": {"payload.id": "frame-mgmt-probe-request"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "auth-subtype",
+    "q": "What subtype identifies an 802.11 Authentication frame?",
+    "tool": "lookup_frame",
+    "args": {"type_or_name": 0, "subtype": 11},
+    "expect": {"payload.id": "frame-mgmt-auth"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "deauth-frame-bytes",
+    "q": "How large is an 802.11 deauth management frame body?",
+    "tool": "lookup_frame",
+    "args": {"type_or_name": 0, "subtype": 12},
+    "expect": {"payload.technical_body.byte_size": 26},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "kr00k-cve",
+    "q": "What is the CVE for the Broadcom Kr00k all-zero-PTK-on-disassoc bug?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2019-15126"},
+    "expect": {"payload.id": "cve-2019-15126"},
+    "src": "eset-kr00k-2020"
+  },
+  {
+    "id": "kr00k-qca-cve",
+    "q": "Which CVE covers the QCA variant of Kr00k?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2020-3702"},
+    "expect": {"payload.id": "cve-2020-3702"},
+    "src": "eset-kr00k-2020"
+  },
+  {
+    "id": "ssid-confusion-cve",
+    "q": "Which CVE is SSID Confusion (Vanhoef & Yseboodt 2024)?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2023-52424"},
+    "expect": {"payload.id": "cve-2023-52424"},
+    "src": "vanhoef-yseboodt-ssid-2024"
+  },
+  {
+    "id": "wps-pin-cve",
+    "q": "Which CVE covers the Reaver WPS-PIN brute-force class of bugs?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2011-5053"},
+    "expect": {"payload.id": "cve-2011-5053"},
+    "src": "viehboeck-wps-2011"
+  },
+  {
+    "id": "krack-primary-cve",
+    "q": "Which CVE is the client-side PTK reinstall in KRACK?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2017-13077"},
+    "expect": {"payload.id": "cve-2017-13077"},
+    "src": "vanhoef-krack-2017"
+  },
+  {
+    "id": "broadpwn-cve",
+    "q": "Which CVE is Broadpwn?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2017-11120"},
+    "expect": {"payload.id": "cve-2017-11120"},
+    "src": "artenstein-broadpwn-2017"
+  },
+  {
+    "id": "dragonblood-cache-cve",
+    "q": "Which CVE covers the SAE cache-based side channel in Dragonblood?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2019-9494"},
+    "expect": {"payload.id": "cve-2019-9494"},
+    "src": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "dragonblood-timing-cve",
+    "q": "Which CVE covers the SAE MODP timing side channel in Dragonblood?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2019-9495"},
+    "expect": {"payload.id": "cve-2019-9495"},
+    "src": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "fragattacks-amsdu-cve",
+    "q": "Which CVE is the FragAttacks A-MSDU flag confusion?",
+    "tool": "lookup_cve",
+    "args": {"cve_id": "CVE-2020-24588"},
+    "expect": {"payload.id": "cve-2020-24588"},
+    "src": "vanhoef-fragattacks-2021"
+  },
+  {
+    "id": "wep-fms-year",
+    "q": "When was the FMS attack against WEP published?",
+    "tool": "lookup_attack",
+    "args": {"name": "wep-fms"},
+    "expect": {"envelope.era_bounds": ["2001", null]},
+    "src": "fms-2001"
+  },
+  {
+    "id": "wep-ptw-tools",
+    "q": "Which tool implements the PTW WEP attack?",
+    "tool": "lookup_attack",
+    "args": {"name": "wep-ptw"},
+    "expect_contains": {"payload.tools": "aircrack-ng -z (PTW attack mode — default)"},
+    "src": "ptw-2007"
+  },
+  {
+    "id": "wpa2-4way-transport",
+    "q": "Which transport does the WPA2 4-way capture attack use in P1N3NUT5?",
+    "tool": "lookup_attack",
+    "args": {"name": "wpa2-4way-capture"},
+    "expect": {"payload.transport": "ssh"},
+    "src": "aircrack-ng-docs"
+  },
+  {
+    "id": "pmkid-still-2026",
+    "q": "Is PMKID capture still effective in 2026?",
+    "tool": "lookup_attack",
+    "args": {"name": "pmkid-capture"},
+    "expect": {"payload.still_effective_2026": true},
+    "src": "steube-pmkid-2018"
+  },
+  {
+    "id": "wpa3-downgrade-target",
+    "q": "What security modes does WPA3 transition-mode downgrade attack?",
+    "tool": "lookup_attack",
+    "args": {"name": "wpa3-transition-downgrade"},
+    "expect": {"payload.target_security": ["km-wpa3-sae"]},
+    "src": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "wps-reaver-still-2026",
+    "q": "Is Reaver WPS-PIN brute-force still effective against 2026 targets?",
+    "tool": "lookup_attack",
+    "args": {"name": "wps-reaver-online"},
+    "expect": {"payload.still_effective_2026": true},
+    "src": "viehboeck-wps-2011"
+  },
+  {
+    "id": "kr00k-trigger",
+    "q": "What frame triggers Kr00k on a vulnerable Broadcom client?",
+    "tool": "lookup_attack",
+    "args": {"name": "kr00k-broadcom-cve-2019-15126"},
+    "expect": {"payload.transport": "ssh"},
+    "src": "eset-kr00k-2020"
+  },
+  {
+    "id": "ssid-confusion-target",
+    "q": "Does SSID Confusion attack WPA2, WPA3, or both?",
+    "tool": "lookup_attack",
+    "args": {"name": "ssid-confusion-cve-2023-52424"},
+    "expect": {"payload.target_security": ["km-wpa2-psk", "km-wpa3-sae"]},
+    "src": "vanhoef-yseboodt-ssid-2024"
+  },
+  {
+    "id": "ft-capture-mode",
+    "q": "Which hashcat mode handles a captured 802.11r FT reassoc?",
+    "tool": "lookup_attack",
+    "args": {"name": "ft-handshake-capture"},
+    "expect": {"payload.hashcat_mode": 22000},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "mana-original-year",
+    "q": "When was the MANA attack first presented?",
+    "tool": "lookup_attack",
+    "args": {"name": "mana-karma"},
+    "expect": {"envelope.era_bounds": ["2014", null]},
+    "src": "sensepost-mana-2014"
+  },
+  {
+    "id": "known-beacons-year",
+    "q": "When was the Known Beacons attack first documented?",
+    "tool": "lookup_attack",
+    "args": {"name": "mana-known-beacons"},
+    "expect": {"envelope.era_bounds": ["2018", null]},
+    "src": "godsend-known-beacons-2018"
+  },
+  {
+    "id": "eaphammer-target",
+    "q": "What security modes does eaphammer target?",
+    "tool": "lookup_attack",
+    "args": {"name": "rogue-radius-eaphammer"},
+    "expect": {"payload.target_security": ["km-wpa2-eap", "km-wpa3-enterprise"]},
+    "src": "gabrielryan-eaphammer"
+  },
+  {
+    "id": "eaphammer-hashcat",
+    "q": "Which hashcat mode do captured PEAP-MSCHAPv2 creds from eaphammer feed?",
+    "tool": "lookup_attack",
+    "args": {"name": "rogue-radius-eaphammer"},
+    "expect": {"payload.hashcat_mode": 5500},
+    "src": "gabrielryan-eaphammer"
+  },
+  {
+    "id": "asleap-tools",
+    "q": "Which tool cracks captured MSCHAPv2 challenge/response offline besides hashcat?",
+    "tool": "lookup_attack",
+    "args": {"name": "asleap-mschapv2-crack"},
+    "expect_contains": {"payload.tools": "asleap -C <challenge> -R <response> -W <wordlist>"},
+    "src": "wright-asleap"
+  },
+  {
+    "id": "eap-gtc-plaintext",
+    "q": "Does EAP-GTC send its token in plaintext inside a PEAP tunnel?",
+    "tool": "lookup_eap",
+    "args": {"method": "gtc"},
+    "expect": {"payload.technical_body.credential": "plaintext token (RSA SecurID, Duo, Yubico OTP)"},
+    "src": "rfc-3748"
+  },
+  {
+    "id": "eap-tls-mutual",
+    "q": "Does EAP-TLS require mutual authentication?",
+    "tool": "lookup_eap",
+    "args": {"method": "eap-tls"},
+    "expect": {"payload.technical_body.provides_mutual_auth": true},
+    "src": "rfc-5216"
+  },
+  {
+    "id": "eap-md5-mutual",
+    "q": "Does EAP-MD5 provide mutual authentication?",
+    "tool": "lookup_eap",
+    "args": {"method": "eap-md5"},
+    "expect": {"payload.technical_body.provides_mutual_auth": false},
+    "src": "rfc-3748"
+  },
+  {
+    "id": "std-11ax-bands",
+    "q": "Which bands does 802.11ax operate on?",
+    "tool": "lookup_standard",
+    "args": {"name": "wi-fi 6e"},
+    "expect": {"payload.technical_body.bands_ghz": [2.4, 5, 6]},
+    "src": "ieee-802-11ax-2021"
+  },
+  {
+    "id": "std-11be-max-width",
+    "q": "What is the maximum channel width in 802.11be (Wi-Fi 7)?",
+    "tool": "lookup_standard",
+    "args": {"name": "wi-fi 7"},
+    "expect": {"payload.technical_body.max_channel_width_mhz": 320},
+    "src": "ieee-802-11be-2024"
+  },
+  {
+    "id": "std-11n-max-width",
+    "q": "What is the maximum channel width in 802.11n?",
+    "tool": "lookup_standard",
+    "args": {"name": "wi-fi 4"},
+    "expect": {"payload.technical_body.max_channel_width_mhz": 40},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "std-11ac-max-mimo",
+    "q": "How many spatial streams does 802.11ac support?",
+    "tool": "lookup_standard",
+    "args": {"name": "wi-fi 5"},
+    "expect": {"payload.technical_body.mimo_streams": 8},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "std-11w-cipher",
+    "q": "What is the default group-management cipher under 802.11w PMF?",
+    "tool": "lookup_standard",
+    "args": {"name": "pmf"},
+    "expect": {"payload.technical_body.cipher": "BIP-CMAC-128 (default); BIP-GMAC-128/256 optional"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "ch-2g4-1-freq",
+    "q": "What is the center frequency of 2.4 GHz channel 1?",
+    "tool": "lookup_channel",
+    "args": {"number": 1, "band": 2.4},
+    "expect": {"payload.technical_body.center_mhz": 2412},
+    "src": "fcc-part-15"
+  },
+  {
+    "id": "ch-2g4-11-freq",
+    "q": "What is the center frequency of 2.4 GHz channel 11?",
+    "tool": "lookup_channel",
+    "args": {"number": 11, "band": 2.4},
+    "expect": {"payload.technical_body.center_mhz": 2462},
+    "src": "fcc-part-15"
+  },
+  {
+    "id": "ch-5-52-dfs",
+    "q": "Does 5 GHz channel 52 require DFS?",
+    "tool": "lookup_channel",
+    "args": {"number": 52, "band": 5},
+    "expect": {"payload.technical_body.dfs_required": true},
+    "src": "fcc-part-15"
+  },
+  {
+    "id": "ch-5-149-dfs",
+    "q": "Does 5 GHz channel 149 require DFS?",
+    "tool": "lookup_channel",
+    "args": {"number": 149, "band": 5},
+    "expect": {"payload.technical_body.dfs_required": false},
+    "src": "fcc-part-15"
+  },
+  {
+    "id": "ch-6-1-wpa3",
+    "q": "Is WPA3 required on 6 GHz channel 1?",
+    "tool": "lookup_channel",
+    "args": {"number": 1, "band": 6},
+    "expect": {"payload.technical_body.wpa3_only": true},
+    "src": "wfa-wpa3-6ghz-mandate"
+  },
+  {
+    "id": "ch-2g4-14-jp-only",
+    "q": "In which region is 2.4 GHz channel 14 allowed?",
+    "tool": "lookup_channel",
+    "args": {"number": 14, "band": 2.4},
+    "expect": {"envelope.region": "JP"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "verify-pmf-deauth",
+    "q": "Does PMF prevent all deauth attacks?",
+    "tool": "verify_claim",
+    "args": {"text": "PMF prevents all deauth attacks"},
+    "expect": {"payload.verdict": "needs_qualification"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "verify-wpa3-offline",
+    "q": "Does WPA3 kill offline dictionary attacks on the PSK?",
+    "tool": "verify_claim",
+    "args": {"text": "WPA3 fixes offline dictionary attack on the PSK"},
+    "expect": {"payload.verdict": "needs_qualification"},
+    "src": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "verify-hidden-ssid",
+    "q": "Does hiding your SSID provide security?",
+    "tool": "verify_claim",
+    "args": {"text": "Hiding your SSID makes the network secret"},
+    "expect": {"payload.verdict": "false"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "verify-ssid-confusion-needs-psk",
+    "q": "Does SSID Confusion require the target PSK?",
+    "tool": "verify_claim",
+    "args": {"text": "SSID Confusion attack needs the target PSK"},
+    "expect": {"payload.verdict": "false"},
+    "src": "vanhoef-yseboodt-ssid-2024"
+  },
+  {
+    "id": "verify-deauth-7",
+    "q": "Is deauth reason 7 'class 3 frame received from nonassociated STA'?",
+    "tool": "verify_claim",
+    "args": {"text": "Deauth reason code 7 is class 3 frame received from nonassociated STA"},
+    "expect": {"payload.verdict": "true"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "verify-reaver-always",
+    "q": "Does Reaver always work against WPS APs?",
+    "tool": "verify_claim",
+    "args": {"text": "Reaver always works on every WPS AP"},
+    "expect": {"payload.verdict": "false"},
+    "src": "viehboeck-wps-2011"
+  },
+  {
+    "id": "verify-mac-rand-tracking",
+    "q": "Does MAC randomization prevent client tracking?",
+    "tool": "verify_claim",
+    "args": {"text": "Client MAC randomization prevents tracking"},
+    "expect": {"payload.verdict": "needs_qualification"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "verify-6ghz-safe",
+    "q": "Is 6 GHz WiFi safe just because it is WPA3-only?",
+    "tool": "verify_claim",
+    "args": {"text": "6 GHz is safe because it is WPA3-only"},
+    "expect": {"payload.verdict": "needs_qualification"},
+    "src": "wfa-wpa3-6ghz-mandate"
+  },
+  {
+    "id": "verify-kr00k-old-only",
+    "q": "Does Kr00k only affect old devices?",
+    "tool": "verify_claim",
+    "args": {"text": "Kr00k only affects old devices"},
+    "expect": {"payload.verdict": "needs_qualification"},
+    "src": "eset-kr00k-2020"
+  },
+  {
+    "id": "verify-nonsense",
+    "q": "How does verify_claim handle an unrelated claim?",
+    "tool": "verify_claim",
+    "args": {"text": "The moon is made of cheese and beacons"},
+    "expect": {"payload.verdict": "unverified"},
+    "src": null
+  },
+  {
+    "id": "explain-pmkid-tools",
+    "q": "What tools does explain_attack return for PMKID capture?",
+    "tool": "explain_attack",
+    "args": {"name": "pmkid-capture"},
+    "expect": {"payload.tools": ["hcxdumptool", "hcxpcapngtool", "hashcat"]},
+    "src": "steube-pmkid-2018"
+  },
+  {
+    "id": "explain-wpa2-4way",
+    "q": "What is the hashcat mode reported by explain_attack for WPA2 4-way capture?",
+    "tool": "explain_attack",
+    "args": {"name": "wpa2-4way-capture"},
+    "expect": {"payload.hashcat_mode": 22000},
+    "src": "hashcat-modes"
+  },
+  {
+    "id": "explain-deauth-preconditions",
+    "q": "What are the preconditions for broadcast deauth?",
+    "tool": "explain_attack",
+    "args": {"name": "deauth-broadcast"},
+    "expect_contains": {"payload.preconditions": "target AP or client with PMF-disabled"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "explain-out-of-era",
+    "q": "Does explain_attack refuse when era is out of bounds?",
+    "tool": "explain_attack",
+    "args": {"name": "wpa2-4way-capture", "era": "1990"},
+    "expect": {"payload.hashcat_mode": 22000},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "hashcat-22000-example-shape",
+    "q": "What is the leading tag on a hashcat 22000 hash line for a PMKID capture?",
+    "tool": "lookup_hashcat_mode",
+    "args": {"name_or_number": 22000},
+    "expect_contains": {"payload.technical_body.example_line": "WPA*01*"},
+    "src": "steube-pmkid-2018"
+  },
+  {
+    "id": "hashcat-22000-handles",
+    "q": "Does hashcat mode 22000 handle both PMKID and 4-way handshake?",
+    "tool": "lookup_hashcat_mode",
+    "args": {"name_or_number": 22000},
+    "expect_contains": {"payload.technical_body.handles": "PMKID (M1-only)"},
+    "src": "hashcat-modes"
+  },
+  {
+    "id": "xref-pmkid-includes-hashcat",
+    "q": "Does the see_also graph link PMKID capture to hashcat mode 22000?",
+    "tool": "cross_reference",
+    "args": {"record_id": "pmkid-capture"},
+    "expect_contains": {"payload.see_also[].id": "hashcat-mode-22000"},
+    "src": "steube-pmkid-2018"
+  },
+  {
+    "id": "xref-wpa3-transition-includes-wpa2",
+    "q": "Does the WPA3 transition-downgrade record link back to WPA2-PSK?",
+    "tool": "cross_reference",
+    "args": {"record_id": "wpa3-transition-downgrade"},
+    "expect_contains": {"payload.see_also[].id": "km-wpa2-psk"},
+    "src": "wfa-wpa3-spec"
+  },
+  {
+    "id": "search-attack-ssh",
+    "q": "How many attack records use the SSH transport?",
+    "tool": "search_records",
+    "args": {"category": "attack", "transport": "ssh"},
+    "expect_min_count": 40,
+    "src": null
+  },
+  {
+    "id": "search-cve-count",
+    "q": "How many CVE records ship in the corpus?",
+    "tool": "search_records",
+    "args": {"category": "cve"},
+    "expect_min_count": 20,
+    "src": null
+  },
+  {
+    "id": "bib-count",
+    "q": "How many bibliography entries ship?",
+    "tool": "bibliography",
+    "args": {},
+    "expect_min_count": 30,
+    "src": null
+  },
+  {
+    "id": "bib-lookup-vanhoef-krack",
+    "q": "Can we resolve the Vanhoef KRACK 2017 bibliography id?",
+    "tool": "bibliography",
+    "args": {"cite_id": "vanhoef-krack-2017"},
+    "expect": {"payload.id": "vanhoef-krack-2017"},
+    "src": "vanhoef-krack-2017"
+  },
+  {
+    "id": "dpsk-upc-regex",
+    "q": "What SSID pattern identifies UPC/UBEE default-PSK targets?",
+    "tool": "search_records",
+    "args": {"query": "UPC", "category": "default_psk"},
+    "expect_min_count": 1,
+    "src": "upc-keys-repo"
+  },
+  {
+    "id": "roaming-11r-ftreassoc",
+    "q": "Which roaming record covers the FT reassociation over-the-air?",
+    "tool": "search_records",
+    "args": {"query": "FT reassociation", "category": "roaming"},
+    "expect_min_count": 1,
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "chipset-broadpwn-record",
+    "q": "Do we have a chipset record for Broadpwn?",
+    "tool": "search_records",
+    "args": {"query": "Broadpwn", "category": "chipset_vuln"},
+    "expect_min_count": 1,
+    "src": "artenstein-broadpwn-2017"
+  },
+  {
+    "id": "fingerprint-ios",
+    "q": "Do we have a client fingerprint for iOS?",
+    "tool": "search_records",
+    "args": {"query": "iOS", "category": "client_fingerprint"},
+    "expect_min_count": 1,
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "fingerprint-android",
+    "q": "Do we have a client fingerprint for Android?",
+    "tool": "search_records",
+    "args": {"query": "Android", "category": "client_fingerprint"},
+    "expect_min_count": 1,
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "dos-mdk4-modes-count",
+    "q": "How many mdk4 mode records ship?",
+    "tool": "search_records",
+    "args": {"category": "dos"},
+    "expect_min_count": 8,
+    "src": "aircrack-ng-docs"
+  },
+  {
+    "id": "endpoint-list-aps-transport",
+    "q": "Which transport does the list_aps endpoint prefer?",
+    "tool": "search_records",
+    "args": {"query": "list_aps", "category": "pineapple_endpoint"},
+    "expect_min_count": 1,
+    "src": "hak5-mk7-docs"
+  },
+  {
+    "id": "endpoint-deauth-ssh-only",
+    "q": "Which transport does the deauth endpoint use?",
+    "tool": "search_records",
+    "args": {"query": "deauth", "category": "pineapple_endpoint"},
+    "expect_min_count": 1,
+    "src": "hak5-mk7-docs"
+  },
+  {
+    "id": "cipher-wep-still-effective-2026",
+    "q": "Is WEP still effective as a cipher in 2026?",
+    "tool": "lookup_cipher",
+    "args": {"name": "wep-40"},
+    "expect": {"payload.still_effective_2026": false},
+    "src": "fms-2001"
+  },
+  {
+    "id": "cipher-tkip-still-effective-2026",
+    "q": "Is TKIP still considered effective as a cipher in 2026?",
+    "tool": "lookup_cipher",
+    "args": {"name": "tkip"},
+    "expect": {"payload.still_effective_2026": false},
+    "src": "beck-tews-2008"
+  },
+  {
+    "id": "std-11r-still-effective",
+    "q": "Is 802.11r Fast Transition still an active standard in 2026?",
+    "tool": "lookup_standard",
+    "args": {"name": "ft"},
+    "expect": {"payload.still_effective_2026": true},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "attack-anqp-realm-target",
+    "q": "Which security modes does ANQP Realm enumeration target?",
+    "tool": "lookup_attack",
+    "args": {"name": "anqp-realm-enum"},
+    "expect": {"payload.target_security": ["km-wpa2-eap", "km-wpa3-enterprise"]},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "attack-btm-forced-roam-tools",
+    "q": "Which tool most cleanly emits a well-formed BTM Request?",
+    "tool": "lookup_attack",
+    "args": {"name": "btm-forced-roam"},
+    "expect_contains": {"payload.tools": "custom hostapd patch"},
+    "src": "ieee-802-11-2020"
+  },
+  {
+    "id": "attack-tim-poison-year",
+    "q": "When did Framing Frames power-save queue poisoning surface?",
+    "tool": "lookup_attack",
+    "args": {"name": "framing-frames-power-save-poison"},
+    "expect": {"envelope.era_bounds": ["2023-08", null]},
+    "src": "vanhoef-framing-frames-2023"
+  },
+  {
+    "id": "attack-wifi7-mlo-confidence",
+    "q": "What confidence do we assign to the Wi-Fi 7 MLO desync attack today?",
+    "tool": "lookup_attack",
+    "args": {"name": "wifi7-mlo-link-desync"},
+    "expect": {"envelope.confidence": "secondary"},
+    "src": "ieee-802-11be-2024"
+  },
+  {
+    "id": "attack-rnr-recon-transport",
+    "q": "What transport does RNR-driven 6 GHz enumeration use?",
+    "tool": "lookup_attack",
+    "args": {"name": "rnr-6ghz-enumeration"},
+    "expect": {"payload.transport": "analysis"},
+    "src": "ieee-802-11ax-2021"
+  },
+  {
+    "id": "attack-captive-portal-flag",
+    "q": "What is the flag_signature for a captive-portal credential capture?",
+    "tool": "lookup_attack",
+    "args": {"name": "captive-portal-cred-capture"},
+    "expect_contains": {"payload.flag_signature": "login form"},
+    "src": "hostapd-docs"
+  }
+]

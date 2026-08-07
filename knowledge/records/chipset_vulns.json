@@ -1,0 +1,269 @@
+[
+  {
+    "id": "chipset-broadcom-bcm4339-kr00k",
+    "name": "Broadcom BCM4339 — Kr00k (CVE-2019-15126)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2019-15126", "kr00k-broadcom-cve-2019-15126"],
+    "technical_body": {
+      "vendor": "Broadcom",
+      "chipset": "BCM4339",
+      "role": "client (STA-side)",
+      "vulnerability": "all-zero PTK on disassoc",
+      "found_in": ["older iPhone 6/6s Wi-Fi", "older Amazon Echo", "older Kindle"]
+    }
+  },
+  {
+    "id": "chipset-broadcom-bcm4358-kr00k",
+    "name": "Broadcom BCM4358 — Kr00k",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2019-15126"],
+    "technical_body": {
+      "vendor": "Broadcom",
+      "chipset": "BCM4358",
+      "role": "client",
+      "vulnerability": "all-zero PTK on disassoc",
+      "found_in": ["Samsung Galaxy S6/S7 era", "some Nexus devices"]
+    }
+  },
+  {
+    "id": "chipset-broadcom-bcm43xx-broadpwn",
+    "name": "Broadcom BCM43xx — Broadpwn (CVE-2017-11120)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2017-07", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["artenstein-broadpwn-2017"],
+    "see_also": ["cve-2017-11120"],
+    "technical_body": {
+      "vendor": "Broadcom",
+      "chipset_family": "BCM43xx",
+      "role": "client",
+      "vulnerability": "over-the-air heap corruption → kernel-mode RCE",
+      "found_in": ["iPhone 5..7 era", "many mid-2010s Android flagships"],
+      "target_availability_2026": "mostly patched on updated devices; long tail on IoT"
+    }
+  },
+  {
+    "id": "chipset-cypress-kr00k",
+    "name": "Cypress WiFi chipsets — Kr00k (Broadcom inheritance)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2019-15126"],
+    "technical_body": {
+      "vendor": "Cypress (post-Broadcom acquisition)",
+      "role": "client",
+      "vulnerability": "same Kr00k primitive inherited from Broadcom IP",
+      "found_in": ["Raspberry Pi 3 WiFi", "many low-cost IoT modules"]
+    }
+  },
+  {
+    "id": "chipset-qca-ipq8064-kr00k",
+    "name": "Qualcomm Atheros IPQ8064 — Kr00k QCA variant (CVE-2020-3702)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2020-07", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2020-3702"],
+    "technical_body": {
+      "vendor": "Qualcomm Atheros",
+      "chipset": "IPQ8064",
+      "role": "AP-side (WiFi front-end)",
+      "vulnerability": "QCA variant of Kr00k — zero-PTK on disassoc",
+      "found_in": ["many router SoCs 2018–2021"]
+    }
+  },
+  {
+    "id": "chipset-realtek-rtl8xxx-cve-2021-28492",
+    "name": "Realtek RTL8xxx — wireless stack overflow (CVE-2021-28492)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2021-04", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "see_also": ["cve-2021-28492"],
+    "technical_body": {
+      "vendor": "Realtek",
+      "chipset_family": "RTL8xxx",
+      "role": "AP-side (WiFi front-end on OEM boards)",
+      "vulnerability": "WPA2 4-way handshake buffer overflow",
+      "found_in": ["cheap OEM AP boards", "some IP cameras", "many IoT gateways"],
+      "target_availability_2026": "wide install base; often unpatched"
+    }
+  },
+  {
+    "id": "chipset-driver-inject-matrix",
+    "name": "Driver monitor+injection support matrix (2026)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["aircrack-ng-docs"],
+    "technical_body": {
+      "role": "attacker (Pineapple + external USB adapters)",
+      "matrix": {
+        "ath9k": "monitor + injection reliable; the reference",
+        "ath10k": "monitor OK; injection firmware-limited",
+        "ath11k": "Wi-Fi 6E capable; injection support improving",
+        "mt76": "monitor + injection OK on recent kernels; MediaTek",
+        "rtl8812au (Realtek)": "monitor + injection working with aircrack-ng fork; unreliable on some frames",
+        "rtl88x2bu": "monitor OK; injection unreliable",
+        "iwlwifi (Intel)": "monitor limited; injection generally unsupported on many revs",
+        "brcmfmac (Broadcom)": "monitor limited; injection generally unsupported"
+      },
+      "recommended_pineapple_external": ["Alfa AWUS036ACHM (mt76)", "Alfa AWUS036AXML (mt76-ax)", "Alfa AWUS036NHA (ath9k)"]
+    }
+  },
+  {
+    "id": "chipset-broadcom-bcm4356-kr00k",
+    "name": "Broadcom BCM4356 — Kr00k",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2019-15126"],
+    "technical_body": {
+      "vendor": "Broadcom",
+      "chipset": "BCM4356",
+      "role": "client",
+      "vulnerability": "all-zero PTK on disassoc",
+      "found_in": ["iPhone 6s/7 Wi-Fi", "iPad Air 2/mini 4"]
+    }
+  },
+  {
+    "id": "chipset-broadcom-bcm4335-kr00k",
+    "name": "Broadcom BCM4335 — Kr00k",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2019-15126"],
+    "technical_body": {
+      "vendor": "Broadcom",
+      "chipset": "BCM4335",
+      "role": "client",
+      "found_in": ["Samsung Galaxy S4/S5-era Android devices"]
+    }
+  },
+  {
+    "id": "chipset-cypress-cyw43455",
+    "name": "Cypress CYW43455 (Raspberry Pi 3B+ / 4) — Kr00k inheritance",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2019-15126"],
+    "technical_body": {
+      "vendor": "Cypress (post-Broadcom)",
+      "chipset": "CYW43455",
+      "role": "client",
+      "found_in": ["Raspberry Pi 3B+ / 4", "many IoT modules"]
+    }
+  },
+  {
+    "id": "chipset-qca-9377-kr00k",
+    "name": "Qualcomm Atheros QCA9377 — Kr00k QCA variant",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2020-07", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["eset-kr00k-2020"],
+    "see_also": ["cve-2020-3702"],
+    "technical_body": {
+      "vendor": "Qualcomm Atheros",
+      "chipset": "QCA9377",
+      "role": "AP-side + some client-side",
+      "found_in": ["Snapdragon 615 / 625-era phone Wi-Fi front-ends", "SOHO router SoCs"]
+    }
+  },
+  {
+    "id": "chipset-realtek-rtl8812au-monitor",
+    "name": "Realtek RTL8812AU — monitor+injection support notes",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["aircrack-ng-docs"],
+    "technical_body": {
+      "vendor": "Realtek",
+      "chipset": "RTL8812AU",
+      "role": "attacker (USB adapter — Alfa AWUS036ACH)",
+      "note": "Monitor+injection works with the aircrack-ng driver fork. Stock kernel driver is unreliable. Popular external adapter for WCTF work."
+    }
+  },
+  {
+    "id": "chipset-mediatek-mt7601u",
+    "name": "MediaTek MT7601U — legacy USB adapter",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["aircrack-ng-docs"],
+    "technical_body": {
+      "vendor": "MediaTek",
+      "chipset": "MT7601U",
+      "role": "attacker (cheap USB adapter)",
+      "note": "Works for basic monitor mode. Not ideal for injection — mt76 is the modern preferred family."
+    }
+  },
+  {
+    "id": "chipset-intel-ax210",
+    "name": "Intel AX210 — Wi-Fi 6E client-side",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11ax-2021"],
+    "technical_body": {
+      "vendor": "Intel",
+      "chipset": "AX210",
+      "role": "client (embedded in most 2021+ laptops)",
+      "note": "6 GHz-capable. Monitor mode limited under iwlwifi; not useful as an attacker adapter."
+    }
+  },
+  {
+    "id": "chipset-marvell-mwifiex-cve-2019-11526",
+    "name": "Marvell mwifiex — kernel heap overflow (CVE-2019-11526)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-04", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "see_also": ["cve-2019-11526"],
+    "technical_body": {
+      "vendor": "Marvell",
+      "chipset_family": "mwifiex",
+      "role": "client",
+      "found_in": ["Chromebooks (Marvell 88W8897)", "some Asus/HP laptops"]
+    }
+  }
+]

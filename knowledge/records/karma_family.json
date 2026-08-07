@@ -1,0 +1,148 @@
+[
+  {
+    "id": "karma-2004-original",
+    "name": "KARMA (Dai Zovi & Dinodai, 2004)",
+    "aliases": ["karma"],
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["sensepost-mana-2014"],
+    "see_also": ["mana-karma", "frame-mgmt-probe-response"],
+    "technical_body": {
+      "primitive": "probe response to any probe request — the AP pretends to be every network the client asks about",
+      "pineap_config": {"karma": true, "beacon_response": true}
+    }
+  },
+  {
+    "id": "karma-mana-2014",
+    "name": "MANA (SensePost, 2014)",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["sensepost-mana-2014"],
+    "see_also": ["mana-karma"],
+    "technical_body": {
+      "primitive": "per-STA SSID pool — accumulate each client's probe history and respond only with that STA's list",
+      "advantage": "reduces the 'karma is loud' fingerprint that modern OSes have learned to detect",
+      "pineap_config": {"karma": true, "ssid_pool": "per-client (via SSH-driven hostapd-mana, not stock PineAP)"}
+    }
+  },
+  {
+    "id": "karma-mana-loud",
+    "name": "MANA Loud",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["sensepost-mana-2014"],
+    "see_also": ["mana-loud"],
+    "technical_body": {
+      "primitive": "broadcast union of all seen probes as beacons — catches every STA at once, at the cost of being obvious to a WIDS"
+    }
+  },
+  {
+    "id": "karma-known-beacons",
+    "name": "Known Beacons (Godsend, 2018)",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["godsend-known-beacons-2018"],
+    "see_also": ["mana-known-beacons", "pineap-ssid-pool-broadcast"],
+    "technical_body": {
+      "primitive": "beacon a dictionary of common home SSIDs (linksys, xfinitywifi, attwifi, ...) to farm associations",
+      "pineap_config": {"broadcast_ssid_pool": true, "ssid_pool": "curated dictionary"}
+    }
+  },
+  {
+    "id": "karma-snoopy",
+    "name": "Snoopy — geographic tracking via probe correlation",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2012", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["sensepost-mana-2014"],
+    "see_also": ["frame-mgmt-probe-request"],
+    "technical_body": {
+      "primitive": "distributed probe-request collectors log seen SSIDs per client MAC; SSID history → likely home/work locations",
+      "notes": "MAC randomization has thinned the yield but preferred-SSID lists remain reidentifying."
+    }
+  },
+  {
+    "id": "karma-pineap-passive-log",
+    "name": "PineAP passive probe log (passive KARMA-family recon)",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "see_also": ["pineap-passive-probe-log", "frame-mgmt-probe-request"],
+    "technical_body": {
+      "primitive": "PineAP module logs every probe request seen on the second radio; no transmission",
+      "pineap_config": {"log_probes": true, "karma": false, "beacon_response": false}
+    }
+  },
+  {
+    "id": "karma-eaphammer-hostile-portal",
+    "name": "eaphammer hostile-portal (KARMA + portal chain)",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2017", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["gabrielryan-eaphammer"],
+    "see_also": ["rogue-radius-eaphammer", "captive-portal-cred-capture"],
+    "technical_body": {
+      "primitive": "eaphammer combines KARMA-style beacon/probe responses with a captive portal + fake RADIUS in one workflow",
+      "role": "The 'modern MANA' — layered attack profile driven from a single CLI"
+    }
+  },
+  {
+    "id": "karma-wifite2-driven",
+    "name": "wifite2-driven KARMA fallback",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "primitive": "wifite2 falls back to hostapd-mana-based KARMA when other attacks fail",
+      "note": "Not first-choice — use hostapd-mana or eaphammer directly for control."
+    }
+  },
+  {
+    "id": "karma-pineap-connect-notify",
+    "name": "PineAP association-notification harvesting",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "technical_body": {
+      "primitive": "The Pineapple emits a signal for every STA that associates to its karma/pool; harvesters use this as a live target list",
+      "pineap_config": {"association_notification": true}
+    }
+  },
+  {
+    "id": "karma-wifite2-plus-pmkid",
+    "name": "KARMA fallback + PMKID capture on associations",
+    "category": "karma_family",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["hcxtools", "sensepost-mana-2014"],
+    "see_also": ["pmkid-capture", "karma-mana-2014"],
+    "technical_body": {"primitive": "Combine hostapd-mana KARMA responder with hcxdumptool listening; associations produce a PMKID even when the STA's PSK does not match — hashcat 22000 candidate list is seeded from the ESSID."}
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "bssid": "AA:BB:CC:DD:EE:FF",
+    "ssid": "conference-wifi",
+    "channel": 6,
+    "rssi": -42,
+    "security": {"akm": 2, "cipher": "ccmp-128", "pmf": "disabled"},
+    "last_seen": 1000
+  },
+  {
+    "bssid": "11:22:33:44:55:66",
+    "ssid": "corp-wpa3",
+    "channel": 149,
+    "rssi": -55,
+    "security": {"akm": 8, "cipher": "gcmp-256", "pmf": "required"},
+    "last_seen": 995
+  },
+  {
+    "bssid": "00:11:22:33:44:55",
+    "ssid": "printer-net",
+    "channel": 11,
+    "rssi": -70,
+    "security": "wep",
+    "last_seen": 500
+  },
+  {
+    "bssid": "AB:CD:EF:12:34:56",
+    "ssid": "",
+    "channel": 1,
+    "rssi": -80,
+    "security": "open",
+    "last_seen": 999
+  }
+]

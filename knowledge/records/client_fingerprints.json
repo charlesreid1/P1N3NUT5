@@ -1,0 +1,270 @@
+[
+  {
+    "id": "fp-ios-14-plus",
+    "name": "iOS 14+ probe fingerprint",
+    "aliases": ["iphone"],
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2020-09", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ie-ssid"],
+    "technical_body": {
+      "vendor": "Apple",
+      "os": "iOS 14+",
+      "mac_randomization": "per-SSID (persistent within a network, fresh per network)",
+      "probe_ie_order": ["SSID", "Supported Rates", "Extended Rates", "DS Parameter Set", "HT Capabilities", "Extended Capabilities", "Vendor-Specific (Apple)"],
+      "seq_num_behavior": "typically resets on MAC change",
+      "notable_ies": ["Apple Vendor-Specific IE 0x0017F2"],
+      "notes": "The Vendor-Specific IE 0x0017F2 (Apple) is a strong iPhone/iPad fingerprint even under randomized MACs."
+    }
+  },
+  {
+    "id": "fp-android-10-plus",
+    "name": "Android 10+ probe fingerprint",
+    "aliases": ["android"],
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2019-09", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Google / OEMs",
+      "os": "Android 10+",
+      "mac_randomization": "per-SSID by default (opt-out per network)",
+      "probe_ie_order": "vendor-dependent — Samsung / Pixel / Xiaomi diverge",
+      "notable_ies": ["Google Vendor-Specific IE (some builds)", "OEM-specific IEs (Samsung 0x0000F0)"],
+      "notes": "Distinguish OEM by Vendor-Specific IEs and by supported-rates set — some vendors advertise custom rate subsets."
+    }
+  },
+  {
+    "id": "fp-windows-10-11",
+    "name": "Windows 10 / 11 probe fingerprint",
+    "aliases": ["windows"],
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Microsoft",
+      "os": "Windows 10 / 11",
+      "mac_randomization": "per-connection (opt-in; default off on wired driver profiles)",
+      "probe_ie_order": ["SSID", "Supported Rates", "Extended Rates", "HT Capabilities", "Extended Capabilities"],
+      "notes": "No Windows-specific Vendor IE. Fingerprint is more about the driver — Intel iwlwifi Windows driver vs Qualcomm QCA6174 Windows driver."
+    }
+  },
+  {
+    "id": "fp-macos",
+    "name": "macOS probe fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Apple",
+      "os": "macOS (Ventura+, Sonoma changes for randomization)",
+      "mac_randomization": "per-SSID since Sonoma; static burned MAC on earlier",
+      "notable_ies": ["Apple Vendor-Specific IE 0x0017F2 (shared with iOS)"]
+    }
+  },
+  {
+    "id": "fp-samsung-tv",
+    "name": "Samsung Smart TV probe fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Samsung",
+      "device_class": "Smart TV / display",
+      "mac_randomization": "typically off (fixed MAC per device)",
+      "notable_ies": ["Samsung Vendor-Specific IE"],
+      "notes": "Fixed MAC + rare probe schedule (only on boot/config) makes Smart TVs easy to reidentify across sessions."
+    }
+  },
+  {
+    "id": "fp-raspberry-pi",
+    "name": "Raspberry Pi WiFi fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Raspberry Pi Foundation",
+      "device_class": "SBC",
+      "chipset_families": ["Cypress CYW43455 (Pi 3B+ / 4)", "BCM43436 (Pi Zero 2 W)"],
+      "notes": "Cypress + Broadcom inheritance means many older Pi models are Kr00k-vulnerable."
+    }
+  },
+  {
+    "id": "fp-seq-num-continuity",
+    "name": "Sequence-number continuity across MAC randomization",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "technique": "correlate seq_num across randomized MACs",
+      "notes": "Many client implementations do not reset the 12-bit Sequence Control counter when the MAC randomizes. Two frames with different MACs but continuous seq_nums are the same device."
+    }
+  },
+  {
+    "id": "fp-chromeos",
+    "name": "ChromeOS client probe fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Google (ChromeOS)",
+      "mac_randomization": "per-SSID",
+      "notes": "wpa_supplicant-based; IE order similar to Android but with a distinct Google Vendor-Specific IE on some builds."
+    }
+  },
+  {
+    "id": "fp-ipad",
+    "name": "iPadOS probe fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2019", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"vendor": "Apple", "device_class": "iPadOS", "mac_randomization": "per-SSID", "shares_with": "iOS 14+ fingerprint including 0x0017F2 Apple IE."}
+  },
+  {
+    "id": "fp-linux-networkmanager",
+    "name": "Linux NetworkManager + wpa_supplicant",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"os": "Linux (Fedora <40, Ubuntu, Debian)", "mac_randomization": "opt-in per profile via NM 1.4+; off by default on some distros"}
+  },
+  {
+    "id": "fp-linux-iwd",
+    "name": "Linux iwd (Fedora 40+, Arch)",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"os": "Linux (Fedora 40+, Arch defaults)", "notes": "Different assoc-request IE order than wpa_supplicant; iwd is stricter about frame ordering."}
+  },
+  {
+    "id": "fp-android-samsung",
+    "name": "Android — Samsung OEM variant",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2019", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"os": "Android on Samsung", "notable_ies": ["Samsung Vendor-Specific IE 0x0000F0"], "notes": "Samsung Knox may prevent MAC randomization on enterprise-enrolled devices."}
+  },
+  {
+    "id": "fp-android-pixel",
+    "name": "Android — Pixel OEM variant",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2019", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"os": "Android on Pixel", "notes": "Reference implementation of AOSP behavior; minimal OEM IE tampering."}
+  },
+  {
+    "id": "fp-wifi-camera",
+    "name": "Consumer WiFi camera (Wyze / Amcrest / OEM)",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "IoT camera", "mac_randomization": "typically off", "chipset_families": ["Realtek RTL8xxx (common)", "Broadcom/Cypress (older)"], "notes": "Fixed MAC; rare probe schedule (only on power-cycle / config change). Kr00k-vulnerable if Broadcom/Cypress."}
+  },
+  {
+    "id": "fp-echo-alexa",
+    "name": "Amazon Echo / Alexa devices",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "Voice assistant", "chipset_family": "Broadcom / MediaTek (varies by generation)", "notes": "Older Echoes (Gen 1/2/3) are Kr00k-vulnerable. Fixed MAC."}
+  },
+  {
+    "id": "fp-smart-tv-generic",
+    "name": "Smart TV — generic (Sony / LG / Vizio)",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "Smart TV / streaming stick", "mac_randomization": "typically off", "notes": "Distinct probe patterns per vendor (LG advertises OS-specific Vendor IE)."}
+  },
+  {
+    "id": "fp-nintendo-switch",
+    "name": "Nintendo Switch",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2017", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "Handheld console", "mac_randomization": "off", "notes": "Distinct Broadcom-family WiFi chipset; noisy probe pattern in dock mode."}
+  },
+  {
+    "id": "fp-esp32",
+    "name": "ESP32-family DIY IoT",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "DIY / hobbyist IoT", "vendor": "Espressif", "notes": "Distinct WiFi stack; minimal IE set; older firmware pre-v4 may be FragAttacks-vulnerable."}
+  },
+  {
+    "id": "fp-printer-hp-brother",
+    "name": "Networked printer (HP / Brother / Canon)",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "Wireless printer", "notes": "Fixed MAC; Bonjour/mDNS probes give away the vendor + model quickly."}
+  },
+  {
+    "id": "fp-tesla",
+    "name": "Tesla vehicle WiFi client",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2017", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"device_class": "vehicle infotainment", "notes": "Wi-Fi aftermarket updates historically Broadcom-based; probe SSID list can leak home network + supercharger names."}
+  }
+]

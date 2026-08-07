@@ -1,0 +1,53 @@
+.DS_Store
+.claude
+plan*
+.python-version
+attic
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env
+
+# Tooling caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.tox/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# uv
+uv.lock
+
+# Captured pcaps and downloaded corpora — never commit real captures.
+# Small named test fixtures live under tests/fixtures/ and ARE tracked.
+*.pcap
+*.pcapng
+*.cap
+!tests/fixtures/**/*.pcap
+!tests/fixtures/**/*.pcapng
+!tests/fixtures/**/*.cap
+
+# Hashcat state / outputs — cracks belong on the operator's machine, not in git.
+*.hccapx
+*.22000
+*.potfile
+*.restore
+*.dictstat
+*.log
+
+# Pineapple credentials and session state — never commit.
+pineapple.env
+*.pineapple-token

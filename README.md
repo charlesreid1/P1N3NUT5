@@ -12,33 +12,69 @@ capture handshakes, and hand them to hashcat.
 
 ## Status
 
-Planning only. Two documents describe what we're building:
+Both halves ship. The **acting half** — `src/p1n3nut5_mcp/` — is ~3,400
+LOC of MCP code: transport (API + SSH), recon + PineAP + filter tools,
+perception (pcap parsing, handshake / PMKID extraction, hashcat handoff),
+attack primitives (deauth, capture, rogue AP, evil twin), and
+`run_sequence` orchestration. The **knowing half** — `knowledge/` — is
+55 topic dirs / ~164 markdown files plus 21 typed JSON record files
+with ~890 records total, all loaded and searchable. 857 tests pass
+against injected fake transports in under a second; no live radio
+needed in CI.
 
-- [`plan-organize.md`](plan-organize.md) — repo layout, MCP tool
-  surface, and the API-vs-SSH transport split
-- [`plan-knowledge.md`](plan-knowledge.md) — the knowledge base: prose
-  topics, typed records, bibliography discipline
+Per-file record floors — locked by `tests/test_depth.py` so the depth
+can't silently regress:
 
-Nothing under `src/`, `knowledge/`, `skills/`, `scripts/`, `docs/`, or
-`tests/` has been authored yet. The plans specify what will land there.
+| file                 | floor | current |
+| -------------------- | ----- | ------- |
+| `attacks.json`       | 90    | 98      |
+| `frame_types.json`   | 30    | 40      |
+| `ies.json`           | 80    | 86      |
+| `eap_methods.json`   | 30    | 30      |
+| `hashcat_modes.json` | 30    | 30      |
+| `local_operations.json` | 11 | 11      |
+
+`pineapple_endpoints.json` has `firmware_min` on every entry (100%
+coverage). `verify_claim` ships with a 22-pattern trap catalog for
+adversarial claims (SSID Confusion, PMF-stops-deauth, WPA3-fixes-offline,
+hidden-SSID-is-secret, PMKID-always-leaks, MAC-randomization-stops-
+tracking, and so on).
+
+## Read the plans
+
+The design intent lives in [`attic/`](attic/). These are historical
+context — the depth pass is in CI now and the corpus stopped needing
+them as a spec — but they're the source of truth on *why* each shape
+looks the way it does:
+
+- [`attic/plan-organize.md`](attic/plan-organize.md) — repo layout, MCP
+  tool surface, the API-vs-SSH transport split
+- [`attic/plan-knowledge.md`](attic/plan-knowledge.md) — the knowledge
+  base: prose topics, typed records, bibliography discipline
+- [`attic/plan-improve-docs.md`](attic/plan-improve-docs.md) — the D1–D6
+  depth-pass authoring plan (now locked by `tests/test_depth.py`)
 
 ## Three tiers, from knowing to acting
 
 - **Know** — corpus tools (`list_topics`, `search_lore`, `read_lore`,
   `random_lore`) + typed-record lookups (`lookup_standard`,
   `lookup_frame`, `lookup_cipher`, `lookup_attack`, `verify_claim`,
-  `explain_attack`)
+  `explain_attack`, `lookup_hashcat_mode`, `lookup_cve`, `bibliography`,
+  `cross_reference`, `search_records`)
 - **Act** — Pineapple control: recon, PineAP, rogue AP, evil twin,
   deauth, capture, injection. Some via REST API, some via SSH — the
   MCP picks the right transport per capability.
 - **Perceive** — pcap parsing, handshake and PMKID extraction, hashcat
   handoff, IE decoding, evil-twin diffing
 
-## Read the plans, then this makes sense
+## Quickstart
 
-Everything else — the repo map, the tool inventory, the record schemas,
-the bibliography, the WCTF playbook — is in the two `plan-*.md` files.
-Start with `plan-organize.md`.
+Start with [`docs/pineapple_setup.md`](docs/pineapple_setup.md) —
+first-time-through: prereqs, env vars, install line, smoke test. Then
+[`docs/wctf_playbook.md`](docs/wctf_playbook.md) for the operator-facing
+playbook once the device is talking. The
+[`skills/pineapple/SKILL.md`](skills/pineapple/SKILL.md) file is what
+the assistant loads at session start.
 
 ## License
 

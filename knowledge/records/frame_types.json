@@ -1,0 +1,2279 @@
+[
+  {
+    "id": "frame-mgmt-beacon",
+    "name": "Beacon frame (mgmt/subtype 8)",
+    "aliases": [
+      "beacon"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 8,
+      "type_name": "management",
+      "protected_by_pmf": false,
+      "purpose": "AP announces itself. Timestamp, beacon interval, capability info, then IEs (SSID, DS Parameter Set, TIM, Country, RSN, HT/VHT/HE/EHT Cap, WPS, Vendor-Specific).",
+      "typical_interval_tu": 100,
+      "wctf_uses": [
+        "IE stego (Vendor-Specific)",
+        "hidden SSID (null SSID IE)",
+        "RSN IE downgrade opportunities"
+      ],
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=8; DA=ff:ff:ff:ff:ff:ff"
+        },
+        {
+          "name": "Timestamp",
+          "offset_bytes": 24,
+          "length_bytes": 8,
+          "notes": "AP's TSF timer (microseconds since AP boot)"
+        },
+        {
+          "name": "Beacon Interval",
+          "offset_bytes": 32,
+          "length_bytes": 2,
+          "notes": "TU count between beacons; typically 100 TU (102.4 ms)"
+        },
+        {
+          "name": "Capability Info",
+          "offset_bytes": 34,
+          "length_bytes": 2,
+          "notes": "ESS/IBSS/Privacy/Short Preamble/PBCC/Channel Agility/Spectrum Mgmt/QoS/… bits"
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 36,
+          "length_bytes": null,
+          "notes": "variable — SSID (0), Supported Rates (1), DS Parameter (3), TIM (5), Country (7), RSN (48), HT/VHT/HE/EHT Cap, WPS (221), Vendor-Specific (221). See ies.json for byte layouts."
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-probe-request",
+    "name": "Probe Request (mgmt/subtype 4)",
+    "aliases": [
+      "probe request"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 4,
+      "type_name": "management",
+      "purpose": "Client asks 'who's on this channel'. Carries preferred SSIDs → KARMA/MANA input; probe-IE order fingerprints the client.",
+      "wctf_uses": [
+        "hidden SSID recovery",
+        "client fingerprinting",
+        "PineAP karma trigger"
+      ],
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=4; SA=STA, DA=broadcast or target BSSID"
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 24,
+          "length_bytes": null,
+          "notes": "SSID (0), Supported Rates (1), Extended Supported Rates (50), HT Cap (45), Extended Cap (127), Vendor-Specific (221). Client-fingerprint IE order matters."
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-probe-response",
+    "name": "Probe Response (mgmt/subtype 5)",
+    "aliases": [
+      "probe response"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 5,
+      "type_name": "management",
+      "purpose": "AP's response — same IEs as beacon, but unicast.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=5; DA=probing STA"
+        },
+        {
+          "name": "Timestamp",
+          "offset_bytes": 24,
+          "length_bytes": 8,
+          "notes": "AP TSF timer"
+        },
+        {
+          "name": "Beacon Interval",
+          "offset_bytes": 32,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Capability Info",
+          "offset_bytes": 34,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 36,
+          "length_bytes": null,
+          "notes": "same IE set as beacon; unicast to the probing STA"
+        }
+      ],
+      "wctf_uses": [
+        "hidden-SSID reveal (probe response confirms the SSID that a beacon hid)",
+        "AP fingerprint via IE order + timestamp cadence"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-auth",
+    "name": "Authentication (mgmt/subtype 11)",
+    "aliases": [
+      "auth"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 11,
+      "type_name": "management",
+      "purpose": "802.11 authentication (open/shared/SAE/FT). For WPA2 this is a formality; for WPA3-SAE it carries Commit/Confirm.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=11"
+        },
+        {
+          "name": "Authentication Algorithm",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": "0=Open, 1=Shared Key (WEP), 2=Fast BSS Transition, 3=SAE (WPA3)"
+        },
+        {
+          "name": "Authentication Transaction Sequence Number",
+          "offset_bytes": 26,
+          "length_bytes": 2,
+          "notes": "for SAE: 1=Commit, 2=Confirm"
+        },
+        {
+          "name": "Status Code",
+          "offset_bytes": 28,
+          "length_bytes": 2,
+          "notes": "0=success"
+        },
+        {
+          "name": "Payload",
+          "offset_bytes": 30,
+          "length_bytes": null,
+          "notes": "SAE Commit/Confirm carries the finite-field scalar+element or the confirm-hash"
+        }
+      ],
+      "wctf_uses": [
+        "SAE Commit/Confirm carries the pairwise key exchange (WPA3)",
+        "FT-over-air uses this frame for the initial FT authentication"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-assoc-request",
+    "name": "Association Request (mgmt/subtype 0)",
+    "aliases": [
+      "assoc-request"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 0,
+      "type_name": "management",
+      "purpose": "Client asks to join. Carries SSID + capability info; the client's RSN IE picks the cipher/AKM from the AP's advertised set.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=0"
+        },
+        {
+          "name": "Capability Info",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Listen Interval",
+          "offset_bytes": 26,
+          "length_bytes": 2,
+          "notes": "beacon intervals the STA sleeps for"
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 28,
+          "length_bytes": null,
+          "notes": "SSID (0), Supported Rates (1), RSN (48), Extended Cap (127), HT/VHT Cap"
+        }
+      ],
+      "wctf_uses": [
+        "client's RSN IE picks cipher+AKM from the AP's advertised set — downgrade opportunity",
+        "carries the SNonce indirectly via the 4-way that follows"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-assoc-response",
+    "name": "Association Response (mgmt/subtype 1)",
+    "aliases": [
+      "assoc-response"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 1,
+      "type_name": "management",
+      "purpose": "AP acknowledges + assigns AID.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=1"
+        },
+        {
+          "name": "Capability Info",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Status Code",
+          "offset_bytes": 26,
+          "length_bytes": 2,
+          "notes": "0=success"
+        },
+        {
+          "name": "AID (Association ID)",
+          "offset_bytes": 28,
+          "length_bytes": 2,
+          "notes": "assigned by AP"
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 30,
+          "length_bytes": null,
+          "notes": "Supported Rates + AP's HT/VHT/HE Cap"
+        }
+      ],
+      "wctf_uses": [
+        "Status Code 0 confirms association; anything else lets a WIDS distinguish rogue-farm behavior"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-reassoc-request",
+    "name": "Reassociation Request (mgmt/subtype 2)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 2,
+      "type_name": "management",
+      "purpose": "802.11r Fast Transition uses this for over-the-air FT.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=2"
+        },
+        {
+          "name": "Capability Info",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Listen Interval",
+          "offset_bytes": 26,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Current AP Address",
+          "offset_bytes": 28,
+          "length_bytes": 6,
+          "notes": "previous AP BSSID"
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 34,
+          "length_bytes": null,
+          "notes": "SSID, RSN, MDE (11r), FTE (11r)"
+        }
+      ],
+      "wctf_uses": [
+        "802.11r roams put the FTE + MDE here — captured for hashcat 22000"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-deauth",
+    "name": "Deauthentication (mgmt/subtype 12)",
+    "aliases": [
+      "deauth"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 12,
+      "type_name": "management",
+      "protected_by_pmf": true,
+      "byte_size": 26,
+      "purpose": "Unilateral termination. Reason code included.",
+      "reason_codes_common": {
+        "1": "Unspecified reason",
+        "2": "Previous authentication no longer valid",
+        "3": "Deauthenticated because sending STA is leaving IBSS or ESS",
+        "4": "Disassociated due to inactivity",
+        "7": "Class 3 frame received from nonassociated STA",
+        "15": "4-Way Handshake timeout"
+      },
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=0 (mgmt), subtype=12 (deauth)"
+        },
+        {
+          "name": "Duration/ID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": "microsecond NAV, or zero for broadcast"
+        },
+        {
+          "name": "Address 1 (DA)",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": "destination — ff:ff:ff:ff:ff:ff for broadcast deauth"
+        },
+        {
+          "name": "Address 2 (SA)",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": "source — the AP BSSID"
+        },
+        {
+          "name": "Address 3 (BSSID)",
+          "offset_bytes": 16,
+          "length_bytes": 6,
+          "notes": "same as SA in AP→STA direction"
+        },
+        {
+          "name": "Sequence Control",
+          "offset_bytes": 22,
+          "length_bytes": 2,
+          "notes": "fragment number (4 bits) + sequence number (12 bits)"
+        },
+        {
+          "name": "Reason Code",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": "IEEE 802.11-2020 §9.4.1.7 — 1 (unspecified) / 3 (leaving BSS) / 7 (nonassoc STA) / 15 (4-way timeout)"
+        }
+      ],
+      "wctf_uses": [
+        "reason codes 3/7/15 tell a WIDS whether the deauth was intentional or attacker-forged"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-disassoc",
+    "name": "Disassociation (mgmt/subtype 10)",
+    "aliases": [
+      "disassoc"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 10,
+      "type_name": "management",
+      "protected_by_pmf": true,
+      "purpose": "Softer termination; STA remains authenticated. Kr00k trigger.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=0, subtype=10"
+        },
+        {
+          "name": "Duration/ID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Address 1 (DA)",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 2 (SA)",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 3 (BSSID)",
+          "offset_bytes": 16,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Sequence Control",
+          "offset_bytes": 22,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Reason Code",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": "same reason-code space as deauth"
+        }
+      ],
+      "wctf_uses": [
+        "Kr00k trigger — unicast disassoc against a vulnerable Broadcom/Cypress client leaks the all-zero-PTK tail"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-action",
+    "name": "Action (mgmt/subtype 13)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "type_name": "management",
+      "protected_by_pmf": true,
+      "purpose": "Category-typed extensibility frame. Carries block-ack, radio-measurement (11k), BSS Transition (11v), FT actions, ANQP-embedded frames.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=13"
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "0=Spectrum Mgmt, 3=Block Ack, 4=Public (GAS), 5=Radio Measurement, 6=Fast BSS Transition, 7=HT, 10=WNM, 11=RRM, …"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "category-specific action code (e.g. WNM/BTM Request = category 10 action 7)"
+        },
+        {
+          "name": "Action Payload",
+          "offset_bytes": 26,
+          "length_bytes": null,
+          "notes": "category+action-specific — see IEEE 802.11-2020 §9.6"
+        }
+      ],
+      "wctf_uses": [
+        "BTM Request / Neighbor Report Response / GAS carry roaming + 11u recon primitives",
+        "action-frame-based CSA is the CSA-rogue-channel primitive vector"
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-rts",
+    "name": "RTS (ctrl/subtype 11)",
+    "aliases": [
+      "rts"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 11,
+      "type_name": "control",
+      "purpose": "Request to Send — NAV manipulation surface (RTS/CTS DoS).",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=11"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": "microseconds until CTS+DATA+ACK completes — the NAV grab"
+        },
+        {
+          "name": "Receiver Address (RA)",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Transmitter Address (TA)",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "FCS",
+          "offset_bytes": 16,
+          "length_bytes": 4,
+          "notes": ""
+        }
+      ],
+      "wctf_uses": [
+        "NAV manipulation — long Duration values silence neighbors"
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-cts",
+    "name": "CTS (ctrl/subtype 12)",
+    "aliases": [
+      "cts"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 12,
+      "type_name": "control",
+      "purpose": "Clear to Send — CTS-to-self silences neighbors.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=12"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": "NAV setting"
+        },
+        {
+          "name": "Receiver Address (RA)",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "FCS",
+          "offset_bytes": 10,
+          "length_bytes": 4,
+          "notes": ""
+        }
+      ],
+      "wctf_uses": [
+        "CTS-to-self silencing DoS — attacker emits CTS with own MAC as RA + long Duration"
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-ack",
+    "name": "ACK (ctrl/subtype 13)",
+    "aliases": [
+      "ack"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 13,
+      "type_name": "control",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=13"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": "usually 0"
+        },
+        {
+          "name": "Receiver Address (RA)",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "FCS",
+          "offset_bytes": 10,
+          "length_bytes": 4,
+          "notes": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-data-qos-data",
+    "name": "QoS Data (data/subtype 8)",
+    "aliases": [
+      "qos-data"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 8,
+      "type_name": "data",
+      "protected_by_pmf": false,
+      "purpose": "Encrypted user data (CCMP/GCMP). Payload is what you decrypt with a recovered PSK.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=2, subtype=8 (QoS Data)"
+        },
+        {
+          "name": "Duration/ID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Address 1",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 2",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 3",
+          "offset_bytes": 16,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Sequence Control",
+          "offset_bytes": 22,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "QoS Control",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": "TID (4 bits), A-MSDU bit (FragAttacks surface), AckPolicy"
+        },
+        {
+          "name": "Payload",
+          "offset_bytes": 26,
+          "length_bytes": null,
+          "notes": "encrypted CCMP/GCMP payload — user data or LLC+EAPOL-Key carrier"
+        }
+      ],
+      "wctf_uses": [
+        "carries encrypted user payload — decrypt with recovered PSK to read the flag",
+        "A-MSDU flag confusion is the FragAttacks vector (fragattacks-plaintext-inject)"
+      ]
+    }
+  },
+  {
+    "id": "frame-data-null",
+    "name": "Null Data (data/subtype 4)",
+    "aliases": [
+      "null-data"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 4,
+      "type_name": "data",
+      "purpose": "Client power-save state indicator via PM bit. Framing Frames (Vanhoef 2023) manipulates these.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=2, subtype=4"
+        },
+        {
+          "name": "Duration/ID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Address 1",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 2",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 3",
+          "offset_bytes": 16,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Sequence Control",
+          "offset_bytes": 22,
+          "length_bytes": 2,
+          "notes": ""
+        }
+      ],
+      "wctf_uses": [
+        "power-save PM-bit signal — Framing Frames abuse target"
+      ]
+    }
+  },
+  {
+    "id": "frame-eapol-key",
+    "name": "EAPOL-Key (LLC/EtherType 0x888E; not an 802.11 subtype)",
+    "aliases": [
+      "eapol-key",
+      "4-way handshake"
+    ],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2004",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "ieee-802-1x-2020"
+    ],
+    "technical_body": {
+      "carrier": "QoS Data frame with LLC/SNAP EtherType 0x888E",
+      "packets": [
+        "M1 (ANonce → STA)",
+        "M2 (SNonce → AP, MIC)",
+        "M3 (GTK+ANonce → STA, MIC)",
+        "M4 (ACK, MIC)"
+      ],
+      "wctf_uses": [
+        "M1 alone leaks PMKID in the RSN IE (Steube 2018)",
+        "M2 is the load-bearing message for offline PSK crack",
+        "M3 keyreinstall triggers KRACK on unpatched clients"
+      ],
+      "fields": [
+        {
+          "name": "LLC/SNAP",
+          "offset_bytes": 0,
+          "length_bytes": 8,
+          "notes": "encapsulation atop QoS Data frame — EtherType 0x888E"
+        },
+        {
+          "name": "EAPOL Version",
+          "offset_bytes": 8,
+          "length_bytes": 1,
+          "notes": "0x02 for 802.1X-2004, 0x03 for 802.1X-2010"
+        },
+        {
+          "name": "EAPOL Type",
+          "offset_bytes": 9,
+          "length_bytes": 1,
+          "notes": "0x03 for EAPOL-Key"
+        },
+        {
+          "name": "EAPOL Length",
+          "offset_bytes": 10,
+          "length_bytes": 2,
+          "notes": "length of the Key Descriptor that follows"
+        },
+        {
+          "name": "Descriptor Type",
+          "offset_bytes": 12,
+          "length_bytes": 1,
+          "notes": "0x02 for RSN"
+        },
+        {
+          "name": "Key Information",
+          "offset_bytes": 13,
+          "length_bytes": 2,
+          "notes": "type/direction/version/install/ack/mic/secure/error/request/encrypted-key-data/SMK bits"
+        },
+        {
+          "name": "Key Length",
+          "offset_bytes": 15,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Replay Counter",
+          "offset_bytes": 17,
+          "length_bytes": 8,
+          "notes": "monotonic per 4-way message"
+        },
+        {
+          "name": "Key Nonce",
+          "offset_bytes": 25,
+          "length_bytes": 32,
+          "notes": "ANonce (M1/M3) or SNonce (M2/M4)"
+        },
+        {
+          "name": "EAPOL Key IV",
+          "offset_bytes": 57,
+          "length_bytes": 16,
+          "notes": ""
+        },
+        {
+          "name": "Key RSC",
+          "offset_bytes": 73,
+          "length_bytes": 8,
+          "notes": ""
+        },
+        {
+          "name": "Key ID (Reserved)",
+          "offset_bytes": 81,
+          "length_bytes": 8,
+          "notes": ""
+        },
+        {
+          "name": "Key MIC",
+          "offset_bytes": 89,
+          "length_bytes": 16,
+          "notes": "MIC over the packet with MIC field zeroed — the hashcat-crackable field"
+        },
+        {
+          "name": "Key Data Length",
+          "offset_bytes": 105,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Key Data",
+          "offset_bytes": 107,
+          "length_bytes": null,
+          "notes": "M1: PMKID KDE (steube-2018 crack surface). M3: GTK KDE + optional IGTK KDE + Lifetime KDE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-reassoc-response",
+    "name": "Reassociation Response (mgmt/subtype 3)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 3,
+      "type_name": "management",
+      "purpose": "AP response to Reassociation Request; carries the FTE for 802.11r roams.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=3"
+        },
+        {
+          "name": "Capability Info",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Status Code",
+          "offset_bytes": 26,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "AID",
+          "offset_bytes": 28,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Information Elements",
+          "offset_bytes": 30,
+          "length_bytes": null,
+          "notes": "FTE for 11r roams"
+        }
+      ],
+      "wctf_uses": [
+        "carries the FTE for 802.11r roams"
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-atim",
+    "name": "ATIM (mgmt/subtype 9)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 9,
+      "type_name": "management",
+      "purpose": "Announcement Traffic Indication Message — IBSS power-save signal. Rare.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=9; IBSS-only ATIM message"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-timing-advertisement",
+    "name": "Timing Advertisement (mgmt/subtype 6)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 6,
+      "type_name": "management",
+      "purpose": "802.11v Timing Advertisement (independent of an established BSS).",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=6"
+        },
+        {
+          "name": "Timestamp / TA fields",
+          "offset_bytes": 24,
+          "length_bytes": null,
+          "notes": "802.11v Timing Advertisement per §9.3.3.11"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-mgmt-action-no-ack",
+    "name": "Action No Ack (mgmt/subtype 14)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2012",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 14,
+      "type_name": "management",
+      "purpose": "Action frame without ACK requirement.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=0, subtype=14"
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Action Payload",
+          "offset_bytes": 26,
+          "length_bytes": null,
+          "notes": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-blockack-req",
+    "name": "Block Ack Request (ctrl/subtype 8)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 8,
+      "type_name": "control",
+      "purpose": "802.11e/n Block Ack Request.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=8"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "RA",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "TA",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "BAR Control",
+          "offset_bytes": 16,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Starting Sequence Control",
+          "offset_bytes": 18,
+          "length_bytes": 2,
+          "notes": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-blockack",
+    "name": "Block Ack (ctrl/subtype 9)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 9,
+      "type_name": "control",
+      "purpose": "802.11e/n Block Ack response.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=9"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "RA",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "TA",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "BA Control",
+          "offset_bytes": 16,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "BA Info",
+          "offset_bytes": 18,
+          "length_bytes": null,
+          "notes": "SSN + Bitmap; variable length"
+        }
+      ],
+      "wctf_uses": [
+        "block-ack window manipulation surfaces some driver bugs; useful in WCTF fuzz puzzles"
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-ps-poll",
+    "name": "PS-Poll (ctrl/subtype 10)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "framing-frames-power-save-poison"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 10,
+      "type_name": "control",
+      "purpose": "Client requests queued frames from AP after wake.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=10"
+        },
+        {
+          "name": "AID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": "STA's association ID (high 2 bits set)"
+        },
+        {
+          "name": "BSSID",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Transmitter Address",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        }
+      ],
+      "wctf_uses": [
+        "power-save queue manipulation → Framing Frames (Vanhoef 2023) primitive"
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-trigger",
+    "name": "Trigger (ctrl/subtype 2)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2021",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11ax-2021"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 2,
+      "type_name": "control",
+      "spec": "802.11ax",
+      "purpose": "AP coordinates OFDMA uplink from multiple STAs.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=2 (802.11ax)"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "RA",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": "broadcast for multi-STA triggers"
+        },
+        {
+          "name": "TA",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": "AP MAC"
+        },
+        {
+          "name": "Common Info",
+          "offset_bytes": 16,
+          "length_bytes": 8,
+          "notes": "Trigger Type / UL Length / More TF / CS Required / UL BW / GI+LTF Type / MU-MIMO HE-LTF / UL STBC / LDPC Extra / AP TX Power / …"
+        },
+        {
+          "name": "User Info List",
+          "offset_bytes": 24,
+          "length_bytes": null,
+          "notes": "per-user 5-byte or larger sub-fields — RU allocation, UL MCS, dcm, coding, SS allocation"
+        }
+      ],
+      "wctf_uses": [
+        "OFDMA Trigger frame is the malformed-Trigger DoS vector (ru-based-ofdma-dos)"
+      ]
+    }
+  },
+  {
+    "id": "frame-ctrl-cf-end",
+    "name": "CF-End (ctrl/subtype 14)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 1,
+      "subtype": 14,
+      "type_name": "control",
+      "purpose": "End of Contention-Free period (PCF-era).",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=1, subtype=14"
+        },
+        {
+          "name": "Duration",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": "0 (end of CF period)"
+        },
+        {
+          "name": "RA",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "BSSID",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-data",
+    "name": "Data (data/subtype 0)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 0,
+      "type_name": "data",
+      "purpose": "Pre-QoS data — legacy but still emitted by older clients.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=2, subtype=0 (legacy Data)"
+        },
+        {
+          "name": "Duration/ID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Address 1",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": "RA — recipient"
+        },
+        {
+          "name": "Address 2",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": "TA — transmitter"
+        },
+        {
+          "name": "Address 3",
+          "offset_bytes": 16,
+          "length_bytes": 6,
+          "notes": "DA or SA depending on ToDS/FromDS"
+        },
+        {
+          "name": "Sequence Control",
+          "offset_bytes": 22,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Payload",
+          "offset_bytes": 24,
+          "length_bytes": null,
+          "notes": "encrypted under CCMP/GCMP if Privacy bit set"
+        }
+      ],
+      "wctf_uses": [
+        "encrypted payload (CCMP/GCMP) — decrypt path once PSK is recovered"
+      ]
+    }
+  },
+  {
+    "id": "frame-data-cf-ack",
+    "name": "Data + CF-ACK (data/subtype 1)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 1,
+      "type_name": "data",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=2, subtype=1"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-data-cf-poll",
+    "name": "Data + CF-Poll (data/subtype 2)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 2,
+      "type_name": "data",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=2, subtype=2"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-data-cf-ack-poll",
+    "name": "Data + CF-ACK + CF-Poll (data/subtype 3)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "1997",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 3,
+      "type_name": "data",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=2, subtype=3"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-qos-null-data",
+    "name": "QoS Null Data (data/subtype 12)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "framing-frames-power-save-poison"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 12,
+      "type_name": "data",
+      "purpose": "QoS variant of Null Data — carries the PM bit for power-save signaling.",
+      "fields": [
+        {
+          "name": "Frame Control",
+          "offset_bytes": 0,
+          "length_bytes": 2,
+          "notes": "type=2, subtype=12; PM bit inside FC signals power-save state"
+        },
+        {
+          "name": "Duration/ID",
+          "offset_bytes": 2,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Address 1",
+          "offset_bytes": 4,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 2",
+          "offset_bytes": 10,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Address 3",
+          "offset_bytes": 16,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Sequence Control",
+          "offset_bytes": 22,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "QoS Control",
+          "offset_bytes": 24,
+          "length_bytes": 2,
+          "notes": ""
+        }
+      ],
+      "wctf_uses": [
+        "power-save PM-bit signal (QoS variant) — Framing Frames target"
+      ]
+    }
+  },
+  {
+    "id": "frame-qos-data-cf-ack",
+    "name": "QoS Data + CF-ACK (data/subtype 9)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 9,
+      "type_name": "data",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=2, subtype=9"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-qos-data-cf-poll",
+    "name": "QoS Data + CF-Poll (data/subtype 10)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 10,
+      "type_name": "data",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": "type=2, subtype=10"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-action-btm-request",
+    "name": "Action — BTM Request (WNM, category 10 action 7)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11v",
+      "btm-forced-roam"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 10,
+      "action": 7,
+      "purpose": "802.11v BSS Transition Management Request — AP tells STA to roam to a listed BSSID.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "10 (WNM)"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "7 (BSS Transition Request)"
+        },
+        {
+          "name": "Dialog Token",
+          "offset_bytes": 26,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Request Mode",
+          "offset_bytes": 27,
+          "length_bytes": 1,
+          "notes": "preferred-candidate / abridged / disassoc-imminent / BSS-termination / ESS-disassoc-imminent bits"
+        },
+        {
+          "name": "Disassociation Timer",
+          "offset_bytes": 28,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Validity Interval",
+          "offset_bytes": 30,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Optional Sub-Elements",
+          "offset_bytes": 31,
+          "length_bytes": null,
+          "notes": "BSS Termination Duration, Session Info URL, BSS Transition Candidate List (neighbor entries)"
+        }
+      ],
+      "wctf_uses": [
+        "primary vector for btm-forced-roam"
+      ]
+    }
+  },
+  {
+    "id": "frame-action-neighbor-report-request",
+    "name": "Action — Neighbor Report Request (Radio Meas, category 5 action 4)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11k"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 5,
+      "action": 4,
+      "purpose": "802.11k client-side Neighbor Report request.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "5 (Radio Measurement)"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "4 (Neighbor Report Request)"
+        },
+        {
+          "name": "Dialog Token",
+          "offset_bytes": 26,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Optional SSID subelement",
+          "offset_bytes": 27,
+          "length_bytes": null,
+          "notes": "filter by ESS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-action-neighbor-report-response",
+    "name": "Action — Neighbor Report Response (Radio Meas, category 5 action 5)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "neighbor-report-spoof"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 5,
+      "action": 5,
+      "purpose": "802.11k AP response with a Neighbor Report Element list.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "5"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "5 (Neighbor Report Response)"
+        },
+        {
+          "name": "Dialog Token",
+          "offset_bytes": 26,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Neighbor Report Elements",
+          "offset_bytes": 27,
+          "length_bytes": null,
+          "notes": "list of Neighbor Report Element (IE 52) records — see ies.json"
+        }
+      ],
+      "wctf_uses": [
+        "primary vector for neighbor-report-spoof"
+      ]
+    }
+  },
+  {
+    "id": "frame-action-gas-initial-request",
+    "name": "Action — GAS Initial Request (Public, category 4 action 10)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11u",
+      "anqp-realm-enum"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 4,
+      "action": 10,
+      "purpose": "802.11u Generic Advertisement Service request — carries ANQP query IDs.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "4 (Public)"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "10 (GAS Initial Request)"
+        },
+        {
+          "name": "Dialog Token",
+          "offset_bytes": 26,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Advertisement Protocol Element",
+          "offset_bytes": 27,
+          "length_bytes": null,
+          "notes": "IE 108, contains protocol ID (0 = ANQP)"
+        },
+        {
+          "name": "Query Length",
+          "offset_bytes": null,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Query (ANQP element IDs list)",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": "list of ANQP element IDs the STA is requesting"
+        }
+      ],
+      "wctf_uses": [
+        "primary vector for anqp-realm-enum"
+      ]
+    }
+  },
+  {
+    "id": "frame-action-gas-initial-response",
+    "name": "Action — GAS Initial Response (Public, category 4 action 11)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 4,
+      "action": 11,
+      "purpose": "GAS response with ANQP element payload.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "4"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "11 (GAS Initial Response)"
+        },
+        {
+          "name": "Dialog Token",
+          "offset_bytes": 26,
+          "length_bytes": 1,
+          "notes": ""
+        },
+        {
+          "name": "Status Code",
+          "offset_bytes": 27,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "GAS Comeback Delay",
+          "offset_bytes": 29,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Advertisement Protocol Element",
+          "offset_bytes": 31,
+          "length_bytes": null,
+          "notes": ""
+        },
+        {
+          "name": "Query Response Length",
+          "offset_bytes": null,
+          "length_bytes": 2,
+          "notes": ""
+        },
+        {
+          "name": "Query Response (ANQP elements)",
+          "offset_bytes": null,
+          "length_bytes": null,
+          "notes": "concatenated ANQP element payloads"
+        }
+      ],
+      "wctf_uses": [
+        "AP response carries the ANQP elements — Passpoint realm leak surface"
+      ]
+    }
+  },
+  {
+    "id": "frame-action-block-ack-add",
+    "name": "Action — ADDBA Request / Response (Block Ack, category 3 action 0/1)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 3,
+      "purpose": "802.11e Block Ack session setup.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "3 (Block Ack)"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "0=ADDBA Req / 1=ADDBA Resp"
+        },
+        {
+          "name": "Dialog Token / Timeout / Parameters",
+          "offset_bytes": 26,
+          "length_bytes": null,
+          "notes": "see IEEE 802.11-2020 §9.6.3"
+        }
+      ]
+    }
+  },
+  {
+    "id": "frame-action-csa-announce",
+    "name": "Action — Channel Switch Announcement",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "csa-rogue-channel"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 0,
+      "purpose": "Spectrum Management — Channel Switch Announcement action variant.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "0 (Spectrum Mgmt)"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "4 (Channel Switch Announcement)"
+        },
+        {
+          "name": "CSA IE",
+          "offset_bytes": 26,
+          "length_bytes": null,
+          "notes": "carries IE 37 (see ies.json:ie-channel-switch-announcement)"
+        }
+      ],
+      "wctf_uses": [
+        "csa-rogue-channel primitive"
+      ]
+    }
+  },
+  {
+    "id": "frame-action-ft-request",
+    "name": "Action — FT Request / Response (Fast BSS Transition, category 6)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "std-802-11r",
+      "ft-handshake-capture"
+    ],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "category": 6,
+      "purpose": "802.11r over-the-DS FT request / response.",
+      "fields": [
+        {
+          "name": "MAC Header",
+          "offset_bytes": 0,
+          "length_bytes": 24,
+          "notes": ""
+        },
+        {
+          "name": "Category",
+          "offset_bytes": 24,
+          "length_bytes": 1,
+          "notes": "6 (Fast BSS Transition)"
+        },
+        {
+          "name": "Action",
+          "offset_bytes": 25,
+          "length_bytes": 1,
+          "notes": "1=FT Request / 2=FT Response"
+        },
+        {
+          "name": "STA Address",
+          "offset_bytes": 26,
+          "length_bytes": 6,
+          "notes": "STA to which the FT applies"
+        },
+        {
+          "name": "Target AP Address",
+          "offset_bytes": 32,
+          "length_bytes": 6,
+          "notes": ""
+        },
+        {
+          "name": "Payload (MDE + FTE + RSNE)",
+          "offset_bytes": 38,
+          "length_bytes": null,
+          "notes": "carries the FT Element (IE 55) — see ies.json"
+        }
+      ],
+      "wctf_uses": [
+        "carries the FTE for 802.11r roams — hashcat 22000 target"
+      ]
+    }
+  }
+]

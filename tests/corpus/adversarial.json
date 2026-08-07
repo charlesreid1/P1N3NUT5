@@ -1,0 +1,242 @@
+[
+  {
+    "id": "trap-pmf-blocks-deauth",
+    "q": "PMF prevents all deauth attacks.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-pmf-stops-deauth-variant",
+    "q": "802.11w PMF stops deauth completely.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-pmf-blocks-all-mgmt",
+    "q": "PMF blocks all deauth frames from unauthenticated attackers.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-wpa3-defeats-offline",
+    "q": "WPA3 defeats offline dictionary attack on the PSK entirely.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "trap-wpa3-fixes-offline",
+    "q": "WPA3 fixes offline dictionary crack on the PSK.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "trap-wpa3-kills-dict",
+    "q": "WPA3 kills offline dictionary attacks on WiFi.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "vanhoef-dragonblood-2019"
+  },
+  {
+    "id": "trap-hidden-ssid-secret",
+    "q": "Hiding your SSID makes the network secret.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-hidden-ssid-secure",
+    "q": "Hiding your SSID keeps the network secure and hidden from attackers.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-hidden-ssid-protects",
+    "q": "Hiding your SSID protects the network from casual scanning.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-pmkid-always-leaks",
+    "q": "Every WPA2 AP always leaks the PMKID in M1.",
+    "want_verdict": "false",
+    "cite_must_include": "steube-pmkid-2018"
+  },
+  {
+    "id": "trap-pmkid-every-ap",
+    "q": "PMKID is always exposed by every WPA2 AP.",
+    "want_verdict": "false",
+    "cite_must_include": "steube-pmkid-2018"
+  },
+  {
+    "id": "trap-mac-rand-tracking",
+    "q": "Client MAC randomization prevents tracking of the device.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-mac-rand-stops-tracking",
+    "q": "MAC randomization stops tracking of WiFi clients.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-pixie-every-wps",
+    "q": "WPS Pixie Dust works on every WPS AP.",
+    "want_verdict": "false",
+    "cite_must_include": "bongard-pixie-2014"
+  },
+  {
+    "id": "trap-pixie-effective-all",
+    "q": "WPS Pixie is effective against all WPS-enabled routers.",
+    "want_verdict": "false",
+    "cite_must_include": "bongard-pixie-2014"
+  },
+  {
+    "id": "trap-6ghz-safe-wpa3",
+    "q": "6 GHz is safe because it is WPA3-only.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "wfa-wpa3-6ghz-mandate"
+  },
+  {
+    "id": "trap-6ghz-safe-mandate",
+    "q": "6 GHz WiFi is safe from all offline dictionary attacks because it is WPA3-only.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "wfa-wpa3-6ghz-mandate"
+  },
+  {
+    "id": "trap-kr00k-old-only",
+    "q": "Kr00k only affects old devices.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "eset-kr00k-2020"
+  },
+  {
+    "id": "trap-kr00k-only-legacy",
+    "q": "Kr00k is only a problem on legacy hardware and does not affect current devices.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "eset-kr00k-2020"
+  },
+  {
+    "id": "trap-ssid-confusion-needs-psk",
+    "q": "SSID Confusion attack needs the target PSK.",
+    "want_verdict": "false",
+    "cite_must_include": "vanhoef-yseboodt-ssid-2024"
+  },
+  {
+    "id": "trap-ssid-confusion-needs-key",
+    "q": "SSID Confusion cannot work without knowing the target network key.",
+    "want_verdict": "false",
+    "cite_must_include": "vanhoef-yseboodt-ssid-2024"
+  },
+  {
+    "id": "trap-reaver-always-works",
+    "q": "Reaver always works on every WPS AP.",
+    "want_verdict": "false",
+    "cite_must_include": "viehboeck-wps-2011"
+  },
+  {
+    "id": "trap-reaver-effective-every",
+    "q": "Reaver is effective on every router with WPS enabled.",
+    "want_verdict": "false",
+    "cite_must_include": "viehboeck-wps-2011"
+  },
+  {
+    "id": "trap-deauth-reason-7",
+    "q": "Deauth reason code 7 is 'class 3 frame received from nonassociated STA'.",
+    "want_verdict": "true",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-11r-more-secure-newer",
+    "q": "802.11r Fast Transition is more secure because it is newer.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-11r-secure-by-design",
+    "q": "802.11r roaming is secure by design because Fast Transition uses cryptographic reassociation.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-11kv-informational",
+    "q": "802.11k neighbor reports and 802.11v BTM are informational only.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-11v-btm-cannot-be-abused",
+    "q": "BTM Request frames cannot be abused because they are just management-frame hints.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-wifi7-mlo-wired-quality",
+    "q": "Wi-Fi 7 MLO is a wired-quality secure channel.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11be-2024"
+  },
+  {
+    "id": "trap-wifi7-secure",
+    "q": "Wi-Fi 7 is inherently more secure than Wi-Fi 6.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11be-2024"
+  },
+  {
+    "id": "trap-hidden-ssid-recovered-by-deauth",
+    "q": "Hidden SSIDs are always recovered by deauthing clients.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-default-psk-2010s",
+    "q": "Default-PSK derivation is a 2010s problem that no longer applies.",
+    "want_verdict": "false",
+    "cite_must_include": "upc-keys-repo"
+  },
+  {
+    "id": "trap-default-psk-obsolete",
+    "q": "Default PSK derivation attacks are obsolete against 2024 gear.",
+    "want_verdict": "false",
+    "cite_must_include": "upc-keys-repo"
+  },
+  {
+    "id": "trap-wps-off-everywhere",
+    "q": "WPS is deprecated so nobody has it turned on anymore.",
+    "want_verdict": "false",
+    "cite_must_include": "wfa-wps-2-0"
+  },
+  {
+    "id": "trap-hostapd-wpe-eaphammer-same",
+    "q": "hostapd-wpe and eaphammer are the same tool.",
+    "want_verdict": "false",
+    "cite_must_include": "hostapd-wpe"
+  },
+  {
+    "id": "trap-wpa3-transition-always-downgrades",
+    "q": "You can always downgrade a WPA3 transition-mode AP to WPA2.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "wfa-wpa3-spec"
+  },
+  {
+    "id": "trap-wpa3-transition-always",
+    "q": "WPA3 transition mode is always exploitable via a WPA2 downgrade.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "wfa-wpa3-spec"
+  },
+  {
+    "id": "trap-6ghz-no-attack-old-tools",
+    "q": "6 GHz devices cannot be attacked with old tools.",
+    "want_verdict": "needs_qualification",
+    "cite_must_include": "wfa-wpa3-6ghz-mandate"
+  },
+  {
+    "id": "trap-owe-authenticates-ap",
+    "q": "OWE authenticates the AP to the client.",
+    "want_verdict": "false",
+    "cite_must_include": "ieee-802-11-2020"
+  },
+  {
+    "id": "trap-unrelated-nonsense",
+    "q": "The moon is made of green cheese and hidden APs.",
+    "want_verdict": "unverified",
+    "cite_must_include": null
+  }
+]

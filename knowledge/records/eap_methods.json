@@ -1,0 +1,843 @@
+[
+  {
+    "id": "eap-md5",
+    "name": "EAP-MD5",
+    "aliases": [
+      "eap-md5-challenge"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "1998",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "outer": "EAP",
+      "inner": "MD5 challenge/response",
+      "credential": "password",
+      "provides_mutual_auth": false,
+      "keying": "none — cannot derive PMK",
+      "known_flaws": [
+        "offline dictionary from a captured challenge/response",
+        "no mutual auth → rogue-RADIUS accepts everything"
+      ],
+      "attacks": [
+        "mschapv2-challenge-response-capture",
+        "rogue-radius-hostapd-wpe"
+      ]
+    }
+  },
+  {
+    "id": "eap-leap",
+    "name": "EAP-LEAP (Cisco Lightweight EAP)",
+    "aliases": [
+      "leap"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2001",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "wright-asleap"
+    ],
+    "technical_body": {
+      "credential": "MS-CHAPv1 password",
+      "known_flaws": [
+        "asleap offline crack of NT-hash-derived challenge/response"
+      ],
+      "attacks": [
+        "leap-legacy-crack",
+        "asleap-mschapv2-crack"
+      ]
+    }
+  },
+  {
+    "id": "eap-tls",
+    "name": "EAP-TLS",
+    "aliases": [
+      "eap-tls"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-5216"
+    ],
+    "technical_body": {
+      "credential": "client certificate + server certificate",
+      "provides_mutual_auth": true,
+      "notes": "The gold standard. A rogue RADIUS can't authenticate because it lacks the client's issuing CA. Attackers pivot to captive-portal social engineering — 'reinstall your WiFi profile' — to swap the client cert.",
+      "attacks": [
+        "cert-phish-eaphammer-weak-validation",
+        "mdm-profile-theft-captive-portal"
+      ]
+    }
+  },
+  {
+    "id": "eap-ttls",
+    "name": "EAP-TTLSv0",
+    "aliases": [
+      "eap-ttls"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-5281"
+    ],
+    "technical_body": {
+      "outer": "TLS tunnel",
+      "inner": "PAP / CHAP / MSCHAPv2 / EAP",
+      "credential_variants": [
+        "plaintext (PAP inner)",
+        "challenge/response (MSCHAPv2 inner)"
+      ],
+      "known_flaws": [
+        "rogue-RADIUS captures inner plaintext if the client doesn't validate the outer cert",
+        "MSCHAPv2 inner → hashcat mode 5500 offline crack"
+      ],
+      "attacks": [
+        "rogue-radius-hostapd-wpe",
+        "rogue-radius-eaphammer",
+        "cert-phish-eaphammer-weak-validation"
+      ]
+    }
+  },
+  {
+    "id": "eap-peap",
+    "name": "EAP-PEAP (v0/v1)",
+    "aliases": [
+      "peap",
+      "peapv0",
+      "peapv1"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2002",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748",
+      "rfc-2759"
+    ],
+    "technical_body": {
+      "outer": "TLS tunnel",
+      "inner_default": "MSCHAPv2 (v0) / EAP-GTC (v1)",
+      "credential_variants": [
+        "MSCHAPv2 challenge/response",
+        "GTC plaintext"
+      ],
+      "known_flaws": [
+        "cert-phish against weak client validation → inner MSCHAPv2 captured → hashcat 5500 / asleap",
+        "inner-EAP downgrade PEAP-MSCHAPv2 → PEAP-GTC yields plaintext token (RSA/Duo/Yubico OTP)"
+      ],
+      "attacks": [
+        "rogue-radius-hostapd-wpe",
+        "rogue-radius-eaphammer",
+        "cert-phish-eaphammer-weak-validation",
+        "eap-inner-downgrade-peap-mschapv2",
+        "eap-inner-downgrade-peap-gtc"
+      ]
+    }
+  },
+  {
+    "id": "eap-fast",
+    "name": "EAP-FAST",
+    "aliases": [
+      "fast"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "outer": "TLS tunnel with PAC (Protected Access Credential)",
+      "inner": "MSCHAPv2 / EAP-GTC",
+      "known_flaws": [
+        "anonymous PAC provisioning without server-cert pinning → rogue RADIUS captures inner exchange"
+      ],
+      "attacks": [
+        "rogue-radius-eaphammer",
+        "cert-phish-eaphammer-weak-validation"
+      ]
+    }
+  },
+  {
+    "id": "eap-pwd",
+    "name": "EAP-PWD",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2010",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748",
+      "vanhoef-dragonblood-2019"
+    ],
+    "technical_body": {
+      "credential": "shared password",
+      "algorithm": "Dragonfly (same math as SAE)",
+      "known_flaws": [
+        "Dragonblood side-channel affects EAP-PWD implementations too"
+      ],
+      "attacks": [
+        "dragonblood-sidechannel",
+        "dragonblood-timing"
+      ]
+    }
+  },
+  {
+    "id": "eap-sim",
+    "name": "EAP-SIM",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2006",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "GSM SIM triplets",
+      "notes": "Cellular offload networks (carrier Wi-Fi).",
+      "attacks": [
+        "rogue-radius-eaphammer"
+      ]
+    }
+  },
+  {
+    "id": "eap-aka",
+    "name": "EAP-AKA / EAP-AKA'",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2006",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "USIM AKA",
+      "notes": "3G/4G/5G offload authentication.",
+      "attacks": [
+        "rogue-radius-eaphammer"
+      ]
+    }
+  },
+  {
+    "id": "eap-gtc",
+    "name": "EAP-GTC (Generic Token Card)",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2004",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "plaintext token (RSA SecurID, Duo, Yubico OTP)",
+      "outer_required": "inside PEAP/TTLS tunnel",
+      "known_flaws": [
+        "under a rogue-RADIUS tunnel, the plaintext OTP is captured and immediately replayable within its window"
+      ],
+      "attacks": [
+        "eap-inner-downgrade-peap-gtc",
+        "eap-gtc-plaintext-token-capture"
+      ]
+    }
+  },
+  {
+    "id": "eap-peap-mschapv2",
+    "name": "PEAP inner MSCHAPv2 (PEAPv0)",
+    "aliases": [
+      "peap-mschapv2",
+      "peapv0"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2002",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-2759",
+      "hostapd-wpe"
+    ],
+    "see_also": [
+      "eap-inner-downgrade-peap-mschapv2",
+      "hashcat-mode-5500"
+    ],
+    "technical_body": {
+      "outer": "PEAP TLS tunnel",
+      "inner": "MSCHAPv2",
+      "credential": "username + password (MSCHAPv2 hash)",
+      "known_flaws": [
+        "rogue-RADIUS captures challenge/response → hashcat 5500 or asleap"
+      ],
+      "attacks": [
+        "eap-inner-downgrade-peap-mschapv2",
+        "mschapv2-challenge-response-capture",
+        "hashcat-5500-mschapv2-crack",
+        "asleap-mschapv2-crack",
+        "rogue-radius-hostapd-wpe"
+      ]
+    }
+  },
+  {
+    "id": "eap-peap-gtc",
+    "name": "PEAP inner GTC (PEAPv1)",
+    "aliases": [
+      "peap-gtc",
+      "peapv1"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2004",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748",
+      "gabrielryan-eaphammer"
+    ],
+    "see_also": [
+      "eap-inner-downgrade-peap-gtc",
+      "eap-gtc"
+    ],
+    "technical_body": {
+      "outer": "PEAP TLS tunnel",
+      "inner": "EAP-GTC (plaintext token)",
+      "credential": "one-time OTP (RSA / Duo / Yubico)",
+      "known_flaws": [
+        "rogue-RADIUS captures plaintext OTP within its validity window"
+      ],
+      "attacks": [
+        "eap-inner-downgrade-peap-gtc",
+        "eap-gtc-plaintext-token-capture"
+      ]
+    }
+  },
+  {
+    "id": "eap-ttls-pap",
+    "name": "EAP-TTLS inner PAP (plaintext)",
+    "aliases": [
+      "ttls-pap"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-5281"
+    ],
+    "technical_body": {
+      "outer": "EAP-TTLS TLS tunnel",
+      "inner": "PAP (plaintext password)",
+      "credential": "username + plaintext password inside the tunnel",
+      "known_flaws": [
+        "rogue-RADIUS captures plaintext credentials — worst-case inner method"
+      ],
+      "attacks": [
+        "rogue-radius-eaphammer",
+        "rogue-radius-hostapd-wpe"
+      ]
+    }
+  },
+  {
+    "id": "eap-ttls-chap",
+    "name": "EAP-TTLS inner CHAP",
+    "aliases": [
+      "ttls-chap"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-5281"
+    ],
+    "technical_body": {
+      "outer": "EAP-TTLS TLS tunnel",
+      "inner": "CHAP challenge/response",
+      "credential": "username + password (CHAP hash)",
+      "known_flaws": [
+        "captured challenge/response → offline crack"
+      ],
+      "attacks": [
+        "rogue-radius-eaphammer",
+        "mschapv2-challenge-response-capture"
+      ]
+    }
+  },
+  {
+    "id": "eap-ttls-mschapv2",
+    "name": "EAP-TTLS inner MSCHAPv2",
+    "aliases": [
+      "ttls-mschapv2"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-5281",
+      "rfc-2759"
+    ],
+    "see_also": [
+      "hashcat-mode-5500"
+    ],
+    "technical_body": {
+      "outer": "EAP-TTLS TLS tunnel",
+      "inner": "MSCHAPv2",
+      "known_flaws": [
+        "rogue-RADIUS captures → hashcat 5500"
+      ],
+      "attacks": [
+        "rogue-radius-hostapd-wpe",
+        "rogue-radius-eaphammer",
+        "mschapv2-challenge-response-capture",
+        "hashcat-5500-mschapv2-crack",
+        "asleap-mschapv2-crack"
+      ]
+    }
+  },
+  {
+    "id": "eap-fast-mschapv2",
+    "name": "EAP-FAST inner MSCHAPv2",
+    "aliases": [
+      "fast-mschapv2"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "outer": "EAP-FAST with PAC",
+      "inner": "MSCHAPv2",
+      "known_flaws": [
+        "anonymous PAC provisioning bypasses cert validation; inner MSCHAPv2 captured under rogue RADIUS"
+      ],
+      "attacks": [
+        "rogue-radius-eaphammer",
+        "mschapv2-challenge-response-capture",
+        "hashcat-5500-mschapv2-crack"
+      ]
+    }
+  },
+  {
+    "id": "eap-fast-gtc",
+    "name": "EAP-FAST inner GTC",
+    "aliases": [
+      "fast-gtc"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "outer": "EAP-FAST with PAC",
+      "inner": "EAP-GTC (plaintext token)",
+      "attacks": [
+        "rogue-radius-eaphammer",
+        "eap-gtc-plaintext-token-capture"
+      ]
+    }
+  },
+  {
+    "id": "eap-tls-1-3",
+    "name": "EAP-TLS 1.3 (RFC 9190)",
+    "aliases": [
+      "eap-tls13"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2022",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-5216"
+    ],
+    "technical_body": {
+      "credential": "client + server cert",
+      "note": "Updated wire format on TLS 1.3; server-cert pinning still the load-bearing defense.",
+      "attacks": [
+        "cert-phish-eaphammer-weak-validation",
+        "mdm-profile-theft-captive-portal"
+      ]
+    }
+  },
+  {
+    "id": "eap-ikev2",
+    "name": "EAP-IKEv2 (RFC 5106)",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2008",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "IKEv2 mutual auth (cert or PSK)",
+      "note": "Rare on WiFi in practice.",
+      "attacks": [
+        "hashcat-5500-mschapv2-crack"
+      ]
+    }
+  },
+  {
+    "id": "eap-eke",
+    "name": "EAP-EKE (RFC 6124)",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2011",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "shared password (PAKE)",
+      "note": "Rarely deployed.",
+      "attacks": [
+        "dragonblood-modp-downgrade"
+      ]
+    }
+  },
+  {
+    "id": "eap-noob",
+    "name": "EAP-NOOB (Nimble Out-of-Band, RFC 9140)",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2021",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "out-of-band exchange for IoT devices",
+      "note": "Rare; IoT-specific.",
+      "attacks": [
+        "rogue-radius-eaphammer"
+      ]
+    }
+  },
+  {
+    "id": "eap-otp",
+    "name": "EAP-OTP",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "1998",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "one-time password",
+      "provides_mutual_auth": false,
+      "known_flaws": [
+        "not mutual — rogue-RADIUS captures OTP + replays within validity window"
+      ],
+      "attacks": [
+        "rogue-radius-hostapd-wpe",
+        "eap-gtc-plaintext-token-capture"
+      ]
+    }
+  },
+  {
+    "id": "eap-mschapv2-outer",
+    "name": "EAP-MSCHAPv2 (outer)",
+    "aliases": [
+      "outer-mschapv2"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2007",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-2759",
+      "rfc-3748"
+    ],
+    "see_also": [
+      "hashcat-mode-5500"
+    ],
+    "technical_body": {
+      "note": "MSCHAPv2 as an outer method (not tunneled) — extreme legacy on Windows AD-integrated deployments. Captured challenge/response is directly hashcat-5500-cracked without any tunnel to strip.",
+      "attacks": [
+        "mschapv2-challenge-response-capture",
+        "hashcat-5500-mschapv2-crack",
+        "asleap-mschapv2-crack"
+      ]
+    }
+  },
+  {
+    "id": "eap-aka-prime",
+    "name": "EAP-AKA' (RFC 5448)",
+    "aliases": [
+      "eap-aka-prime"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "credential": "USIM AKA' — updated key derivation binding network name",
+      "note": "5G-aware. Cellular offload.",
+      "attacks": [
+        "rogue-radius-eaphammer"
+      ]
+    }
+  },
+  {
+    "id": "eap-ttlsv1",
+    "name": "EAP-TTLSv1",
+    "aliases": [
+      "ttlsv1"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2007",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "rfc-5281"
+    ],
+    "technical_body": {
+      "note": "Rarely deployed. v0 is the shipping variant.",
+      "attacks": [
+        "rogue-radius-eaphammer"
+      ]
+    }
+  },
+  {
+    "id": "eap-teap",
+    "name": "EAP-TEAP (RFC 7170)",
+    "aliases": [
+      "teap"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2014",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "outer": "TLS tunnel (like PEAP/TTLS/FAST)",
+      "inner": "chained inner methods",
+      "note": "Cisco's successor to EAP-FAST. Chains user + machine auth in one tunnel.",
+      "attacks": [
+        "rogue-radius-eaphammer",
+        "cert-phish-eaphammer-weak-validation"
+      ]
+    }
+  },
+  {
+    "id": "eap-identity",
+    "name": "EAP-Identity (Request/Response)",
+    "aliases": [
+      "identity"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "1998",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "role": "The first exchange in every EAP conversation. Client sends its outer identity string in cleartext.",
+      "wctf_uses": [
+        "outer identity often leaks the target realm (@corp.example) even before the tunnel starts"
+      ],
+      "attacks": [
+        "anqp-realm-enum"
+      ]
+    }
+  },
+  {
+    "id": "eap-request-notification",
+    "name": "EAP-Request-Notification",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2004",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "role": "One-way string sent from authenticator to supplicant. No credential; used for informational messages.",
+      "attacks": [
+        "rogue-radius-eaphammer"
+      ]
+    }
+  },
+  {
+    "id": "eap-request-nak",
+    "name": "EAP-Request-Nak (Legacy Nak)",
+    "aliases": [
+      "legacy-nak"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "1998",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "role": "Client declines an EAP method and proposes an alternative",
+      "wctf_uses": [
+        "inner-EAP downgrade in eaphammer uses Nak-based negotiation to steer the client onto GTC"
+      ],
+      "attacks": [
+        "eap-inner-downgrade-peap-mschapv2",
+        "eap-inner-downgrade-peap-gtc"
+      ]
+    }
+  },
+  {
+    "id": "eap-expanded-nak",
+    "name": "EAP-Expanded-Nak",
+    "aliases": [
+      "expanded-nak"
+    ],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": [
+      "2004",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "rfc-3748"
+    ],
+    "technical_body": {
+      "role": "Vendor-specific alternative to Legacy Nak; carries a 24-bit vendor ID + 32-bit vendor type",
+      "attacks": [
+        "eap-inner-downgrade-peap-mschapv2",
+        "eap-inner-downgrade-peap-gtc"
+      ]
+    }
+  }
+]

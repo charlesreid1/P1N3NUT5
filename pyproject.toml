@@ -1,0 +1,63 @@
+[project]
+name = "p1n3nut5-mcp"
+version = "0.0.1"
+description = "P1N3NUT5 — an MCP server that KNOWS 802.11 (WPA2/WPA3/EAP/PMKID/KRACK/Dragonblood/FragAttacks/WPS) and DRIVES a Hak5 WiFi Pineapple Mark VII."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = { text = "MIT" }
+authors = [{ name = "P1N3NUT5" }]
+keywords = ["mcp", "wifi", "802.11", "pineapple", "hak5", "wpa2", "wpa3", "ctf", "defcon"]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "Topic :: System :: Networking",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    # mcp 2.0 dropped mcp.server.fastmcp, which server.py imports. Pin <2
+    # until the code is ported to the 2.x API (same rationale as PHR34CKER5).
+    "mcp>=1.2.0,<2",
+    # REST client for the Pineapple WebUI backend
+    "httpx>=0.27.0",
+    # SSH transport to the Pineapple's OpenWRT userland
+    "asyncssh>=2.14.0",
+    # pcap + pcapng parsing, IE decode, evil-twin diffing, client
+    # fingerprint. Required (not optional) so parse_pcap works on
+    # modern captures without a second install line.
+    "scapy>=2.7.0",
+]
+
+[project.optional-dependencies]
+# Test + lint tooling.
+dev = ["pytest>=7.0", "pytest-asyncio>=0.23.0"]
+
+[project.scripts]
+p1n3nut5-mcp = "p1n3nut5_mcp.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/p1n3nut5/p1n3nut5"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/p1n3nut5_mcp"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"knowledge" = "p1n3nut5_mcp/_knowledge"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/p1n3nut5_mcp",
+    "knowledge",
+    "skills",
+    "README.md",
+    "pyproject.toml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"

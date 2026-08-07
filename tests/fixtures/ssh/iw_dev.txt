@@ -1,0 +1,17 @@
+phy#1
+	Interface wlan1mon
+		ifindex 8
+		wdev 0x100000002
+		addr 00:c0:ca:98:76:54
+		type monitor
+		channel 6 (2437 MHz), width: 20 MHz, center1: 2437 MHz
+		txpower 20.00 dBm
+phy#0
+	Interface wlan0
+		ifindex 5
+		wdev 0x1
+		addr 00:c0:ca:12:34:56
+		ssid Pineapple_1234
+		type AP
+		channel 1 (2412 MHz), width: 20 MHz, center1: 2412 MHz
+		txpower 20.00 dBm
