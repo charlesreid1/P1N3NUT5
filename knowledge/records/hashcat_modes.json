@@ -1,0 +1,124 @@
+[
+  {
+    "id": "hashcat-mode-22000",
+    "name": "hashcat mode 22000 — WPA-PBKDF2-PMKID+EAPOL",
+    "aliases": ["22000", "wpa-pbkdf2-pmkid+eapol"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes", "steube-pmkid-2018", "hcxtools"],
+    "technical_body": {
+      "mode": 22000,
+      "capture_format": "hccapx-superseded; one line per PMKID+EAPOL hash",
+      "producer": "hcxpcapngtool from hcxtools",
+      "handles": ["PMKID (M1-only)", "4-way handshake (any subset containing an M2)"],
+      "example_line": "WPA*01*<PMKID>*<AP MAC>*<Client MAC>*<ESSID hex>***"
+    }
+  },
+  {
+    "id": "hashcat-mode-22001",
+    "name": "hashcat mode 22001 — WPA-PMK-PMKID+EAPOL",
+    "aliases": ["22001"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2019", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes"],
+    "technical_body": {
+      "mode": 22001,
+      "note": "Attacks the PMK directly (no per-PSK PBKDF2). Used when the PMK is known or being enumerated (rare in the field)."
+    }
+  },
+  {
+    "id": "hashcat-mode-2500",
+    "name": "hashcat mode 2500 — WPA-EAPOL-PBKDF2 (legacy)",
+    "aliases": ["2500", "wpa-eapol-pbkdf2"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2011", "2019"],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes"],
+    "technical_body": {
+      "mode": 2500,
+      "capture_format": ".hccapx (aircrack-ng era)",
+      "producer": "cap2hccapx",
+      "note": "Superseded by mode 22000. Still valid input for legacy .hccapx captures; convert if starting fresh."
+    }
+  },
+  {
+    "id": "hashcat-mode-2501",
+    "name": "hashcat mode 2501 — WPA-EAPOL-PMK",
+    "aliases": ["2501"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes"],
+    "technical_body": {
+      "mode": 2501,
+      "note": "PMK-side variant of 2500."
+    }
+  },
+  {
+    "id": "hashcat-mode-16800",
+    "name": "hashcat mode 16800 — WPA-PMKID-PBKDF2 (legacy)",
+    "aliases": ["16800"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2018", "2019"],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes", "steube-pmkid-2018"],
+    "technical_body": {
+      "mode": 16800,
+      "note": "Original PMKID-only mode. Superseded by 22000 in 2019+."
+    }
+  },
+  {
+    "id": "hashcat-mode-16801",
+    "name": "hashcat mode 16801 — WPA-PMKID-PMK",
+    "aliases": ["16801"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes"],
+    "technical_body": {"mode": 16801, "note": "PMK-side variant of 16800."}
+  },
+  {
+    "id": "hashcat-mode-5500",
+    "name": "hashcat mode 5500 — NetNTLMv1 / MSCHAPv2 challenge/response",
+    "aliases": ["5500", "netntlmv1", "mschapv2"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2000", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes", "rfc-2759", "wright-asleap"],
+    "technical_body": {
+      "mode": 5500,
+      "note": "MSCHAPv2 challenge-response captured from PEAP / EAP-TTLS inner exchanges via hostapd-wpe or eaphammer. asleap is the classic offline cracker for the same input."
+    }
+  },
+  {
+    "id": "hashcat-mode-4800",
+    "name": "hashcat mode 4800 — iSCSI CHAP authentication (also LEAP)",
+    "aliases": ["4800"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2001", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["hashcat-modes", "wright-asleap"],
+    "technical_body": {
+      "mode": 4800,
+      "note": "Cisco LEAP challenge-response variant; mostly historical but still surfaces on legacy WLC deployments."
+    }
+  }
+]

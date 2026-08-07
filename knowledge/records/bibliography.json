@@ -1,0 +1,465 @@
+[
+  {
+    "id": "ieee-802-11-2020",
+    "name": "IEEE Std 802.11-2020",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "standard",
+    "publisher": "IEEE",
+    "year": 2020,
+    "url": "https://standards.ieee.org/ieee/802.11/7028/",
+    "notes": "The 802.11 rollup. §12 (Security) is the load-bearing chapter — RSN, key management, PMF, SAE, FT."
+  },
+  {
+    "id": "ieee-802-11-2016",
+    "name": "IEEE Std 802.11-2016",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "standard",
+    "publisher": "IEEE",
+    "year": 2016,
+    "url": "https://standards.ieee.org/ieee/802.11/5688/",
+    "notes": "Previous rollup; still cited for legacy WEP/TKIP behavior and pre-SAE key management."
+  },
+  {
+    "id": "ieee-802-11ax-2021",
+    "name": "IEEE Std 802.11ax-2021 (Wi-Fi 6/6E)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "standard",
+    "publisher": "IEEE",
+    "year": 2021,
+    "url": "https://standards.ieee.org/ieee/802.11ax/7181/"
+  },
+  {
+    "id": "ieee-802-11be-2024",
+    "name": "IEEE Std 802.11be-2024 (Wi-Fi 7)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "standard",
+    "publisher": "IEEE",
+    "year": 2024,
+    "url": "https://standards.ieee.org/ieee/802.11be/7516/"
+  },
+  {
+    "id": "ieee-802-1x-2020",
+    "name": "IEEE Std 802.1X-2020",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "standard",
+    "publisher": "IEEE",
+    "year": 2020,
+    "url": "https://standards.ieee.org/ieee/802.1X/7345/",
+    "notes": "Port-based network access control. The 'authenticator ↔ supplicant ↔ authentication server' framing used in WPA2/3-Enterprise."
+  },
+  {
+    "id": "rfc-3748",
+    "name": "RFC 3748 — Extensible Authentication Protocol (EAP)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2004,
+    "url": "https://www.rfc-editor.org/rfc/rfc3748"
+  },
+  {
+    "id": "rfc-5216",
+    "name": "RFC 5216 — EAP-TLS Authentication Protocol",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2008,
+    "url": "https://www.rfc-editor.org/rfc/rfc5216"
+  },
+  {
+    "id": "rfc-5281",
+    "name": "RFC 5281 — Extensible Authentication Protocol Tunneled TLS (EAP-TTLSv0)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2008,
+    "url": "https://www.rfc-editor.org/rfc/rfc5281"
+  },
+  {
+    "id": "rfc-7664",
+    "name": "RFC 7664 — Dragonfly Key Exchange",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IRTF",
+    "year": 2015,
+    "url": "https://www.rfc-editor.org/rfc/rfc7664",
+    "notes": "The mathematical base for WPA3-SAE."
+  },
+  {
+    "id": "rfc-2759",
+    "name": "RFC 2759 — Microsoft PPP CHAP Extensions v2 (MSCHAPv2)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2000,
+    "url": "https://www.rfc-editor.org/rfc/rfc2759"
+  },
+  {
+    "id": "wfa-wpa3-spec",
+    "name": "Wi-Fi Alliance WPA3 Specification (v3.4, 2024)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-spec",
+    "publisher": "Wi-Fi Alliance",
+    "year": 2024,
+    "url": "https://www.wi-fi.org/discover-wi-fi/security"
+  },
+  {
+    "id": "wfa-wps-2-0",
+    "name": "Wi-Fi Alliance WPS Specification v2.0",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-spec",
+    "publisher": "Wi-Fi Alliance",
+    "year": 2014,
+    "url": "https://www.wi-fi.org/discover-wi-fi/wi-fi-protected-setup"
+  },
+  {
+    "id": "wfa-wpa3-6ghz-mandate",
+    "name": "Wi-Fi Alliance — Wi-Fi CERTIFIED 6E: 6 GHz WPA3 requirement",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-spec",
+    "publisher": "Wi-Fi Alliance",
+    "year": 2020,
+    "url": "https://www.wi-fi.org/discover-wi-fi/wi-fi-certified-6",
+    "notes": "6 GHz operation mandates WPA3-Personal or WPA3-Enterprise; no WPA2 downgrade is allowed on 6 GHz."
+  },
+  {
+    "id": "fcc-part-15",
+    "name": "47 CFR Part 15 — U-NII regulatory rules",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "regulatory",
+    "publisher": "FCC (US)",
+    "year": 2024,
+    "url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15"
+  },
+  {
+    "id": "etsi-en-300-328",
+    "name": "ETSI EN 300 328 — 2.4 GHz wideband transmission systems",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "regulatory",
+    "publisher": "ETSI (EU)",
+    "year": 2022,
+    "url": "https://www.etsi.org/deliver/etsi_en/300300_300399/300328/"
+  },
+  {
+    "id": "etsi-en-301-893",
+    "name": "ETSI EN 301 893 — 5 GHz RLAN harmonised standard",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "regulatory",
+    "publisher": "ETSI (EU)",
+    "year": 2017,
+    "url": "https://www.etsi.org/deliver/etsi_en/301800_301899/301893/"
+  },
+  {
+    "id": "fms-2001",
+    "name": "Fluhrer, Mantin, Shamir — Weaknesses in the Key Scheduling Algorithm of RC4 (2001)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "SAC 2001",
+    "year": 2001,
+    "url": "https://www.crypto.com/papers/others/rc4_ksaproc.pdf",
+    "notes": "The moment WEP died."
+  },
+  {
+    "id": "korek-2004",
+    "name": "KoreK — WEP attack refinements (2004)",
+    "category": "bibliography",
+    "confidence": "community",
+    "kind": "forum-post",
+    "publisher": "NetStumbler Forums",
+    "year": 2004,
+    "url": "https://www.aircrack-ng.org/doku.php?id=korek",
+    "notes": "17 statistical biases in the RC4 keystream, extending FMS."
+  },
+  {
+    "id": "ptw-2007",
+    "name": "Tews, Weinmann, Pyshkin — Breaking 104 bit WEP in less than 60 seconds (2007)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "WISA 2007",
+    "year": 2007,
+    "url": "https://eprint.iacr.org/2007/120",
+    "notes": "The PTW attack — aircrack-ng's default."
+  },
+  {
+    "id": "beck-tews-2008",
+    "name": "Beck, Tews — Practical Attacks against WEP and WPA (2008)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "ePrint",
+    "year": 2008,
+    "url": "https://eprint.iacr.org/2008/472",
+    "notes": "TKIP MIC key recovery — the reason TKIP is on its way out."
+  },
+  {
+    "id": "viehboeck-wps-2011",
+    "name": "Viehböck — Brute forcing Wi-Fi Protected Setup (2011)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "self-published",
+    "year": 2011,
+    "url": "https://sviehb.wordpress.com/2011/12/27/wi-fi-protected-setup-pin-brute-force-vulnerability/",
+    "notes": "Reaver's foundation; the 7+1 PIN split."
+  },
+  {
+    "id": "bongard-pixie-2014",
+    "name": "Bongard — Offline bruteforce attack on WiFi Protected Setup / Pixie Dust (Passwords^14)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "talk",
+    "publisher": "Passwords^14",
+    "year": 2014,
+    "url": "https://passwordscon.org/wp-content/uploads/2014/08/Dominique_Bongard.pdf"
+  },
+  {
+    "id": "sensepost-mana-2014",
+    "name": "Wilhelm & de Ruiter (SensePost) — Manna from Heaven / MANA attack (DEF CON 22, 2014)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "talk",
+    "publisher": "DEF CON 22",
+    "year": 2014,
+    "url": "https://sensepost.com/blog/2014/manna-from-heaven-improving-the-state-of-wireless-rogue-ap-attacks/"
+  },
+  {
+    "id": "vanhoef-krack-2017",
+    "name": "Vanhoef, Piessens — Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2 (CCS 2017)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "ACM CCS 2017",
+    "year": 2017,
+    "url": "https://papers.mathyvanhoef.com/ccs2017.pdf"
+  },
+  {
+    "id": "steube-pmkid-2018",
+    "name": "Steube — New attack on WPA/WPA2 using PMKID (hashcat forum, 2018)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "forum-post",
+    "publisher": "hashcat.net forums",
+    "year": 2018,
+    "url": "https://hashcat.net/forum/thread-7717.html"
+  },
+  {
+    "id": "vanhoef-dragonblood-2019",
+    "name": "Vanhoef, Ronen — Dragonblood: Analyzing the Dragonfly Handshake of WPA3 (IEEE S&P 2020)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "IEEE S&P 2020",
+    "year": 2019,
+    "url": "https://wpa3.mathyvanhoef.com/"
+  },
+  {
+    "id": "eset-kr00k-2020",
+    "name": "ESET — Kr00k: Serious vulnerability affected encryption of billions of Wi-Fi devices (white paper, 2020)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-advisory",
+    "publisher": "ESET",
+    "year": 2020,
+    "url": "https://www.welivesecurity.com/wp-content/uploads/2020/02/ESET_Kr00k.pdf"
+  },
+  {
+    "id": "vanhoef-fragattacks-2021",
+    "name": "Vanhoef — Fragment and Forge: Breaking Wi-Fi Through Frame Aggregation and Fragmentation (USENIX Security 2021)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "USENIX Security 2021",
+    "year": 2021,
+    "url": "https://www.fragattacks.com/"
+  },
+  {
+    "id": "vanhoef-framing-frames-2023",
+    "name": "Vanhoef — Framing Frames: Bypassing Wi-Fi Encryption by Manipulating Transmit Queues (USENIX Security 2023)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "USENIX Security 2023",
+    "year": 2023,
+    "url": "https://papers.mathyvanhoef.com/usenix2023-wifi.pdf"
+  },
+  {
+    "id": "vanhoef-macstealer-2023",
+    "name": "Vanhoef — MacStealer: hijacking traffic based on MAC address (BlackHat Asia 2023)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "talk",
+    "publisher": "BlackHat Asia 2023",
+    "year": 2023,
+    "url": "https://papers.mathyvanhoef.com/blackhat-asia2023-slides.pdf"
+  },
+  {
+    "id": "vanhoef-yseboodt-ssid-2024",
+    "name": "Vanhoef, Yseboodt — SSID Confusion: Making Wi-Fi Clients Connect to the Wrong Network (2024)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "top10vpn co-disclosure",
+    "year": 2024,
+    "url": "https://www.top10vpn.com/research/wifi-vulnerability-ssid/"
+  },
+  {
+    "id": "artenstein-broadpwn-2017",
+    "name": "Artenstein — Broadpwn: Remotely Compromising Android and iOS via a Bug in Broadcom's Wi-Fi Chipsets (Black Hat USA 2017)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "talk",
+    "publisher": "Black Hat USA 2017",
+    "year": 2017,
+    "url": "https://www.blackhat.com/docs/us-17/wednesday/us-17-Artenstein-Broadpwn-Remotely-Compromising-Android-And-iOS-Via-A-Bug-In-Broadcoms-Wifi-Chipsets.pdf"
+  },
+  {
+    "id": "godsend-known-beacons-2018",
+    "name": "Godsend — Known Beacons attack (WPA-Sec, 2018)",
+    "category": "bibliography",
+    "confidence": "community",
+    "kind": "talk",
+    "publisher": "WPA-Sec",
+    "year": 2018,
+    "url": "https://wpa-sec.stanev.org/?attacks",
+    "notes": "SSID-dictionary beacon flood to farm associations from clients with matching probes."
+  },
+  {
+    "id": "gabrielryan-eaphammer",
+    "name": "Ryan — eaphammer (github)",
+    "category": "bibliography",
+    "confidence": "secondary",
+    "kind": "github",
+    "publisher": "s0lst1c3",
+    "year": 2020,
+    "url": "https://github.com/s0lst1c3/eaphammer"
+  },
+  {
+    "id": "hostapd-wpe",
+    "name": "hostapd-wpe (Wireless Pwnage Edition)",
+    "category": "bibliography",
+    "confidence": "secondary",
+    "kind": "github",
+    "publisher": "OpenSecurityResearch",
+    "year": 2015,
+    "url": "https://github.com/OpenSecurityResearch/hostapd-wpe"
+  },
+  {
+    "id": "wright-asleap",
+    "name": "Wright — asleap (LEAP / MSCHAPv2 offline dictionary attack)",
+    "category": "bibliography",
+    "confidence": "secondary",
+    "kind": "github",
+    "publisher": "Joshua Wright",
+    "year": 2007,
+    "url": "https://github.com/joswr1ght/asleap"
+  },
+  {
+    "id": "hashcat-modes",
+    "name": "hashcat — example hashes / mode reference",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-doc",
+    "publisher": "hashcat",
+    "year": 2024,
+    "url": "https://hashcat.net/wiki/doku.php?id=example_hashes"
+  },
+  {
+    "id": "hcxtools",
+    "name": "ZerBea — hcxdumptool / hcxtools (GitHub)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "github",
+    "publisher": "ZerBea",
+    "year": 2024,
+    "url": "https://github.com/ZerBea/hcxdumptool"
+  },
+  {
+    "id": "aircrack-ng-docs",
+    "name": "aircrack-ng documentation",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-doc",
+    "publisher": "aircrack-ng project",
+    "year": 2024,
+    "url": "https://www.aircrack-ng.org/documentation.html"
+  },
+  {
+    "id": "hak5-mk7-docs",
+    "name": "Hak5 — WiFi Pineapple Mark VII documentation",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-doc",
+    "publisher": "Hak5",
+    "year": 2024,
+    "url": "https://docs.hak5.org/wifi-pineapple"
+  },
+  {
+    "id": "openwrt-uci-docs",
+    "name": "OpenWRT — UCI configuration reference",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-doc",
+    "publisher": "OpenWRT",
+    "year": 2024,
+    "url": "https://openwrt.org/docs/guide-user/base-system/uci"
+  },
+  {
+    "id": "hostapd-docs",
+    "name": "hostapd configuration reference",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-doc",
+    "publisher": "w1.fi (Jouni Malinen)",
+    "year": 2024,
+    "url": "https://w1.fi/cgit/hostap/tree/hostapd/hostapd.conf"
+  },
+  {
+    "id": "upc-keys-repo",
+    "name": "blasty — upc_keys (UPC/UBEE default-PSK derivation)",
+    "category": "bibliography",
+    "confidence": "secondary",
+    "kind": "github",
+    "publisher": "blasty",
+    "year": 2016,
+    "url": "https://haxx.in/upc-wifi/",
+    "notes": "Default-PSK derivation for UPC/UBEE-issued cable modems."
+  },
+  {
+    "id": "cve-mitre",
+    "name": "MITRE CVE database",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "vendor-doc",
+    "publisher": "MITRE",
+    "year": 2024,
+    "url": "https://cve.mitre.org/"
+  },
+  {
+    "id": "wright-hacking-exposed-wireless-3e",
+    "name": "Wright, Cache — Hacking Exposed Wireless (3rd ed., 2015)",
+    "category": "bibliography",
+    "confidence": "secondary",
+    "kind": "book",
+    "publisher": "McGraw-Hill",
+    "year": 2015,
+    "url": "https://www.hackingexposed.com/wireless/",
+    "notes": "Long-form domain reference; still the go-to for the WPA2 / WPA3-transition era."
+  }
+]

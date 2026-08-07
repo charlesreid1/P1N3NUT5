@@ -1,0 +1,254 @@
+[
+  {
+    "id": "ch-2g4-1",
+    "name": "2.4 GHz channel 1",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "fcc-part-15", "etsi-en-300-328"],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "channel": 1,
+      "center_mhz": 2412,
+      "widths_mhz": [20, 40],
+      "regulatory": {"US": "allowed", "EU": "allowed", "JP": "allowed"},
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "Non-overlapping with 6 and 11 at 20 MHz. Overlapping at 40 MHz."
+    }
+  },
+  {
+    "id": "ch-2g4-6",
+    "name": "2.4 GHz channel 6",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "fcc-part-15", "etsi-en-300-328"],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "channel": 6,
+      "center_mhz": 2437,
+      "widths_mhz": [20, 40],
+      "regulatory": {"US": "allowed", "EU": "allowed", "JP": "allowed"},
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-2g4-11",
+    "name": "2.4 GHz channel 11",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "fcc-part-15", "etsi-en-300-328"],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "channel": 11,
+      "center_mhz": 2462,
+      "widths_mhz": [20, 40],
+      "regulatory": {"US": "allowed", "EU": "allowed", "JP": "allowed"},
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "Highest US channel — 12 and 13 are EU/JP only; 14 is JP-only 802.11b at 2484 MHz."
+    }
+  },
+  {
+    "id": "ch-2g4-13",
+    "name": "2.4 GHz channel 13 (EU/JP)",
+    "category": "band_and_channel",
+    "region": "EU",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["etsi-en-300-328", "fcc-part-15"],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "channel": 13,
+      "center_mhz": 2472,
+      "widths_mhz": [20, 40],
+      "regulatory": {"US": "forbidden", "EU": "allowed", "JP": "allowed"}
+    }
+  },
+  {
+    "id": "ch-2g4-14",
+    "name": "2.4 GHz channel 14 (JP 802.11b only)",
+    "category": "band_and_channel",
+    "region": "JP",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "channel": 14,
+      "center_mhz": 2484,
+      "widths_mhz": [22],
+      "regulatory": {"US": "forbidden", "EU": "forbidden", "JP": "802.11b only"}
+    }
+  },
+  {
+    "id": "ch-5-36-unii-1",
+    "name": "5 GHz channel 36 (UNII-1)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15", "etsi-en-301-893"],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 36,
+      "center_mhz": 5180,
+      "widths_mhz": [20, 40, 80, 160],
+      "unii_subband": "UNII-1",
+      "regulatory": {"US": "allowed", "EU": "allowed", "JP": "allowed"},
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-52-unii-2a",
+    "name": "5 GHz channel 52 (UNII-2A)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15", "etsi-en-301-893"],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 52,
+      "center_mhz": 5260,
+      "widths_mhz": [20, 40, 80, 160],
+      "unii_subband": "UNII-2A",
+      "regulatory": {"US": "allowed (DFS+TPC)", "EU": "allowed (DFS+TPC)", "JP": "allowed (DFS+TPC)"},
+      "dfs_required": true,
+      "tpc_required": true,
+      "notes": "DFS radar-avoidance mandatory. Radios must vacate on radar detection."
+    }
+  },
+  {
+    "id": "ch-5-100-unii-2c",
+    "name": "5 GHz channel 100 (UNII-2C)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15", "etsi-en-301-893"],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 100,
+      "center_mhz": 5500,
+      "widths_mhz": [20, 40, 80, 160],
+      "unii_subband": "UNII-2C",
+      "regulatory": {"US": "allowed (DFS+TPC)", "EU": "allowed (DFS+TPC)"},
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-149-unii-3",
+    "name": "5 GHz channel 149 (UNII-3)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": ["2003", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15"],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 149,
+      "center_mhz": 5745,
+      "widths_mhz": [20, 40, 80, 160],
+      "unii_subband": "UNII-3",
+      "regulatory": {"US": "allowed", "EU": "restricted (max power)", "JP": "forbidden"},
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-165-unii-3",
+    "name": "5 GHz channel 165 (UNII-3 upper)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": ["2003", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15"],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 165,
+      "center_mhz": 5825,
+      "widths_mhz": [20],
+      "unii_subband": "UNII-3",
+      "regulatory": {"US": "allowed", "EU": "forbidden"},
+      "dfs_required": false
+    }
+  },
+  {
+    "id": "ch-6-1-unii-5",
+    "name": "6 GHz channel 1 (UNII-5)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15", "wfa-wpa3-6ghz-mandate"],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 1,
+      "center_mhz": 5955,
+      "widths_mhz": [20, 40, 80, 160, 320],
+      "unii_subband": "UNII-5",
+      "regulatory": {"US": "LPI/SP/VLP tiers", "EU": "LPI only (5945–6425)"},
+      "wpa3_only": true,
+      "notes": "6 GHz mandates WPA3-Personal or WPA3-Enterprise; no WPA2 downgrade."
+    }
+  },
+  {
+    "id": "ch-6-33-unii-6",
+    "name": "6 GHz channel 33 (UNII-6)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15", "wfa-wpa3-6ghz-mandate"],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 33,
+      "center_mhz": 6115,
+      "widths_mhz": [20, 40, 80, 160, 320],
+      "unii_subband": "UNII-6",
+      "regulatory": {"US": "LPI/SP/VLP tiers", "EU": "not allocated"},
+      "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-165-unii-8",
+    "name": "6 GHz channel 165 (UNII-8)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15", "wfa-wpa3-6ghz-mandate"],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 165,
+      "center_mhz": 6775,
+      "widths_mhz": [20, 40, 80, 160, 320],
+      "unii_subband": "UNII-8",
+      "regulatory": {"US": "LPI/SP/VLP tiers", "EU": "not allocated"},
+      "wpa3_only": true,
+      "notes": "US 6 GHz extends to channel 233 (7115 MHz). Channels enumerated here are illustrative anchors — see cheatsheet for the full 1–233 range."
+    }
+  }
+]
