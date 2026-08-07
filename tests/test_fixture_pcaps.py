@@ -184,7 +184,12 @@ def test_generator_is_deterministic(tmp_path: Path) -> None:
     import subprocess
     import sys
 
-    checked = ("beacon-open.pcap", "beacon-wpa2.pcap", "deauth-reason-7.pcap")
+    checked = (
+        "beacon-open.pcap",
+        "beacon-wpa2.pcap",
+        "deauth-reason-7.pcap",
+        "beacon-open.pcapng",
+    )
     before = {name: (FIXTURES / name).read_bytes() for name in checked}
     subprocess.run(
         [sys.executable, "scripts/generate-pcap-fixtures.py"],

@@ -224,6 +224,9 @@ def write_pcapng_beacon() -> None:
         / Dot11Elt(ID=0, info=b"open-net")
         / Dot11Elt(ID=3, info=b"\x06")
     )
+    # Fix pkt.time so PcapNgWriter's Enhanced Packet Block timestamp
+    # is deterministic across regenerations.
+    pkt.time = 0.0
     path = OUT / "beacon-open.pcapng"
     with PcapNgWriter(str(path)) as w:
         w.write(pkt)
