@@ -61,6 +61,7 @@ RECORD_FILES: dict[str, str] = {
     "chipset_vulns.json": "chipset_vuln",
     "client_fingerprints.json": "client_fingerprint",
     "default_psks.json": "default_psk",
+    "vendors.json": "vendor_profile",
 }
 
 
