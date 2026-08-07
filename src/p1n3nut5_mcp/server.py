@@ -181,6 +181,53 @@ async def pineap_config(
     return await _api_call("pineap_config", lambda a: a.pineap_config(cfg), config, api)
 
 
+async def pineap_beacon_add(
+    ssids: list[str],
+    config: Config | None = None,
+    api: pineapple_api.PineappleAPI | None = None,
+) -> dict:
+    return await _api_call(
+        "pineap_beacon_add", lambda a: a.pineap_beacon_add(ssids), config, api
+    )
+
+
+async def pineap_beacon_remove(
+    ssids: list[str],
+    config: Config | None = None,
+    api: pineapple_api.PineappleAPI | None = None,
+) -> dict:
+    return await _api_call(
+        "pineap_beacon_remove", lambda a: a.pineap_beacon_remove(ssids), config, api
+    )
+
+
+async def get_ap_details(
+    bssid: str,
+    config: Config | None = None,
+    api: pineapple_api.PineappleAPI | None = None,
+) -> dict:
+    """Return the single AP entry (from list_aps) keyed by BSSID.
+
+    Zero new endpoints — reuses `list_aps_raw` + `normalize_ap` and
+    filters to the target BSSID. If unseen, returns payload=null with
+    a warning; the caller can retry after another recon pass.
+    """
+    async def _factory(a: pineapple_api.PineappleAPI) -> dict:
+        raw = await a.list_aps_raw()
+        want = bssid.lower()
+        for x in raw["payload"]:
+            ap = recon.normalize_ap(x)
+            if ap["bssid"] == want:
+                return {"payload": ap, "warnings": raw["warnings"]}
+        return {
+            "payload": None,
+            "warnings": list(raw["warnings"])
+            + [f"bssid {bssid!r} not in current recon set — run recon_start first"],
+        }
+
+    return await _api_call("get_ap_details", _factory, config, api)
+
+
 # --- filters ----------------------------------------------------------------
 
 
@@ -590,6 +637,9 @@ def main() -> None:
         pineap_start,
         pineap_stop,
         pineap_config,
+        pineap_beacon_add,
+        pineap_beacon_remove,
+        get_ap_details,
         filter_ssid_list,
         filter_ssid_set,
         filter_client_list,

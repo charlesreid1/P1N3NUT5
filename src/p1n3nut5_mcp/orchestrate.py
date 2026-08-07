@@ -267,15 +267,36 @@ async def run_sequence(
 # --- call_log ---------------------------------------------------------------
 
 
-def call_log(ssh: PineappleSSH | None = None) -> list[dict]:
-    """Return the SSH call_log as JSON-serializable dicts.
+def call_log(
+    ssh: PineappleSSH | None = None,
+    api: PineappleAPI | None = None,
+) -> list[dict]:
+    """Merged SSH + API call log, ordered by wall-clock start time.
 
-    Extended in Phase 7+ to merge API + SSH calls once the API client
-    grows its own logger; for now the API layer is stateless per-call.
+    Each entry is a JSON-safe dict tagged with `transport`. SSH entries
+    carry the full command + exit status; API entries carry method +
+    path + status. Ordering is by `started_at` (monotonic timestamp
+    from the caller's perspective) so a post-engagement audit reads as
+    one timeline.
     """
-    if ssh is None:
-        return []
-    return [
-        {"cmd": r.cmd, "stdout": r.stdout, "stderr": r.stderr, "exit_status": r.exit_status}
-        for r in ssh.call_log
-    ]
+    entries: list[dict] = []
+    if ssh is not None:
+        for r in ssh.call_log:
+            entries.append(
+                {
+                    "transport": "ssh",
+                    "cmd": r.cmd,
+                    "stdout": r.stdout,
+                    "stderr": r.stderr,
+                    "exit_status": r.exit_status,
+                    "started_at": r.started_at,
+                    "timing_ms": r.timing_ms,
+                }
+            )
+    if api is not None:
+        for entry in api.call_log:
+            entries.append({"transport": "api", **entry})
+    # Sort by started_at if present; entries without it (SSH) keep their
+    # append order via a stable sort on a nullable key.
+    entries.sort(key=lambda e: e.get("started_at", float("inf")))
+    return entries

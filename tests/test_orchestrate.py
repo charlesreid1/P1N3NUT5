@@ -203,6 +203,39 @@ async def test_orchestrator_enforces_max_rogue_minutes_between_steps():
         _ROGUE_REGISTRY.clear()
 
 
+async def test_call_log_merges_transports():
+    """SSH + API calls surface in one ordered timeline."""
+    class Recorder(FakeSSHConn):
+        async def run(self, command: str, check: bool = False):
+            self.calls.append(command)
+            return FakeProcResult(stdout="", exit_status=0)
+
+    async def connect(cfg):
+        return Recorder({})
+
+    ssh = PineappleSSH(_cfg(), connect=connect)
+    api = PineappleAPI(_cfg(), client=make_httpx_client({"/api/status": {"ok": True}}))
+    try:
+        await ssh.run("iw dev")
+        await api.get("/api/status")
+        await ssh.run("uptime")
+
+        log = call_log(ssh=ssh, api=api)
+        # 3 entries, all with a transport tag
+        assert len(log) == 3
+        assert {e["transport"] for e in log} == {"ssh", "api"}
+        # ordering: ssh(iw dev) < api(/api/status) < ssh(uptime)
+        transports_in_order = [e["transport"] for e in log]
+        assert transports_in_order == ["ssh", "api", "ssh"]
+        # api entry preserves method/path/status
+        api_entry = next(e for e in log if e["transport"] == "api")
+        assert api_entry["method"] == "GET"
+        assert api_entry["path"] == "/api/status"
+        assert api_entry["status"] == 200
+    finally:
+        await api.aclose()
+
+
 async def test_run_sequence_module_entry_point():
     raw = json.loads((FIXTURES / "api" / "recon_ap.json").read_text())
     api = PineappleAPI(_cfg(), client=make_httpx_client({"/api/recon/ap": raw}))

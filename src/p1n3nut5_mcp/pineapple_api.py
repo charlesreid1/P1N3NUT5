@@ -36,30 +36,81 @@ class PineappleAPI:
             verify=False,  # self-signed on 172.16.42.1
             timeout=10.0,
         )
+        # Mirrors PineappleSSH._call_log — every get/post lands here so
+        # orchestrate.call_log() can merge the SSH + API timelines.
+        self._calls: list[dict] = []
+
+    @property
+    def call_log(self) -> list[dict]:
+        return list(self._calls)
 
     async def aclose(self) -> None:
         await self._client.aclose()
 
     async def get(self, path: str) -> tuple[Any, list[str]]:
         warnings: list[str] = []
+        started = time.monotonic()
         r = await self._client.get(path)
+        timing_ms = int((time.monotonic() - started) * 1000)
         if r.status_code == 401:
+            self._calls.append(
+                {
+                    "method": "GET",
+                    "path": path,
+                    "status": 401,
+                    "timing_ms": timing_ms,
+                    "started_at": started,
+                    "warnings": ["auth rejected"],
+                }
+            )
             raise PermissionError(
                 f"API auth rejected on {path} — check PINEAPPLE_TOKEN"
             )
         if r.status_code >= 400:
             warnings.append(f"HTTP {r.status_code} on {path}")
+        self._calls.append(
+            {
+                "method": "GET",
+                "path": path,
+                "status": r.status_code,
+                "timing_ms": timing_ms,
+                "started_at": started,
+                "warnings": list(warnings),
+            }
+        )
         return r.json(), warnings
 
     async def post(self, path: str, json: Any) -> tuple[Any, list[str]]:
         warnings: list[str] = []
+        started = time.monotonic()
         r = await self._client.post(path, json=json)
+        timing_ms = int((time.monotonic() - started) * 1000)
         if r.status_code == 401:
+            self._calls.append(
+                {
+                    "method": "POST",
+                    "path": path,
+                    "status": 401,
+                    "timing_ms": timing_ms,
+                    "started_at": started,
+                    "warnings": ["auth rejected"],
+                }
+            )
             raise PermissionError(
                 f"API auth rejected on {path} — check PINEAPPLE_TOKEN"
             )
         if r.status_code >= 400:
             warnings.append(f"HTTP {r.status_code} on {path}")
+        self._calls.append(
+            {
+                "method": "POST",
+                "path": path,
+                "status": r.status_code,
+                "timing_ms": timing_ms,
+                "started_at": started,
+                "warnings": list(warnings),
+            }
+        )
         return r.json(), warnings
 
     async def status(self) -> dict:
@@ -102,6 +153,18 @@ class PineappleAPI:
 
     async def list_associations_raw(self) -> dict:
         payload, warnings = await self.get("/api/pineap/associations")
+        return {"payload": payload, "warnings": warnings}
+
+    async def pineap_beacon_add(self, ssids: list[str]) -> dict:
+        payload, warnings = await self.post(
+            "/api/pineap/ssid/add", {"ssids": list(ssids)}
+        )
+        return {"payload": payload, "warnings": warnings}
+
+    async def pineap_beacon_remove(self, ssids: list[str]) -> dict:
+        payload, warnings = await self.post(
+            "/api/pineap/ssid/remove", {"ssids": list(ssids)}
+        )
         return {"payload": payload, "warnings": warnings}
 
     # --- PineAP -------------------------------------------------------------

@@ -72,6 +72,51 @@ async def test_filter_ssid_set(api_config: Config):
         await api.aclose()
 
 
+async def test_pineap_beacon_add_posts_ssids(api_config: Config):
+    api = _api_with_routes(api_config, {"/api/pineap/ssid/add": {"added": 2}})
+    try:
+        r = await server.pineap_beacon_add(["Starbucks WiFi", "attwifi"], api=api)
+        assert r["ok"] is True
+        assert r["payload"] == {"added": 2}
+    finally:
+        await api.aclose()
+
+
+async def test_pineap_beacon_remove_posts_ssids(api_config: Config):
+    api = _api_with_routes(api_config, {"/api/pineap/ssid/remove": {"removed": 1}})
+    try:
+        r = await server.pineap_beacon_remove(["stale-ssid"], api=api)
+        assert r["ok"] is True
+        assert r["payload"] == {"removed": 1}
+    finally:
+        await api.aclose()
+
+
+async def test_get_ap_details_filters_list_aps(api_config: Config):
+    raw = json.loads((FIXTURES / "api" / "recon_ap.json").read_text())
+    api = _api_with_routes(api_config, {"/api/recon/ap": raw})
+    try:
+        # Target the first BSSID in the fixture.
+        target = raw[0]["bssid"].lower()
+        r = await server.get_ap_details(bssid=target, api=api)
+        assert r["ok"] is True
+        assert r["payload"]["bssid"] == target
+    finally:
+        await api.aclose()
+
+
+async def test_get_ap_details_warns_when_missing(api_config: Config):
+    raw = json.loads((FIXTURES / "api" / "recon_ap.json").read_text())
+    api = _api_with_routes(api_config, {"/api/recon/ap": raw})
+    try:
+        r = await server.get_ap_details(bssid="00:00:00:00:00:00", api=api)
+        assert r["ok"] is True
+        assert r["payload"] is None
+        assert any("not in current recon set" in w for w in r["warnings"])
+    finally:
+        await api.aclose()
+
+
 async def test_list_associations_pulls_from_pineap_endpoint(api_config: Config):
     payload = [
         {"mac": "aa:bb:cc:dd:ee:ff", "bssid": "00:c0:ca:12:34:56", "since": 100},

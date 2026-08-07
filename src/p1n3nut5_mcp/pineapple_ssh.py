@@ -56,6 +56,8 @@ class RunResult:
     stdout: str
     stderr: str
     exit_status: int
+    started_at: float = 0.0
+    timing_ms: int = 0
 
 
 class PineappleSSH:
@@ -87,12 +89,16 @@ class PineappleSSH:
 
     async def run(self, cmd: str) -> RunResult:
         conn = await self._ensure()
+        started = time.monotonic()
         r = await conn.run(cmd, check=False)
+        timing_ms = int((time.monotonic() - started) * 1000)
         result = RunResult(
             cmd=cmd,
             stdout=r.stdout or "",
             stderr=r.stderr or "",
             exit_status=r.exit_status if r.exit_status is not None else -1,
+            started_at=started,
+            timing_ms=timing_ms,
         )
         self._call_log.append(result)
         return result

@@ -69,54 +69,74 @@ refuses; you should not either.
 
 ### Act — Pineapple recon (API-preferred)
 
-- `pineapple_status()`, `list_interfaces()`
-- `recon_start(band, dwell_ms, hop_pattern?)`, `recon_stop()`,
-  `recon_status()`, `recon_download(path?)`
+- `pineapple_status()`, `do_list_interfaces()`
+- `recon_start(band, dwell_ms)`, `recon_stop()`, `recon_status()`
 - `list_aps(seen_since_s?, ssid_regex?, band?, security?)`
-- `list_clients(ap_bssid?, seen_since_s?)`
-- `list_probe_requests(client_mac?, since_s?)`
-- `list_associations(bssid?, client_mac?)`
-- `client_history(client_mac)`, `get_ap_details(bssid)`
+- `list_clients()`, `list_probe_requests()`
+- `list_associations()`
+- `get_ap_details(bssid)` — filter list_aps to one BSSID
 
 ### Act — PineAP (API)
 
 - `pineap_status()` / `pineap_start()` / `pineap_stop()`
 - `pineap_config({ssid_pool[], karma?, log_probes?, ...})`
 - `pineap_beacon_add(ssids[])` / `pineap_beacon_remove(ssids[])`
-- `filter_ssid_list(mode)` / `filter_ssid_set(mode, ssids[])`
-- `filter_client_list(mode)` / `filter_client_set(mode, macs[])`
+- `filter_ssid_list()` / `filter_ssid_set(mode, ssids[])`
+- `filter_client_list()` / `filter_client_set(mode, macs[])`
 
-### Act — rogue AP & captive portal (SSH-driven hostapd)
+### Act — rogue AP (SSH-driven hostapd)
 
-- `create_rogue_ap({ssid, bssid?, channel, band, security, ...})`
-- `list_rogue_aps()`, `stop_rogue_ap(handle)`
-- `evil_twin(target_bssid, options?)`
-- `serve_captive_portal(handle, template, backend?)`
-- `rogue_radius({user_realm?, response_policy})`
+- `do_create_rogue_ap({ssid, bssid?, channel, band, security, ...})`
+- `do_list_rogue_aps()`, `do_stop_rogue_ap(handle)`,
+  `do_stop_all_rogue_aps()`, `enforce_rogue_limits()`
+- `do_evil_twin(target_bssid, target_ssid, target_channel, ...)`
 
 ### Act — attack primitives (SSH)
 
-- `deauth({bssid, client_mac?, count, reason, iface, respect_pmf})`
-- `capture_handshake({bssid, timeout_s, out_path?, deauth_client?})`
-- `capture_pmkid({bssid?, timeout_s, out_path?})`
-- `beacon_flood`, `probe_flood`, `packet_inject`, `channel_hop_*`,
-  `client_disassoc`
+- `do_deauth({bssid, client_mac?, count, reason, iface, respect_pmf})`
+- `do_capture_handshake({bssid, timeout_s, out_path?, deauth_client?})`
+- `do_capture_pmkid({bssid?, timeout_s, out_path?})`
+- `do_beacon_flood({iface, ssid_file, channel?, duration_s?})`
+- `do_packet_inject({pcap_path, iface, count, interval_ms})`
+- `do_channel_hop_start({iface, channels[], dwell_ms})` /
+  `do_channel_hop_stop(handle)`
 
 ### Perceive — capture analysis
 
 - `parse_pcap(path)`
-- `extract_handshakes(pcap_path)`, `extract_pmkids(pcap_path)`
-- `convert_to_hashcat(pcap_path, mode=22000|2500, out_path?)`
+- `extract_handshakes(pcap_path, out_path)`,
+  `extract_pmkids(pcap_path, out_path)`
+- `convert_to_hashcat(pcap_path, out_path)`
 - `crack_start(...)` / `crack_status` / `crack_result` / `crack_stop`
-- `decode_ies(bssid_or_pcap)`, `beacon_diff(bssid_a, bssid_b)`
-- `client_fingerprint(client_mac)`
+- `decode_ies(pcap_path)`, `beacon_diff(bssid_a, bssid_b, pcap_path)`,
+  `client_fingerprint(client_mac, pcap_path)` — pcap-analysis tools;
+  scapy-backed.
 
 ### Orchestrate
 
 - `run_sequence(steps)` — the WiFi analog of PHR34CKER5's
   `play_sequence`. Composes recon → PineAP → attack → perceive →
-  crack into one call.
-- `call_log(session_id)` — full timeline with transport used.
+  crack into one call. Fires `enforce_rogue_limits` between steps
+  whenever `MAX_ROGUE_MINUTES > 0`.
+- `call_log(ssh?, api?)` — merged SSH + API timeline for
+  post-engagement audit.
+
+### Deferred — Phase L7+
+
+Named in past drafts, not implemented and not planned for this
+last-mile pass. Do not hallucinate these as callable:
+
+- `serve_captive_portal` — captive-portal template engine; a project
+  by itself.
+- `rogue_radius` — full hostapd-wpe / eaphammer integration; a
+  project by itself. `create_rogue_ap(security="wpa2_eap")` raises
+  `NotImplementedError` citing this section.
+- `client_history` — historical client tracking beyond
+  `list_probe_requests` + `list_clients`.
+- `recon_download` — subsumed by `list_aps` result payload.
+- `probe_flood` — subsumed by `pineap_config` probe pool.
+- `client_disassoc` — subsumed by `do_deauth` with a unicast
+  `client_mac`.
 
 ## The API-vs-SSH split — the one thing to remember
 
