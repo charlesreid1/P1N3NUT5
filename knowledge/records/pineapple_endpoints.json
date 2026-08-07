@@ -4,12 +4,20 @@
     "name": "pineapple_status — device reachable / firmware / uptime / radios",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "status",
-    "transports": ["api", "ssh"],
+    "transports": [
+      "api",
+      "ssh"
+    ],
     "primary": "api",
     "api": {
       "method": "GET",
@@ -30,12 +38,20 @@
     "name": "list_aps — enumerate APs from recon DB",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "list_aps",
-    "transports": ["api", "ssh"],
+    "transports": [
+      "api",
+      "ssh"
+    ],
     "primary": "api",
     "api": {
       "method": "GET",
@@ -59,12 +75,19 @@
     "name": "recon_start — begin a scan",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "recon_start",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
     "api": {
       "method": "POST",
@@ -80,13 +103,23 @@
     "name": "pineap_config — SSID pool + karma toggles",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
-    "see_also": ["pineap-active-karma", "pineap-ssid-pool-broadcast"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "see_also": [
+      "pineap-active-karma",
+      "pineap-ssid-pool-broadcast"
+    ],
     "capability": "pineap_config",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
     "api": {
       "method": "POST",
@@ -102,12 +135,19 @@
     "name": "filter_ssid_set — allow/deny SSID list",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "filter_ssid_list",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
     "api": {
       "method": "POST",
@@ -123,13 +163,25 @@
     "name": "deauth — send deauthentication frames",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs", "aircrack-ng-docs"],
-    "see_also": ["deauth-broadcast", "deauth-targeted", "std-802-11w"],
+    "citations": [
+      "hak5-mk7-docs",
+      "aircrack-ng-docs"
+    ],
+    "see_also": [
+      "deauth-broadcast",
+      "deauth-targeted",
+      "std-802-11w"
+    ],
     "capability": "deauth",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
     "ssh": {
       "cmd": "aireplay-ng -0 <count> -a <bssid> [-c <client>] <iface>",
@@ -145,13 +197,24 @@
     "name": "capture_handshake — 4-way capture with optional targeted deauth",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs", "aircrack-ng-docs"],
-    "see_also": ["wpa2-4way-capture", "frame-eapol-key"],
+    "citations": [
+      "hak5-mk7-docs",
+      "aircrack-ng-docs"
+    ],
+    "see_also": [
+      "wpa2-4way-capture",
+      "frame-eapol-key"
+    ],
     "capability": "capture_handshake",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
     "ssh": {
       "cmd": "airodump-ng -c <channel> --bssid <bssid> -w <out> <iface>",
@@ -166,13 +229,23 @@
     "name": "capture_pmkid — hcxdumptool PMKID capture",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2018", null],
+    "era_bounds": [
+      "2018",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hcxtools", "steube-pmkid-2018"],
-    "see_also": ["pmkid-capture"],
+    "citations": [
+      "hcxtools",
+      "steube-pmkid-2018"
+    ],
+    "see_also": [
+      "pmkid-capture"
+    ],
     "capability": "capture_pmkid",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
     "ssh": {
       "cmd": "hcxdumptool -i <iface> -o <out.pcapng> --enable_status=1 [--filter=<bssidlist>]",
@@ -188,13 +261,23 @@
     "name": "create_rogue_ap — spin up an hostapd rogue AP",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
-    "see_also": ["evil-twin-clone", "captive-portal-cred-capture"],
+    "citations": [
+      "hostapd-docs"
+    ],
+    "see_also": [
+      "evil-twin-clone",
+      "captive-portal-cred-capture"
+    ],
     "capability": "create_rogue_ap",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
     "ssh": {
       "cmd": "hostapd -B /tmp/rogue-<ssid>.conf",
@@ -210,14 +293,25 @@
     "name": "recon_stop — halt an ongoing scan",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "recon_stop",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/recon/stop", "auth_scope": "recon.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/recon/stop",
+      "auth_scope": "recon.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -226,14 +320,25 @@
     "name": "recon_status — is recon running, on what channels",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "recon_status",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/recon/status", "auth_scope": "recon.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/status",
+      "auth_scope": "recon.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -242,12 +347,19 @@
     "name": "list_clients — enumerate clients seen in recon",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "list_clients",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
     "api": {
       "method": "GET",
@@ -263,14 +375,25 @@
     "name": "list_probe_requests — client probe history",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "list_probe_requests",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/recon/probe", "auth_scope": "recon.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/probe",
+      "auth_scope": "recon.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "notes": "Load-bearing for hidden-SSID reveal + karma target selection."
@@ -280,14 +403,25 @@
     "name": "list_associations — associate/disassociate events",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "list_associations",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/recon/association", "auth_scope": "recon.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/association",
+      "auth_scope": "recon.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -296,14 +430,25 @@
     "name": "client_history — client trajectory + preferred networks",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "client_history",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/recon/client/history", "auth_scope": "recon.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/client/history",
+      "auth_scope": "recon.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -312,14 +457,25 @@
     "name": "get_ap_details — full IE dump for a BSSID",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "get_ap_details",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/recon/ap/{bssid}", "auth_scope": "recon.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/ap/{bssid}",
+      "auth_scope": "recon.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -328,15 +484,30 @@
     "name": "recon_download — pull recon DB as a file",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "recon_download",
-    "transports": ["api", "ssh"],
+    "transports": [
+      "api",
+      "ssh"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/recon/download", "auth_scope": "recon.read"},
-    "ssh": {"cmd": "scp root@<host>:/etc/pineapple/recon.db <local>", "requires_root": true},
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/download",
+      "auth_scope": "recon.read"
+    },
+    "ssh": {
+      "cmd": "scp root@<host>:/etc/pineapple/recon.db <local>",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -345,14 +516,25 @@
     "name": "list_interfaces — wlanX name / MAC / mode / band",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "list_interfaces",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "iw dev", "requires_root": true, "requires_monitor": false},
+    "ssh": {
+      "cmd": "iw dev",
+      "requires_root": true,
+      "requires_monitor": false
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -361,14 +543,25 @@
     "name": "pineap_status — is PineAP running",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "pineap_status",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/pineap/status", "auth_scope": "pineap.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/pineap/status",
+      "auth_scope": "pineap.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -377,14 +570,25 @@
     "name": "pineap_start — start PineAP",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "pineap_start",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/pineap/start", "auth_scope": "pineap.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/start",
+      "auth_scope": "pineap.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting once karma or ssid_pool broadcast is on."
@@ -394,14 +598,25 @@
     "name": "pineap_stop — stop PineAP",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "pineap_stop",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/pineap/stop", "auth_scope": "pineap.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/stop",
+      "auth_scope": "pineap.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -410,15 +625,29 @@
     "name": "pineap_beacon_add — add SSIDs to broadcast pool",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
-    "see_also": ["pineap-ssid-pool-broadcast", "karma-known-beacons"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "see_also": [
+      "pineap-ssid-pool-broadcast",
+      "karma-known-beacons"
+    ],
     "capability": "pineap_beacon_add",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/pineap/pool/add", "auth_scope": "pineap.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/pool/add",
+      "auth_scope": "pineap.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -427,14 +656,25 @@
     "name": "pineap_beacon_remove — remove SSIDs from broadcast pool",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "pineap_beacon_remove",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/pineap/pool/remove", "auth_scope": "pineap.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/pool/remove",
+      "auth_scope": "pineap.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -443,14 +683,25 @@
     "name": "pineap_beacon_pool_list — current SSID pool",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "pineap_beacon_pool_list",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/pineap/pool", "auth_scope": "pineap.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/pineap/pool",
+      "auth_scope": "pineap.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -459,12 +710,19 @@
     "name": "filter_client_set — allow/deny client MAC list",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "filter_client_list",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
     "api": {
       "method": "POST",
@@ -480,14 +738,24 @@
     "name": "list_rogue_aps — every rogue AP this MCP instance is running",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
+    "citations": [
+      "hostapd-docs"
+    ],
     "capability": "list_rogue_aps",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "pgrep -a hostapd", "requires_root": true},
+    "ssh": {
+      "cmd": "pgrep -a hostapd",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -496,14 +764,24 @@
     "name": "stop_rogue_ap — tear down a rogue by handle",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
+    "citations": [
+      "hostapd-docs"
+    ],
     "capability": "stop_rogue_ap",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "kill $(cat /tmp/rogue-<handle>.pid)", "requires_root": true},
+    "ssh": {
+      "cmd": "kill $(cat /tmp/rogue-<handle>.pid)",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -512,15 +790,27 @@
     "name": "evil_twin — clone SSID+BSSID+channel of a target AP",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
-    "see_also": ["evil-twin-clone"],
+    "citations": [
+      "hostapd-docs"
+    ],
+    "see_also": [
+      "evil-twin-clone"
+    ],
     "capability": "evil_twin",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "hostapd + aireplay-ng deauth compound; see attacks.py:evil_twin", "requires_root": true},
+    "ssh": {
+      "cmd": "hostapd + aireplay-ng deauth compound; see attacks.py:evil_twin",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -530,15 +820,27 @@
     "name": "serve_captive_portal — bring up DHCP/DNS/HTTP portal",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
-    "see_also": ["captive-portal-cred-capture"],
+    "citations": [
+      "hostapd-docs"
+    ],
+    "see_also": [
+      "captive-portal-cred-capture"
+    ],
     "capability": "serve_captive_portal",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "dnsmasq + nginx + evil-portal module", "requires_root": true},
+    "ssh": {
+      "cmd": "dnsmasq + nginx + evil-portal module",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -548,15 +850,29 @@
     "name": "rogue_radius — spin up a rogue RADIUS for EAP capture",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-wpe", "gabrielryan-eaphammer"],
-    "see_also": ["rogue-radius-hostapd-wpe", "rogue-radius-eaphammer"],
+    "citations": [
+      "hostapd-wpe",
+      "gabrielryan-eaphammer"
+    ],
+    "see_also": [
+      "rogue-radius-hostapd-wpe",
+      "rogue-radius-eaphammer"
+    ],
     "capability": "rogue_radius",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "hostapd-wpe or eaphammer", "requires_root": true},
+    "ssh": {
+      "cmd": "hostapd-wpe or eaphammer",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -566,15 +882,28 @@
     "name": "beacon_flood — mdk4 mode b",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs"],
-    "see_also": ["beacon-flood-mdk4"],
+    "citations": [
+      "aircrack-ng-docs"
+    ],
+    "see_also": [
+      "beacon-flood-mdk4"
+    ],
     "capability": "beacon_flood",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "mdk4 <iface> b -f <ssidlist>", "requires_root": true, "requires_monitor": true},
+    "ssh": {
+      "cmd": "mdk4 <iface> b -f <ssidlist>",
+      "requires_root": true,
+      "requires_monitor": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -584,15 +913,28 @@
     "name": "probe_flood — mdk4 mode p",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs"],
-    "see_also": ["probe-flood-mdk4"],
+    "citations": [
+      "aircrack-ng-docs"
+    ],
+    "see_also": [
+      "probe-flood-mdk4"
+    ],
     "capability": "probe_flood",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "mdk4 <iface> p -f <ssidlist>", "requires_root": true, "requires_monitor": true},
+    "ssh": {
+      "cmd": "mdk4 <iface> p -f <ssidlist>",
+      "requires_root": true,
+      "requires_monitor": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -602,15 +944,28 @@
     "name": "packet_inject — raw frame injection (hex or pcap)",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs"],
-    "see_also": ["packet-inject-arbitrary"],
+    "citations": [
+      "aircrack-ng-docs"
+    ],
+    "see_also": [
+      "packet-inject-arbitrary"
+    ],
     "capability": "packet_inject",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "scapy sendp or aireplay-ng -9 on iface", "requires_root": true, "requires_monitor": true},
+    "ssh": {
+      "cmd": "scapy sendp or aireplay-ng -9 on iface",
+      "requires_root": true,
+      "requires_monitor": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -620,14 +975,24 @@
     "name": "channel_hop_start — begin hopping on iface",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs"],
+    "citations": [
+      "aircrack-ng-docs"
+    ],
     "capability": "channel_hop_start",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "airmon-ng or `iw dev <iface> set channel <n>` in a loop", "requires_root": true},
+    "ssh": {
+      "cmd": "airmon-ng or `iw dev <iface> set channel <n>` in a loop",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -636,14 +1001,24 @@
     "name": "channel_hop_stop — halt hopper",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs"],
+    "citations": [
+      "aircrack-ng-docs"
+    ],
     "capability": "channel_hop_stop",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "kill hopper pid", "requires_root": true},
+    "ssh": {
+      "cmd": "kill hopper pid",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -652,15 +1027,30 @@
     "name": "client_disassoc — targeted disassoc (Kr00k trigger)",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs", "eset-kr00k-2020"],
-    "see_also": ["disassoc-targeted", "kr00k-broadcom-cve-2019-15126"],
+    "citations": [
+      "aircrack-ng-docs",
+      "eset-kr00k-2020"
+    ],
+    "see_also": [
+      "disassoc-targeted",
+      "kr00k-broadcom-cve-2019-15126"
+    ],
     "capability": "client_disassoc",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "aireplay-ng --disassoc <count> -a <bssid> -c <client> <iface>", "requires_root": true, "requires_monitor": true},
+    "ssh": {
+      "cmd": "aireplay-ng --disassoc <count> -a <bssid> -c <client> <iface>",
+      "requires_root": true,
+      "requires_monitor": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "caveat": "Transmitting."
@@ -670,14 +1060,25 @@
     "name": "list_modules — installed Pineapple modules",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "list_modules",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/modules", "auth_scope": "modules.read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/modules",
+      "auth_scope": "modules.read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -686,14 +1087,25 @@
     "name": "install_module — install a community module",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "install_module",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/modules/install", "auth_scope": "modules.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/modules/install",
+      "auth_scope": "modules.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -702,14 +1114,25 @@
     "name": "uninstall_module",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "uninstall_module",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "POST", "path": "/api/modules/uninstall", "auth_scope": "modules.write"},
+    "api": {
+      "method": "POST",
+      "path": "/api/modules/uninstall",
+      "auth_scope": "modules.write"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -718,14 +1141,25 @@
     "name": "dashboard — device summary + connection state",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "dashboard",
-    "transports": ["api"],
+    "transports": [
+      "api"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/dashboard", "auth_scope": "read"},
+    "api": {
+      "method": "GET",
+      "path": "/api/dashboard",
+      "auth_scope": "read"
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -734,14 +1168,24 @@
     "name": "logs — tail /tmp/log/*",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "logs",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "logread -f", "requires_root": true},
+    "ssh": {
+      "cmd": "logread -f",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -750,15 +1194,30 @@
     "name": "firmware_version — running firmware string",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "firmware_version",
-    "transports": ["api", "ssh"],
+    "transports": [
+      "api",
+      "ssh"
+    ],
     "primary": "api",
-    "api": {"method": "GET", "path": "/api/system/version", "auth_scope": "read"},
-    "ssh": {"cmd": "cat /etc/pineapple/version", "requires_root": true},
+    "api": {
+      "method": "GET",
+      "path": "/api/system/version",
+      "auth_scope": "read"
+    },
+    "ssh": {
+      "cmd": "cat /etc/pineapple/version",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -767,14 +1226,24 @@
     "name": "wpa_supplicant_connect — join a target network as STA (post-crack)",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
+    "citations": [
+      "hostapd-docs"
+    ],
     "capability": "wpa_supplicant_connect",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "wpa_supplicant -B -i <iface> -c /tmp/target.conf", "requires_root": true},
+    "ssh": {
+      "cmd": "wpa_supplicant -B -i <iface> -c /tmp/target.conf",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "notes": "Last-mile validation that a cracked PSK is real; scope-stop before LAN pivot."
@@ -784,14 +1253,24 @@
     "name": "scp_pull — pull a file (usually a pcap) back to the operator",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "scp_pull",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "scp root@<host>:<path> <local>", "requires_root": false},
+    "ssh": {
+      "cmd": "scp root@<host>:<path> <local>",
+      "requires_root": false
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -800,14 +1279,24 @@
     "name": "scp_push — upload a file to the Pineapple",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
+    "citations": [
+      "hak5-mk7-docs"
+    ],
     "capability": "scp_push",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "scp <local> root@<host>:<path>", "requires_root": false},
+    "ssh": {
+      "cmd": "scp <local> root@<host>:<path>",
+      "requires_root": false
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "notes": "How hostapd.conf, wordlists, and portal templates land on the device."
@@ -817,14 +1306,24 @@
     "name": "uci_get — read an OpenWRT UCI value",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["openwrt-uci-docs"],
+    "citations": [
+      "openwrt-uci-docs"
+    ],
     "capability": "uci_get",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "uci get <section>.<option>", "requires_root": true},
+    "ssh": {
+      "cmd": "uci get <section>.<option>",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
@@ -833,14 +1332,24 @@
     "name": "uci_set — write an OpenWRT UCI value",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["openwrt-uci-docs"],
+    "citations": [
+      "openwrt-uci-docs"
+    ],
     "capability": "uci_set",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "uci set <section>.<option>=<value>; uci commit <section>", "requires_root": true},
+    "ssh": {
+      "cmd": "uci set <section>.<option>=<value>; uci commit <section>",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "notes": "wifi reload is often needed after wireless config changes."
@@ -850,189 +1359,52 @@
     "name": "wifi_reload — reload wireless config",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["openwrt-uci-docs"],
+    "citations": [
+      "openwrt-uci-docs"
+    ],
     "capability": "wifi_reload",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "wifi reload", "requires_root": true},
+    "ssh": {
+      "cmd": "wifi reload",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null
-  },
-  {
-    "id": "pep-call-log",
-    "name": "call_log — session-scoped API+SSH history",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
-    "capability": "call_log",
-    "transports": ["api", "ssh"],
-    "primary": "api",
-    "notes": "Purely local — not backed by a Pineapple endpoint. Every tool call the MCP makes is appended to the session's call_log; retrieval is via the MCP itself, not the device."
-  },
-  {
-    "id": "pep-run-sequence",
-    "name": "run_sequence — atomic scripted engagement",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hak5-mk7-docs"],
-    "capability": "run_sequence",
-    "transports": ["api", "ssh"],
-    "primary": "api",
-    "notes": "Meta-endpoint — composes any of the endpoints above into one call. See plan-organize.md § Orchestrate."
   },
   {
     "id": "pep-sweep-teardown",
     "name": "sweep_teardown — auto-teardown of rogue APs past MAX_ROGUE_MINUTES",
     "category": "pineapple_endpoint",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["hostapd-docs"],
+    "citations": [
+      "hostapd-docs"
+    ],
     "capability": "sweep_teardown",
-    "transports": ["ssh"],
+    "transports": [
+      "ssh"
+    ],
     "primary": "ssh",
-    "ssh": {"cmd": "pkill hostapd for rogues past the ttl", "requires_root": true},
+    "ssh": {
+      "cmd": "pkill hostapd for rogues past the ttl",
+      "requires_root": true
+    },
     "firmware_min": "3.0.0",
     "firmware_max": null,
     "notes": "The MAX_ROGUE_MINUTES env-var guardrail — see plan-organize.md."
-  },
-  {
-    "id": "pep-decode-ies",
-    "name": "decode_ies — human-readable IE breakdown",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "capability": "decode_ies",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local MCP tool — expands recon-DB IE bytes into named fields."
-  },
-  {
-    "id": "pep-beacon-diff",
-    "name": "beacon_diff — highlight IE differences between two BSSIDs",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["evil-twin-clone", "def-wids-evil-twin-bssid-diff"],
-    "capability": "beacon_diff",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local. Perfect for evil-twin-farm triage."
-  },
-  {
-    "id": "pep-client-fingerprint",
-    "name": "client_fingerprint — vendor + OS guess from probe IEs",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "capability": "client_fingerprint",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — cross-references client_fingerprints.json."
-  },
-  {
-    "id": "pep-parse-pcap",
-    "name": "parse_pcap — frame histogram + BSSID/SSID/client enumeration",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "capability": "parse_pcap",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — runs on the MCP host, not the Pineapple."
-  },
-  {
-    "id": "pep-extract-handshakes",
-    "name": "extract_handshakes — WPA*02 lines via hcxpcapngtool",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hcxtools"],
-    "see_also": ["wpa2-4way-capture", "hashcat-mode-22000"],
-    "capability": "extract_handshakes",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — invokes hcxpcapngtool."
-  },
-  {
-    "id": "pep-extract-pmkids",
-    "name": "extract_pmkids — WPA*01 lines via hcxpcapngtool",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hcxtools", "steube-pmkid-2018"],
-    "see_also": ["pmkid-capture", "hashcat-mode-22000"],
-    "capability": "extract_pmkids",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — invokes hcxpcapngtool."
-  },
-  {
-    "id": "pep-convert-to-hashcat",
-    "name": "convert_to_hashcat — combined 22000 conversion",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hcxtools", "hashcat-modes"],
-    "capability": "convert_to_hashcat",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — invokes hcxpcapngtool with either mode 22000 or legacy 2500."
-  },
-  {
-    "id": "pep-crack-start",
-    "name": "crack_start — kick off local hashcat",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hashcat-modes"],
-    "capability": "crack_start",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — spawns a hashcat job on the MCP host GPU."
-  },
-  {
-    "id": "pep-crack-status",
-    "name": "crack_status / crack_result / crack_stop",
-    "category": "pineapple_endpoint",
-    "region": "universal",
-    "era_bounds": ["2020", null],
-    "still_effective_2026": true,
-    "confidence": "primary",
-    "citations": ["hashcat-modes"],
-    "capability": "crack_status",
-    "transports": ["api"],
-    "primary": "api",
-    "notes": "Local — poll or fetch results from a running crack job by id."
   }
 ]

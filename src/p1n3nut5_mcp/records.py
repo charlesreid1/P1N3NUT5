@@ -53,6 +53,7 @@ RECORD_FILES: dict[str, str] = {
     "cves.json": "cve",
     "attacks.json": "attack",
     "pineapple_endpoints.json": "pineapple_endpoint",
+    "local_operations.json": "local_operation",
     "openwrt_uci.json": "openwrt_uci",
     "defense_and_detection.json": "defense_and_detection",
     "karma_family.json": "karma_family",

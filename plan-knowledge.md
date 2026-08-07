@@ -138,6 +138,14 @@ directory or a category tag on records):
 - `hashcat_mode` — mode number, capture format, source tool
 - `pineapple_endpoint` — canonical Mark VII API + SSH capability records
   (see `plan-organize.md` transport section)
+- `local_operation` — MCP-host operations that run against a downloaded
+  pcap or a locally-spawned crack job, not a Pineapple call. `transport:
+  "analysis"`; no `firmware_min`. Split from `pineapple_endpoint` so the
+  "100% of pineapple_endpoints have `firmware_min`" acceptance criterion
+  holds unambiguously. Records: `parse_pcap`, `decode_ies`, `beacon_diff`,
+  `client_fingerprint`, `extract_handshakes`, `extract_pmkids`,
+  `convert_to_hashcat`, `crack_start / crack_status`, `call_log`,
+  `run_sequence` (meta-composer).
 - `openwrt_uci` — UCI section names, options, defaults, side effects
 - `defense_and_detection` — 802.11w PMF, MFP, WIDS/WIPS, rogue-AP
   detection heuristics, deauth-flood detection, evil-twin

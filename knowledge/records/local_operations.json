@@ -1,0 +1,260 @@
+[
+  {
+    "id": "pep-call-log",
+    "name": "call_log — session-scoped API+SSH history",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "call_log",
+    "transports": [
+      "api",
+      "ssh"
+    ],
+    "primary": "api",
+    "notes": "Purely local — not backed by a Pineapple endpoint. Every tool call the MCP makes is appended to the session's call_log; retrieval is via the MCP itself, not the device.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-run-sequence",
+    "name": "run_sequence — atomic scripted engagement",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "run_sequence",
+    "transports": [
+      "api",
+      "ssh"
+    ],
+    "primary": "api",
+    "notes": "Meta-endpoint — composes any of the endpoints above into one call. See plan-organize.md § Orchestrate.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-decode-ies",
+    "name": "decode_ies — human-readable IE breakdown",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "capability": "decode_ies",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local MCP tool — expands recon-DB IE bytes into named fields.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-beacon-diff",
+    "name": "beacon_diff — highlight IE differences between two BSSIDs",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "evil-twin-clone",
+      "def-wids-evil-twin-bssid-diff"
+    ],
+    "capability": "beacon_diff",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local. Perfect for evil-twin-farm triage.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-client-fingerprint",
+    "name": "client_fingerprint — vendor + OS guess from probe IEs",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "capability": "client_fingerprint",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — cross-references client_fingerprints.json.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-parse-pcap",
+    "name": "parse_pcap — frame histogram + BSSID/SSID/client enumeration",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "capability": "parse_pcap",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — runs on the MCP host, not the Pineapple.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-extract-handshakes",
+    "name": "extract_handshakes — WPA*02 lines via hcxpcapngtool",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hcxtools"
+    ],
+    "see_also": [
+      "wpa2-4way-capture",
+      "hashcat-mode-22000"
+    ],
+    "capability": "extract_handshakes",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — invokes hcxpcapngtool.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-extract-pmkids",
+    "name": "extract_pmkids — WPA*01 lines via hcxpcapngtool",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hcxtools",
+      "steube-pmkid-2018"
+    ],
+    "see_also": [
+      "pmkid-capture",
+      "hashcat-mode-22000"
+    ],
+    "capability": "extract_pmkids",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — invokes hcxpcapngtool.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-convert-to-hashcat",
+    "name": "convert_to_hashcat — combined 22000 conversion",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hcxtools",
+      "hashcat-modes"
+    ],
+    "capability": "convert_to_hashcat",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — invokes hcxpcapngtool with either mode 22000 or legacy 2500.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-crack-start",
+    "name": "crack_start — kick off local hashcat",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hashcat-modes"
+    ],
+    "capability": "crack_start",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — spawns a hashcat job on the MCP host GPU.",
+    "transport": "analysis"
+  },
+  {
+    "id": "pep-crack-status",
+    "name": "crack_status / crack_result / crack_stop",
+    "category": "local_operation",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hashcat-modes"
+    ],
+    "capability": "crack_status",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "notes": "Local — poll or fetch results from a running crack job by id.",
+    "transport": "analysis"
+  }
+]
