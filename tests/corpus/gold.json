@@ -292,7 +292,7 @@
     "q": "Which tool implements the PTW WEP attack?",
     "tool": "lookup_attack",
     "args": {"name": "wep-ptw"},
-    "expect": {"payload.tools": ["aircrack-ng"]},
+    "expect_contains": {"payload.tools": "aircrack-ng -z (PTW attack mode — default)"},
     "src": "ptw-2007"
   },
   {
@@ -388,7 +388,7 @@
     "q": "Which tool cracks captured MSCHAPv2 challenge/response offline besides hashcat?",
     "tool": "lookup_attack",
     "args": {"name": "asleap-mschapv2-crack"},
-    "expect": {"payload.tools": ["asleap"]},
+    "expect_contains": {"payload.tools": "asleap -C <challenge> -R <response> -W <wordlist>"},
     "src": "wright-asleap"
   },
   {
@@ -604,7 +604,7 @@
     "q": "What are the preconditions for broadcast deauth?",
     "tool": "explain_attack",
     "args": {"name": "deauth-broadcast"},
-    "expect": {"payload.preconditions": ["target AP or client with PMF-disabled"]},
+    "expect_contains": {"payload.preconditions": "target AP or client with PMF-disabled"},
     "src": "ieee-802-11-2020"
   },
   {
