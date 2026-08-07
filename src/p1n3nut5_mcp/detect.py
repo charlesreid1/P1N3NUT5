@@ -113,8 +113,16 @@ def parse_pcap(path: str) -> PcapSummary:
 
         if ftype == 0:  # management
             bssids.add(addr3)
-            if addr2 != addr3:
+            # addr2 is the sender. In beacons that is the AP (== addr3),
+            # in probe requests / assoc requests it is the client.
+            if addr2 != addr3 and not _is_broadcast(addr2):
                 clients.add(addr2)
+            # addr1 is the destination. In probe responses + deauth /
+            # disassoc / assoc responses from the AP, addr1 is the
+            # unicast client. Broadcast destinations (beacon, broadcast
+            # probe request) don't count.
+            if addr1 != addr3 and not _is_broadcast(addr1):
+                clients.add(addr1)
             if subtype in (0x8, 0x5):  # beacon, probe response
                 ssid = _ssid_from_beacon(pkt)
                 if ssid:
@@ -146,6 +154,10 @@ def _radiotap_len(frame: bytes) -> int:
 
 def _mac(b: bytes) -> str:
     return ":".join(f"{x:02x}" for x in b)
+
+
+def _is_broadcast(mac: str) -> bool:
+    return mac == "ff:ff:ff:ff:ff:ff"
 
 
 def _ssid_from_beacon(pkt: bytes) -> str | None:
