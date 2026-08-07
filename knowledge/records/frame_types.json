@@ -1,0 +1,277 @@
+[
+  {
+    "id": "frame-mgmt-beacon",
+    "name": "Beacon frame (mgmt/subtype 8)",
+    "aliases": ["beacon"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 8,
+      "type_name": "management",
+      "protected_by_pmf": false,
+      "purpose": "AP announces itself. Timestamp, beacon interval, capability info, then IEs (SSID, DS Parameter Set, TIM, Country, RSN, HT/VHT/HE/EHT Cap, WPS, Vendor-Specific).",
+      "typical_interval_tu": 100,
+      "wctf_uses": ["IE stego (Vendor-Specific)", "hidden SSID (null SSID IE)", "RSN IE downgrade opportunities"]
+    }
+  },
+  {
+    "id": "frame-mgmt-probe-request",
+    "name": "Probe Request (mgmt/subtype 4)",
+    "aliases": ["probe request"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 4,
+      "type_name": "management",
+      "purpose": "Client asks 'who's on this channel'. Carries preferred SSIDs → KARMA/MANA input; probe-IE order fingerprints the client.",
+      "wctf_uses": ["hidden SSID recovery", "client fingerprinting", "PineAP karma trigger"]
+    }
+  },
+  {
+    "id": "frame-mgmt-probe-response",
+    "name": "Probe Response (mgmt/subtype 5)",
+    "aliases": ["probe response"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 5,
+      "type_name": "management",
+      "purpose": "AP's response — same IEs as beacon, but unicast."
+    }
+  },
+  {
+    "id": "frame-mgmt-auth",
+    "name": "Authentication (mgmt/subtype 11)",
+    "aliases": ["auth"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 11,
+      "type_name": "management",
+      "purpose": "802.11 authentication (open/shared/SAE/FT). For WPA2 this is a formality; for WPA3-SAE it carries Commit/Confirm."
+    }
+  },
+  {
+    "id": "frame-mgmt-assoc-request",
+    "name": "Association Request (mgmt/subtype 0)",
+    "aliases": ["assoc-request"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 0,
+      "type_name": "management",
+      "purpose": "Client asks to join. Carries SSID + capability info; the client's RSN IE picks the cipher/AKM from the AP's advertised set."
+    }
+  },
+  {
+    "id": "frame-mgmt-assoc-response",
+    "name": "Association Response (mgmt/subtype 1)",
+    "aliases": ["assoc-response"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 1,
+      "type_name": "management",
+      "purpose": "AP acknowledges + assigns AID."
+    }
+  },
+  {
+    "id": "frame-mgmt-reassoc-request",
+    "name": "Reassociation Request (mgmt/subtype 2)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 2,
+      "type_name": "management",
+      "purpose": "802.11r Fast Transition uses this for over-the-air FT."
+    }
+  },
+  {
+    "id": "frame-mgmt-deauth",
+    "name": "Deauthentication (mgmt/subtype 12)",
+    "aliases": ["deauth"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 12,
+      "type_name": "management",
+      "protected_by_pmf": true,
+      "byte_size": 26,
+      "purpose": "Unilateral termination. Reason code included.",
+      "reason_codes_common": {
+        "1": "Unspecified reason",
+        "2": "Previous authentication no longer valid",
+        "3": "Deauthenticated because sending STA is leaving IBSS or ESS",
+        "4": "Disassociated due to inactivity",
+        "7": "Class 3 frame received from nonassociated STA",
+        "15": "4-Way Handshake timeout"
+      }
+    }
+  },
+  {
+    "id": "frame-mgmt-disassoc",
+    "name": "Disassociation (mgmt/subtype 10)",
+    "aliases": ["disassoc"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 10,
+      "type_name": "management",
+      "protected_by_pmf": true,
+      "purpose": "Softer termination; STA remains authenticated. Kr00k trigger."
+    }
+  },
+  {
+    "id": "frame-mgmt-action",
+    "name": "Action (mgmt/subtype 13)",
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 0,
+      "subtype": 13,
+      "type_name": "management",
+      "protected_by_pmf": true,
+      "purpose": "Category-typed extensibility frame. Carries block-ack, radio-measurement (11k), BSS Transition (11v), FT actions, ANQP-embedded frames."
+    }
+  },
+  {
+    "id": "frame-ctrl-rts",
+    "name": "RTS (ctrl/subtype 11)",
+    "aliases": ["rts"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"frame_type": 1, "subtype": 11, "type_name": "control", "purpose": "Request to Send — NAV manipulation surface (RTS/CTS DoS)."}
+  },
+  {
+    "id": "frame-ctrl-cts",
+    "name": "CTS (ctrl/subtype 12)",
+    "aliases": ["cts"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"frame_type": 1, "subtype": 12, "type_name": "control", "purpose": "Clear to Send — CTS-to-self silences neighbors."}
+  },
+  {
+    "id": "frame-ctrl-ack",
+    "name": "ACK (ctrl/subtype 13)",
+    "aliases": ["ack"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"frame_type": 1, "subtype": 13, "type_name": "control"}
+  },
+  {
+    "id": "frame-data-qos-data",
+    "name": "QoS Data (data/subtype 8)",
+    "aliases": ["qos-data"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 8,
+      "type_name": "data",
+      "protected_by_pmf": false,
+      "purpose": "Encrypted user data (CCMP/GCMP). Payload is what you decrypt with a recovered PSK."
+    }
+  },
+  {
+    "id": "frame-data-null",
+    "name": "Null Data (data/subtype 4)",
+    "aliases": ["null-data"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "frame_type": 2,
+      "subtype": 4,
+      "type_name": "data",
+      "purpose": "Client power-save state indicator via PM bit. Framing Frames (Vanhoef 2023) manipulates these."
+    }
+  },
+  {
+    "id": "frame-eapol-key",
+    "name": "EAPOL-Key (LLC/EtherType 0x888E; not an 802.11 subtype)",
+    "aliases": ["eapol-key", "4-way handshake"],
+    "category": "frame_type",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "ieee-802-1x-2020"],
+    "technical_body": {
+      "carrier": "QoS Data frame with LLC/SNAP EtherType 0x888E",
+      "packets": ["M1 (ANonce → STA)", "M2 (SNonce → AP, MIC)", "M3 (GTK+ANonce → STA, MIC)", "M4 (ACK, MIC)"],
+      "wctf_uses": [
+        "M1 alone leaks PMKID in the RSN IE (Steube 2018)",
+        "M2 is the load-bearing message for offline PSK crack",
+        "M3 keyreinstall triggers KRACK on unpatched clients"
+      ]
+    }
+  }
+]

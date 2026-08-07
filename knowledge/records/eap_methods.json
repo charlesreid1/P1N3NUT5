@@ -1,0 +1,160 @@
+[
+  {
+    "id": "eap-md5",
+    "name": "EAP-MD5",
+    "aliases": ["eap-md5-challenge"],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["1998", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748"],
+    "technical_body": {
+      "outer": "EAP",
+      "inner": "MD5 challenge/response",
+      "credential": "password",
+      "provides_mutual_auth": false,
+      "keying": "none — cannot derive PMK",
+      "known_flaws": ["offline dictionary from a captured challenge/response", "no mutual auth → rogue-RADIUS accepts everything"]
+    }
+  },
+  {
+    "id": "eap-leap",
+    "name": "EAP-LEAP (Cisco Lightweight EAP)",
+    "aliases": ["leap"],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2001", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wright-asleap"],
+    "technical_body": {
+      "credential": "MS-CHAPv1 password",
+      "known_flaws": ["asleap offline crack of NT-hash-derived challenge/response"]
+    }
+  },
+  {
+    "id": "eap-tls",
+    "name": "EAP-TLS",
+    "aliases": ["eap-tls"],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-5216"],
+    "technical_body": {
+      "credential": "client certificate + server certificate",
+      "provides_mutual_auth": true,
+      "notes": "The gold standard. A rogue RADIUS can't authenticate because it lacks the client's issuing CA. Attackers pivot to captive-portal social engineering — 'reinstall your WiFi profile' — to swap the client cert."
+    }
+  },
+  {
+    "id": "eap-ttls",
+    "name": "EAP-TTLSv0",
+    "aliases": ["eap-ttls"],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-5281"],
+    "technical_body": {
+      "outer": "TLS tunnel",
+      "inner": "PAP / CHAP / MSCHAPv2 / EAP",
+      "credential_variants": ["plaintext (PAP inner)", "challenge/response (MSCHAPv2 inner)"],
+      "known_flaws": [
+        "rogue-RADIUS captures inner plaintext if the client doesn't validate the outer cert",
+        "MSCHAPv2 inner → hashcat mode 5500 offline crack"
+      ]
+    }
+  },
+  {
+    "id": "eap-peap",
+    "name": "EAP-PEAP (v0/v1)",
+    "aliases": ["peap", "peapv0", "peapv1"],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2002", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748", "rfc-2759"],
+    "technical_body": {
+      "outer": "TLS tunnel",
+      "inner_default": "MSCHAPv2 (v0) / EAP-GTC (v1)",
+      "credential_variants": ["MSCHAPv2 challenge/response", "GTC plaintext"],
+      "known_flaws": [
+        "cert-phish against weak client validation → inner MSCHAPv2 captured → hashcat 5500 / asleap",
+        "inner-EAP downgrade PEAP-MSCHAPv2 → PEAP-GTC yields plaintext token (RSA/Duo/Yubico OTP)"
+      ]
+    }
+  },
+  {
+    "id": "eap-fast",
+    "name": "EAP-FAST",
+    "aliases": ["fast"],
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748"],
+    "technical_body": {
+      "outer": "TLS tunnel with PAC (Protected Access Credential)",
+      "inner": "MSCHAPv2 / EAP-GTC",
+      "known_flaws": ["anonymous PAC provisioning without server-cert pinning → rogue RADIUS captures inner exchange"]
+    }
+  },
+  {
+    "id": "eap-pwd",
+    "name": "EAP-PWD",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748", "vanhoef-dragonblood-2019"],
+    "technical_body": {
+      "credential": "shared password",
+      "algorithm": "Dragonfly (same math as SAE)",
+      "known_flaws": ["Dragonblood side-channel affects EAP-PWD implementations too"]
+    }
+  },
+  {
+    "id": "eap-sim",
+    "name": "EAP-SIM",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2006", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748"],
+    "technical_body": {"credential": "GSM SIM triplets", "notes": "Cellular offload networks (carrier Wi-Fi)."}
+  },
+  {
+    "id": "eap-aka",
+    "name": "EAP-AKA / EAP-AKA'",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2006", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748"],
+    "technical_body": {"credential": "USIM AKA", "notes": "3G/4G/5G offload authentication."}
+  },
+  {
+    "id": "eap-gtc",
+    "name": "EAP-GTC (Generic Token Card)",
+    "category": "eap_method",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-3748"],
+    "technical_body": {
+      "credential": "plaintext token (RSA SecurID, Duo, Yubico OTP)",
+      "outer_required": "inside PEAP/TTLS tunnel",
+      "known_flaws": ["under a rogue-RADIUS tunnel, the plaintext OTP is captured and immediately replayable within its window"]
+    }
+  }
+]

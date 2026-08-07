@@ -1,0 +1,285 @@
+[
+  {
+    "id": "ie-ssid",
+    "name": "SSID Information Element (IE 0)",
+    "aliases": ["ssid ie"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["frame-mgmt-beacon", "frame-mgmt-probe-request"],
+    "technical_body": {
+      "element_id": 0,
+      "length_range_bytes": [0, 32],
+      "appears_in": ["beacon", "probe-request", "probe-response", "assoc-request", "reassoc-request"],
+      "notes": "Length 0 = 'hidden SSID' in a beacon. Client probes reveal it."
+    }
+  },
+  {
+    "id": "ie-ds-parameter-set",
+    "name": "DS Parameter Set (IE 3)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 3, "length_bytes": 1, "contents": "current channel number", "appears_in": ["beacon", "probe-response"]}
+  },
+  {
+    "id": "ie-tim",
+    "name": "Traffic Indication Map / TIM (IE 5)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 5,
+      "contents": ["DTIM count", "DTIM period", "bitmap of AID with pending traffic"],
+      "attack_surface": "Framing Frames (Vanhoef 2023) — power-save queue poisoning."
+    }
+  },
+  {
+    "id": "ie-country",
+    "name": "Country IE (IE 7)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 7, "contents": "country code + regulatory triplets", "notes": "Client uses this to select TX power / DFS / TPC. Spoofable."}
+  },
+  {
+    "id": "ie-rsn",
+    "name": "Robust Security Network / RSN IE (IE 48)",
+    "aliases": ["rsn ie", "rsne"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 48,
+      "fields": [
+        "Version (=1)",
+        "Group Cipher Suite (OUI 00-0F-AC:x)",
+        "Pairwise Cipher Suite Count + list",
+        "AKM Suite Count + list",
+        "RSN Capabilities (MFPR/MFPC bits, PMF, replay counters)",
+        "PMKID Count + list (M1 or reassoc)",
+        "Group Management Cipher Suite (for PMF)"
+      ],
+      "cipher_suites": {
+        "1": "WEP-40",
+        "2": "TKIP",
+        "4": "CCMP-128",
+        "5": "WEP-104",
+        "8": "GCMP-128",
+        "9": "GCMP-256",
+        "6": "BIP-CMAC-128 (group mgmt)"
+      },
+      "akm_suites": {
+        "1": "802.1X (Enterprise, PMKSA cache)",
+        "2": "PSK",
+        "3": "FT-802.1X",
+        "4": "FT-PSK",
+        "5": "802.1X-SHA256",
+        "6": "PSK-SHA256",
+        "8": "SAE",
+        "9": "FT-SAE",
+        "11": "Suite B 192-bit",
+        "12": "OWE",
+        "18": "SAE-EXT-KEY (H2E)"
+      },
+      "wctf_uses": [
+        "beacon-RSN inspection is the first-60-seconds triage",
+        "AKM 2 + AKM 8 both present = WPA3 transition mode = downgrade opportunity",
+        "PMKID present in M1 = client-free crack path (Steube 2018)"
+      ]
+    }
+  },
+  {
+    "id": "ie-ht-capabilities",
+    "name": "HT Capabilities (IE 45)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 45, "spec": "802.11n"}
+  },
+  {
+    "id": "ie-vht-capabilities",
+    "name": "VHT Capabilities (IE 191)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 191, "spec": "802.11ac"}
+  },
+  {
+    "id": "ie-he-capabilities",
+    "name": "HE Capabilities (Extension IE 35)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11ax-2021"],
+    "technical_body": {"element_id": 255, "element_id_ext": 35, "spec": "802.11ax"}
+  },
+  {
+    "id": "ie-eht-capabilities",
+    "name": "EHT Capabilities (Extension IE 108)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2024", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11be-2024"],
+    "technical_body": {"element_id": 255, "element_id_ext": 108, "spec": "802.11be (Wi-Fi 7)"}
+  },
+  {
+    "id": "ie-wps",
+    "name": "WPS Information Element (IE 221 / Microsoft OUI)",
+    "aliases": ["wsc", "wps ie"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2007", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wps-2-0"],
+    "technical_body": {
+      "element_id": 221,
+      "oui": "00-50-F2:04 (Microsoft)",
+      "notable_fields": ["Manufacturer", "Model Name", "Model Number", "Serial Number", "Primary Device Type", "Config Methods", "WPS State", "AP Setup Locked"],
+      "wctf_uses": ["vendor-derivable PIN algorithms", "AP fingerprinting even with WPS 'disabled'", "WPS-Locked timing"]
+    }
+  },
+  {
+    "id": "ie-vendor-specific",
+    "name": "Vendor-Specific IE (IE 221)",
+    "aliases": ["vendor ie", "microsoft wpa ie"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 221,
+      "format": "OUI (3 bytes) + OUI type + vendor-defined body",
+      "notable_ouis": {
+        "00-50-F2:01": "Microsoft WPA (legacy WPA1 IE — TKIP)",
+        "00-50-F2:04": "WPS",
+        "00-90-4C": "Broadcom",
+        "00-40-96": "Cisco"
+      },
+      "wctf_uses": ["beacon-IE stego", "AP fingerprinting via OUI+subtype patterns", "legacy WPA1 detection"]
+    }
+  },
+  {
+    "id": "ie-mobility-domain",
+    "name": "Mobility Domain Element / MDE (IE 54)",
+    "aliases": ["mde"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 54,
+      "spec": "802.11r",
+      "contents": ["Mobility Domain ID (2 bytes)", "FT Capability + Policy (1 byte)"],
+      "wctf_uses": ["identifies FT-capable APs; MDE presence = potential FT-handshake capture path"]
+    }
+  },
+  {
+    "id": "ie-interworking",
+    "name": "Interworking IE (IE 107)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 107,
+      "spec": "802.11u",
+      "contents": ["Access Network Type", "Internet bit", "Venue Group/Type", "HESSID (optional)"],
+      "wctf_uses": ["ANQP-Capable bit indicates GAS-queryable AP (pre-association recon)"]
+    }
+  },
+  {
+    "id": "ie-roaming-consortium",
+    "name": "Roaming Consortium IE (IE 111)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 111,
+      "spec": "802.11u",
+      "wctf_uses": ["spoof a Roaming Consortium OI to auto-associate Passpoint clients without a matching SSID"]
+    }
+  },
+  {
+    "id": "ie-rnr",
+    "name": "Reduced Neighbor Report / RNR (IE 201)",
+    "aliases": ["rnr"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11ax-2021"],
+    "technical_body": {
+      "element_id": 201,
+      "spec": "802.11ax",
+      "contents": "Neighbor AP information across bands (BSSID, operating class, channel)",
+      "wctf_uses": ["6 GHz APs advertise themselves via RNR in 2.4/5 GHz beacons — enumerate 6 GHz targets from a card that can't tune 6 GHz"]
+    }
+  },
+  {
+    "id": "ie-mld-basic",
+    "name": "Multi-Link Basic ML Element / MLD",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2024", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11be-2024"],
+    "technical_body": {
+      "element_id": 255,
+      "spec": "802.11be (Wi-Fi 7)",
+      "contents": ["MLD MAC", "per-link setup elements", "MLO capabilities"],
+      "wctf_uses": ["MLD MAC vs. link MAC exposes cross-link correlation; MLO link-desync research anchors here"]
+    }
+  },
+  {
+    "id": "ie-extended-capabilities",
+    "name": "Extended Capabilities (IE 127)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 127,
+      "notable_bits": ["11k Neighbor Report", "11v BSS Transition", "Interworking (11u)", "TDLS", "Operating Mode Notification (11ac)"]
+    }
+  }
+]
