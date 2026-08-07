@@ -141,9 +141,10 @@ other.
 
 ## Playbook — first 60 seconds of a WCTF puzzle
 
-The per-subgenre CTF prose (`knowledge/ctf/*.md` — Tier 5 in
-plan-knowledge.md) is deferred to Phase 2, but the tool orchestration
-below already works today. When you land in an unfamiliar WCTF room:
+The per-subgenre CTF prose in `knowledge/ctf/*.md` (23 files) is
+authored and searchable via `search_lore`; the tool orchestration
+below is what's live on the wire. When you land in an unfamiliar WCTF
+room:
 
 1. `pineapple_status()` — is the device reachable? Which transport
    answered? If SSH is down but API is up, transmit tools will fail

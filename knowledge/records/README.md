@@ -7,27 +7,34 @@ records are what the `lookup_*`, `verify_claim`, `explain_attack`,
 `bibliography`, `cross_reference`, and `search_records` MCP tools
 resolve against.
 
-Phase 0 has authored none of the files below. Phase 2 in
-plan-organize.md is where they land. Full schemas and sample records
-are in plan-knowledge.md.
+21 files, ~890 records on disk. Every file is loaded at startup;
+per-record depth is locked by `tests/test_depth.py`.
 
-## Files (planned)
+## Files
 
-| file | category | what's in it |
-|---|---|---|
-| `standards.json` | `standard` | 802.11 amendments (a/b/g/n/ac/ax/be), 802.1X, key EAP RFCs |
-| `channels.json` | `band_and_channel` | every 2.4 / 5 / 6 GHz channel — number, center MHz, widths, per-region regulatory status, DFS/TPC |
-| `frame_types.json` | `frame_type` | management / control / data / extension types + subtypes, byte offsets, field layout |
-| `ies.json` | `information_element` | every IE the assistant will see, with byte layout |
-| `security_suites.json` | `cipher` + `key_management` | RSN cipher-suite selectors, AKM selectors, key derivation |
-| `eap_methods.json` | `eap_method` | inner/outer, cred type, replay properties, known attacks |
-| `attacks.json` | `attack` | preconditions, tools, hashcat mode, mitigation, era_bounds, still_effective_2026, target_security[], transports_needed[] |
-| `cves.json` | `cve` | wireless CVEs cross-referenced from `attacks.json` |
-| `hashcat_modes.json` | `hashcat_mode` | mode number, capture format, producer tool, example |
-| `pineapple_endpoints.json` | `pineapple_endpoint` | every API path + SSH command the MCP invokes, with `firmware_min` / `firmware_max` |
-| `openwrt_uci.json` | `openwrt_uci` | UCI section catalog (`network`, `wireless`, `dhcp`, `firewall`, `hostapd`, `pineap`) |
-| `defense_and_detection.json` | `defense_and_detection` | PMF/802.11w, WIDS heuristics, deauth-flood detection, evil-twin countermeasures |
-| `bibliography.json` | `bibliography` | pinpoint sources — IEEE / RFC / DEFCON / USENIX / GitHub / vendor docs |
+| file | category | records | what's in it |
+|---|---|---|---|
+| `standards.json` | `standard` | 31 | 802.11 amendments (a/b/g/n/ac/ax/be), 802.1X, key EAP RFCs |
+| `channels.json` | `band_and_channel` | 187 | every 2.4 / 5 / 6 GHz channel — number, center MHz, widths, per-region regulatory status, DFS/TPC |
+| `frame_types.json` | `frame_type` | 40 | management / control / data / extension types + subtypes, byte offsets, field layout |
+| `ies.json` | `information_element` | 86 | every IE the assistant will see, with byte layout |
+| `security_suites.json` | `cipher` + `key_management` | 33 | RSN cipher-suite selectors, AKM selectors, key derivation |
+| `eap_methods.json` | `eap_method` | 30 | inner/outer, cred type, replay properties, known attacks |
+| `attacks.json` | `attack` | 98 | preconditions, tools, hashcat mode, mitigation, era_bounds, still_effective_2026, target_security[], transports_needed[] |
+| `cves.json` | `cve` | 42 | wireless CVEs cross-referenced from `attacks.json` |
+| `hashcat_modes.json` | `hashcat_mode` | 30 | mode number, capture format, producer tool, example |
+| `pineapple_endpoints.json` | `pineapple_endpoint` | 49 | every API path + SSH command the MCP invokes, with `firmware_min` (100% coverage) |
+| `openwrt_uci.json` | `openwrt_uci` | 40 | UCI section catalog (`network`, `wireless`, `dhcp`, `firewall`, `hostapd`, `pineap`) |
+| `defense_and_detection.json` | `defense_and_detection` | 25 | PMF/802.11w, WIDS heuristics, deauth-flood detection, evil-twin countermeasures |
+| `bibliography.json` | `bibliography` | 45 | pinpoint sources — IEEE / RFC / DEFCON / USENIX / GitHub / vendor docs |
+| `chipset_vulns.json` | `chipset_vuln` | 15 | per-chipset CVE mapping — Broadcom Kr00k, QCA variant, MediaTek WPS |
+| `client_fingerprints.json` | `client_fingerprint` | 20 | IE-order + capability-bits signatures per stack |
+| `default_psks.json` | `default_psk` | 15 | vendor default-PSK derivation catalog (UPC, Sky, BT, Technicolor …) |
+| `dos.json` | `dos` | 16 | deauth flood, beacon flood, CTS storms, RF DoS |
+| `karma_family.json` | `karma_attack` | 10 | Karma / Karmetasploit / MANA / PineAP variants |
+| `local_operations.json` | `local_operation` | 11 | offline tools the MCP wraps that never touch the Pineapple |
+| `roaming.json` | `roaming` | 15 | 802.11r/k/v/OKC/FT flows |
+| `vendors.json` | `vendor` | 6 | vendor-lockout / firmware-EOL data |
 
 ## Record shape (mirrors PHR34CKER5)
 
@@ -88,5 +95,7 @@ Every KR tool response carries:
   hand-verified against a primary or secondary source.
 - Add or update entries under `bibliography.json` first, then reference
   their ids in new records. The loader will fail otherwise.
-- Sample `attacks.json` and `security_suites.json` records live in
-  plan-knowledge.md (§ "Sample records").
+- Depth floors in `tests/test_depth.py` are the load-bearing acceptance
+  gate: attacks need `flag_signature`, `mitigation`, ≥2 preconditions,
+  ≥2 tools; frames need non-empty `fields[]`; IEs need non-empty
+  `layout[]`; hashcat modes need `example_command`.

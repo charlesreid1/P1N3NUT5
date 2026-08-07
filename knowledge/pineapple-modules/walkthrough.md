@@ -6,7 +6,7 @@ against a rogue AP, (d) tears down cleanly. All from the MCP's tool
 surface; the underlying REST + SSH primitives are noted at each step.
 
 Assumes `PINEAPPLE_HOST`, `PINEAPPLE_TOKEN`, and `PINEAPPLE_SSH_KEY`
-are set (see `plan-organize.md § Env vars`).
+are set (see `docs/pineapple_setup.md § Env vars`).
 
 ## Step 1 — Enumerate
 

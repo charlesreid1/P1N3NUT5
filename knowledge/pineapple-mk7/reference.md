@@ -42,7 +42,7 @@ will fill 8 GB fast; move to SD or scp back to the laptop mid-run.
 3. Change password. Add your SSH key to `/etc/dropbear/authorized_keys`.
 4. Log into WebUI `https://172.16.42.1:1471`. Note the API token.
 5. Set `PINEAPPLE_HOST`, `PINEAPPLE_TOKEN`, `PINEAPPLE_SSH_KEY` in
-   your shell env (see `plan-organize.md § Env vars`).
+   your shell env (see `docs/pineapple_setup.md § Env vars`).
 6. Test: `p1n3nut5-mcp` (starts the MCP) and call `pineapple_status()`.
 
 ## Factory reset from a wedged state
