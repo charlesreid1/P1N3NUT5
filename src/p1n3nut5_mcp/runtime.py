@@ -139,7 +139,10 @@ def envelope(
     """The stable {ok, transport, payload, timing_ms, warnings[]} shape.
 
     All Pineapple-touching tools return this. `started_at` is a
-    time.monotonic() reading captured before the call.
+    time.monotonic() reading captured before the call. `warnings` is
+    copied — the returned envelope owns its own list, so the caller
+    can hold a reference to the original without seeing later
+    appends.
     """
     return {
         "ok": ok,

@@ -259,3 +259,6 @@ Records for deauth and rogue-AP tools carry the appropriate legal
 `caveat` field surfaced in the tool response envelope — same pattern
 PHR34CKER5 uses for red-box / blue-box framing. Historical technique
 is not a gate, but a caveat.
+
+Every tool that transmits refuses if the airspace flag is missing;
+the refusal cites `docs/legal_and_consent.md`.
