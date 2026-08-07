@@ -93,7 +93,10 @@ def _band_of(channel: int | None) -> str | None:
         return "2.4"
     if 32 <= channel <= 177:
         return "5"
-    if 200 <= channel or (channel and channel > 177 and channel < 300):
+    # 6 GHz uses channels 1..233 per 802.11ax, but 2.4 GHz already claims
+    # 1..14 and 5 GHz claims 32..177 in this numbering; the WebUI signals
+    # 6 GHz recon hits with numbers >= 200 (matching channels.json).
+    if 200 <= channel <= 233:
         return "6"
     return None
 
