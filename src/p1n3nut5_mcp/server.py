@@ -16,6 +16,7 @@ from p1n3nut5_mcp import (
     attacks,
     detect,
     hashcat as hashcat_mod,
+    knowledge as kb,
     orchestrate,
     pineapple_api,
     pineapple_ssh,
@@ -460,6 +461,26 @@ def main() -> None:
         do_create_rogue_ap,
         do_evil_twin,
         run_sequence,
+        # Know — typed records (Phase-2 KR tools; see plan-knowledge.md)
+        kb.lookup_standard,
+        kb.lookup_channel,
+        kb.lookup_frame,
+        kb.lookup_ie,
+        kb.lookup_cipher,
+        kb.lookup_eap,
+        kb.lookup_attack,
+        kb.lookup_cve,
+        kb.lookup_hashcat_mode,
+        kb.bibliography,
+        kb.cross_reference,
+        kb.search_records,
+        kb.verify_claim,
+        kb.explain_attack,
+        # Know — prose corpus
+        kb.list_topics,
+        kb.read_lore,
+        kb.search_lore,
+        kb.random_lore,
     ):
         app.tool()(tool)
     app.run()
