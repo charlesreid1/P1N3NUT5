@@ -199,6 +199,40 @@
     }
   },
   {
+    "id": "ch-2g4-1p5-40mhz",
+    "name": "2.4 GHz channel 1+5 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        1,
+        5
+      ],
+      "center_mhz": 2422,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+    }
+  },
+  {
     "id": "ch-2g4-2",
     "name": "2.4 GHz channel 2",
     "category": "band_and_channel",
@@ -229,6 +263,40 @@
       },
       "dfs_required": false,
       "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-2g4-2p6-40mhz",
+    "name": "2.4 GHz channel 2+6 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        2,
+        6
+      ],
+      "center_mhz": 2427,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
     }
   },
   {
@@ -265,6 +333,40 @@
     }
   },
   {
+    "id": "ch-2g4-3p7-40mhz",
+    "name": "2.4 GHz channel 3+7 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        3,
+        7
+      ],
+      "center_mhz": 2432,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+    }
+  },
+  {
     "id": "ch-2g4-4",
     "name": "2.4 GHz channel 4",
     "category": "band_and_channel",
@@ -295,6 +397,40 @@
       },
       "dfs_required": false,
       "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-2g4-4p8-40mhz",
+    "name": "2.4 GHz channel 4+8 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        4,
+        8
+      ],
+      "center_mhz": 2437,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
     }
   },
   {
@@ -331,6 +467,40 @@
     }
   },
   {
+    "id": "ch-2g4-5p9-40mhz",
+    "name": "2.4 GHz channel 5+9 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        5,
+        9
+      ],
+      "center_mhz": 2442,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+    }
+  },
+  {
     "id": "ch-2g4-6",
     "name": "2.4 GHz channel 6",
     "category": "band_and_channel",
@@ -364,6 +534,40 @@
     }
   },
   {
+    "id": "ch-2g4-6p10-40mhz",
+    "name": "2.4 GHz channel 6+10 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        6,
+        10
+      ],
+      "center_mhz": 2447,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+    }
+  },
+  {
     "id": "ch-2g4-7",
     "name": "2.4 GHz channel 7",
     "category": "band_and_channel",
@@ -394,6 +598,40 @@
       },
       "dfs_required": false,
       "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-2g4-7p11-40mhz",
+    "name": "2.4 GHz channel 7+11 (40 MHz bonded)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020",
+      "fcc-part-15",
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "band_ghz": 2.4,
+      "primary_channels": [
+        7,
+        11
+      ],
+      "center_mhz": 2452,
+      "width_mhz": 40,
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
     }
   },
   {
@@ -498,6 +736,39 @@
     }
   },
   {
+    "id": "ch-5-102-40mhz",
+    "name": "5 GHz channel 102 (40 MHz over 100..104)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 102,
+      "center_mhz": 5510,
+      "width_mhz": 40,
+      "primary_20_options": [
+        100,
+        104
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-104-unii-2c",
     "name": "5 GHz channel 104 (UNII-2C)",
     "category": "band_and_channel",
@@ -523,6 +794,74 @@
         160
       ],
       "unii_subband": "UNII-2C",
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-106-40mhz",
+    "name": "5 GHz channel 106 (40 MHz over 104..108)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 106,
+      "center_mhz": 5530,
+      "width_mhz": 40,
+      "primary_20_options": [
+        104,
+        108
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-106-80mhz",
+    "name": "5 GHz channel 106 (80 MHz over 100..112)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 106,
+      "center_mhz": 5530,
+      "width_mhz": 80,
+      "primary_20_options": [
+        100,
+        104,
+        108,
+        112
+      ],
       "regulatory": {
         "US": "allowed (DFS+TPC)",
         "EU": "allowed (DFS+TPC)",
@@ -568,6 +907,39 @@
     }
   },
   {
+    "id": "ch-5-110-40mhz",
+    "name": "5 GHz channel 110 (40 MHz over 108..112)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 110,
+      "center_mhz": 5550,
+      "width_mhz": 40,
+      "primary_20_options": [
+        108,
+        112
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-112-unii-2c",
     "name": "5 GHz channel 112 (UNII-2C)",
     "category": "band_and_channel",
@@ -593,6 +965,78 @@
         160
       ],
       "unii_subband": "UNII-2C",
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-114-160mhz",
+    "name": "5 GHz channel 114 (160 MHz over 100..128)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2016",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 114,
+      "center_mhz": 5570,
+      "width_mhz": 160,
+      "primary_20_options": [
+        100,
+        104,
+        108,
+        112,
+        116,
+        120,
+        124,
+        128
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-114-40mhz",
+    "name": "5 GHz channel 114 (40 MHz over 112..116)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 114,
+      "center_mhz": 5570,
+      "width_mhz": 40,
+      "primary_20_options": [
+        112,
+        116
+      ],
       "regulatory": {
         "US": "allowed (DFS+TPC)",
         "EU": "allowed (DFS+TPC)",
@@ -638,6 +1082,39 @@
     }
   },
   {
+    "id": "ch-5-118-40mhz",
+    "name": "5 GHz channel 118 (40 MHz over 116..120)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 118,
+      "center_mhz": 5590,
+      "width_mhz": 40,
+      "primary_20_options": [
+        116,
+        120
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-120-unii-2c",
     "name": "5 GHz channel 120 (UNII-2C)",
     "category": "band_and_channel",
@@ -663,6 +1140,74 @@
         160
       ],
       "unii_subband": "UNII-2C",
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-122-40mhz",
+    "name": "5 GHz channel 122 (40 MHz over 120..124)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 122,
+      "center_mhz": 5610,
+      "width_mhz": 40,
+      "primary_20_options": [
+        120,
+        124
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-122-80mhz",
+    "name": "5 GHz channel 122 (80 MHz over 116..128)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 122,
+      "center_mhz": 5610,
+      "width_mhz": 80,
+      "primary_20_options": [
+        116,
+        120,
+        124,
+        128
+      ],
       "regulatory": {
         "US": "allowed (DFS+TPC)",
         "EU": "allowed (DFS+TPC)",
@@ -708,6 +1253,39 @@
     }
   },
   {
+    "id": "ch-5-126-40mhz",
+    "name": "5 GHz channel 126 (40 MHz over 124..128)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 126,
+      "center_mhz": 5630,
+      "width_mhz": 40,
+      "primary_20_options": [
+        124,
+        128
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-128-unii-2c",
     "name": "5 GHz channel 128 (UNII-2C)",
     "category": "band_and_channel",
@@ -733,6 +1311,39 @@
         160
       ],
       "unii_subband": "UNII-2C",
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-130-40mhz",
+    "name": "5 GHz channel 130 (40 MHz over 128..132)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 130,
+      "center_mhz": 5650,
+      "width_mhz": 40,
+      "primary_20_options": [
+        128,
+        132
+      ],
       "regulatory": {
         "US": "allowed (DFS+TPC)",
         "EU": "allowed (DFS+TPC)",
@@ -778,6 +1389,39 @@
     }
   },
   {
+    "id": "ch-5-134-40mhz",
+    "name": "5 GHz channel 134 (40 MHz over 132..136)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 134,
+      "center_mhz": 5670,
+      "width_mhz": 40,
+      "primary_20_options": [
+        132,
+        136
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-136-unii-2c",
     "name": "5 GHz channel 136 (UNII-2C)",
     "category": "band_and_channel",
@@ -813,6 +1457,74 @@
     }
   },
   {
+    "id": "ch-5-138-40mhz",
+    "name": "5 GHz channel 138 (40 MHz over 136..140)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 138,
+      "center_mhz": 5690,
+      "width_mhz": 40,
+      "primary_20_options": [
+        136,
+        140
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-138-80mhz",
+    "name": "5 GHz channel 138 (80 MHz over 132..144)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 138,
+      "center_mhz": 5690,
+      "width_mhz": 80,
+      "primary_20_options": [
+        132,
+        136,
+        140,
+        144
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-140-unii-2c",
     "name": "5 GHz channel 140 (UNII-2C)",
     "category": "band_and_channel",
@@ -838,6 +1550,39 @@
         160
       ],
       "unii_subband": "UNII-2C",
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-142-40mhz",
+    "name": "5 GHz channel 142 (40 MHz over 140..144)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 142,
+      "center_mhz": 5710,
+      "width_mhz": 40,
+      "primary_20_options": [
+        140,
+        144
+      ],
       "regulatory": {
         "US": "allowed (DFS+TPC)",
         "EU": "allowed (DFS+TPC)",
@@ -918,6 +1663,39 @@
     }
   },
   {
+    "id": "ch-5-151-40mhz",
+    "name": "5 GHz channel 151 (40 MHz over 149..153)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 151,
+      "center_mhz": 5755,
+      "width_mhz": 40,
+      "primary_20_options": [
+        149,
+        153
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
     "id": "ch-5-153-unii-3",
     "name": "5 GHz channel 153 (UNII-3)",
     "category": "band_and_channel",
@@ -947,6 +1725,74 @@
         "US": "allowed",
         "EU": "restricted (max power)",
         "JP": "forbidden"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-155-40mhz",
+    "name": "5 GHz channel 155 (40 MHz over 153..157)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 155,
+      "center_mhz": 5775,
+      "width_mhz": 40,
+      "primary_20_options": [
+        153,
+        157
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-155-80mhz",
+    "name": "5 GHz channel 155 (80 MHz over 149..161)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 155,
+      "center_mhz": 5775,
+      "width_mhz": 80,
+      "primary_20_options": [
+        149,
+        153,
+        157,
+        161
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
       },
       "dfs_required": false,
       "tpc_required": false
@@ -988,6 +1834,39 @@
     }
   },
   {
+    "id": "ch-5-159-40mhz",
+    "name": "5 GHz channel 159 (40 MHz over 157..161)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 159,
+      "center_mhz": 5795,
+      "width_mhz": 40,
+      "primary_20_options": [
+        157,
+        161
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
     "id": "ch-5-161-unii-3",
     "name": "5 GHz channel 161 (UNII-3)",
     "category": "band_and_channel",
@@ -1017,6 +1896,39 @@
         "US": "allowed",
         "EU": "restricted (max power)",
         "JP": "forbidden"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-163-40mhz",
+    "name": "5 GHz channel 163 (40 MHz over 161..165)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 163,
+      "center_mhz": 5815,
+      "width_mhz": 40,
+      "primary_20_options": [
+        161,
+        165
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
       },
       "dfs_required": false,
       "tpc_required": false
@@ -1090,6 +2002,39 @@
     }
   },
   {
+    "id": "ch-5-38-40mhz",
+    "name": "5 GHz channel 38 (40 MHz over 36..40)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 38,
+      "center_mhz": 5190,
+      "width_mhz": 40,
+      "primary_20_options": [
+        36,
+        40
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
     "id": "ch-5-40-unii-1",
     "name": "5 GHz channel 40 (UNII-1)",
     "category": "band_and_channel",
@@ -1115,6 +2060,74 @@
         160
       ],
       "unii_subband": "UNII-1",
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-42-40mhz",
+    "name": "5 GHz channel 42 (40 MHz over 40..44)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 42,
+      "center_mhz": 5210,
+      "width_mhz": 40,
+      "primary_20_options": [
+        40,
+        44
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-42-80mhz",
+    "name": "5 GHz channel 42 (80 MHz over 36..48)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 42,
+      "center_mhz": 5210,
+      "width_mhz": 80,
+      "primary_20_options": [
+        36,
+        40,
+        44,
+        48
+      ],
       "regulatory": {
         "US": "allowed",
         "EU": "allowed",
@@ -1160,6 +2173,39 @@
     }
   },
   {
+    "id": "ch-5-46-40mhz",
+    "name": "5 GHz channel 46 (40 MHz over 44..48)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 46,
+      "center_mhz": 5230,
+      "width_mhz": 40,
+      "primary_20_options": [
+        44,
+        48
+      ],
+      "regulatory": {
+        "US": "allowed",
+        "EU": "allowed",
+        "JP": "allowed"
+      },
+      "dfs_required": false,
+      "tpc_required": false
+    }
+  },
+  {
     "id": "ch-5-48-unii-1",
     "name": "5 GHz channel 48 (UNII-1)",
     "category": "band_and_channel",
@@ -1192,6 +2238,45 @@
       },
       "dfs_required": false,
       "tpc_required": false
+    }
+  },
+  {
+    "id": "ch-5-50-160mhz",
+    "name": "5 GHz channel 50 (160 MHz over 36..64)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2016",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 50,
+      "center_mhz": 5250,
+      "width_mhz": 160,
+      "primary_20_options": [
+        36,
+        40,
+        44,
+        48,
+        52,
+        56,
+        60,
+        64
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
     }
   },
   {
@@ -1231,6 +2316,39 @@
     }
   },
   {
+    "id": "ch-5-54-40mhz",
+    "name": "5 GHz channel 54 (40 MHz over 52..56)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 54,
+      "center_mhz": 5270,
+      "width_mhz": 40,
+      "primary_20_options": [
+        52,
+        56
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-56-unii-2a",
     "name": "5 GHz channel 56 (UNII-2A)",
     "category": "band_and_channel",
@@ -1266,6 +2384,74 @@
     }
   },
   {
+    "id": "ch-5-58-40mhz",
+    "name": "5 GHz channel 58 (40 MHz over 56..60)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 58,
+      "center_mhz": 5290,
+      "width_mhz": 40,
+      "primary_20_options": [
+        56,
+        60
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-58-80mhz",
+    "name": "5 GHz channel 58 (80 MHz over 52..64)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 58,
+      "center_mhz": 5290,
+      "width_mhz": 80,
+      "primary_20_options": [
+        52,
+        56,
+        60,
+        64
+      ],
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
     "id": "ch-5-60-unii-2a",
     "name": "5 GHz channel 60 (UNII-2A)",
     "category": "band_and_channel",
@@ -1291,6 +2477,39 @@
         160
       ],
       "unii_subband": "UNII-2A",
+      "regulatory": {
+        "US": "allowed (DFS+TPC)",
+        "EU": "allowed (DFS+TPC)",
+        "JP": "allowed (DFS+TPC)"
+      },
+      "dfs_required": true,
+      "tpc_required": true
+    }
+  },
+  {
+    "id": "ch-5-62-40mhz",
+    "name": "5 GHz channel 62 (40 MHz over 60..64)",
+    "category": "band_and_channel",
+    "region": "universal",
+    "era_bounds": [
+      "2009",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 62,
+      "center_mhz": 5310,
+      "width_mhz": 40,
+      "primary_20_options": [
+        60,
+        64
+      ],
       "regulatory": {
         "US": "allowed (DFS+TPC)",
         "EU": "allowed (DFS+TPC)",
@@ -1405,6 +2624,41 @@
     }
   },
   {
+    "id": "ch-6-103-80mhz",
+    "name": "6 GHz channel 103 (80 MHz over 97..109)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 103,
+      "center_mhz": 6465,
+      "width_mhz": 80,
+      "primary_20_options": [
+        97,
+        101,
+        105,
+        109
+      ],
+      "unii_subband": "UNII-6",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-105-unii-6",
     "name": "6 GHz channel 105 (UNII-6)",
     "category": "band_and_channel",
@@ -1436,6 +2690,39 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-107-40mhz",
+    "name": "6 GHz channel 107 (40 MHz over 105..109)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 107,
+      "center_mhz": 6485,
+      "width_mhz": 40,
+      "primary_20_options": [
+        105,
+        109
+      ],
+      "unii_subband": "UNII-6",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -1473,6 +2760,78 @@
     }
   },
   {
+    "id": "ch-6-11-40mhz",
+    "name": "6 GHz channel 11 (40 MHz over 9..13)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 11,
+      "center_mhz": 6005,
+      "width_mhz": 40,
+      "primary_20_options": [
+        9,
+        13
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
+    "id": "ch-6-111-160mhz",
+    "name": "6 GHz channel 111 (160 MHz over 97..125)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 111,
+      "center_mhz": 6505,
+      "width_mhz": 160,
+      "primary_20_options": [
+        97,
+        101,
+        105,
+        109,
+        113,
+        117,
+        121,
+        125
+      ],
+      "unii_subband": "UNII-6",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-113-unii-6",
     "name": "6 GHz channel 113 (UNII-6)",
     "category": "band_and_channel",
@@ -1504,6 +2863,39 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-115-40mhz",
+    "name": "6 GHz channel 115 (40 MHz over 113..117)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 115,
+      "center_mhz": 6525,
+      "width_mhz": 40,
+      "primary_20_options": [
+        113,
+        117
+      ],
+      "unii_subband": "UNII-6",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -1541,6 +2933,41 @@
     }
   },
   {
+    "id": "ch-6-119-80mhz",
+    "name": "6 GHz channel 119 (80 MHz over 113..125)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 119,
+      "center_mhz": 6545,
+      "width_mhz": 80,
+      "primary_20_options": [
+        113,
+        117,
+        121,
+        125
+      ],
+      "unii_subband": "UNII-6",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-121-unii-7",
     "name": "6 GHz channel 121 (UNII-7)",
     "category": "band_and_channel",
@@ -1572,6 +2999,39 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-123-40mhz",
+    "name": "6 GHz channel 123 (40 MHz over 121..125)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 123,
+      "center_mhz": 6565,
+      "width_mhz": 40,
+      "primary_20_options": [
+        121,
+        125
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -1677,6 +3137,39 @@
     }
   },
   {
+    "id": "ch-6-131-40mhz",
+    "name": "6 GHz channel 131 (40 MHz over 129..133)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 131,
+      "center_mhz": 6605,
+      "width_mhz": 40,
+      "primary_20_options": [
+        129,
+        133
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-133-unii-7",
     "name": "6 GHz channel 133 (UNII-7)",
     "category": "band_and_channel",
@@ -1708,6 +3201,41 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-135-80mhz",
+    "name": "6 GHz channel 135 (80 MHz over 129..141)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 135,
+      "center_mhz": 6625,
+      "width_mhz": 80,
+      "primary_20_options": [
+        129,
+        133,
+        137,
+        141
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -1745,6 +3273,39 @@
     }
   },
   {
+    "id": "ch-6-139-40mhz",
+    "name": "6 GHz channel 139 (40 MHz over 137..141)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 139,
+      "center_mhz": 6645,
+      "width_mhz": 40,
+      "primary_20_options": [
+        137,
+        141
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-141-unii-7",
     "name": "6 GHz channel 141 (UNII-7)",
     "category": "band_and_channel",
@@ -1776,6 +3337,45 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-143-160mhz",
+    "name": "6 GHz channel 143 (160 MHz over 129..157)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 143,
+      "center_mhz": 6665,
+      "width_mhz": 160,
+      "primary_20_options": [
+        129,
+        133,
+        137,
+        141,
+        145,
+        149,
+        153,
+        157
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -1813,6 +3413,39 @@
     }
   },
   {
+    "id": "ch-6-147-40mhz",
+    "name": "6 GHz channel 147 (40 MHz over 145..149)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 147,
+      "center_mhz": 6685,
+      "width_mhz": 40,
+      "primary_20_options": [
+        145,
+        149
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-149-unii-7",
     "name": "6 GHz channel 149 (UNII-7)",
     "category": "band_and_channel",
@@ -1844,6 +3477,80 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-15-160mhz",
+    "name": "6 GHz channel 15 (160 MHz over 1..29)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 15,
+      "center_mhz": 6025,
+      "width_mhz": 160,
+      "primary_20_options": [
+        1,
+        5,
+        9,
+        13,
+        17,
+        21,
+        25,
+        29
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
+    "id": "ch-6-151-80mhz",
+    "name": "6 GHz channel 151 (80 MHz over 145..157)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 151,
+      "center_mhz": 6705,
+      "width_mhz": 80,
+      "primary_20_options": [
+        145,
+        149,
+        153,
+        157
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -1881,6 +3588,39 @@
     }
   },
   {
+    "id": "ch-6-155-40mhz",
+    "name": "6 GHz channel 155 (40 MHz over 153..157)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 155,
+      "center_mhz": 6725,
+      "width_mhz": 40,
+      "primary_20_options": [
+        153,
+        157
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-157-unii-7",
     "name": "6 GHz channel 157 (UNII-7)",
     "category": "band_and_channel",
@@ -1912,6 +3652,53 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-159-320mhz",
+    "name": "6 GHz channel 159 (320 MHz over 129..189)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2024",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 159,
+      "center_mhz": 6745,
+      "width_mhz": 320,
+      "primary_20_options": [
+        129,
+        133,
+        137,
+        141,
+        145,
+        149,
+        153,
+        157,
+        161,
+        165,
+        169,
+        173,
+        177,
+        181,
+        185,
+        189
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz."
     }
   },
   {
@@ -1949,6 +3736,39 @@
     }
   },
   {
+    "id": "ch-6-163-40mhz",
+    "name": "6 GHz channel 163 (40 MHz over 161..165)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 163,
+      "center_mhz": 6765,
+      "width_mhz": 40,
+      "primary_20_options": [
+        161,
+        165
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-165-unii-7",
     "name": "6 GHz channel 165 (UNII-7)",
     "category": "band_and_channel",
@@ -1980,6 +3800,41 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-167-80mhz",
+    "name": "6 GHz channel 167 (80 MHz over 161..173)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 167,
+      "center_mhz": 6785,
+      "width_mhz": 80,
+      "primary_20_options": [
+        161,
+        165,
+        169,
+        173
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2051,6 +3906,39 @@
     }
   },
   {
+    "id": "ch-6-171-40mhz",
+    "name": "6 GHz channel 171 (40 MHz over 169..173)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 171,
+      "center_mhz": 6805,
+      "width_mhz": 40,
+      "primary_20_options": [
+        169,
+        173
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-173-unii-7",
     "name": "6 GHz channel 173 (UNII-7)",
     "category": "band_and_channel",
@@ -2082,6 +3970,45 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-175-160mhz",
+    "name": "6 GHz channel 175 (160 MHz over 161..189)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 175,
+      "center_mhz": 6825,
+      "width_mhz": 160,
+      "primary_20_options": [
+        161,
+        165,
+        169,
+        173,
+        177,
+        181,
+        185,
+        189
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2119,6 +4046,39 @@
     }
   },
   {
+    "id": "ch-6-179-40mhz",
+    "name": "6 GHz channel 179 (40 MHz over 177..181)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 179,
+      "center_mhz": 6845,
+      "width_mhz": 40,
+      "primary_20_options": [
+        177,
+        181
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-181-unii-7",
     "name": "6 GHz channel 181 (UNII-7)",
     "category": "band_and_channel",
@@ -2150,6 +4110,41 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-183-80mhz",
+    "name": "6 GHz channel 183 (80 MHz over 177..189)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 183,
+      "center_mhz": 6865,
+      "width_mhz": 80,
+      "primary_20_options": [
+        177,
+        181,
+        185,
+        189
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2187,6 +4182,39 @@
     }
   },
   {
+    "id": "ch-6-187-40mhz",
+    "name": "6 GHz channel 187 (40 MHz over 185..189)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 187,
+      "center_mhz": 6885,
+      "width_mhz": 40,
+      "primary_20_options": [
+        185,
+        189
+      ],
+      "unii_subband": "UNII-7",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-189-unii-8",
     "name": "6 GHz channel 189 (UNII-8)",
     "category": "band_and_channel",
@@ -2218,6 +4246,39 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-19-40mhz",
+    "name": "6 GHz channel 19 (40 MHz over 17..21)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 19,
+      "center_mhz": 6045,
+      "width_mhz": 40,
+      "primary_20_options": [
+        17,
+        21
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2255,6 +4316,39 @@
     }
   },
   {
+    "id": "ch-6-195-40mhz",
+    "name": "6 GHz channel 195 (40 MHz over 193..197)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 195,
+      "center_mhz": 6925,
+      "width_mhz": 40,
+      "primary_20_options": [
+        193,
+        197
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-197-unii-8",
     "name": "6 GHz channel 197 (UNII-8)",
     "category": "band_and_channel",
@@ -2286,6 +4380,41 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-199-80mhz",
+    "name": "6 GHz channel 199 (80 MHz over 193..205)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 199,
+      "center_mhz": 6945,
+      "width_mhz": 80,
+      "primary_20_options": [
+        193,
+        197,
+        201,
+        205
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2323,6 +4452,39 @@
     }
   },
   {
+    "id": "ch-6-203-40mhz",
+    "name": "6 GHz channel 203 (40 MHz over 201..205)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 203,
+      "center_mhz": 6965,
+      "width_mhz": 40,
+      "primary_20_options": [
+        201,
+        205
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-205-unii-8",
     "name": "6 GHz channel 205 (UNII-8)",
     "category": "band_and_channel",
@@ -2354,6 +4516,45 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-207-160mhz",
+    "name": "6 GHz channel 207 (160 MHz over 193..221)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 207,
+      "center_mhz": 6985,
+      "width_mhz": 160,
+      "primary_20_options": [
+        193,
+        197,
+        201,
+        205,
+        209,
+        213,
+        217,
+        221
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2425,6 +4626,39 @@
     }
   },
   {
+    "id": "ch-6-211-40mhz",
+    "name": "6 GHz channel 211 (40 MHz over 209..213)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 211,
+      "center_mhz": 7005,
+      "width_mhz": 40,
+      "primary_20_options": [
+        209,
+        213
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-213-unii-8",
     "name": "6 GHz channel 213 (UNII-8)",
     "category": "band_and_channel",
@@ -2459,6 +4693,41 @@
     }
   },
   {
+    "id": "ch-6-215-80mhz",
+    "name": "6 GHz channel 215 (80 MHz over 209..221)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 215,
+      "center_mhz": 7025,
+      "width_mhz": 80,
+      "primary_20_options": [
+        209,
+        213,
+        217,
+        221
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-217-unii-8",
     "name": "6 GHz channel 217 (UNII-8)",
     "category": "band_and_channel",
@@ -2490,6 +4759,39 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-219-40mhz",
+    "name": "6 GHz channel 219 (40 MHz over 217..221)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 219,
+      "center_mhz": 7045,
+      "width_mhz": 40,
+      "primary_20_options": [
+        217,
+        221
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2561,6 +4863,39 @@
     }
   },
   {
+    "id": "ch-6-227-40mhz",
+    "name": "6 GHz channel 227 (40 MHz over 225..229)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 227,
+      "center_mhz": 7085,
+      "width_mhz": 40,
+      "primary_20_options": [
+        225,
+        229
+      ],
+      "unii_subband": "UNII-8",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-229-unii-8",
     "name": "6 GHz channel 229 (UNII-8)",
     "category": "band_and_channel",
@@ -2592,6 +4927,41 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-23-80mhz",
+    "name": "6 GHz channel 23 (80 MHz over 17..29)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 23,
+      "center_mhz": 6065,
+      "width_mhz": 80,
+      "primary_20_options": [
+        17,
+        21,
+        25,
+        29
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2664,6 +5034,39 @@
     }
   },
   {
+    "id": "ch-6-27-40mhz",
+    "name": "6 GHz channel 27 (40 MHz over 25..29)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 27,
+      "center_mhz": 6085,
+      "width_mhz": 40,
+      "primary_20_options": [
+        25,
+        29
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-29-unii-5",
     "name": "6 GHz channel 29 (UNII-5)",
     "category": "band_and_channel",
@@ -2695,6 +5098,86 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-3-40mhz",
+    "name": "6 GHz channel 3 (40 MHz over 1..5)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 3,
+      "center_mhz": 5965,
+      "width_mhz": 40,
+      "primary_20_options": [
+        1,
+        5
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
+    "id": "ch-6-31-320mhz",
+    "name": "6 GHz channel 31 (320 MHz over 1..61)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2024",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 31,
+      "center_mhz": 6105,
+      "width_mhz": 320,
+      "primary_20_options": [
+        1,
+        5,
+        9,
+        13,
+        17,
+        21,
+        25,
+        29,
+        33,
+        37,
+        41,
+        45,
+        49,
+        53,
+        57,
+        61
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz."
     }
   },
   {
@@ -2732,6 +5215,39 @@
     }
   },
   {
+    "id": "ch-6-35-40mhz",
+    "name": "6 GHz channel 35 (40 MHz over 33..37)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 35,
+      "center_mhz": 6125,
+      "width_mhz": 40,
+      "primary_20_options": [
+        33,
+        37
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-37-unii-5",
     "name": "6 GHz channel 37 (UNII-5)",
     "category": "band_and_channel",
@@ -2763,6 +5279,41 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-39-80mhz",
+    "name": "6 GHz channel 39 (80 MHz over 33..45)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 39,
+      "center_mhz": 6145,
+      "width_mhz": 80,
+      "primary_20_options": [
+        33,
+        37,
+        41,
+        45
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2800,6 +5351,39 @@
     }
   },
   {
+    "id": "ch-6-43-40mhz",
+    "name": "6 GHz channel 43 (40 MHz over 41..45)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 43,
+      "center_mhz": 6165,
+      "width_mhz": 40,
+      "primary_20_options": [
+        41,
+        45
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-45-unii-5",
     "name": "6 GHz channel 45 (UNII-5)",
     "category": "band_and_channel",
@@ -2831,6 +5415,45 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-47-160mhz",
+    "name": "6 GHz channel 47 (160 MHz over 33..61)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 47,
+      "center_mhz": 6185,
+      "width_mhz": 160,
+      "primary_20_options": [
+        33,
+        37,
+        41,
+        45,
+        49,
+        53,
+        57,
+        61
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -2902,6 +5525,39 @@
     }
   },
   {
+    "id": "ch-6-51-40mhz",
+    "name": "6 GHz channel 51 (40 MHz over 49..53)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 51,
+      "center_mhz": 6205,
+      "width_mhz": 40,
+      "primary_20_options": [
+        49,
+        53
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-53-unii-5",
     "name": "6 GHz channel 53 (UNII-5)",
     "category": "band_and_channel",
@@ -2936,6 +5592,41 @@
     }
   },
   {
+    "id": "ch-6-55-80mhz",
+    "name": "6 GHz channel 55 (80 MHz over 49..61)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 55,
+      "center_mhz": 6225,
+      "width_mhz": 80,
+      "primary_20_options": [
+        49,
+        53,
+        57,
+        61
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-57-unii-5",
     "name": "6 GHz channel 57 (UNII-5)",
     "category": "band_and_channel",
@@ -2967,6 +5658,39 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-59-40mhz",
+    "name": "6 GHz channel 59 (40 MHz over 57..61)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 59,
+      "center_mhz": 6245,
+      "width_mhz": 40,
+      "primary_20_options": [
+        57,
+        61
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -3038,6 +5762,39 @@
     }
   },
   {
+    "id": "ch-6-67-40mhz",
+    "name": "6 GHz channel 67 (40 MHz over 65..69)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 67,
+      "center_mhz": 6285,
+      "width_mhz": 40,
+      "primary_20_options": [
+        65,
+        69
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-69-unii-5",
     "name": "6 GHz channel 69 (UNII-5)",
     "category": "band_and_channel",
@@ -3069,6 +5826,76 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-7-80mhz",
+    "name": "6 GHz channel 7 (80 MHz over 1..13)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 7,
+      "center_mhz": 5985,
+      "width_mhz": 80,
+      "primary_20_options": [
+        1,
+        5,
+        9,
+        13
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
+    "id": "ch-6-71-80mhz",
+    "name": "6 GHz channel 71 (80 MHz over 65..77)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 71,
+      "center_mhz": 6305,
+      "width_mhz": 80,
+      "primary_20_options": [
+        65,
+        69,
+        73,
+        77
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -3106,6 +5933,39 @@
     }
   },
   {
+    "id": "ch-6-75-40mhz",
+    "name": "6 GHz channel 75 (40 MHz over 73..77)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 75,
+      "center_mhz": 6325,
+      "width_mhz": 40,
+      "primary_20_options": [
+        73,
+        77
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-77-unii-5",
     "name": "6 GHz channel 77 (UNII-5)",
     "category": "band_and_channel",
@@ -3137,6 +5997,45 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-79-160mhz",
+    "name": "6 GHz channel 79 (160 MHz over 65..93)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 79,
+      "center_mhz": 6345,
+      "width_mhz": 160,
+      "primary_20_options": [
+        65,
+        69,
+        73,
+        77,
+        81,
+        85,
+        89,
+        93
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -3174,6 +6073,39 @@
     }
   },
   {
+    "id": "ch-6-83-40mhz",
+    "name": "6 GHz channel 83 (40 MHz over 81..85)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 83,
+      "center_mhz": 6365,
+      "width_mhz": 40,
+      "primary_20_options": [
+        81,
+        85
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-85-unii-5",
     "name": "6 GHz channel 85 (UNII-5)",
     "category": "band_and_channel",
@@ -3205,6 +6137,41 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-87-80mhz",
+    "name": "6 GHz channel 87 (80 MHz over 81..93)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 87,
+      "center_mhz": 6385,
+      "width_mhz": 80,
+      "primary_20_options": [
+        81,
+        85,
+        89,
+        93
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   },
   {
@@ -3276,6 +6243,39 @@
     }
   },
   {
+    "id": "ch-6-91-40mhz",
+    "name": "6 GHz channel 91 (40 MHz over 89..93)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 91,
+      "center_mhz": 6405,
+      "width_mhz": 40,
+      "primary_20_options": [
+        89,
+        93
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": null
+    }
+  },
+  {
     "id": "ch-6-93-unii-5",
     "name": "6 GHz channel 93 (UNII-5)",
     "category": "band_and_channel",
@@ -3310,6 +6310,53 @@
     }
   },
   {
+    "id": "ch-6-95-320mhz",
+    "name": "6 GHz channel 95 (320 MHz over 65..125)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2024",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 95,
+      "center_mhz": 6425,
+      "width_mhz": 320,
+      "primary_20_options": [
+        65,
+        69,
+        73,
+        77,
+        81,
+        85,
+        89,
+        93,
+        97,
+        101,
+        105,
+        109,
+        113,
+        117,
+        121,
+        125
+      ],
+      "unii_subband": "UNII-5",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "LPI only (5945\u20136425)"
+      },
+      "wpa3_only": true,
+      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz."
+    }
+  },
+  {
     "id": "ch-6-97-unii-6",
     "name": "6 GHz channel 97 (UNII-6)",
     "category": "band_and_channel",
@@ -3341,6 +6388,39 @@
         "EU": "not allocated"
       },
       "wpa3_only": true
+    }
+  },
+  {
+    "id": "ch-6-99-40mhz",
+    "name": "6 GHz channel 99 (40 MHz over 97..101)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15",
+      "wfa-wpa3-6ghz-mandate"
+    ],
+    "technical_body": {
+      "band_ghz": 6,
+      "channel": 99,
+      "center_mhz": 6445,
+      "width_mhz": 40,
+      "primary_20_options": [
+        97,
+        101
+      ],
+      "unii_subband": "UNII-6",
+      "regulatory": {
+        "US": "LPI/SP/VLP tiers",
+        "EU": "not allocated"
+      },
+      "wpa3_only": true,
+      "notes": null
     }
   }
 ]

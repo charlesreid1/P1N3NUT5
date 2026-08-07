@@ -230,20 +230,157 @@ def rec_6g(ch: int) -> dict:
     }
 
 
+def rec_2g4_bonded(anchor_low: int, anchor_high: int) -> dict:
+    """2.4 GHz 40 MHz bonded record — center between the two 20 MHz anchors."""
+    center = (freq_2g4(anchor_low) + freq_2g4(anchor_high)) // 2
+    return {
+        "id": f"ch-2g4-{anchor_low}p{anchor_high}-40mhz",
+        "name": f"2.4 GHz channel {anchor_low}+{anchor_high} (40 MHz bonded)",
+        "category": "band_and_channel",
+        "region": "universal",
+        "era_bounds": ["2009", None],
+        "still_effective_2026": True,
+        "confidence": "primary",
+        "citations": CITES_2G4,
+        "technical_body": {
+            "band_ghz": 2.4,
+            "primary_channels": [anchor_low, anchor_high],
+            "center_mhz": center,
+            "width_mhz": 40,
+            "regulatory": region_2g4(anchor_low),
+            "dfs_required": False,
+            "tpc_required": False,
+            "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+        },
+    }
+
+
+# 5 GHz bonded channel anchors (per IEEE 802.11 channel numbering rules).
+# 40 MHz: center is the low anchor +2; e.g. 36+40 => center MHz 5190, channel 38.
+# 80 MHz: center is the primary +6, span four adjacent 20 MHz channels.
+# 160 MHz: center is primary +14, span eight adjacent 20 MHz channels.
+
+def rec_5g_bonded(primary: int, width_mhz: int, member_20: list[int]) -> dict:
+    center_mhz = (freq_5g(min(member_20)) + freq_5g(max(member_20))) // 2
+    all_dfs = any(dfs_5g(c) for c in member_20)
+    if width_mhz == 40:
+        chan_num = min(member_20) + 2
+    elif width_mhz == 80:
+        chan_num = min(member_20) + 6
+    elif width_mhz == 160:
+        chan_num = min(member_20) + 14
+    else:
+        chan_num = primary
+    reg = "allowed (DFS+TPC)" if all_dfs else "allowed"
+    return {
+        "id": f"ch-5-{chan_num}-{width_mhz}mhz",
+        "name": f"5 GHz channel {chan_num} ({width_mhz} MHz over {min(member_20)}..{max(member_20)})",
+        "category": "band_and_channel",
+        "region": "universal",
+        "era_bounds": ["2009" if width_mhz == 40 else "2013" if width_mhz == 80 else "2016", None],
+        "still_effective_2026": True,
+        "confidence": "primary",
+        "citations": CITES_5G,
+        "technical_body": {
+            "band_ghz": 5,
+            "channel": chan_num,
+            "center_mhz": center_mhz,
+            "width_mhz": width_mhz,
+            "primary_20_options": member_20,
+            "regulatory": {"US": reg, "EU": reg, "JP": reg if not all_dfs else "allowed (DFS+TPC)"},
+            "dfs_required": all_dfs,
+            "tpc_required": all_dfs,
+        },
+    }
+
+
+def rec_6g_bonded(primary: int, width_mhz: int, member_20: list[int]) -> dict:
+    center_mhz = (freq_6g(min(member_20)) + freq_6g(max(member_20))) // 2
+    if width_mhz == 40:
+        chan_num = min(member_20) + 2
+    elif width_mhz == 80:
+        chan_num = min(member_20) + 6
+    elif width_mhz == 160:
+        chan_num = min(member_20) + 14
+    elif width_mhz == 320:
+        chan_num = min(member_20) + 30
+    else:
+        chan_num = primary
+    return {
+        "id": f"ch-6-{chan_num}-{width_mhz}mhz",
+        "name": f"6 GHz channel {chan_num} ({width_mhz} MHz over {min(member_20)}..{max(member_20)})",
+        "category": "band_and_channel",
+        "region": "US",
+        "era_bounds": ["2020" if width_mhz != 320 else "2024", None],
+        "still_effective_2026": True,
+        "confidence": "primary",
+        "citations": CITES_6G,
+        "technical_body": {
+            "band_ghz": 6,
+            "channel": chan_num,
+            "center_mhz": center_mhz,
+            "width_mhz": width_mhz,
+            "primary_20_options": member_20,
+            "unii_subband": unii_6g(min(member_20)),
+            "regulatory": region_6g(min(member_20)),
+            "wpa3_only": True,
+            "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz." if width_mhz == 320 else None,
+        },
+    }
+
+
 def main() -> None:
     records: list[dict] = []
 
     # 2.4 GHz — all 14 channels
     for ch in CH_2G4:
         records.append(rec_2g4(ch))
+    # 2.4 GHz 40 MHz bonded — the practical anchor pairs
+    for anchor_low, anchor_high in [(1, 5), (2, 6), (3, 7), (4, 8), (5, 9), (6, 10), (7, 11)]:
+        records.append(rec_2g4_bonded(anchor_low, anchor_high))
 
-    # 5 GHz UNII-1 / -2A / -2C / -3
+    # 5 GHz UNII-1 / -2A / -2C / -3 — 20 MHz primary
     for ch in UNII1 + UNII2A + UNII2C + UNII3:
         records.append(rec_5g(ch))
+    # 5 GHz 40 MHz bonded
+    ALL_5G_20 = UNII1 + UNII2A + UNII2C + UNII3
+    for low in ALL_5G_20:
+        if low + 4 in ALL_5G_20 and unii_5g(low) == unii_5g(low + 4):
+            records.append(rec_5g_bonded(low, 40, [low, low + 4]))
+    # 5 GHz 80 MHz bonded — four adjacent 20 MHz channels
+    for start in [36, 52, 100, 116, 132, 149]:
+        members = [start, start + 4, start + 8, start + 12]
+        if all(c in ALL_5G_20 for c in members):
+            records.append(rec_5g_bonded(start, 80, members))
+    # 5 GHz 160 MHz bonded — eight adjacent
+    for start in [36, 100]:
+        members = [start + 4 * i for i in range(8)]
+        if all(c in ALL_5G_20 for c in members):
+            records.append(rec_5g_bonded(start, 160, members))
 
-    # 6 GHz UNII-5 / -6 / -7 / -8 — every 4th channel from 1..233
+    # 6 GHz UNII-5 / -6 / -7 / -8 — every 4th channel from 1..233 (20 MHz primary)
     for ch in range(1, 234, 4):
         records.append(rec_6g(ch))
+    # 6 GHz 40 MHz bonded (pairs)
+    for start in range(1, 234, 8):
+        members = [start, start + 4]
+        if all(c <= 233 for c in members):
+            records.append(rec_6g_bonded(start, 40, members))
+    # 6 GHz 80 MHz bonded
+    for start in range(1, 234, 16):
+        members = [start + 4 * i for i in range(4)]
+        if all(c <= 233 for c in members):
+            records.append(rec_6g_bonded(start, 80, members))
+    # 6 GHz 160 MHz bonded
+    for start in range(1, 234, 32):
+        members = [start + 4 * i for i in range(8)]
+        if all(c <= 233 for c in members):
+            records.append(rec_6g_bonded(start, 160, members))
+    # 6 GHz 320 MHz bonded (Wi-Fi 7)
+    for start in range(1, 234, 64):
+        members = [start + 4 * i for i in range(16)]
+        if all(c <= 233 for c in members):
+            records.append(rec_6g_bonded(start, 320, members))
 
     # Dedupe by id (the special anchor records have ids like
     # ch-5-36-unii1 not ch-5-36 — keep the anchor form).
