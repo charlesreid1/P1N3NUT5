@@ -281,5 +281,734 @@
       "element_id": 127,
       "notable_bits": ["11k Neighbor Report", "11v BSS Transition", "Interworking (11u)", "TDLS", "Operating Mode Notification (11ac)"]
     }
+  },
+  {
+    "id": "ie-supported-rates",
+    "name": "Supported Rates (IE 1)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 1,
+      "length_range_bytes": [1, 8],
+      "contents": "up to 8 rates, one byte each; high bit set = 'basic rate'",
+      "appears_in": ["beacon", "probe-request", "probe-response", "assoc-request", "assoc-response", "reassoc-request", "reassoc-response"],
+      "wctf_uses": ["fingerprint — real APs typically advertise every rate 1..54 Mbps; rogues sometimes omit low rates"]
+    }
+  },
+  {
+    "id": "ie-fh-parameter-set",
+    "name": "FH Parameter Set (IE 2)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", "2003"],
+    "still_effective_2026": false,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 2, "note": "802.11 FHSS PHY — essentially extinct."}
+  },
+  {
+    "id": "ie-cf-parameter-set",
+    "name": "CF Parameter Set (IE 4)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": false,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 4, "note": "Contention-Free (PCF) periods — legacy; rarely seen."}
+  },
+  {
+    "id": "ie-ibss-parameter-set",
+    "name": "IBSS Parameter Set (IE 6)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 6, "contents": "ATIM Window (2 bytes) — ad-hoc mode only"}
+  },
+  {
+    "id": "ie-hopping-pattern-parameters",
+    "name": "Hopping Pattern Parameters (IE 8)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", "2003"],
+    "still_effective_2026": false,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 8, "note": "FHSS legacy."}
+  },
+  {
+    "id": "ie-hopping-pattern-table",
+    "name": "Hopping Pattern Table (IE 9)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", "2003"],
+    "still_effective_2026": false,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 9, "note": "FHSS legacy."}
+  },
+  {
+    "id": "ie-request",
+    "name": "Request (IE 10)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 10, "contents": "list of element IDs the requester wants echoed back", "appears_in": ["probe-request"]}
+  },
+  {
+    "id": "ie-bss-load",
+    "name": "BSS Load (IE 11)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 11,
+      "contents": ["Station Count (2 bytes)", "Channel Utilization (1 byte)", "Available Admission Capacity (2 bytes)"],
+      "wctf_uses": ["airtime-load fingerprinting — a suspiciously idle 'popular' AP is a rogue"]
+    }
+  },
+  {
+    "id": "ie-power-constraint",
+    "name": "Power Constraint (IE 32)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 32, "contents": "Local Power Constraint (dB below regulatory max)", "appears_in": ["beacon", "probe-response"]}
+  },
+  {
+    "id": "ie-tpc-report",
+    "name": "TPC Report (IE 35)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 35, "role": "Transmit Power Control response (802.11h)"}
+  },
+  {
+    "id": "ie-supported-channels",
+    "name": "Supported Channels (IE 36)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 36, "contents": "pairs of (First Channel Number, Number of Channels)"}
+  },
+  {
+    "id": "ie-channel-switch-announcement",
+    "name": "Channel Switch Announcement (IE 37)",
+    "aliases": ["csa"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 37,
+      "contents": ["Channel Switch Mode (1B)", "New Channel Number (1B)", "Channel Switch Count (1B)"],
+      "attack_surface": ["spoofed CSA drags a client to a rogue channel — mitigated on modern clients via CSA protection but still real on legacy stacks"]
+    }
+  },
+  {
+    "id": "ie-measurement-request",
+    "name": "Measurement Request (IE 38)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 38, "spec": "802.11k Radio Resource Measurement"}
+  },
+  {
+    "id": "ie-measurement-report",
+    "name": "Measurement Report (IE 39)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 39, "spec": "802.11k"}
+  },
+  {
+    "id": "ie-quiet",
+    "name": "Quiet (IE 40)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 40, "role": "802.11h DFS quiet interval scheduling"}
+  },
+  {
+    "id": "ie-ibss-dfs",
+    "name": "IBSS DFS (IE 41)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 41}
+  },
+  {
+    "id": "ie-erp-info",
+    "name": "ERP Information (IE 42)",
+    "aliases": ["erp"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2003", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 42,
+      "contents": ["NonERP_Present bit", "Use_Protection bit", "Barker_Preamble_Mode bit"],
+      "appears_in": ["beacon", "probe-response"],
+      "note": "802.11g mixed-mode signal — a fingerprint hint (real APs in mixed environments toggle Use_Protection)."
+    }
+  },
+  {
+    "id": "ie-hcca-tspec",
+    "name": "HCCA TSPEC (IE 45 or 221 vendor)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"note": "802.11e HCCA TSPEC; largely superseded by WMM in practice."}
+  },
+  {
+    "id": "ie-qos-capability",
+    "name": "QoS Capability (IE 46)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 46, "spec": "802.11e"}
+  },
+  {
+    "id": "ie-extended-supported-rates",
+    "name": "Extended Supported Rates (IE 50)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2003", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 50,
+      "contents": "up to 255 rates when Supported Rates (IE 1) overflows",
+      "wctf_uses": ["client fingerprint — the union of rates 1..54 Mbps splits IE 1 + IE 50 the same way per driver family"]
+    }
+  },
+  {
+    "id": "ie-ap-channel-report",
+    "name": "AP Channel Report (IE 51)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 51, "spec": "802.11k"}
+  },
+  {
+    "id": "ie-neighbor-report",
+    "name": "Neighbor Report (IE 52)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11k", "neighbor-report-spoof"],
+    "technical_body": {
+      "element_id": 52,
+      "spec": "802.11k",
+      "contents": ["BSSID", "BSSID Info", "Operating Class", "Channel Number", "PHY Type"],
+      "attack_surface": ["spoofed Neighbor Report steers a client onto a rogue BSSID"]
+    }
+  },
+  {
+    "id": "ie-rcpi",
+    "name": "RCPI (IE 53)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 53, "role": "Received Channel Power Indicator (802.11k)"}
+  },
+  {
+    "id": "ie-fast-bss-transition",
+    "name": "Fast BSS Transition (IE 55)",
+    "aliases": ["fte"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11r", "ft-handshake-capture"],
+    "technical_body": {
+      "element_id": 55,
+      "spec": "802.11r",
+      "contents": ["MIC control", "MIC (16 B)", "ANonce", "SNonce", "Optional Parameters (R1KH-ID, GTK, IGTK, R0KH-ID)"],
+      "wctf_uses": ["carries the FT roam PMKID-analogue that hashcat mode 22000 handles"]
+    }
+  },
+  {
+    "id": "ie-timeout-interval",
+    "name": "Timeout Interval (IE 56)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 56, "spec": "802.11r"}
+  },
+  {
+    "id": "ie-ric-data",
+    "name": "RIC Data (IE 57)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 57, "spec": "802.11r Resource Information Container"}
+  },
+  {
+    "id": "ie-supported-operating-classes",
+    "name": "Supported Operating Classes (IE 59)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 59}
+  },
+  {
+    "id": "ie-extended-channel-switch-announcement",
+    "name": "Extended Channel Switch Announcement (IE 60)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 60, "note": "adds Operating Class + New Channel to plain CSA"}
+  },
+  {
+    "id": "ie-ht-operation",
+    "name": "HT Operation (IE 61)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 61, "spec": "802.11n"}
+  },
+  {
+    "id": "ie-secondary-channel-offset",
+    "name": "Secondary Channel Offset (IE 62)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 62, "spec": "802.11n"}
+  },
+  {
+    "id": "ie-rrm-enabled-capabilities",
+    "name": "RRM Enabled Capabilities (IE 70)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 70, "spec": "802.11k"}
+  },
+  {
+    "id": "ie-mobility-domain-parameters",
+    "name": "Mobility Domain Parameters — extended attributes",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ie-mobility-domain", "std-802-11r"],
+    "technical_body": {"note": "MDE plus FTE + Timeout Interval together are the full 11r attachment set."}
+  },
+  {
+    "id": "ie-20-40-bss-coexistence",
+    "name": "20/40 BSS Coexistence (IE 72)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 72, "spec": "802.11n"}
+  },
+  {
+    "id": "ie-overlapping-bss-scan-parameters",
+    "name": "Overlapping BSS Scan Parameters (IE 74)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 74}
+  },
+  {
+    "id": "ie-ric-descriptor",
+    "name": "RIC Descriptor (IE 75)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 75, "spec": "802.11r"}
+  },
+  {
+    "id": "ie-management-mic",
+    "name": "Management MIC (IE 76)",
+    "aliases": ["mmie"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11w", "cipher-bip-cmac-128"],
+    "technical_body": {
+      "element_id": 76,
+      "spec": "802.11w",
+      "role": "MIC over broadcast/multicast robust management frames — BIP-CMAC-128 by default"
+    }
+  },
+  {
+    "id": "ie-time-advertisement",
+    "name": "Time Advertisement (IE 69)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 69, "spec": "802.11v"}
+  },
+  {
+    "id": "ie-tim-broadcast-request",
+    "name": "TIM Broadcast Request (IE 94)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 94, "spec": "802.11v"}
+  },
+  {
+    "id": "ie-advertisement-protocol",
+    "name": "Advertisement Protocol (IE 108)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11u", "roaming-11u-anqp-gas"],
+    "technical_body": {
+      "element_id": 108,
+      "role": "carried in GAS frames; identifies the query protocol (ANQP = 0)"
+    }
+  },
+  {
+    "id": "ie-mesh-configuration",
+    "name": "Mesh Configuration (IE 113)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 113, "spec": "802.11s mesh"}
+  },
+  {
+    "id": "ie-mesh-id",
+    "name": "Mesh ID (IE 114)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 114, "spec": "802.11s mesh"}
+  },
+  {
+    "id": "ie-tdls-discovery",
+    "name": "TDLS Peer PSM Request (IE 118)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"note": "Tunneled Direct-Link Setup family — carriers a family of IEs 118+"}
+  },
+  {
+    "id": "ie-multi-band",
+    "name": "Multi-band (IE 158)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 158, "note": "declares the AP participates in fast-session-transfer across bands"}
+  },
+  {
+    "id": "ie-fils-indication",
+    "name": "FILS Indication (IE 240)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 240, "spec": "802.11ai (Fast Initial Link Setup)"}
+  },
+  {
+    "id": "ie-vht-operation",
+    "name": "VHT Operation (IE 192)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 192, "spec": "802.11ac"}
+  },
+  {
+    "id": "ie-vht-tx-power-envelope",
+    "name": "VHT Transmit Power Envelope (IE 195)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 195, "spec": "802.11ac"}
+  },
+  {
+    "id": "ie-he-operation",
+    "name": "HE Operation (Extension IE 36)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11ax-2021"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 36,
+      "spec": "802.11ax",
+      "notable_fields": ["HE Operation Parameters", "BSS Color Info", "Basic HE-MCS/NSS Set"]
+    }
+  },
+  {
+    "id": "ie-6ghz-operation",
+    "name": "6 GHz Operation (Extension IE 59)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11ax-2021", "wfa-wpa3-6ghz-mandate"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 59,
+      "spec": "802.11ax 6 GHz",
+      "note": "Present only in 6 GHz beacons; carries Regulatory Info + Channel-Center-Frequency-Segment fields."
+    }
+  },
+  {
+    "id": "ie-twt",
+    "name": "TWT (Target Wake Time, Extension IE 78)",
+    "aliases": ["twt-ie"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11ax-2021"],
+    "see_also": ["twt-forced-sleep-abuse"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 78,
+      "spec": "802.11ax",
+      "notable_fields": ["Target Wake Time", "Wake Interval", "Wake Duration"],
+      "attack_surface": ["spoofed TWT with long Wake Interval forces client into extended sleep"]
+    }
+  },
+  {
+    "id": "ie-eht-operation",
+    "name": "EHT Operation (Extension IE 106)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2024", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11be-2024"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 106,
+      "spec": "802.11be (Wi-Fi 7)"
+    }
+  },
+  {
+    "id": "ie-mlo-basic-ml",
+    "name": "Basic Multi-Link ML Element (Extension IE 107)",
+    "aliases": ["mle-basic"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2024", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11be-2024"],
+    "see_also": ["ie-mld-basic", "wifi7-mlo-link-desync"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 107,
+      "spec": "802.11be",
+      "note": "Alternate name for the ML element — the fine-grained per-link fields inside MLD."
+    }
+  },
+  {
+    "id": "ie-probe-response-mesh",
+    "name": "Probe Response — Mesh subset",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"note": "Mesh probe responses include Mesh ID + Mesh Configuration IEs."}
+  },
+  {
+    "id": "ie-fils-key-confirmation",
+    "name": "FILS Key Confirmation (IE 241)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 241, "spec": "802.11ai"}
+  },
+  {
+    "id": "ie-fils-session",
+    "name": "FILS Session (IE 242)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 242, "spec": "802.11ai"}
+  },
+  {
+    "id": "ie-owe-diffie-hellman",
+    "name": "OWE Diffie-Hellman Parameter (Extension IE 32)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wpa3-spec", "ieee-802-11-2020"],
+    "see_also": ["km-owe"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 32,
+      "role": "carries the ECDH public key used in the OWE association exchange"
+    }
+  },
+  {
+    "id": "ie-oci",
+    "name": "Operating Channel Information / OCI (Extension IE 54)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "element_id": 255,
+      "element_id_ext": 54,
+      "note": "Introduced as a partial KRACK mitigation — binds the negotiated channel into the 4-way handshake."
+    }
+  },
+  {
+    "id": "ie-transition-disable",
+    "name": "Transition Disable KDE (per WFA WPA3)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wpa3-spec"],
+    "see_also": ["wpa3-transition-downgrade"],
+    "technical_body": {
+      "role": "Wi-Fi Alliance-defined KDE delivered in M3; instructs the client to disable WPA2 fallback for this network from now on",
+      "note": "Only clients that honor the KDE benefit — many do not, which keeps transition-downgrade viable in 2026."
+    }
+  },
+  {
+    "id": "ie-supported-mcs-set",
+    "name": "Supported MCS Set (part of HT Capabilities)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"note": "Sub-field inside IE 45; 16-byte bitmap of supported MCS indices — a strong device fingerprint."}
   }
 ]
