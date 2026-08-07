@@ -694,16 +694,15 @@ def _hostapd_conf(
             f"sae_password={psk}",
         ]
     elif security == "wpa2_eap":
-        lines += [
-            "wpa=2",
-            "wpa_key_mgmt=WPA-EAP",
-            "wpa_pairwise=CCMP",
-            "rsn_pairwise=CCMP",
-            "ieee8021x=1",
-            # RADIUS block must be filled in by caller (rogue_radius);
-            # Phase 5 leaves the placeholder to be substituted later.
-            "# RADIUS: fill in via rogue_radius() before launch",
-        ]
+        # WPA2-EAP rogue AP needs a real RADIUS backend (hostapd-wpe,
+        # eaphammer, or FreeRADIUS-WPE). rogue_radius() is deferred per
+        # skills/pineapple/SKILL.md § Deferred; refusing loudly here is
+        # better than shipping a hostapd.conf that hostapd rejects with
+        # an opaque error. Fixture a real RADIUS server + revisit.
+        raise NotImplementedError(
+            "wpa2_eap rogue AP requires a RADIUS backend; not implemented. "
+            "See docs/legal_and_consent.md and knowledge/freeradius-wpe/"
+        )
     else:
         raise ValueError(f"unknown security {security!r}")
     return "\n".join(lines)
