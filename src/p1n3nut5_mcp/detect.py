@@ -291,3 +291,194 @@ async def extract_pmkids(pcap_path: str, out_path: str, **kw) -> dict:
     r = await convert_to_hashcat(pcap_path, out_path, **kw)
     r["hash_lines"] = _split_22000(r["hash_lines"], "01")
     return r
+
+
+# --- scapy-backed IE / beacon / fingerprint tools ---------------------------
+
+
+def _iter_scapy_beacons(pcap_path: str):
+    """Yield scapy 802.11 beacon packets from `pcap_path` (pcap or pcapng)."""
+    from scapy.layers.dot11 import Dot11Beacon  # noqa: PLC0415
+    from scapy.utils import rdpcap  # noqa: PLC0415
+
+    for pkt in rdpcap(pcap_path):
+        if pkt.haslayer(Dot11Beacon):
+            yield pkt
+
+
+def _iter_scapy_probe_requests(pcap_path: str):
+    """Yield scapy Dot11ProbeReq / Dot11AssoReq packets."""
+    from scapy.layers.dot11 import Dot11AssoReq, Dot11ProbeReq  # noqa: PLC0415
+    from scapy.utils import rdpcap  # noqa: PLC0415
+
+    for pkt in rdpcap(pcap_path):
+        if pkt.haslayer(Dot11ProbeReq) or pkt.haslayer(Dot11AssoReq):
+            yield pkt
+
+
+def _walk_ies(pkt) -> dict[int, str]:
+    """Walk a scapy 802.11 management packet's IEs → {element_id: hex bytes}.
+
+    Handles both `Dot11Elt` (opaque info bytes) and its structured
+    subclasses (`Dot11EltRSN`, `Dot11EltVendorSpecific`, `Dot11EltRates`,
+    …). For subclasses that set `info = None` we serialize the layer
+    body via `bytes(layer)[2:]` — the same on-the-wire IE body bytes,
+    just recovered after scapy's structured dissection.
+    """
+    from scapy.layers.dot11 import Dot11Elt  # noqa: PLC0415
+
+    ies: dict[int, str] = {}
+    layer = pkt.getlayer(Dot11Elt)
+    while layer is not None:
+        eid = int(layer.ID)
+        info = getattr(layer, "info", None)
+        if info is not None:
+            body = bytes(info)
+        else:
+            # Structured IE subclass: recover raw body from serialized form.
+            # bytes(layer) includes children after this IE, so we split
+            # by taking exactly `len` bytes past the 2-byte header.
+            raw = bytes(layer)
+            length = raw[1] if len(raw) >= 2 else 0
+            body = raw[2 : 2 + length]
+        # First occurrence wins — Vendor IE (0xdd) repeats per-vendor; the
+        # caller can re-parse the frame with scapy for full granularity.
+        ies.setdefault(eid, body.hex())
+        # Follow the IE chain via .payload (scapy links Dot11Elt subclasses
+        # via payload, not by getlayer(Dot11Elt) which returns the same
+        # match repeatedly).
+        nxt = layer.payload if layer.payload else None
+        if nxt is None or type(nxt).__name__ == "NoPayload":
+            break
+        layer = nxt.getlayer(Dot11Elt) if hasattr(nxt, "getlayer") else None
+        if layer is None:
+            break
+    return ies
+
+
+def _bssid_of(pkt) -> str | None:
+    from scapy.layers.dot11 import Dot11  # noqa: PLC0415
+
+    d = pkt.getlayer(Dot11)
+    if d is None:
+        return None
+    b = d.addr3
+    return b.lower() if b else None
+
+
+def decode_ies(pcap_path: str) -> dict:
+    """Return `{bssid: {element_id: hex_bytes}}` for every beacon in `pcap_path`.
+
+    Uses scapy's `Dot11Elt` walker; supports classic pcap and pcapng.
+    Deterministic ordering by first-observed IE. WCTF beacon-flag-stego
+    subgenre depends on byte-level IE inspection.
+    """
+    out: dict[str, dict[int, str]] = {}
+    for pkt in _iter_scapy_beacons(pcap_path):
+        bssid = _bssid_of(pkt)
+        if bssid is None:
+            continue
+        out.setdefault(bssid, _walk_ies(pkt))
+    return {"ok": True, "payload": out}
+
+
+def beacon_diff(bssid_a: str, bssid_b: str, pcap_path: str) -> dict:
+    """Diff the IE sets of the first beacon from each BSSID in `pcap_path`.
+
+    Returns
+        {only_in_a: [element_ids], only_in_b: [...], different: {eid: (a_hex, b_hex)}}
+    The evil-twin-farm triage primitive: near-identical beacons that
+    differ in one Vendor IE byte or an RSN cipher-suite selector are
+    the odd one out.
+    """
+    a_want = bssid_a.lower()
+    b_want = bssid_b.lower()
+    a_ies: dict[int, str] | None = None
+    b_ies: dict[int, str] | None = None
+    for pkt in _iter_scapy_beacons(pcap_path):
+        bssid = _bssid_of(pkt)
+        if bssid == a_want and a_ies is None:
+            a_ies = _walk_ies(pkt)
+        elif bssid == b_want and b_ies is None:
+            b_ies = _walk_ies(pkt)
+        if a_ies is not None and b_ies is not None:
+            break
+    if a_ies is None or b_ies is None:
+        missing = [b for b, ies in ((bssid_a, a_ies), (bssid_b, b_ies)) if ies is None]
+        return {
+            "ok": False,
+            "payload": None,
+            "warnings": [f"no beacon in {pcap_path} for BSSIDs: {missing}"],
+        }
+    only_a = sorted(set(a_ies) - set(b_ies))
+    only_b = sorted(set(b_ies) - set(a_ies))
+    different = {
+        eid: (a_ies[eid], b_ies[eid])
+        for eid in sorted(set(a_ies) & set(b_ies))
+        if a_ies[eid] != b_ies[eid]
+    }
+    return {
+        "ok": True,
+        "payload": {
+            "only_in_a": only_a,
+            "only_in_b": only_b,
+            "different": different,
+        },
+    }
+
+
+def client_fingerprint(client_mac: str, pcap_path: str) -> dict:
+    """Stable fingerprint for `client_mac` from its probe / assoc requests.
+
+    Hash of the client's IE-order + capability-info bits. Matches
+    `records/client_fingerprints.json` entries when possible: if the
+    fingerprint hex equals one of the corpus records'
+    `technical_body.signature`, return that record's id in the payload.
+
+    Returns
+        {ok, payload: {fingerprint, matches?, ie_order, capabilities}, warnings}
+    """
+    import hashlib  # noqa: PLC0415
+
+    want = client_mac.lower()
+    ie_order: list[int] | None = None
+    caps: int | None = None
+    for pkt in _iter_scapy_probe_requests(pcap_path):
+        # addr2 is the client (source) for probe / assoc requests
+        d = pkt.getlayer("Dot11")
+        if d is None or (d.addr2 or "").lower() != want:
+            continue
+        ies = _walk_ies(pkt)
+        ie_order = list(ies.keys())
+        caps = int(getattr(pkt, "cap", 0) or 0)
+        break
+    if ie_order is None:
+        return {
+            "ok": False,
+            "payload": None,
+            "warnings": [f"no probe/assoc request for {client_mac} in {pcap_path}"],
+        }
+    material = ",".join(str(i) for i in ie_order) + f"|cap={caps}"
+    fp = hashlib.sha256(material.encode()).hexdigest()[:16]
+    matches = _match_client_fingerprint(fp)
+    return {
+        "ok": True,
+        "payload": {
+            "fingerprint": fp,
+            "ie_order": ie_order,
+            "capabilities": caps,
+            "matches": matches,
+        },
+    }
+
+
+def _match_client_fingerprint(fp: str) -> str | None:
+    """Look up `fp` against records/client_fingerprints.json."""
+    from p1n3nut5_mcp import knowledge as _kb  # noqa: PLC0415
+
+    corpus = _kb.get_corpus()
+    for rec in corpus.category("client_fingerprint"):
+        sig = rec.body.get("technical_body", {}).get("signature")
+        if sig == fp:
+            return rec.id
+    return None

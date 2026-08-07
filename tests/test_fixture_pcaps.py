@@ -157,6 +157,23 @@ def test_fixture_dir_has_no_orphans() -> None:
     )
 
 
+def test_pcapng_round_trip() -> None:
+    """parse_pcap must produce a non-empty summary from a pcapng file.
+
+    T-L5 — regression gate on the L6 scapy-required change. Without
+    scapy the old code raised NotImplementedError on pcapng magic;
+    with L6 this just works.
+    """
+    path = FIXTURES / "beacon-open.pcapng"
+    assert path.exists(), (
+        f"fixture missing: {path} — run `python scripts/generate-pcap-fixtures.py`"
+    )
+    summary = detect.parse_pcap(str(path))
+    assert summary.total_frames >= 1
+    assert "aa:bb:cc:dd:ee:ff" in summary.bssids
+    assert "open-net" in summary.ssids
+
+
 def test_generator_is_deterministic(tmp_path: Path) -> None:
     """Running the generator twice produces byte-identical fixtures.
 

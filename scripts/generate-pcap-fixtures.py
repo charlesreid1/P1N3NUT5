@@ -206,6 +206,29 @@ def write_probe_response_karma() -> None:
     (OUT / "probe-response-karma.pcap").write_bytes(_pcap_header() + _pcap_record(frame))
 
 
+def write_pcapng_beacon() -> None:
+    """Same open-beacon frame as beacon-open.pcap, wrapped in pcapng.
+
+    Regression fixture for L6 pcapng support — parse_pcap must return a
+    non-empty summary from this file even though it uses the pcapng
+    magic (0x0a0d0d0a) rather than classic pcap.
+    """
+    from scapy.utils import PcapNgWriter  # noqa: PLC0415
+    from scapy.layers.dot11 import Dot11, Dot11Beacon, Dot11Elt  # noqa: PLC0415
+
+    OUT.mkdir(parents=True, exist_ok=True)
+    pkt = (
+        Dot11(type=0, subtype=8, addr1="ff:ff:ff:ff:ff:ff",
+              addr2="aa:bb:cc:dd:ee:ff", addr3="aa:bb:cc:dd:ee:ff")
+        / Dot11Beacon(cap=0x0431)
+        / Dot11Elt(ID=0, info=b"open-net")
+        / Dot11Elt(ID=3, info=b"\x06")
+    )
+    path = OUT / "beacon-open.pcapng"
+    with PcapNgWriter(str(path)) as w:
+        w.write(pkt)
+
+
 if __name__ == "__main__":
     write_open_beacon()
     write_wpa2_beacon()
@@ -215,4 +238,5 @@ if __name__ == "__main__":
     write_probe_request_hidden()
     write_probe_response_karma()
     write_22000_lines()
+    write_pcapng_beacon()
     print(f"wrote fixtures under {OUT}")

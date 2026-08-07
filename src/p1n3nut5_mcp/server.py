@@ -575,6 +575,21 @@ async def extract_pmkids(pcap_path: str, out_path: str) -> dict:
     return {"ok": r["ok"], "payload": _hashline_dicts(r["hash_lines"]), "warnings": r["warnings"]}
 
 
+def decode_ies(pcap_path: str) -> dict:
+    """Byte-level IE walk for every beacon in `pcap_path` (pcap or pcapng)."""
+    return detect.decode_ies(pcap_path)
+
+
+def beacon_diff(bssid_a: str, bssid_b: str, pcap_path: str) -> dict:
+    """Diff the IE sets of two BSSIDs' first beacons in `pcap_path`."""
+    return detect.beacon_diff(bssid_a, bssid_b, pcap_path)
+
+
+def client_fingerprint(client_mac: str, pcap_path: str) -> dict:
+    """Stable fingerprint from a client's probe/assoc request IE order."""
+    return detect.client_fingerprint(client_mac, pcap_path)
+
+
 async def crack_start(
     hash_path: str,
     wordlist_path: str,
@@ -648,6 +663,9 @@ def main() -> None:
         convert_to_hashcat,
         extract_handshakes,
         extract_pmkids,
+        decode_ies,
+        beacon_diff,
+        client_fingerprint,
         crack_start,
         crack_status,
         crack_result,

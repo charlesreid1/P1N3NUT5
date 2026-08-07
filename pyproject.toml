@@ -25,7 +25,7 @@ dependencies = [
     # pcap + pcapng parsing, IE decode, evil-twin diffing, client
     # fingerprint. Required (not optional) so parse_pcap works on
     # modern captures without a second install line.
-    "scapy>=2.5.0",
+    "scapy>=2.7.0",
 ]
 
 [project.optional-dependencies]
