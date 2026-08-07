@@ -134,7 +134,14 @@ def lookup_ie(id_or_name: str | int) -> dict:
 
 
 def lookup_cipher(name: str) -> dict:
-    return _wrap(_find_in_category(name, ("cipher",)))
+    """Look up a cipher OR a key-management suite (WPA2-PSK, WPA3-SAE, OWE, …).
+
+    Callers routinely conflate the two — 'what's the AKM for WPA2-PSK'
+    is a key_management question; 'what's the selector for CCMP-128' is
+    a cipher question. Searching both categories gives the expected
+    single-tool experience.
+    """
+    return _wrap(_find_in_category(name, ("cipher", "key_management")))
 
 
 def lookup_eap(method: str) -> dict:
@@ -224,8 +231,25 @@ class ClaimTrap:
 
 
 _TRAPS: list[ClaimTrap] = [
+    # ORDER MATTERS. verify_claim returns the first pattern that matches;
+    # more-specific traps must come before more-general ones that might
+    # also match the same text. Example: the SSID-Confusion trap is listed
+    # before the general hidden-SSID trap so "SSID Confusion" claims do
+    # not fall through to "hidden SSID" pattern.
     ClaimTrap(
-        pattern=re.compile(r"pmf.*(prevent|stop|block).*deauth", re.I),
+        pattern=re.compile(r"ssid\s*confusion.*(need|require|cannot|without).*(psk|password|key)", re.I),
+        verdict="false",
+        reason=(
+            "SSID Confusion (CVE-2023-52424) works because the SSID is not "
+            "authenticated in the 4-way handshake at all. The client is fooled "
+            "about which network it is on; the attacker does not need the target "
+            "PSK — each side uses whatever key its own network actually has."
+        ),
+        citations=("vanhoef-yseboodt-ssid-2024",),
+        see_also=("ssid-confusion-cve-2023-52424",),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"pmf.*(prevent|stop|block).*(all\s+)?deauth", re.I),
         verdict="needs_qualification",
         reason=(
             "PMF makes broadcast deauth/disassoc ineffective and authenticates the "
@@ -238,7 +262,7 @@ _TRAPS: list[ClaimTrap] = [
     ),
     ClaimTrap(
         pattern=re.compile(
-            r"wpa3.*(fix|defeat|kill|prevent).*offline.*(dict|crack)", re.I
+            r"wpa3.*(fix|defeat|kill|prevent).*offline", re.I
         ),
         verdict="needs_qualification",
         reason=(
@@ -252,7 +276,7 @@ _TRAPS: list[ClaimTrap] = [
         see_also=("km-wpa3-sae", "dragonblood-sidechannel", "wpa3-transition-downgrade"),
     ),
     ClaimTrap(
-        pattern=re.compile(r"hid.*(ssid|network).*(secret|secure|hide|protect)", re.I),
+        pattern=re.compile(r"hid(?:e|ing|den).*(ssid|network).*(secret|secure|hide|protect|hidden)", re.I),
         verdict="false",
         reason=(
             "Hidden SSIDs offer no security. Clients that have ever associated to "
@@ -263,7 +287,22 @@ _TRAPS: list[ClaimTrap] = [
         see_also=("def-hidden-ssid-not-secret", "ie-ssid"),
     ),
     ClaimTrap(
-        pattern=re.compile(r"pmkid.*(always|every).*(leak|expose)", re.I),
+        pattern=re.compile(r"hidden\s*ssid.*(always|reliably).*(recover|deauth|reveal)", re.I),
+        verdict="needs_qualification",
+        reason=(
+            "Hidden SSIDs are usually recovered by seeing an auto-reconnecting "
+            "client's probe request — but modern OS behavior (per-SSID MAC "
+            "randomization, WPA3's preference for passive discovery) has thinned "
+            "the pool. Not guaranteed, especially with quiet clients."
+        ),
+        citations=("ieee-802-11-2020",),
+        see_also=("ie-ssid",),
+    ),
+    ClaimTrap(
+        pattern=re.compile(
+            r"(always|every|all).*pmkid|pmkid.*(always|every|all).*(leak|expose)",
+            re.I,
+        ),
         verdict="false",
         reason=(
             "PMKID leakage is vendor-dependent. Many recent firmwares omit the "
@@ -284,7 +323,7 @@ _TRAPS: list[ClaimTrap] = [
         citations=("ieee-802-11-2020",),
     ),
     ClaimTrap(
-        pattern=re.compile(r"wps.*(pixie|pixiedust).*(work|effective).*(every|all)", re.I),
+        pattern=re.compile(r"(pixie\s*dust|pixie).*(work|effective).*(every|all)", re.I),
         verdict="false",
         reason=(
             "Pixie Dust is vendor+chipset dependent. Broadcom and Ralink chipsets "
@@ -295,19 +334,30 @@ _TRAPS: list[ClaimTrap] = [
         see_also=("wps-pixie-dust",),
     ),
     ClaimTrap(
-        pattern=re.compile(r"6\s*ghz.*safe.*wpa3", re.I),
+        pattern=re.compile(r"6\s*ghz.*(safe|secure)", re.I),
         verdict="needs_qualification",
         reason=(
             "6 GHz's WPA3-only mandate closes the WPA2 downgrade door, but "
             "Dragonblood-family side channels still apply where the SAE "
             "implementation is weak. RNR IEs in 2.4/5 GHz beacons also advertise "
-            "6 GHz BSSIDs to attackers whose radios can't tune 6 GHz."
+            "6 GHz BSSIDs to attackers whose radios cannot tune 6 GHz."
         ),
         citations=("wfa-wpa3-6ghz-mandate", "vanhoef-dragonblood-2019"),
         see_also=("rnr-6ghz-enumeration",),
     ),
     ClaimTrap(
-        pattern=re.compile(r"kr00k.*only.*old", re.I),
+        pattern=re.compile(r"6\s*ghz.*(cannot|can't|not).*(attack|attacked)", re.I),
+        verdict="needs_qualification",
+        reason=(
+            "True on the radio side (many 5 GHz-only tools) — but the protocols "
+            "in 6 GHz (WPA3-only) are attackable via Dragonblood-family side "
+            "channels, and RNR IEs in 2.4/5 GHz beacons enumerate 6 GHz targets."
+        ),
+        citations=("wfa-wpa3-6ghz-mandate", "ieee-802-11ax-2021"),
+        see_also=("rnr-6ghz-enumeration",),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"kr00k.*(only|just).*(old|legacy|obsolete)", re.I),
         verdict="needs_qualification",
         reason=(
             "The core Broadcom/Cypress Kr00k (CVE-2019-15126) is largely patched on "
@@ -318,19 +368,7 @@ _TRAPS: list[ClaimTrap] = [
         see_also=("kr00k-broadcom-cve-2019-15126", "kr00k-qca-cve-2020-3702"),
     ),
     ClaimTrap(
-        pattern=re.compile(r"ssid\s*confusion.*need.*(psk|password|key)", re.I),
-        verdict="false",
-        reason=(
-            "SSID Confusion (CVE-2023-52424) works because the SSID is not "
-            "authenticated in the 4-way handshake at all. The client is fooled "
-            "about which network it is on; the attacker does not need the target "
-            "PSK — each side uses whatever key its own network actually has."
-        ),
-        citations=("vanhoef-yseboodt-ssid-2024",),
-        see_also=("ssid-confusion-cve-2023-52424",),
-    ),
-    ClaimTrap(
-        pattern=re.compile(r"reaver.*(always|every).*work", re.I),
+        pattern=re.compile(r"reaver.*(always|every|effective on every)", re.I),
         verdict="false",
         reason=(
             "Reaver's success is gated by vendor lockout, WPS-Locked timing, and "
@@ -349,6 +387,112 @@ _TRAPS: list[ClaimTrap] = [
         ),
         citations=("ieee-802-11-2020",),
         see_also=("frame-mgmt-deauth",),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"802\.?11r.*(more\s+secure|secure\s+by\s+design)", re.I),
+        verdict="needs_qualification",
+        reason=(
+            "FT roams can leak an M1-analog PMKID that hashcat mode 22000 handles; "
+            "misconfigured 11r deployments share PMK-R0 across BSSIDs, turning one "
+            "PSK crack into a whole-fleet compromise. Newer is not automatically "
+            "more secure."
+        ),
+        citations=("ieee-802-11-2020",),
+        see_also=("std-802-11r", "ft-handshake-capture"),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"(802\.?11k|802\.?11v|neighbor\s*report|btm).*(informational|hint|cannot).*(only|abuse|be\s+abused)", re.I),
+        verdict="false",
+        reason=(
+            "802.11k Neighbor Reports and 802.11v BTM Requests can both be "
+            "spoofed. A crafted BTM Request from a rogue AP shoves the client "
+            "onto the attacker BSSID with the client's cooperation; a crafted "
+            "Neighbor Report steers roaming decisions."
+        ),
+        citations=("ieee-802-11-2020",),
+        see_also=("std-802-11k", "std-802-11v", "btm-forced-roam", "neighbor-report-spoof"),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"(wi-?fi\s*7|mlo|802\.?11be).*(wired|secure|inherently\s+more)", re.I),
+        verdict="false",
+        reason=(
+            "Wi-Fi 7's Multi-Link Operation shares a single PTK across "
+            "2.4/5/6 GHz links; the resulting nonce-management and "
+            "link-desync surfaces are actively being researched (2024–2026 "
+            "papers). 'Wired-quality' is a marketing claim, not a security "
+            "assertion."
+        ),
+        citations=("ieee-802-11be-2024",),
+        see_also=("wifi7-mlo-link-desync", "ie-mld-basic"),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"default[-\s]*psk.*(2010s|obsolete|no\s+longer|extinct|dead)", re.I),
+        verdict="false",
+        reason=(
+            "Vendor default PSKs still ship on new 2024–2025 consumer gear in "
+            "EU/UK markets (UPC/UBEE mesh, Sky Broadband, BT SmartHub, "
+            "Technicolor, Livebox). If the SSID matches a known-vendor regex, "
+            "the derivation is often still valid — see default_psks.json."
+        ),
+        citations=("upc-keys-repo",),
+        see_also=("dpsk-upc-ubee", "dpsk-thomson-speedtouch", "dpsk-technicolor"),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"wps.*(deprecated|off|dead|nobody|no\s+one)", re.I),
+        verdict="false",
+        reason=(
+            "WPS is off on flagship consumer gear by 2026 but still on in "
+            "enterprise-branded consumer gear and ISP-supplied routers. "
+            "Vendor lockout and WPS-Locked timing are chipset-specific — the "
+            "record enumerates vendor+chipset current-status."
+        ),
+        citations=("wfa-wps-2-0",),
+        see_also=("std-wfa-wps", "wps-reaver-online"),
+    ),
+    ClaimTrap(
+        pattern=re.compile(
+            r"(hostapd[-\s]*wpe.*eaphammer|eaphammer.*hostapd[-\s]*wpe).*"
+            r"(same|equal|equivalent|identical)",
+            re.I | re.DOTALL,
+        ),
+        verdict="false",
+        reason=(
+            "hostapd-wpe is a patch to hostapd that adds inner-EAP logging "
+            "(MSCHAPv2 capture, GTC plaintext, etc.). eaphammer is a "
+            "higher-level orchestrator that generates certs, templates "
+            "hostile portals, and drives multiple attack profiles. Different "
+            "layers of the same engagement."
+        ),
+        citations=("hostapd-wpe", "gabrielryan-eaphammer"),
+        see_also=("rogue-radius-hostapd-wpe", "rogue-radius-eaphammer"),
+    ),
+    ClaimTrap(
+        pattern=re.compile(
+            r"(always|guaranteed).*(wpa3\s*transition|transition\s*mode).*"
+            r"(downgrade|exploit|wpa2)"
+            r"|wpa3\s*transition.*(always|guaranteed|any).*(downgrade|exploit)",
+            re.I,
+        ),
+        verdict="needs_qualification",
+        reason=(
+            "WPA3 transition mode is downgradeable only when a WPA2-capable "
+            "client is willing to associate to a WPA2-only rogue. Purely "
+            "WPA3-only clients will not fall back. Preconditions matter."
+        ),
+        citations=("wfa-wpa3-spec",),
+        see_also=("wpa3-transition-downgrade",),
+    ),
+    ClaimTrap(
+        pattern=re.compile(r"owe.*authenticate.*ap|owe.*(defeats|stops)\s+evil\s*twin", re.I),
+        verdict="false",
+        reason=(
+            "OWE (Opportunistic Wireless Encryption) provides encryption on "
+            "open networks via Diffie-Hellman but does NOT authenticate the "
+            "AP to the client. An evil twin advertising OWE is just as "
+            "effective as an evil twin advertising Open."
+        ),
+        citations=("ieee-802-11-2020", "wfa-wpa3-spec"),
+        see_also=("km-owe", "evil-twin-clone"),
     ),
 ]
 
