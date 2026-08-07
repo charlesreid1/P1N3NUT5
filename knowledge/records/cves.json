@@ -277,5 +277,242 @@
       "vector": "buffer overflow in Realtek RTL8xxxxxx AP/repeater firmware",
       "target_availability_2026": "wide install base on cheap OEM AP boards"
     }
+  },
+  {
+    "id": "cve-2020-24589",
+    "name": "CVE-2020-24589 — FragAttacks: broadcast fragments accepted",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-24741",
+    "name": "CVE-2020-24741 — FragAttacks: A-MSDU non-SPP subframe injection",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26139",
+    "name": "CVE-2020-26139 — FragAttacks: EAPOL forwarding without auth",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks", "note": "AP forwards EAPOL frames from unassociated STAs"}
+  },
+  {
+    "id": "cve-2020-26140",
+    "name": "CVE-2020-26140 — FragAttacks: accepting plaintext data in unprotected networks",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26141",
+    "name": "CVE-2020-26141 — FragAttacks: TKIP MIC not verified on fragmented frames",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26142",
+    "name": "CVE-2020-26142 — FragAttacks: encrypted fragment processed as full frame",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26143",
+    "name": "CVE-2020-26143 — FragAttacks: fragmented plaintext frame accepted",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26144",
+    "name": "CVE-2020-26144 — FragAttacks: RFC1042 header confusion",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26145",
+    "name": "CVE-2020-26145 — FragAttacks: unencrypted broadcast fragment accepted",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26146",
+    "name": "CVE-2020-26146 — FragAttacks: fragmentation of encrypted frames non-consecutive PN",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-26147",
+    "name": "CVE-2020-26147 — FragAttacks: mixed encrypted / plaintext fragment reassembly",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2017-13083",
+    "name": "CVE-2017-13083 — KRACK: TDLS Peer Traffic Key reinstall",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2017-13085",
+    "name": "CVE-2017-13085 — KRACK: PeerKey / TPK reinstall variant",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2019-9497",
+    "name": "CVE-2019-9497 — Dragonblood: EAP-PWD side channel",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-04-10", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-dragonblood-2019"],
+    "see_also": ["eap-pwd"],
+    "technical_body": {"vector": "same Dragonfly-family primitive applied to EAP-PWD implementations"}
+  },
+  {
+    "id": "cve-2019-9498",
+    "name": "CVE-2019-9498 — hostapd EAP-PWD server-side DoS",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-04-10", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-dragonblood-2019"],
+    "technical_body": {"vector": "malformed EAP-PWD element crashes hostapd's authenticator"}
+  },
+  {
+    "id": "cve-2019-9499",
+    "name": "CVE-2019-9499 — wpa_supplicant EAP-PWD client-side DoS",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-04-10", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-dragonblood-2019"],
+    "technical_body": {"vector": "client-side dual of CVE-2019-9498"}
+  },
+  {
+    "id": "cve-2022-47522",
+    "name": "CVE-2022-47522 — Framing Frames power-save queue tap",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2023-03-27", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-framing-frames-2023"],
+    "see_also": ["framing-frames-power-save-poison"],
+    "technical_body": {"vector": "spoofed sleep/wake toggles cause AP to release queued frames to the attacker's session key"}
+  },
+  {
+    "id": "cve-2022-47521",
+    "name": "CVE-2022-47521 — MacStealer (Linux mac80211 mishandling)",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2023-04-27", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-macstealer-2023"],
+    "see_also": ["macstealer-mac-hijack"],
+    "technical_body": {"vector": "queued frame at reconnection is delivered to the new session's key holder"}
+  },
+  {
+    "id": "cve-2019-11526",
+    "name": "CVE-2019-11526 — Marvell WiFi driver kernel heap overflow",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-04-25", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "technical_body": {
+      "vector": "over-the-air heap overflow in mwifiex driver (Chromebook / some Asus / Cypress-adjacent)",
+      "impact": "kernel-mode RCE"
+    }
+  },
+  {
+    "id": "cve-2020-24455",
+    "name": "CVE-2020-24455 — Intel PROSet/Wireless privilege escalation",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-11-13", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "technical_body": {"vector": "Windows-side Intel wireless stack privilege escalation; adjacent, not RF-direct"}
+  },
+  {
+    "id": "cve-2020-12695",
+    "name": "CVE-2020-12695 — CallStranger (UPnP SUBSCRIBE reflection)",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-06-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "technical_body": {"vector": "UPnP-side amplification / reflection — post-associate LAN pivot", "note": "Adjacent to WiFi engagements when the target LAN exposes UPnP"}
   }
 ]
