@@ -56,13 +56,16 @@ pip install .
 ```
 
 The single install line covers everything: MCP server, transports,
-pcap parsing (both classic pcap and pcapng), record loader, hashcat
-integration. The `dev` extra adds pytest + pytest-asyncio for the
-test suite:
+pcap parsing (both classic pcap and pcapng — scapy is a hard
+dependency), record loader, hashcat integration. The `dev` extra
+adds pytest + pytest-asyncio for the test suite:
 
 ```
 pip install .[dev]
 ```
+
+The `[pcap]` extra was removed in Phase L6 — scapy moved from
+optional to required so `parse_pcap` handles pcapng out of the box.
 
 ## Smoke test
 

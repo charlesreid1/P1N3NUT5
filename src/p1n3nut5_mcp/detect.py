@@ -50,19 +50,18 @@ class PcapSummary:
 
 
 def _iter_pcap_records(path: Path):
-    """Minimal pcap iterator — reads pcap magic, endianness, per-frame length.
+    """Iterate raw frames out of a pcap or pcapng file.
 
-    Supports the classic pcap format (magic 0xa1b2c3d4 or 0xd4c3b2a1) and
-    pcapng only enough to detect it and error clearly. Full pcapng needs
-    scapy; the extract_* paths already hand off to hcxpcapngtool.
+    Classic pcap (magic 0xa1b2c3d4 or 0xd4c3b2a1) is parsed with a
+    small byte reader — fast, dependency-free. Pcapng (magic 0x0a0d0d0a)
+    hands off to scapy's `rdpcap`, which is a hard project dependency
+    (see pyproject.toml [project].dependencies).
     """
     with path.open("rb") as f:
         magic = f.read(4)
         if magic == b"\x0a\x0d\x0d\x0a":
-            raise NotImplementedError(
-                "pcapng — use scapy (`pip install p1n3nut5-mcp[pcap]`) or "
-                "convert to classic pcap first"
-            )
+            yield from _iter_pcapng_via_scapy(path)
+            return
         if magic == b"\xa1\xb2\xc3\xd4":
             endian = ">"
         elif magic == b"\xd4\xc3\xb2\xa1":
@@ -80,6 +79,27 @@ def _iter_pcap_records(path: Path):
             if len(data) != incl:
                 break
             yield data
+
+
+def _iter_pcapng_via_scapy(path: Path):
+    """Yield raw 802.11 frame bytes from a pcapng file via scapy.
+
+    scapy handles pcapng blocks, timestamp normalization, and link-type
+    detection. We fall back to the raw bytes so the downstream byte
+    parser (parse_pcap's frame walk) doesn't care which format the
+    file was.
+    """
+    from scapy.utils import rdpcap  # noqa: PLC0415  # lazy so import cost is scoped
+
+    try:
+        packets = rdpcap(str(path))
+    except Exception:
+        # Malformed / truncated pcapng — return no frames, let the
+        # caller decide what "zero frames" means (usually a warning +
+        # empty summary).
+        return
+    for pkt in packets:
+        yield bytes(pkt)
 
 
 def parse_pcap(path: str) -> PcapSummary:
