@@ -1,0 +1,117 @@
+[
+  {
+    "id": "dpsk-upc-ubee",
+    "name": "UPC / UBEE default PSK",
+    "aliases": ["upc_keys", "UPC default PSK"],
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["upc-keys-repo"],
+    "see_also": ["default-psk-upc-ubee"],
+    "technical_body": {
+      "ssid_regex": "^UPC\\d{7}$",
+      "vendor": "UPC / UBEE (Liberty Global, EU cable ISP)",
+      "derivation_tool": "upc_keys",
+      "psk_shape": "8 uppercase alphanumeric (candidate list ~8 per SSID)",
+      "known_generations": ["Ubee EVW3226", "UPC Connect Box (Compal CH7465LG)"],
+      "target_availability_2026": "still deployed on legacy modems in EU markets"
+    }
+  },
+  {
+    "id": "dpsk-thomson-speedtouch",
+    "name": "Thomson SpeedTouch default PSK",
+    "aliases": ["stkeys"],
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["upc-keys-repo"],
+    "technical_body": {
+      "ssid_regex": "^SpeedTouch[0-9A-F]{6}$",
+      "vendor": "Thomson / Alcatel-Lucent",
+      "derivation_tool": "stkeys",
+      "psk_shape": "10 uppercase hex",
+      "target_availability_2026": "long tail on residential DSL"
+    }
+  },
+  {
+    "id": "dpsk-bt-home-hub",
+    "name": "BT Home Hub default PSK",
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "technical_body": {
+      "ssid_regex": "^BTHub\\d-.+$",
+      "vendor": "BT (British Telecom)",
+      "derivation_tool": "vendor-known lookup + candidate generators",
+      "target_availability_2026": "widespread on UK home broadband"
+    }
+  },
+  {
+    "id": "dpsk-sky-broadband",
+    "name": "Sky Broadband default PSK",
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": ["2012", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "technical_body": {
+      "ssid_regex": "^SKY[0-9A-Z]{5}$",
+      "vendor": "Sky Broadband (UK)",
+      "target_availability_2026": "widespread on UK home broadband"
+    }
+  },
+  {
+    "id": "dpsk-livebox-sagemcom",
+    "name": "Livebox / Sagemcom default PSK",
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "technical_body": {
+      "ssid_regex": "^Livebox-.{4}$",
+      "vendor": "Sagemcom (Orange FR)",
+      "target_availability_2026": "widespread on French ISP-supplied gear"
+    }
+  },
+  {
+    "id": "dpsk-netgear-genie",
+    "name": "Netgear Genie default PSK",
+    "category": "default_psk",
+    "region": "universal",
+    "era_bounds": ["2011", "2020"],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "technical_body": {
+      "ssid_regex": "^NETGEAR\\d{2}$",
+      "vendor": "Netgear",
+      "psk_shape": "adjective+noun+3digits pattern",
+      "target_availability_2026": "rare — mostly retired; check age"
+    }
+  },
+  {
+    "id": "dpsk-technicolor",
+    "name": "Technicolor default PSK",
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["upc-keys-repo"],
+    "technical_body": {
+      "ssid_regex": "^Technicolor.+$",
+      "vendor": "Technicolor",
+      "target_availability_2026": "widespread on ISP-supplied gear across EU"
+    }
+  }
+]

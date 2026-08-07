@@ -1,0 +1,123 @@
+[
+  {
+    "id": "fp-ios-14-plus",
+    "name": "iOS 14+ probe fingerprint",
+    "aliases": ["iphone"],
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2020-09", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ie-ssid"],
+    "technical_body": {
+      "vendor": "Apple",
+      "os": "iOS 14+",
+      "mac_randomization": "per-SSID (persistent within a network, fresh per network)",
+      "probe_ie_order": ["SSID", "Supported Rates", "Extended Rates", "DS Parameter Set", "HT Capabilities", "Extended Capabilities", "Vendor-Specific (Apple)"],
+      "seq_num_behavior": "typically resets on MAC change",
+      "notable_ies": ["Apple Vendor-Specific IE 0x0017F2"],
+      "notes": "The Vendor-Specific IE 0x0017F2 (Apple) is a strong iPhone/iPad fingerprint even under randomized MACs."
+    }
+  },
+  {
+    "id": "fp-android-10-plus",
+    "name": "Android 10+ probe fingerprint",
+    "aliases": ["android"],
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2019-09", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Google / OEMs",
+      "os": "Android 10+",
+      "mac_randomization": "per-SSID by default (opt-out per network)",
+      "probe_ie_order": "vendor-dependent — Samsung / Pixel / Xiaomi diverge",
+      "notable_ies": ["Google Vendor-Specific IE (some builds)", "OEM-specific IEs (Samsung 0x0000F0)"],
+      "notes": "Distinguish OEM by Vendor-Specific IEs and by supported-rates set — some vendors advertise custom rate subsets."
+    }
+  },
+  {
+    "id": "fp-windows-10-11",
+    "name": "Windows 10 / 11 probe fingerprint",
+    "aliases": ["windows"],
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Microsoft",
+      "os": "Windows 10 / 11",
+      "mac_randomization": "per-connection (opt-in; default off on wired driver profiles)",
+      "probe_ie_order": ["SSID", "Supported Rates", "Extended Rates", "HT Capabilities", "Extended Capabilities"],
+      "notes": "No Windows-specific Vendor IE. Fingerprint is more about the driver — Intel iwlwifi Windows driver vs Qualcomm QCA6174 Windows driver."
+    }
+  },
+  {
+    "id": "fp-macos",
+    "name": "macOS probe fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Apple",
+      "os": "macOS (Ventura+, Sonoma changes for randomization)",
+      "mac_randomization": "per-SSID since Sonoma; static burned MAC on earlier",
+      "notable_ies": ["Apple Vendor-Specific IE 0x0017F2 (shared with iOS)"]
+    }
+  },
+  {
+    "id": "fp-samsung-tv",
+    "name": "Samsung Smart TV probe fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Samsung",
+      "device_class": "Smart TV / display",
+      "mac_randomization": "typically off (fixed MAC per device)",
+      "notable_ies": ["Samsung Vendor-Specific IE"],
+      "notes": "Fixed MAC + rare probe schedule (only on boot/config) makes Smart TVs easy to reidentify across sessions."
+    }
+  },
+  {
+    "id": "fp-raspberry-pi",
+    "name": "Raspberry Pi WiFi fingerprint",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "vendor": "Raspberry Pi Foundation",
+      "device_class": "SBC",
+      "chipset_families": ["Cypress CYW43455 (Pi 3B+ / 4)", "BCM43436 (Pi Zero 2 W)"],
+      "notes": "Cypress + Broadcom inheritance means many older Pi models are Kr00k-vulnerable."
+    }
+  },
+  {
+    "id": "fp-seq-num-continuity",
+    "name": "Sequence-number continuity across MAC randomization",
+    "category": "client_fingerprint",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "technique": "correlate seq_num across randomized MACs",
+      "notes": "Many client implementations do not reset the 12-bit Sequence Control counter when the MAC randomizes. Two frames with different MACs but continuous seq_nums are the same device."
+    }
+  }
+]

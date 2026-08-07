@@ -1,0 +1,117 @@
+[
+  {
+    "id": "uci-wireless-device",
+    "name": "uci wireless.<radio> device section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "wireless.<radio>",
+      "options": {
+        "type": "'mac80211' (default on Mark VII)",
+        "channel": "int; 'auto' allowed",
+        "hwmode": "'11g' | '11a' | '11na' | '11ng' | '11acg' | '11acna'",
+        "htmode": "'HT20' | 'HT40+' | 'HT40-' | 'VHT80' | 'VHT160' | 'HE160' | 'EHT320'",
+        "path": "'platform/...' bus path (identifies the radio)",
+        "disabled": "0|1"
+      },
+      "example": "uci set wireless.radio0.channel=6; uci commit wireless; wifi reload"
+    }
+  },
+  {
+    "id": "uci-wireless-iface",
+    "name": "uci wireless.<iface> interface section (wifi-iface)",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "wireless.<iface>",
+      "options": {
+        "device": "'radio0' | 'radio1' — parent radio",
+        "network": "logical network (e.g. 'lan', 'wan')",
+        "mode": "'ap' | 'sta' | 'monitor' | 'mesh' | 'adhoc'",
+        "ssid": "string",
+        "encryption": "'none' | 'psk2' | 'psk2+ccmp' | 'sae' | 'sae-mixed' | 'wpa2' | 'wpa3'",
+        "key": "PSK",
+        "hidden": "0|1",
+        "isolate": "1 = client isolation"
+      }
+    }
+  },
+  {
+    "id": "uci-network-interface",
+    "name": "uci network.<iface> interface section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "network.<iface>",
+      "options": {
+        "proto": "'static' | 'dhcp' | 'pppoe' | 'none'",
+        "ipaddr": "IPv4",
+        "netmask": "IPv4 mask",
+        "gateway": "IPv4",
+        "dns": "space-separated list"
+      }
+    }
+  },
+  {
+    "id": "uci-dhcp-dnsmasq",
+    "name": "uci dhcp.@dnsmasq[0] section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "dhcp.@dnsmasq[0]",
+      "options": {
+        "domainneeded": "1",
+        "boguspriv": "1",
+        "authoritative": "1",
+        "readethers": "1",
+        "leasefile": "'/tmp/dhcp.leases'"
+      },
+      "note": "For captive-portal work, add `address=/#/172.16.42.1` in a custom addnhosts file so every DNS query returns the portal."
+    }
+  },
+  {
+    "id": "uci-firewall-forwarding",
+    "name": "uci firewall.@forwarding[N] section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "firewall.@forwarding[N]",
+      "options": {"src": "zone name", "dest": "zone name"}
+    }
+  },
+  {
+    "id": "uci-hostapd-external",
+    "name": "hostapd config outside UCI",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs", "openwrt-uci-docs"],
+    "technical_body": {
+      "path": "OpenWRT synthesizes /var/run/hostapd-phy0.conf from UCI on `wifi reload`",
+      "override": "For attacks that need exotic hostapd knobs, write a standalone conf and run hostapd -B directly, bypassing UCI",
+      "note": "This is how create_rogue_ap operates in the MCP — SCP a hostapd.conf, hostapd -B it under a named handle."
+    }
+  }
+]
