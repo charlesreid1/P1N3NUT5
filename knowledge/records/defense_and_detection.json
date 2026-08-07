@@ -89,5 +89,267 @@
       "reason": "Clients that have ever seen the network volunteer the SSID in probe requests on association attempts. The SSID leaks by design.",
       "posture": "Hiding SSID is a configuration convenience; it must not be treated as an access control."
     }
+  },
+  {
+    "id": "def-pmf-required-mode",
+    "name": "PMF-required (MFPR bit set) as a hardening posture",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11w", "deauth-broadcast"],
+    "technical_body": {
+      "role": "Best-practice for any WPA3 or WPA2-Enterprise deployment where all clients support PMF",
+      "cost": "Excludes legacy PMF-incapable clients from associating"
+    }
+  },
+  {
+    "id": "def-transition-disable-kde",
+    "name": "Transition Disable KDE (WFA WPA3)",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2021", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wpa3-spec"],
+    "see_also": ["wpa3-transition-downgrade", "ie-transition-disable"],
+    "technical_body": {
+      "role": "Delivered in M3; instructs the client to disable WPA2 fallback for this network permanently",
+      "limitation": "Only clients that honor the KDE benefit — many do not"
+    }
+  },
+  {
+    "id": "def-802-1x-mac-auth-bypass",
+    "name": "MAC Authentication Bypass (MAB) — the anti-pattern",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-1x-2020"],
+    "technical_body": {
+      "role": "Devices unable to speak 802.1X authenticate by MAC address only — a common IoT accommodation",
+      "risk": "MAC spoofing bypasses trivially; treat MAB VLANs as untrusted"
+    }
+  },
+  {
+    "id": "def-cert-pinning-client-side",
+    "name": "Client-side RADIUS server certificate pinning",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-1x-2020"],
+    "see_also": ["rogue-radius-eaphammer", "cert-phish-eaphammer-weak-validation"],
+    "technical_body": {
+      "role": "The load-bearing defense against rogue RADIUS. Client profile pins the RADIUS server certificate CN + issuing CA.",
+      "deployment": "MDM-enforced (Intune, Jamf, Workspace ONE) on managed devices; hard on BYOD"
+    }
+  },
+  {
+    "id": "def-wids-evil-twin-bssid-diff",
+    "name": "WIDS — BSSID-collision detection",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["evil-twin-clone"],
+    "technical_body": {
+      "signal": "Two beacons observed with the same BSSID on different channels or with different IE fingerprints",
+      "typical_platforms": ["Aruba CX10", "Cisco WLC", "kismet WIDS mode"]
+    }
+  },
+  {
+    "id": "def-wids-karma-response",
+    "name": "WIDS — KARMA responder detection",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["sensepost-mana-2014"],
+    "see_also": ["mana-karma", "karma-2004-original"],
+    "technical_body": {
+      "signal": "AP emitting probe responses for SSIDs it does not otherwise beacon; particularly if the SSID set matches known probe-history from a single STA",
+      "detector": "kismet KARMAAP alert"
+    }
+  },
+  {
+    "id": "def-wids-probe-flood",
+    "name": "WIDS — probe-request flood detection",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["aircrack-ng-docs"],
+    "technical_body": {
+      "signal": "Probe request rate per client MAC exceeds threshold; distinct SSID count in probes exceeds threshold",
+      "false_positives": ["real clients moving between crowded venues"]
+    }
+  },
+  {
+    "id": "def-wids-eapol-start-flood",
+    "name": "WIDS — EAPOL-Start flood detection",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-1x-2020"],
+    "see_also": ["eapol-start-flood"],
+    "technical_body": {
+      "signal": "RADIUS Accounting-Start requests without matching authentication; EAPOL-Start rate above threshold at the authenticator"
+    }
+  },
+  {
+    "id": "def-802-11w-optional-mode",
+    "name": "PMF-optional as a compatibility posture",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "MFPC=1, MFPR=0 — accept both PMF-capable and legacy clients",
+      "risk": "Legacy clients on the same AP remain deauth-vulnerable — attacker knocks off PMF-off clients, not the whole network"
+    }
+  },
+  {
+    "id": "def-rate-limit-mgmt-frames",
+    "name": "AP-side rate limit on management frames",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2012", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "Enterprise APs cap the per-STA rate of probe / auth / assoc frames to defeat floods",
+      "limitation": "Set too aggressively, real clients drop association during roaming"
+    }
+  },
+  {
+    "id": "def-client-isolation",
+    "name": "Client isolation (guest network hardening)",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "hostapd-docs"],
+    "see_also": ["framing-frames-power-save-poison", "macstealer-mac-hijack"],
+    "technical_body": {
+      "role": "AP drops STA-to-STA frames on a bridged SSID",
+      "limitation": "Bypassed by Framing Frames (2023) and MacStealer (2023) against unpatched APs"
+    }
+  },
+  {
+    "id": "def-strong-psk-length",
+    "name": "Strong PSK — length + entropy",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["wpa2-4way-capture", "pmkid-capture"],
+    "technical_body": {
+      "role": "The only defense against PMKID capture + 4-way capture that does not require WPA3",
+      "posture": "12+ chars of ?a?a?a?a?a?a?a?a?a?a?a?a is roughly the hashcat -w4 wall-time barrier for a single high-end GPU"
+    }
+  },
+  {
+    "id": "def-radius-cert-rotation",
+    "name": "RADIUS server certificate rotation policy",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-1x-2020"],
+    "technical_body": {
+      "role": "Regular RADIUS cert rotation forces re-provisioning of client profiles, which surfaces cert-pinning gaps",
+      "cost": "MDM churn"
+    }
+  },
+  {
+    "id": "def-monitor-mode-wips",
+    "name": "Dedicated monitor-mode WIPS sensors",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "APs dedicated to monitor mode + a separate WIPS engine, sitting alongside serving APs",
+      "typical_platforms": ["Aruba WIPS", "Cisco CleanAir", "kismet on Alfa AWUS036NHA"]
+    }
+  },
+  {
+    "id": "def-6ghz-only-network",
+    "name": "6 GHz-only SSID as a hardening posture",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wpa3-6ghz-mandate"],
+    "see_also": ["wpa3-transition-downgrade"],
+    "technical_body": {
+      "role": "Client can only associate on 6 GHz where WPA3 is mandated and no transition mode is allowed",
+      "closes": "WPA2 downgrade path; still vulnerable to Dragonblood on weak SAE"
+    }
+  },
+  {
+    "id": "def-band-steering-restrict",
+    "name": "Restrict band-steering / 802.11k neighbor lists",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["neighbor-report-spoof", "btm-forced-roam"],
+    "technical_body": {
+      "role": "Disable Neighbor Report Response / BTM Request emission on APs where roaming is not required",
+      "limitation": "Real roaming performance suffers; enterprise fleets need it"
+    }
+  },
+  {
+    "id": "def-anti-krack-oci",
+    "name": "OCI (Operating Channel Information) — KRACK partial fix",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["krack-client-key-reinstall", "ie-oci"],
+    "technical_body": {
+      "role": "Binds the negotiated operating channel into the 4-way handshake; MC-MitM on a different channel now breaks the handshake",
+      "note": "Present on modern supplicant + hostapd; still absent on some embedded stacks"
+    }
+  },
+  {
+    "id": "def-supplicant-patch-krack",
+    "name": "Client supplicant patch level (KRACK / Kr00k)",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2017", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["vanhoef-krack-2017", "eset-kr00k-2020"],
+    "technical_body": {
+      "role": "wpa_supplicant >= 2.7 patches KRACK; iOS 11 / Android 6.0.1+ / Windows October 2017 update also do",
+      "gap": "Embedded / IoT firmware without an update path remains vulnerable"
+    }
   }
 ]
