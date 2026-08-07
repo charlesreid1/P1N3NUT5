@@ -132,7 +132,9 @@ def test_read_lore_returns_uri():
 
 
 def test_search_lore_matches_across_topics():
-    r = k.search_lore("PMKID", max_results=10)
+    # Ask for enough results that the pmkid/ hit isn't clipped by the cap
+    # once the corpus grows past 20 topic files.
+    r = k.search_lore("PMKID", max_results=50)
     assert r["ok"]
     topics = {h["topic"] for h in r["payload"]}
     assert "pmkid" in topics
