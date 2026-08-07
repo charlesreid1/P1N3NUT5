@@ -1,0 +1,208 @@
+[
+  {
+    "id": "pep-status",
+    "name": "pineapple_status — device reachable / firmware / uptime / radios",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "capability": "status",
+    "transports": ["api", "ssh"],
+    "primary": "api",
+    "api": {
+      "method": "GET",
+      "path": "/api/status",
+      "auth_scope": "read"
+    },
+    "ssh": {
+      "cmd": "cat /etc/openwrt_release; uptime; iw dev",
+      "requires_root": true,
+      "requires_monitor": false,
+      "fallback_for": "API unreachable or token invalid"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-list-aps",
+    "name": "list_aps — enumerate APs from recon DB",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "capability": "list_aps",
+    "transports": ["api", "ssh"],
+    "primary": "api",
+    "api": {
+      "method": "GET",
+      "path": "/api/recon/ap",
+      "auth_scope": "recon.read",
+      "response_shape": "array of {bssid, ssid, channel, rssi, security, last_seen, ies?}"
+    },
+    "ssh": {
+      "cmd": "iw dev wlan1 scan | awk -f /root/parse_scan.awk",
+      "requires_root": true,
+      "requires_monitor": false,
+      "fallback_for": "recon service disabled",
+      "warning": "SSH path returns only the current-moment scan, not the accumulated recon DB"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null,
+    "notes": "Prefer API. SSH path is real-time-only; WebUI's cached DB has more history."
+  },
+  {
+    "id": "pep-recon-start",
+    "name": "recon_start — begin a scan",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "capability": "recon_start",
+    "transports": ["api"],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/recon/start",
+      "body": "{band: '2.4'|'5'|'both', dwell_ms}",
+      "auth_scope": "recon.write"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-pineap-config",
+    "name": "pineap_config — SSID pool + karma toggles",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "see_also": ["pineap-active-karma", "pineap-ssid-pool-broadcast"],
+    "capability": "pineap_config",
+    "transports": ["api"],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/settings",
+      "body": "{ssid_pool[], karma, log_probes, log_associations, beacon_response, broadcast_ssid_pool, source_mac, target_mac}",
+      "auth_scope": "pineap.write"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-filter-ssid",
+    "name": "filter_ssid_set — allow/deny SSID list",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs"],
+    "capability": "filter_ssid_list",
+    "transports": ["api"],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/filter/ssid",
+      "body": "{mode: 'allow'|'deny', ssids[]}",
+      "auth_scope": "pineap.write"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-deauth",
+    "name": "deauth — send deauthentication frames",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs", "aircrack-ng-docs"],
+    "see_also": ["deauth-broadcast", "deauth-targeted", "std-802-11w"],
+    "capability": "deauth",
+    "transports": ["ssh"],
+    "primary": "ssh",
+    "ssh": {
+      "cmd": "aireplay-ng -0 <count> -a <bssid> [-c <client>] <iface>",
+      "requires_root": true,
+      "requires_monitor": true
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null,
+    "caveat": "Transmitting. Refuses unless i_own_the_airspace or session authorization allows."
+  },
+  {
+    "id": "pep-capture-handshake",
+    "name": "capture_handshake — 4-way capture with optional targeted deauth",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hak5-mk7-docs", "aircrack-ng-docs"],
+    "see_also": ["wpa2-4way-capture", "frame-eapol-key"],
+    "capability": "capture_handshake",
+    "transports": ["ssh"],
+    "primary": "ssh",
+    "ssh": {
+      "cmd": "airodump-ng -c <channel> --bssid <bssid> -w <out> <iface>",
+      "requires_root": true,
+      "requires_monitor": true
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-capture-pmkid",
+    "name": "capture_pmkid — hcxdumptool PMKID capture",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hcxtools", "steube-pmkid-2018"],
+    "see_also": ["pmkid-capture"],
+    "capability": "capture_pmkid",
+    "transports": ["ssh"],
+    "primary": "ssh",
+    "ssh": {
+      "cmd": "hcxdumptool -i <iface> -o <out.pcapng> --enable_status=1 [--filter=<bssidlist>]",
+      "requires_root": true,
+      "requires_monitor": false,
+      "notes": "hcxdumptool manages monitor mode itself; do not pre-set with airmon-ng."
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-create-rogue-ap",
+    "name": "create_rogue_ap — spin up an hostapd rogue AP",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "see_also": ["evil-twin-clone", "captive-portal-cred-capture"],
+    "capability": "create_rogue_ap",
+    "transports": ["ssh"],
+    "primary": "ssh",
+    "ssh": {
+      "cmd": "hostapd -B /tmp/rogue-<ssid>.conf",
+      "requires_root": true,
+      "requires_monitor": false
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null,
+    "caveat": "Transmitting."
+  }
+]

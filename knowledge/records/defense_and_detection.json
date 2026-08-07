@@ -1,0 +1,93 @@
+[
+  {
+    "id": "def-pmf-802-11w",
+    "name": "802.11w PMF (Management Frame Protection)",
+    "aliases": ["pmf", "mfp"],
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11w", "deauth-broadcast", "deauth-targeted"],
+    "technical_body": {
+      "counters": ["broadcast deauth flood", "broadcast disassoc flood"],
+      "does_not_counter": ["unicast deauth against a PMF-disabled client in transition mode", "action frames not covered by BIP"],
+      "modes": ["disabled", "optional", "required"]
+    },
+    "disputed": {
+      "coverage": "'PMF stops deauth' is only fully true when both sides negotiate PMF-required; PMF-optional networks are still vulnerable to unicast deauth against non-PMF clients."
+    }
+  },
+  {
+    "id": "def-wids-deauth-flood",
+    "name": "WIDS deauth-flood detection",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["aircrack-ng-docs"],
+    "see_also": ["deauth-broadcast"],
+    "technical_body": {
+      "signals": ["deauth frame rate above threshold", "reason-code distribution", "broadcast-destination bit set"],
+      "typical_platforms": ["Cisco WLC", "Aruba", "Ruckus", "kismet WIDS mode"]
+    }
+  },
+  {
+    "id": "def-evil-twin-detection",
+    "name": "Evil-twin detection via beacon diff",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["evil-twin-clone"],
+    "technical_body": {
+      "signals": [
+        "beacon-IE order differs from the legitimate AP",
+        "Vendor-Specific OUI list differs",
+        "beacon interval / DTIM period differs",
+        "supported-rates set differs",
+        "chipset fingerprint (WPS Manufacturer/Model) differs"
+      ],
+      "tools": ["kismet alerts", "aircrack-ng airbase-ng anomaly detection", "custom scapy comparators"]
+    }
+  },
+  {
+    "id": "def-rogue-radius-hardening",
+    "name": "802.1X authenticator hardening against rogue RADIUS",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-1x-2020"],
+    "see_also": ["rogue-radius-hostapd-wpe", "rogue-radius-eaphammer"],
+    "technical_body": {
+      "controls": [
+        "pin RADIUS server certificate on every client profile (MDM-enforced)",
+        "disable PEAP inner-method downgrade to GTC",
+        "enforce EAP-TLS with mutual auth where possible",
+        "monitor for challenge/response replay",
+        "802.1X-2020 KaY negotiation for MACsec on wired backhaul"
+      ]
+    }
+  },
+  {
+    "id": "def-hidden-ssid-not-secret",
+    "name": "Hidden SSID does not provide security",
+    "category": "defense_and_detection",
+    "region": "universal",
+    "era_bounds": ["1999", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ie-ssid", "frame-mgmt-probe-request"],
+    "technical_body": {
+      "reason": "Clients that have ever seen the network volunteer the SSID in probe requests on association attempts. The SSID leaks by design.",
+      "posture": "Hiding SSID is a configuration convenience; it must not be treated as an access control."
+    }
+  }
+]
