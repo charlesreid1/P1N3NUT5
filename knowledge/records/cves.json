@@ -1,0 +1,281 @@
+[
+  {
+    "id": "cve-2017-13077",
+    "name": "CVE-2017-13077 — KRACK: reinstallation of the pairwise encryption key (PTK-TK)",
+    "aliases": ["krack-ptk"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "see_also": ["km-wpa2-psk", "km-wpa2-eap"],
+    "technical_body": {
+      "family": "KRACK",
+      "vector": "MITM replays M3 → client reinstalls PTK → nonce reset",
+      "target": "clients (any WPA2)",
+      "patch_status_2026": "largely patched on flagship OS; embedded/IoT tail persists"
+    }
+  },
+  {
+    "id": "cve-2017-13078",
+    "name": "CVE-2017-13078 — KRACK: reinstallation of the group key (GTK)",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK", "vector": "M3 replay → GTK reinstalled", "target": "clients"}
+  },
+  {
+    "id": "cve-2017-13079",
+    "name": "CVE-2017-13079 — KRACK: reinstallation of the integrity group key (IGTK)",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK", "vector": "IGTK reinstalled", "target": "clients"}
+  },
+  {
+    "id": "cve-2017-13080",
+    "name": "CVE-2017-13080 — KRACK: reinstallation of the group key in the group key handshake",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK", "target": "clients"}
+  },
+  {
+    "id": "cve-2017-13081",
+    "name": "CVE-2017-13081 — KRACK: IGTK reinstalled in group-key handshake",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2017-13082",
+    "name": "CVE-2017-13082 — KRACK: accepted retransmit of FT reassoc → PTK-TK reinstalled",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "see_also": ["std-802-11r"],
+    "technical_body": {"family": "KRACK", "vector": "FT reassoc replay → PTK reinstall on AP"}
+  },
+  {
+    "id": "cve-2017-13084",
+    "name": "CVE-2017-13084 — KRACK: STK reinstallation in PeerKey handshake",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2017-13086",
+    "name": "CVE-2017-13086 — KRACK: TDLS PeerKey (TPK) reinstallation",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2017-13087",
+    "name": "CVE-2017-13087 — KRACK: WNM Sleep Mode response GTK reinstall",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2017-13088",
+    "name": "CVE-2017-13088 — KRACK: WNM Sleep Mode response IGTK reinstall",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-10-16", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-krack-2017"],
+    "technical_body": {"family": "KRACK"}
+  },
+  {
+    "id": "cve-2019-9494",
+    "name": "CVE-2019-9494 — Dragonblood: SAE cache-based side-channel",
+    "aliases": ["dragonblood-cache"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-04-10", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-dragonblood-2019"],
+    "see_also": ["km-wpa3-sae"],
+    "technical_body": {
+      "vector": "cache-based side channel in the hunt-and-peck loop of SAE PWE derivation",
+      "mitigation": "SAE-PT / H2E (see km-wpa3-sae-ext-key)"
+    }
+  },
+  {
+    "id": "cve-2019-9495",
+    "name": "CVE-2019-9495 — Dragonblood: SAE timing-based side-channel (MODP groups)",
+    "aliases": ["dragonblood-timing"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-04-10", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-dragonblood-2019"],
+    "see_also": ["km-wpa3-sae"],
+    "technical_body": {
+      "vector": "timing oracle when hostapd falls back to MODP groups; recover partial password info per query",
+      "mitigation": "disable MODP groups; H2E"
+    }
+  },
+  {
+    "id": "cve-2019-15126",
+    "name": "CVE-2019-15126 — Kr00k: Broadcom/Cypress all-zero PTK on disassoc",
+    "aliases": ["kr00k", "kr00k-broadcom"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2019-08-06", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "eset-kr00k-2020"],
+    "see_also": ["frame-mgmt-disassoc"],
+    "technical_body": {
+      "vector": "Broadcom / Cypress chipsets encrypt queued frames with an all-zero PTK after receiving a disassoc",
+      "impact": "attacker triggers disassoc, reads plaintext of tail frames with the zero key",
+      "affected_chipsets": ["Broadcom BCM4339/4358/4356", "Cypress inheritors"],
+      "patch_status_2026": "patched on flagship phones; persistent on many IoT (older Echo, Kindle, WiFi cameras, older iPad/iPhone)"
+    }
+  },
+  {
+    "id": "cve-2020-3702",
+    "name": "CVE-2020-3702 — Kr00k QCA variant",
+    "aliases": ["kr00k-qualcomm", "kr00k-qca"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-07-08", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "eset-kr00k-2020"],
+    "technical_body": {
+      "vector": "Qualcomm Atheros variant of the Broadcom Kr00k class",
+      "affected_chipsets": ["QCA IPQ8064", "QCA9377", "similar Snapdragon Wi-Fi front-ends"]
+    }
+  },
+  {
+    "id": "cve-2020-24586",
+    "name": "CVE-2020-24586 — FragAttacks: fragmentation cache not cleared on (re)connect",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-24587",
+    "name": "CVE-2020-24587 — FragAttacks: reassembly of fragments encrypted under different keys",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks"}
+  },
+  {
+    "id": "cve-2020-24588",
+    "name": "CVE-2020-24588 — FragAttacks: accepting non-SPP A-MSDU frames",
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2020-05-11", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-fragattacks-2021"],
+    "technical_body": {"family": "FragAttacks", "vector": "plaintext injection via A-MSDU flag confusion"}
+  },
+  {
+    "id": "cve-2023-52424",
+    "name": "CVE-2023-52424 — SSID Confusion: 4-way handshake does not authenticate the SSID",
+    "aliases": ["ssid-confusion"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2024-05-14", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "vanhoef-yseboodt-ssid-2024"],
+    "see_also": ["km-wpa2-psk", "km-wpa3-sae"],
+    "technical_body": {
+      "vector": "client believes it's connected to network X but is actually on network Y — SSID is not authenticated in PTK derivation",
+      "impact": "bypasses VPN auto-connect logic and trust-on-SSID heuristics"
+    }
+  },
+  {
+    "id": "cve-2011-5053",
+    "name": "CVE-2011-5053 — Reaver: WPS external registrar 8-digit PIN brute force",
+    "aliases": ["wps-pin"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2011-12-27", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "viehboeck-wps-2011"],
+    "see_also": ["std-wfa-wps"],
+    "technical_body": {
+      "vector": "PIN authenticated in halves — 10^4 + 10^3 = 11k trials worst case",
+      "target_availability_2026": "rare on flagship consumer; common on ISP-supplied routers"
+    }
+  },
+  {
+    "id": "cve-2017-11120",
+    "name": "CVE-2017-11120 — Broadpwn: Broadcom Wi-Fi chipset RCE from the air",
+    "aliases": ["broadpwn"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-07-25", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre", "artenstein-broadpwn-2017"],
+    "technical_body": {
+      "vector": "Broadcom BCM43xx firmware heap corruption reachable over the air",
+      "impact": "kernel-mode RCE on affected iOS/Android devices",
+      "patch_status_2026": "patched on modern devices; historical marker for 'the air can compromise the kernel'"
+    }
+  },
+  {
+    "id": "cve-2021-28492",
+    "name": "CVE-2021-28492 — Realtek RTL8xxx wireless stack overflow (WPA2 handshake)",
+    "aliases": ["realtek-rtl87xx"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2021-04-15", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "technical_body": {
+      "vector": "buffer overflow in Realtek RTL8xxxxxx AP/repeater firmware",
+      "target_availability_2026": "wide install base on cheap OEM AP boards"
+    }
+  }
+]
