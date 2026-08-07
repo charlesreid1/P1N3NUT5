@@ -324,5 +324,183 @@
       "state_machine": ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"],
       "attacks": ["reaver online brute (11k trials worst-case)", "Pixie Dust offline E-S1/E-S2 recovery"]
     }
+  },
+  {
+    "id": "std-802-11h",
+    "name": "802.11h (DFS + TPC)",
+    "aliases": ["h", "dfs", "tpc"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2003", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "DFS (radar avoidance) + TPC (transmit power control) for 5 GHz",
+      "regulatory_driver": "ETSI EN 301 893; FCC subpart E for the US"
+    }
+  },
+  {
+    "id": "std-802-11i",
+    "name": "802.11i (WPA2 / RSN)",
+    "aliases": ["i", "rsn"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "Defines RSN — 4-way handshake, CCMP, TKIP replacement, PMKSA caching",
+      "note": "Fully integrated into 802.11-2020 §12. Cited by name in older docs."
+    }
+  },
+  {
+    "id": "std-802-11e",
+    "name": "802.11e (QoS / EDCA)",
+    "aliases": ["e", "qos", "edca", "wmm"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "Enhanced Distributed Channel Access — QoS data traffic priorities. WMM is Wi-Fi Alliance's certified profile of 802.11e.",
+      "wctf_relevance": "QoS-Data frames (frame subtype 8) carry EAPOL and CCMP-encrypted payloads on modern networks — this standard defines them."
+    }
+  },
+  {
+    "id": "std-802-11s",
+    "name": "802.11s (Mesh)",
+    "aliases": ["s", "mesh"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "802.11 mesh networking primitives",
+      "note": "Rarely load-bearing in a WCTF puzzle; consumer mesh gear typically implements its own proprietary mesh instead."
+    }
+  },
+  {
+    "id": "std-802-11ai",
+    "name": "802.11ai (Fast Initial Link Setup, FILS)",
+    "aliases": ["ai", "fils"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2016", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "Reduces association time by combining discovery + auth + 4-way + DHCP",
+      "carrier": "IEs 240 (FILS Indication), 241 (Key Confirmation), 242 (Session)",
+      "note": "Rare on residential gear; used in some carrier Wi-Fi profiles."
+    }
+  },
+  {
+    "id": "std-802-11ac-wave2",
+    "name": "802.11ac Wave 2",
+    "aliases": ["ac-wave-2"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2016", "2021"],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "role": "Second-generation Wi-Fi 5 — 160 MHz channels, MU-MIMO downlink, up to 6.9 Gbps",
+      "note": "Not a separate standard, but a marketing tier of 802.11ac. Superseded by Wi-Fi 6."
+    }
+  },
+  {
+    "id": "std-passpoint",
+    "name": "Wi-Fi Alliance Passpoint (Hotspot 2.0)",
+    "aliases": ["passpoint", "hotspot 2.0", "hs2"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2012", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["wfa-wpa3-spec"],
+    "see_also": ["std-802-11u", "roaming-passpoint-osu", "anqp-realm-enum"],
+    "technical_body": {
+      "role": "WFA profile on top of 802.11u — automatic association via Roaming Consortium OI matching, no SSID selection needed",
+      "attack_surface": "Rogue OSU + spoofed Roaming Consortium OI = client auto-associates with your BSSID"
+    }
+  },
+  {
+    "id": "std-owe",
+    "name": "OWE (RFC 8110)",
+    "aliases": ["opportunistic wireless encryption"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2017", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
+    "see_also": ["km-owe", "ie-owe-diffie-hellman"],
+    "technical_body": {
+      "role": "Opportunistic Wireless Encryption. ECDH exchange on Open networks.",
+      "note": "Provides encryption but NOT AP authentication — see the OWE trap in verify_claim."
+    }
+  },
+  {
+    "id": "std-rfc-2759",
+    "name": "MSCHAPv2 (RFC 2759)",
+    "aliases": ["mschapv2", "ms-chap-v2"],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": ["2000", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["rfc-2759"],
+    "see_also": ["hashcat-mode-5500", "eap-peap", "eap-ttls"],
+    "technical_body": {
+      "role": "Microsoft's PPP-CHAP variant used inside PEAP / EAP-TTLS tunnels",
+      "attack_surface": "Captured challenge/response → hashcat mode 5500 or asleap"
+    }
+  },
+  {
+    "id": "std-fcc-part-15",
+    "name": "FCC Part 15 (US regulatory framework)",
+    "aliases": ["fcc part 15", "47 cfr part 15"],
+    "category": "standard",
+    "region": "US",
+    "era_bounds": ["1938", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["fcc-part-15"],
+    "technical_body": {
+      "role": "US regulatory rules for unlicensed radio devices; subpart E is the U-NII/5 GHz rules; 6 GHz is added in subpart E amendments (2020)",
+      "note": "Every US channels.json record cites this."
+    }
+  },
+  {
+    "id": "std-etsi-en-300-328",
+    "name": "ETSI EN 300 328 (EU 2.4 GHz regulatory)",
+    "aliases": ["en 300 328"],
+    "category": "standard",
+    "region": "EU",
+    "era_bounds": ["2001", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["etsi-en-300-328"],
+    "technical_body": {"role": "Harmonised EU standard for 2.4 GHz WiFi / Bluetooth transmit power"}
+  },
+  {
+    "id": "std-etsi-en-301-893",
+    "name": "ETSI EN 301 893 (EU 5 GHz regulatory)",
+    "aliases": ["en 301 893"],
+    "category": "standard",
+    "region": "EU",
+    "era_bounds": ["2001", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["etsi-en-301-893"],
+    "technical_body": {"role": "Harmonised EU standard for 5 GHz WiFi — DFS + TPC requirements"}
   }
 ]
