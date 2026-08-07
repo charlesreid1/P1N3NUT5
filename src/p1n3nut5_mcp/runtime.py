@@ -23,6 +23,16 @@ Transport = Literal["api", "ssh"]
 
 @dataclass(frozen=True)
 class Config:
+    """Runtime env resolved from `Config.from_env`.
+
+    `max_rogue_minutes` semantics:
+      - `0` (the default) means **unlimited** — rogue APs run until
+        explicitly stopped.
+      - Any positive value is a hard cap enforced by
+        `attacks.enforce_rogue_ap_limits`; orchestrator step boundaries
+        fire that check between steps.
+    """
+
     host: str
     token: str | None
     ssh_user: str

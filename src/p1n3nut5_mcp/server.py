@@ -418,6 +418,43 @@ async def do_list_interfaces(
     return await pineapple_ssh.list_interfaces(cfg)
 
 
+def do_list_rogue_aps() -> dict:
+    """Snapshot of the rogue-AP registry — every AP this MCP launched.
+
+    Not authorization-gated: pure read of module state, no wire traffic.
+    """
+    return {"ok": True, "payload": attacks.list_rogue_aps()}
+
+
+async def enforce_rogue_limits(
+    i_own_the_airspace: bool = False,
+    config: Config | None = None,
+    ssh: pineapple_ssh.PineappleSSH | None = None,
+) -> dict:
+    """Manually run MAX_ROGUE_MINUTES enforcement; returns killed handles.
+
+    The orchestrator fires this automatically between steps whenever
+    `config.max_rogue_minutes > 0`. Operators can also hit this
+    directly to see what would be killed right now.
+    """
+    cfg = config or Config.from_env()
+    authz = Authorization(i_own_the_airspace=i_own_the_airspace)
+    if ssh is not None:
+        return await attacks.enforce_rogue_ap_limits(
+            max_rogue_minutes=cfg.max_rogue_minutes,
+            authorization=authz,
+            ssh=ssh,
+        )
+    return await _with_ssh(
+        lambda s: attacks.enforce_rogue_ap_limits(
+            max_rogue_minutes=cfg.max_rogue_minutes,
+            authorization=authz,
+            ssh=s,
+        ),
+        cfg,
+    )
+
+
 async def list_associations(
     config: Config | None = None,
     api: pineapple_api.PineappleAPI | None = None,
@@ -576,6 +613,8 @@ def main() -> None:
         do_channel_hop_start,
         do_channel_hop_stop,
         do_list_interfaces,
+        do_list_rogue_aps,
+        enforce_rogue_limits,
         list_associations,
         do_evil_twin,
         run_sequence,

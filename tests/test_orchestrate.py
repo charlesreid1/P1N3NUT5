@@ -148,6 +148,61 @@ async def test_call_log_serializes_ssh_history():
     assert all(entry["exit_status"] == 0 for entry in log)
 
 
+async def test_orchestrator_enforces_max_rogue_minutes_between_steps():
+    """With MAX_ROGUE_MINUTES>0, an over-cap rogue AP gets killed
+    between steps and the kill surfaces in the step's warnings[]."""
+    from p1n3nut5_mcp import attacks
+    from p1n3nut5_mcp.attacks import _ROGUE_REGISTRY
+
+    _ROGUE_REGISTRY.clear()
+    try:
+        cfg = Config.from_env(
+            {
+                "PINEAPPLE_HOST": "x",
+                "PINEAPPLE_SSH_PASSWORD": "y",
+                "PINEAPPLE_TOKEN": "t",
+                "MAX_ROGUE_MINUTES": "1",
+            }
+        )
+
+        class Recorder(FakeSSHConn):
+            async def run(self, command: str, check: bool = False):
+                self.calls.append(command)
+                return FakeProcResult(stdout="", exit_status=0)
+
+        async def connect(_cfg):
+            return Recorder({})
+
+        ssh = PineappleSSH(cfg, connect=connect)
+
+        # Seed the registry with an already-old rogue AP
+        r = await attacks.create_rogue_ap(
+            ssid="ancient", channel=6,
+            authorization=Authorization(i_own_the_airspace=True), ssh=ssh,
+        )
+        _ROGUE_REGISTRY[r["payload"]["handle"]]["started_at"] -= 5 * 60
+
+        async def no_sleep(s: float) -> None:
+            pass
+
+        orch = Orchestrator(
+            cfg,
+            Authorization(i_own_the_airspace=True),
+            ssh=ssh,
+            sleep=no_sleep,
+        )
+        result = await orch.run([{"action": "wait", "s": 0.001}])
+        assert result["ok"] is True
+        warnings = result["steps"][0]["warnings"]
+        assert any("ancient" in w and "docs/legal_and_consent.md" in w for w in warnings)
+        # rogue was killed
+        assert attacks.list_rogue_aps() == []
+        cmds = [c.cmd for c in ssh.call_log]
+        assert any(c.startswith("kill $(cat ") for c in cmds)
+    finally:
+        _ROGUE_REGISTRY.clear()
+
+
 async def test_run_sequence_module_entry_point():
     raw = json.loads((FIXTURES / "api" / "recon_ap.json").read_text())
     api = PineappleAPI(_cfg(), client=make_httpx_client({"/api/recon/ap": raw}))

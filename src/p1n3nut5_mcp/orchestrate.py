@@ -78,6 +78,8 @@ class Orchestrator:
             await self._ssh.close()
 
     async def run(self, steps: list[Step]) -> dict:
+        from p1n3nut5_mcp import attacks as _attacks  # noqa: PLC0415
+
         results: list[StepResult] = []
         started = time.monotonic()
         last_ok = True
@@ -90,6 +92,25 @@ class Orchestrator:
                     break
                 continue
             result = await self._dispatch(step)
+            # MAX_ROGUE_MINUTES enforcement — see docs/legal_and_consent.md.
+            # Positive values are a hard cap; 0 means unlimited (skip check).
+            if self.config.max_rogue_minutes > 0:
+                enforce = await _attacks.enforce_rogue_ap_limits(
+                    max_rogue_minutes=self.config.max_rogue_minutes,
+                    authorization=self.authorization,
+                    ssh=await self._get_ssh(),
+                )
+                killed = enforce.get("payload", {}).get("killed", [])
+                if killed:
+                    warnings = list(result.get("warnings") or [])
+                    for k in killed:
+                        warnings.append(
+                            f"rogue AP {k.get('ssid')!r} killed after "
+                            f"{k.get('elapsed_minutes')} min "
+                            f"(MAX_ROGUE_MINUTES={self.config.max_rogue_minutes}); "
+                            f"see docs/legal_and_consent.md"
+                        )
+                    result = {**result, "warnings": warnings}
             results.append({"index": i, "action": action, **result})
             last_ok = bool(result.get("ok"))
             if not last_ok and not step.get("continue_on_error"):

@@ -227,6 +227,27 @@ async def capture_pmkid(
     )
 
 
+# --- rogue AP registry ------------------------------------------------------
+
+# pid_path -> {ssid, started_at, channel, security, bssid, iface, band}. Populated
+# on successful create_rogue_ap; drained on stop_rogue_ap / stop_all_rogue_aps
+# / enforce_rogue_ap_limits. Module-level state so `list_rogue_aps` and
+# `enforce_rogue_ap_limits` share it without threading it through calls.
+_ROGUE_REGISTRY: dict[str, dict] = {}
+
+
+def list_rogue_aps() -> list[dict]:
+    """Snapshot of every rogue AP this MCP instance has launched.
+
+    Returns a JSON-safe list; the caller must not mutate the registry
+    through this handle.
+    """
+    return [
+        {"handle": h, **{k: v for k, v in meta.items()}}
+        for h, meta in _ROGUE_REGISTRY.items()
+    ]
+
+
 async def create_rogue_ap(
     ssid: str,
     channel: int,
@@ -274,6 +295,16 @@ async def create_rogue_ap(
     r_launch = await ssh.run(launch)
     if r_launch.exit_status != 0:
         warnings.append(f"hostapd launch exit {r_launch.exit_status}: {r_launch.stderr.strip()}")
+    else:
+        _ROGUE_REGISTRY[pid_path] = {
+            "ssid": ssid,
+            "started_at": time.time(),
+            "channel": channel,
+            "security": security,
+            "bssid": bssid,
+            "iface": iface,
+            "band": band,
+        }
 
     return envelope(
         ok=r_launch.exit_status == 0,
@@ -468,6 +499,7 @@ async def stop_rogue_ap(
     started = time.monotonic()
     cmd = f"kill $(cat {shlex.quote(handle)}) && rm -f {shlex.quote(handle)}"
     r = await ssh.run(cmd)
+    _ROGUE_REGISTRY.pop(handle, None)
     return envelope(
         ok=r.exit_status == 0,
         transport="ssh",
@@ -490,12 +522,73 @@ async def stop_all_rogue_aps(
     started = time.monotonic()
     cmd = "for p in /tmp/hostapd-*.pid; do [ -f \"$p\" ] && kill $(cat \"$p\") 2>/dev/null; rm -f \"$p\"; done"
     r = await ssh.run(cmd)
+    _ROGUE_REGISTRY.clear()
     return envelope(
         ok=r.exit_status == 0,
         transport="ssh",
         payload={"cmd": cmd, "stdout": r.stdout},
         started_at=started,
         warnings=[],
+    )
+
+
+async def enforce_rogue_ap_limits(
+    max_rogue_minutes: int,
+    authorization: Authorization | None = None,
+    *,
+    ssh: PineappleSSH,
+    now: float | None = None,
+) -> dict:
+    """Kill every rogue AP older than `max_rogue_minutes`.
+
+    `max_rogue_minutes <= 0` means unlimited — no enforcement, no
+    killed handles, ok=True. Positive values are a hard cap: an AP
+    that has been up longer than the cap has its pid killed via the
+    same `stop_rogue_ap` shell invocation. Returns the list of killed
+    handles under `payload.killed`.
+
+    Not a background task — call sites drive it. `orchestrate.py`
+    fires it between steps when `config.max_rogue_minutes > 0`; a WCTF
+    operator can also hit it manually and see what would be killed.
+    """
+    _require_authz(authorization)
+    started = time.monotonic()
+    if max_rogue_minutes <= 0:
+        return envelope(
+            ok=True,
+            transport="ssh",
+            payload={"killed": [], "max_rogue_minutes": max_rogue_minutes},
+            started_at=started,
+            warnings=[],
+        )
+
+    ts_now = now if now is not None else time.time()
+    threshold_s = max_rogue_minutes * 60.0
+    killed: list[dict] = []
+    warnings: list[str] = []
+    for handle, meta in list(_ROGUE_REGISTRY.items()):
+        elapsed_s = ts_now - float(meta.get("started_at", ts_now))
+        if elapsed_s < threshold_s:
+            continue
+        cmd = f"kill $(cat {shlex.quote(handle)}) && rm -f {shlex.quote(handle)}"
+        r = await ssh.run(cmd)
+        _ROGUE_REGISTRY.pop(handle, None)
+        killed.append(
+            {
+                "handle": handle,
+                "ssid": meta.get("ssid"),
+                "elapsed_minutes": round(elapsed_s / 60.0, 2),
+                "cite": "docs/legal_and_consent.md",
+            }
+        )
+        if r.exit_status != 0:
+            warnings.append(f"kill exit {r.exit_status} for {handle}")
+    return envelope(
+        ok=True,
+        transport="ssh",
+        payload={"killed": killed, "max_rogue_minutes": max_rogue_minutes},
+        started_at=started,
+        warnings=warnings,
     )
 
 
