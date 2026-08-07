@@ -113,5 +113,432 @@
       "override": "For attacks that need exotic hostapd knobs, write a standalone conf and run hostapd -B directly, bypassing UCI",
       "note": "This is how create_rogue_ap operates in the MCP — SCP a hostapd.conf, hostapd -B it under a named handle."
     }
+  },
+  {
+    "id": "uci-wireless-iface-monitor",
+    "name": "wifi-iface with mode=monitor",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "wireless.@wifi-iface[N]",
+      "options": {"mode": "monitor", "device": "'radio1'", "network": "'none' or a monitor-only zone"},
+      "note": "Sets an interface into monitor mode via UCI + wifi reload."
+    }
+  },
+  {
+    "id": "uci-wireless-hidden",
+    "name": "wifi-iface hidden option",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "wireless.@wifi-iface[N]", "options": {"hidden": "0|1"}, "note": "hidden=1 emits SSID IE with length 0 in beacons — not a security control."}
+  },
+  {
+    "id": "uci-wireless-isolate",
+    "name": "wifi-iface isolate option (client isolation)",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "see_also": ["def-client-isolation"],
+    "technical_body": {"section": "wireless.@wifi-iface[N]", "options": {"isolate": "0|1"}}
+  },
+  {
+    "id": "uci-wireless-ieee80211w",
+    "name": "wifi-iface ieee80211w option (PMF)",
+    "aliases": ["uci-pmf"],
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "see_also": ["std-802-11w"],
+    "technical_body": {
+      "section": "wireless.@wifi-iface[N]",
+      "options": {"ieee80211w": "0=disabled, 1=optional, 2=required"},
+      "note": "Set to 2 for WPA3-required networks."
+    }
+  },
+  {
+    "id": "uci-wireless-ft",
+    "name": "wifi-iface Fast Transition options",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "see_also": ["std-802-11r"],
+    "technical_body": {
+      "section": "wireless.@wifi-iface[N]",
+      "options": {"ieee80211r": "0|1", "mobility_domain": "hex string (4 chars)", "ft_over_ds": "0|1", "reassociation_deadline": "int ms"}
+    }
+  },
+  {
+    "id": "uci-wireless-wpsdevicename",
+    "name": "wifi-iface WPS options",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "see_also": ["std-wfa-wps"],
+    "technical_body": {
+      "section": "wireless.@wifi-iface[N]",
+      "options": {"wps_pushbutton": "0|1", "wps_pin": "8-digit", "wps_device_name": "string", "wps_manufacturer": "string"},
+      "note": "wps_manufacturer + wps_device_name leak in the WPS IE — set carefully to avoid fingerprint attribution."
+    }
+  },
+  {
+    "id": "uci-network-bridge",
+    "name": "network.<iface> type=bridge",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "network.<iface>", "options": {"type": "bridge", "ifname": "list of ports", "proto": "'static' | 'dhcp'"}}
+  },
+  {
+    "id": "uci-network-vlan",
+    "name": "network.<iface> proto=8021ad / 8021q VLAN",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "network.<iface>", "options": {"proto": "'8021q' | '8021ad'", "vid": "VLAN ID", "ifname": "parent"}}
+  },
+  {
+    "id": "uci-dhcp-static",
+    "name": "dhcp.<name> host — static lease",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "dhcp.<name>", "options": {"mac": "MAC", "ip": "IPv4", "name": "hostname"}}
+  },
+  {
+    "id": "uci-dhcp-interface",
+    "name": "dhcp.<lan> interface — DHCP pool per iface",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "dhcp.<name>", "options": {"interface": "iface name", "start": "int", "limit": "int", "leasetime": "e.g. '12h'"}}
+  },
+  {
+    "id": "uci-dhcp-domain",
+    "name": "dhcp.@dnsmasq[0] domain / expandhosts",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "dhcp.@dnsmasq[0]", "options": {"domain": "'lan'", "expandhosts": "1", "local": "'/lan/'"}}
+  },
+  {
+    "id": "uci-dhcp-addnhosts",
+    "name": "dhcp.@dnsmasq[0] addnhosts (captive-portal DNS blackhole)",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "see_also": ["captive-portal-cred-capture"],
+    "technical_body": {
+      "section": "dhcp.@dnsmasq[0]",
+      "options": {"addnhosts": "path to a hosts-format file"},
+      "note": "For captive-portal work: add a hosts file that resolves every hostname to the Pineapple's IP (172.16.42.1)."
+    }
+  },
+  {
+    "id": "uci-firewall-zone",
+    "name": "firewall.@zone[N] section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {
+      "section": "firewall.@zone[N]",
+      "options": {"name": "zone name", "network": "list of iface names", "input": "ACCEPT|REJECT", "output": "ACCEPT|REJECT", "forward": "ACCEPT|REJECT", "masq": "0|1", "mtu_fix": "0|1"}
+    }
+  },
+  {
+    "id": "uci-firewall-rule",
+    "name": "firewall.@rule[N] section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "firewall.@rule[N]", "options": {"src": "zone", "dest": "zone", "src_port": "int", "dest_port": "int", "proto": "'tcp'|'udp'|'icmp'", "target": "ACCEPT|REJECT|DROP"}}
+  },
+  {
+    "id": "uci-firewall-redirect",
+    "name": "firewall.@redirect[N] section (DNAT)",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "firewall.@redirect[N]", "options": {"src": "zone", "src_dport": "int", "dest_ip": "IPv4", "dest_port": "int", "proto": "'tcp'|'udp'"}}
+  },
+  {
+    "id": "uci-system-hostname",
+    "name": "system.@system[0] hostname",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "system.@system[0]", "options": {"hostname": "string", "timezone": "string"}}
+  },
+  {
+    "id": "uci-system-logsize",
+    "name": "system.@system[0] log_size / log_file",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "system.@system[0]", "options": {"log_size": "kb", "log_file": "path"}}
+  },
+  {
+    "id": "uci-pineap",
+    "name": "pineap.@pineap[0] — the PineAP module config section",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["hak5-mk7-docs"],
+    "see_also": ["pineap-active-karma", "pineap-ssid-pool-broadcast"],
+    "technical_body": {
+      "section": "pineap.@pineap[0]",
+      "options": {
+        "karma": "0|1",
+        "log_probes": "0|1",
+        "beacon_response": "0|1",
+        "broadcast_ssid_pool": "0|1",
+        "connect_notifications": "0|1",
+        "logging": "0|1",
+        "association_notification": "0|1",
+        "auto_start": "0|1"
+      },
+      "note": "Corresponds to the /api/pineap/settings API surface."
+    }
+  },
+  {
+    "id": "uci-hostapd-ap-isolate",
+    "name": "hostapd ap_isolate option",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "see_also": ["def-client-isolation"],
+    "technical_body": {"file": "/etc/hostapd/*.conf", "option": "ap_isolate=1", "note": "Prevents STA-to-STA frame delivery at the AP bridge."}
+  },
+  {
+    "id": "uci-hostapd-bssid",
+    "name": "hostapd bssid override",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "technical_body": {"file": "/etc/hostapd/*.conf", "option": "bssid=<mac>", "note": "Essential for evil-twin — set to the target AP BSSID exactly."}
+  },
+  {
+    "id": "uci-hostapd-sae-password",
+    "name": "hostapd sae_password option (WPA3)",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "technical_body": {
+      "file": "/etc/hostapd/*.conf",
+      "option": "sae_password=<passphrase>",
+      "note": "WPA3-SAE passphrase — replaces wpa_passphrase for AKM=SAE."
+    }
+  },
+  {
+    "id": "uci-hostapd-transition",
+    "name": "hostapd WPA2 + WPA3 transition mode config",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "see_also": ["wpa3-transition-downgrade"],
+    "technical_body": {
+      "file": "/etc/hostapd/*.conf",
+      "options": {"wpa_key_mgmt": "'WPA-PSK SAE'", "ieee80211w": "1"},
+      "note": "Advertises both AKM 2 (PSK) and AKM 8 (SAE) — the downgrade opportunity."
+    }
+  },
+  {
+    "id": "uci-hostapd-owe",
+    "name": "hostapd OWE config",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "see_also": ["km-owe"],
+    "technical_body": {"file": "/etc/hostapd/*.conf", "options": {"wpa_key_mgmt": "OWE", "ieee80211w": "2"}}
+  },
+  {
+    "id": "uci-hostapd-radius",
+    "name": "hostapd RADIUS options",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hostapd-docs"],
+    "technical_body": {"file": "/etc/hostapd/*.conf", "options": {"auth_server_addr": "IPv4", "auth_server_port": "1812", "auth_server_shared_secret": "string", "eap_server": "1", "ieee8021x": "1"}}
+  },
+  {
+    "id": "uci-wireless-country",
+    "name": "wireless.<radio> country option",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "wireless.<radio>", "options": {"country": "ISO alpha-2 code (e.g. US, DE, JP)"}, "note": "Sets the CRDA regulatory domain. Determines which channels are legal."}
+  },
+  {
+    "id": "uci-wireless-txpower",
+    "name": "wireless.<radio> txpower option",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "wireless.<radio>", "options": {"txpower": "int dBm"}}
+  },
+  {
+    "id": "uci-wireless-disabled",
+    "name": "wireless.<radio> disabled option",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "wireless.<radio>", "options": {"disabled": "0|1"}, "note": "Turn a whole radio off — useful to free wlan1 for monitor-only work."}
+  },
+  {
+    "id": "uci-network-firewall-input-drop",
+    "name": "Firewall zone input=DROP posture",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"note": "Enterprise / hardened OpenWRT deployments set wan zone input=DROP by default."}
+  },
+  {
+    "id": "uci-dropbear",
+    "name": "dropbear.@dropbear[0] — SSH daemon config",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "dropbear.@dropbear[0]", "options": {"PasswordAuth": "'on'|'off'", "RootPasswordAuth": "'on'|'off'", "Port": "int"}}
+  },
+  {
+    "id": "uci-luci-httpd",
+    "name": "uhttpd.main — LuCI web UI config",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "uhttpd.main", "options": {"listen_http": "list", "listen_https": "list", "cert": "path", "key": "path"}}
+  },
+  {
+    "id": "uci-network-macaddr",
+    "name": "network.<iface> macaddr override",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "network.<iface>", "options": {"macaddr": "MAC address override"}}
+  },
+  {
+    "id": "uci-wifi-mac-address",
+    "name": "wifi-iface macaddr — spoof BSSID",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "wireless.@wifi-iface[N]", "options": {"macaddr": "MAC"}, "note": "Distinct from wireless.<radio>.bssid; per-iface MAC for multi-BSSID setups."}
+  },
+  {
+    "id": "uci-firewall-forwarding-lan-wan",
+    "name": "Forward LAN → WAN typical rule",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"section": "firewall.@forwarding[N]", "options": {"src": "'lan'", "dest": "'wan'"}}
+  },
+  {
+    "id": "uci-wifi-reload-restart",
+    "name": "wifi command — reload / restart / down / up",
+    "category": "openwrt_uci",
+    "region": "universal",
+    "era_bounds": ["2014", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["openwrt-uci-docs"],
+    "technical_body": {"cmd": "wifi reload | wifi restart | wifi down radioN | wifi up radioN", "note": "Applies UCI changes to running wireless config."}
   }
 ]

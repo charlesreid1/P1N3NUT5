@@ -248,5 +248,22 @@
       "role": "client (embedded in most 2021+ laptops)",
       "note": "6 GHz-capable. Monitor mode limited under iwlwifi; not useful as an attacker adapter."
     }
+  },
+  {
+    "id": "chipset-marvell-mwifiex-cve-2019-11526",
+    "name": "Marvell mwifiex — kernel heap overflow (CVE-2019-11526)",
+    "category": "chipset_vuln",
+    "region": "universal",
+    "era_bounds": ["2019-04", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "see_also": ["cve-2019-11526"],
+    "technical_body": {
+      "vendor": "Marvell",
+      "chipset_family": "mwifiex",
+      "role": "client",
+      "found_in": ["Chromebooks (Marvell 88W8897)", "some Asus/HP laptops"]
+    }
   }
 ]

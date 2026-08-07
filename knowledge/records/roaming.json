@@ -95,5 +95,125 @@
       "flow": "OSU Server URL from ANQP → HTTPS enrollment → provisioned Passpoint profile",
       "attack_surface": ["rogue OSU server phishes provisioning credentials"]
     }
+  },
+  {
+    "id": "roaming-ft-over-ds",
+    "name": "802.11r FT over the DS (over-the-DS variant)",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["std-802-11r"],
+    "technical_body": {
+      "trigger": "STA sends FT Request via the current AP (over-the-DS) rather than to the target AP directly",
+      "use": "Client cannot yet tune the target AP's channel — controller-mediated roam"
+    }
+  },
+  {
+    "id": "roaming-pmksa-cache",
+    "name": "PMKSA caching",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2004", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ie-rsn", "pmkid-capture"],
+    "technical_body": {
+      "trigger": "STA reassociates to an AP it has already 4-way'd with; presents the PMKID to skip full auth",
+      "artifact": "PMKID in the RSN IE — the value Steube 2018 recovers"
+    }
+  },
+  {
+    "id": "roaming-okc",
+    "name": "Opportunistic Key Caching (OKC)",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2010", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "note": "Vendor-proprietary extension of PMKSA caching to share PMK across APs in the same fleet; superseded by 11r for standards-based deployments"
+    }
+  },
+  {
+    "id": "roaming-band-steering",
+    "name": "Band steering (5 GHz preference)",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["band-steering-abuse"],
+    "technical_body": {
+      "role": "AP suppresses 2.4 GHz probe responses to dual-band clients to nudge them to 5 GHz",
+      "attack": "Deliberately jam or spoof congestion on 5 GHz to force clients back to attacker-controlled 2.4 GHz"
+    }
+  },
+  {
+    "id": "roaming-load-balancing",
+    "name": "AP load balancing (session steering)",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {
+      "note": "Controller-based steering that rejects new associations to overloaded APs — clients try neighbors; attacker BSSID that appears less loaded gets preferred."
+    }
+  },
+  {
+    "id": "roaming-anqp-realm-query",
+    "name": "ANQP NAI Realm query",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["anqp-realm-enum"],
+    "technical_body": {"anqp_id": 261, "returns": "list of NAI Realms + EAP methods supported"}
+  },
+  {
+    "id": "roaming-anqp-venue",
+    "name": "ANQP Venue Name query",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"anqp_id": 258, "returns": "list of Venue Name entries with language codes"}
+  },
+  {
+    "id": "roaming-anqp-3gpp",
+    "name": "ANQP 3GPP Cellular Network query",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"anqp_id": 264, "returns": "PLMN list — the mobile carrier IDs the AP offloads for"}
+  },
+  {
+    "id": "roaming-fast-transition-r0kh-r1kh",
+    "name": "FT R0KH / R1KH controller distribution",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2008", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "see_also": ["ft-r0-shared-fleet-crack"],
+    "technical_body": {
+      "role": "R0KH (holds PMK-R0) and R1KH (holds PMK-R1) roles among APs in an 11r mobility domain; controller-mediated for enterprise fleets",
+      "attack_surface": "misconfigured deployments share PMK-R0 across BSSIDs — see ft-r0-shared-fleet-crack"
+    }
   }
 ]

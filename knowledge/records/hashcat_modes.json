@@ -412,5 +412,45 @@
       },
       "note": "-w 4 -O for burst mode. -O restricts to <=32-char passwords for speed."
     }
+  },
+  {
+    "id": "hashcat-session-restore",
+    "name": "hashcat --session / --restore",
+    "aliases": ["session", "restore"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2015", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes"],
+    "technical_body": {
+      "syntax": "hashcat --session=<name> ... ; hashcat --session=<name> --restore",
+      "note": "Named sessions persist state; --restore resumes an interrupted crack from checkpoint."
+    }
+  },
+  {
+    "id": "hashcat-rule-d3ad0ne",
+    "name": "hashcat rule — d3ad0ne",
+    "aliases": ["d3ad0ne"],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2013", null],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": ["hashcat-modes"],
+    "technical_body": {"rule_file": "rules/d3ad0ne.rule", "note": "Aggressive standard rule set — bigger than best64, smaller than OneRuleToRuleThemAll."}
+  },
+  {
+    "id": "hashcat-slow-hash-warning",
+    "name": "hashcat slow-hash tuning notes for mode 22000",
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": ["2018", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hashcat-modes"],
+    "technical_body": {
+      "note": "22000 is a slow hash (PBKDF2-HMAC-SHA1 with 4096 iterations). Modern RTX 4090 hits ~2 MH/s. rockyou.txt (~14M words) crackable in seconds; 12-char alnum mask is at the wall-time barrier."
+    }
   }
 ]

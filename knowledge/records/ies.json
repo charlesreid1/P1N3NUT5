@@ -1010,5 +1010,66 @@
     "confidence": "primary",
     "citations": ["ieee-802-11-2020"],
     "technical_body": {"note": "Sub-field inside IE 45; 16-byte bitmap of supported MCS indices — a strong device fingerprint."}
+  },
+  {
+    "id": "ie-power-capability",
+    "name": "Power Capability (IE 33)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 33, "contents": ["Min Transmit Power", "Max Transmit Power"], "spec": "802.11h"}
+  },
+  {
+    "id": "ie-schedule",
+    "name": "Schedule (IE 15)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2005", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 15, "spec": "802.11e"}
+  },
+  {
+    "id": "ie-challenge-text",
+    "name": "Challenge Text (IE 16)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["1997", null],
+    "still_effective_2026": false,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"element_id": 16, "note": "Shared Key authentication challenge — WEP-era only."}
+  },
+  {
+    "id": "ie-rsnxe",
+    "name": "RSN Extension (RSNXE, IE 244)",
+    "aliases": ["rsnxe"],
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2020", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
+    "see_also": ["km-wpa3-sae", "km-wpa3-sae-ext-key"],
+    "technical_body": {
+      "element_id": 244,
+      "contents": "extension capabilities bitmap including 'SAE Hash-to-Element' + 'SAE PK'",
+      "note": "Presence of the H2E bit is what allows a WPA3-SAE client + AP to negotiate SAE-EXT-KEY (AKM 18)."
+    }
+  },
+  {
+    "id": "ie-ht-info-legacy",
+    "name": "HT Information (legacy alias for IE 61)",
+    "category": "information_element",
+    "region": "universal",
+    "era_bounds": ["2009", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"note": "Older references call IE 61 'HT Information'; 802.11-2020 canonicalizes it as HT Operation."}
   }
 ]

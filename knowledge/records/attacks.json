@@ -1503,5 +1503,22 @@
     "tools": ["krackattacks-scripts"],
     "hashcat_mode": null,
     "transport": "ssh"
+  },
+  {
+    "id": "wps-hcxlabtool-aggressive",
+    "name": "hcxlabtool aggressive WPS + PMKID capture",
+    "category": "attack",
+    "region": "universal",
+    "era_bounds": ["2019", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["hcxtools"],
+    "see_also": ["pmkid-capture", "wps-reaver-online"],
+    "target_security": ["km-wpa2-psk"],
+    "preconditions": ["monitor-mode interface with injection support"],
+    "tools": ["hcxlabtool"],
+    "hashcat_mode": 22000,
+    "transport": "ssh",
+    "notes": "Aggressive-capture mode from hcxtools — sweeps channels, collects PMKIDs and WPS fragments in one pass."
   }
 ]
