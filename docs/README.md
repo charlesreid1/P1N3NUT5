@@ -53,9 +53,9 @@ operator material.
   lab), village survey, DEF CON specifics as one case study among
   many. **Updated yearly at minimum.**
 
-- **[`transport_split.md`](transport_split.md)** — long-form version
-  of the "API vs SSH" section in `attic/plan-organize.md`, with
-  per-capability reasoning and known cross-firmware drifts.
+- **[`transport_split.md`](transport_split.md)** — long-form treatment
+  of the API-vs-SSH split, with per-capability reasoning and known
+  cross-firmware drifts.
 
 - **[`legal_and_consent.md`](legal_and_consent.md)** — the
   `--i-own-the-airspace` flag, per-session authorization scopes (SSID

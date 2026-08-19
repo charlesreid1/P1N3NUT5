@@ -40,20 +40,6 @@ adversarial claims (SSID Confusion, PMF-stops-deauth, WPA3-fixes-offline,
 hidden-SSID-is-secret, PMKID-always-leaks, MAC-randomization-stops-
 tracking, and so on).
 
-## Read the plans
-
-The design intent lives in [`attic/`](attic/). These are historical
-context — the depth pass is in CI now and the corpus stopped needing
-them as a spec — but they're the source of truth on *why* each shape
-looks the way it does:
-
-- [`attic/plan-organize.md`](attic/plan-organize.md) — repo layout, MCP
-  tool surface, the API-vs-SSH transport split
-- [`attic/plan-knowledge.md`](attic/plan-knowledge.md) — the knowledge
-  base: prose topics, typed records, bibliography discipline
-- [`attic/plan-improve-docs.md`](attic/plan-improve-docs.md) — the D1–D6
-  depth-pass authoring plan (now locked by `tests/test_depth.py`)
-
 ## Three tiers, from knowing to acting
 
 - **Know** — corpus tools (`list_topics`, `search_lore`, `read_lore`,

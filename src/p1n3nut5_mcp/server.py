@@ -45,26 +45,27 @@ async def pineapple_status(
     return await pineapple_ssh.status(cfg)
 
 
+def _api_client(cfg: Config) -> pineapple_api.PineappleAPI:
+    """Factory hook for `PineappleAPI(cfg)`.
+
+    Kept as a module-level function so tests can monkeypatch it to
+    return a client wired to a fake httpx transport. Do not inline.
+    """
+    return pineapple_api.PineappleAPI(cfg)
+
+
 async def _api_call(
     cap: str,
     coro_factory,
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
-    """Run an API coroutine, wrap in the standard envelope.
-
-    Callers pass `api=` when they want to reuse a client (tests, or a
-    long-lived session). Otherwise one is built from `config` and torn
-    down at the end.
-    """
+    """Run an API coroutine, wrap in the standard envelope."""
     import time as _time  # noqa: PLC0415
 
-    cfg = config or (Config.from_env() if api is None else None)
-    if cfg is not None:
-        pineapple_transport.choose(cap, cfg, request="api")  # validates support
+    cfg = config or Config.from_env()
+    pineapple_transport.choose(cap, cfg, request="api")  # validates support
     started = _time.monotonic()
-    owned = api is None
-    client = api or pineapple_api.PineappleAPI(cfg)  # type: ignore[arg-type]
+    client = _api_client(cfg)
     try:
         r = await coro_factory(client)
         return envelope(
@@ -75,8 +76,7 @@ async def _api_call(
             warnings=r["warnings"],
         )
     finally:
-        if owned:
-            await client.aclose()
+        await client.aclose()
 
 
 # --- recon ------------------------------------------------------------------
@@ -86,21 +86,20 @@ async def recon_start(
     band: str = "both",
     dwell_ms: int = 250,
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
-    return await _api_call("recon_start", lambda a: a.recon_start(band, dwell_ms), config, api)
+    return await _api_call("recon_start", lambda a: a.recon_start(band, dwell_ms), config)
 
 
 async def recon_stop(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("recon_stop", lambda a: a.recon_stop(), config, api)
+    return await _api_call("recon_stop", lambda a: a.recon_stop(), config)
 
 
 async def recon_status(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("recon_status", lambda a: a.recon_status(), config, api)
+    return await _api_call("recon_status", lambda a: a.recon_status(), config)
 
 
 async def list_aps(
@@ -109,7 +108,6 @@ async def list_aps(
     band: str | None = None,
     security: str | None = None,
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     async def _factory(a: pineapple_api.PineappleAPI) -> dict:
         raw = await a.list_aps_raw()
@@ -123,11 +121,11 @@ async def list_aps(
         )
         return {"payload": filtered, "warnings": raw["warnings"]}
 
-    return await _api_call("list_aps", _factory, config, api)
+    return await _api_call("list_aps", _factory, config)
 
 
 async def list_clients(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
     async def _factory(a: pineapple_api.PineappleAPI) -> dict:
         raw = await a.list_clients_raw()
@@ -136,11 +134,11 @@ async def list_clients(
             "warnings": raw["warnings"],
         }
 
-    return await _api_call("list_clients", _factory, config, api)
+    return await _api_call("list_clients", _factory, config)
 
 
 async def list_probe_requests(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
     async def _factory(a: pineapple_api.PineappleAPI) -> dict:
         raw = await a.list_probe_requests_raw()
@@ -149,62 +147,58 @@ async def list_probe_requests(
             "warnings": raw["warnings"],
         }
 
-    return await _api_call("list_probe_requests", _factory, config, api)
+    return await _api_call("list_probe_requests", _factory, config)
 
 
 # --- PineAP -----------------------------------------------------------------
 
 
 async def pineap_status(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("pineap_status", lambda a: a.pineap_status(), config, api)
+    return await _api_call("pineap_status", lambda a: a.pineap_status(), config)
 
 
 async def pineap_start(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("pineap_start", lambda a: a.pineap_start(), config, api)
+    return await _api_call("pineap_start", lambda a: a.pineap_start(), config)
 
 
 async def pineap_stop(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("pineap_stop", lambda a: a.pineap_stop(), config, api)
+    return await _api_call("pineap_stop", lambda a: a.pineap_stop(), config)
 
 
 async def pineap_config(
     cfg: dict,
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
-    return await _api_call("pineap_config", lambda a: a.pineap_config(cfg), config, api)
+    return await _api_call("pineap_config", lambda a: a.pineap_config(cfg), config)
 
 
 async def pineap_beacon_add(
     ssids: list[str],
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     return await _api_call(
-        "pineap_beacon_add", lambda a: a.pineap_beacon_add(ssids), config, api
+        "pineap_beacon_add", lambda a: a.pineap_beacon_add(ssids), config
     )
 
 
 async def pineap_beacon_remove(
     ssids: list[str],
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     return await _api_call(
-        "pineap_beacon_remove", lambda a: a.pineap_beacon_remove(ssids), config, api
+        "pineap_beacon_remove", lambda a: a.pineap_beacon_remove(ssids), config
     )
 
 
 async def get_ap_details(
     bssid: str,
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     """Return the single AP entry (from list_aps) keyed by BSSID.
 
@@ -225,43 +219,41 @@ async def get_ap_details(
             + [f"bssid {bssid!r} not in current recon set — run recon_start first"],
         }
 
-    return await _api_call("get_ap_details", _factory, config, api)
+    return await _api_call("get_ap_details", _factory, config)
 
 
 # --- filters ----------------------------------------------------------------
 
 
 async def filter_ssid_list(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("filter_ssid_list", lambda a: a.filter_list("ssid"), config, api)
+    return await _api_call("filter_ssid_list", lambda a: a.filter_list("ssid"), config)
 
 
 async def filter_ssid_set(
     mode: str,
     ssids: list[str],
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     return await _api_call(
-        "filter_ssid_list", lambda a: a.filter_set("ssid", mode, ssids), config, api
+        "filter_ssid_list", lambda a: a.filter_set("ssid", mode, ssids), config
     )
 
 
 async def filter_client_list(
-    config: Config | None = None, api: pineapple_api.PineappleAPI | None = None
+    config: Config | None = None
 ) -> dict:
-    return await _api_call("filter_client_list", lambda a: a.filter_list("client"), config, api)
+    return await _api_call("filter_client_list", lambda a: a.filter_list("client"), config)
 
 
 async def filter_client_set(
     mode: str,
     macs: list[str],
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     return await _api_call(
-        "filter_client_list", lambda a: a.filter_set("client", mode, macs), config, api
+        "filter_client_list", lambda a: a.filter_set("client", mode, macs), config
     )
 
 
@@ -287,15 +279,8 @@ async def do_deauth(
     i_own_the_airspace: bool = False,
     target_pmf: str | None = None,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
-    if ssh is not None:
-        return await attacks.deauth(
-            bssid=bssid, client_mac=client_mac, count=count, reason=reason,
-            iface=iface, respect_pmf=respect_pmf, authorization=authz,
-            ssh=ssh, target_pmf=target_pmf,
-        )
     return await _with_ssh(
         lambda s: attacks.deauth(
             bssid=bssid, client_mac=client_mac, count=count, reason=reason,
@@ -315,14 +300,11 @@ async def do_capture_handshake(
     channel: int | None = None,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(bssid=bssid, timeout_s=timeout_s, out_path=out_path,
               deauth_client=deauth_client, iface=iface, channel=channel,
               authorization=authz)
-    if ssh is not None:
-        return await attacks.capture_handshake(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.capture_handshake(**kw, ssh=s), config)
 
 
@@ -333,13 +315,10 @@ async def do_capture_pmkid(
     iface: str = "wlan1",
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(bssid=bssid, timeout_s=timeout_s, out_path=out_path, iface=iface,
               authorization=authz)
-    if ssh is not None:
-        return await attacks.capture_pmkid(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.capture_pmkid(**kw, ssh=s), config)
 
 
@@ -354,13 +333,10 @@ async def do_create_rogue_ap(
     hidden: bool = False,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(ssid=ssid, channel=channel, security=security, psk=psk, bssid=bssid,
               iface=iface, band=band, hidden=hidden, authorization=authz)
-    if ssh is not None:
-        return await attacks.create_rogue_ap(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.create_rogue_ap(**kw, ssh=s), config)
 
 
@@ -368,11 +344,8 @@ async def do_stop_rogue_ap(
     handle: str,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
-    if ssh is not None:
-        return await attacks.stop_rogue_ap(handle=handle, authorization=authz, ssh=ssh)
     return await _with_ssh(
         lambda s: attacks.stop_rogue_ap(handle=handle, authorization=authz, ssh=s),
         config,
@@ -382,11 +355,8 @@ async def do_stop_rogue_ap(
 async def do_stop_all_rogue_aps(
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
-    if ssh is not None:
-        return await attacks.stop_all_rogue_aps(ssh=ssh, authorization=authz)
     return await _with_ssh(
         lambda s: attacks.stop_all_rogue_aps(ssh=s, authorization=authz),
         config,
@@ -400,13 +370,10 @@ async def do_beacon_flood(
     duration_s: int = 60,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(iface=iface, ssid_file=ssid_file, channel=channel,
               duration_s=duration_s, authorization=authz)
-    if ssh is not None:
-        return await attacks.beacon_flood(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.beacon_flood(**kw, ssh=s), config)
 
 
@@ -417,13 +384,10 @@ async def do_packet_inject(
     interval_ms: int = 100,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(pcap_path=pcap_path, iface=iface, count=count,
               interval_ms=interval_ms, authorization=authz)
-    if ssh is not None:
-        return await attacks.packet_inject(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.packet_inject(**kw, ssh=s), config)
 
 
@@ -433,13 +397,10 @@ async def do_channel_hop_start(
     dwell_ms: int = 250,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(iface=iface, channels=list(channels), dwell_ms=dwell_ms,
               authorization=authz)
-    if ssh is not None:
-        return await attacks.channel_hop_start(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.channel_hop_start(**kw, ssh=s), config)
 
 
@@ -447,11 +408,8 @@ async def do_channel_hop_stop(
     handle: str,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
-    if ssh is not None:
-        return await attacks.channel_hop_stop(handle=handle, authorization=authz, ssh=ssh)
     return await _with_ssh(
         lambda s: attacks.channel_hop_stop(handle=handle, authorization=authz, ssh=s),
         config,
@@ -476,7 +434,6 @@ def do_list_rogue_aps() -> dict:
 async def enforce_rogue_limits(
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     """Manually run MAX_ROGUE_MINUTES enforcement; returns killed handles.
 
@@ -486,12 +443,6 @@ async def enforce_rogue_limits(
     """
     cfg = config or Config.from_env()
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
-    if ssh is not None:
-        return await attacks.enforce_rogue_ap_limits(
-            max_rogue_minutes=cfg.max_rogue_minutes,
-            authorization=authz,
-            ssh=ssh,
-        )
     return await _with_ssh(
         lambda s: attacks.enforce_rogue_ap_limits(
             max_rogue_minutes=cfg.max_rogue_minutes,
@@ -504,10 +455,9 @@ async def enforce_rogue_limits(
 
 async def list_associations(
     config: Config | None = None,
-    api: pineapple_api.PineappleAPI | None = None,
 ) -> dict:
     return await _api_call(
-        "list_associations", lambda a: a.list_associations_raw(), config, api
+        "list_associations", lambda a: a.list_associations_raw(), config
     )
 
 
@@ -518,14 +468,11 @@ async def do_evil_twin(
     deauth_clients: bool = True,
     i_own_the_airspace: bool = False,
     config: Config | None = None,
-    ssh: pineapple_ssh.PineappleSSH | None = None,
 ) -> dict:
     authz = Authorization(i_own_the_airspace=i_own_the_airspace)
     kw = dict(target_bssid=target_bssid, target_ssid=target_ssid,
               target_channel=target_channel, deauth_clients=deauth_clients,
               authorization=authz)
-    if ssh is not None:
-        return await attacks.evil_twin(**kw, ssh=ssh)
     return await _with_ssh(lambda s: attacks.evil_twin(**kw, ssh=s), config)
 
 
@@ -637,7 +584,32 @@ def main() -> None:
     the mcp package on-path (relevant for CI where only the transport
     layer is exercised).
     """
+    import argparse  # noqa: PLC0415
+
     from mcp.server.fastmcp import FastMCP  # noqa: PLC0415
+
+    parser = argparse.ArgumentParser(prog="p1n3nut5-mcp")
+    parser.add_argument(
+        "--transport",
+        choices=["stdio", "sse", "streamable-http"],
+        default="stdio",
+        help=(
+            "MCP transport. 'stdio' is what Claude Desktop / opencode use; "
+            "'sse' and 'streamable-http' expose an HTTP server for remote clients."
+        ),
+    )
+    parser.add_argument(
+        "--host",
+        default=None,
+        help="Bind host for sse / streamable-http (default: 127.0.0.1).",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=None,
+        help="Bind port for sse / streamable-http (default: 8000).",
+    )
+    args = parser.parse_args()
 
     app = FastMCP("p1n3nut5")
     for tool in (
@@ -708,4 +680,11 @@ def main() -> None:
         kb.random_lore,
     ):
         app.tool()(tool)
-    app.run()
+
+    if args.transport in ("sse", "streamable-http"):
+        if args.host is not None:
+            app.settings.host = args.host
+        if args.port is not None:
+            app.settings.port = args.port
+
+    app.run(transport=args.transport)
