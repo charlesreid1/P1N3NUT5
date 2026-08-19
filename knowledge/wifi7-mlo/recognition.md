@@ -134,6 +134,6 @@ Two frequent placements for Wi-Fi 7 flags:
   window overlaps with the corpus's 2026 target date — cite the
   latest available draft in `bibliography.json`).
 - Wi-Fi Alliance Wi-Fi 7 specification.
-- 2024 MLO desync research (per `attic/plan-knowledge.md` bibliography item 35).
+- 2024 MLO desync research (see bibliography entry 35 in the corpus).
 - knowledge/wifi7-mlo/reference.md.
 - attacks.json: `wifi7-mlo-link-desync`.
