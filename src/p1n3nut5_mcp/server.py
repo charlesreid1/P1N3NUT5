@@ -637,7 +637,32 @@ def main() -> None:
     the mcp package on-path (relevant for CI where only the transport
     layer is exercised).
     """
+    import argparse  # noqa: PLC0415
+
     from mcp.server.fastmcp import FastMCP  # noqa: PLC0415
+
+    parser = argparse.ArgumentParser(prog="p1n3nut5-mcp")
+    parser.add_argument(
+        "--transport",
+        choices=["stdio", "sse", "streamable-http"],
+        default="stdio",
+        help=(
+            "MCP transport. 'stdio' is what Claude Desktop / opencode use; "
+            "'sse' and 'streamable-http' expose an HTTP server for remote clients."
+        ),
+    )
+    parser.add_argument(
+        "--host",
+        default=None,
+        help="Bind host for sse / streamable-http (default: 127.0.0.1).",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=None,
+        help="Bind port for sse / streamable-http (default: 8000).",
+    )
+    args = parser.parse_args()
 
     app = FastMCP("p1n3nut5")
     for tool in (
@@ -708,4 +733,11 @@ def main() -> None:
         kb.random_lore,
     ):
         app.tool()(tool)
-    app.run()
+
+    if args.transport in ("sse", "streamable-http"):
+        if args.host is not None:
+            app.settings.host = args.host
+        if args.port is not None:
+            app.settings.port = args.port
+
+    app.run(transport=args.transport)
