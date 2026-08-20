@@ -1,5 +1,7 @@
 # PMF-required targets — when deauth is off the table
 
+**Verified against:** IEEE Std 802.11-2020 (rollup) as of 2026-Q3
+
 ## Recognition
 
 Beacon RSN Capabilities:

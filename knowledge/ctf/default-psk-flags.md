@@ -1,5 +1,7 @@
 # Default-PSK flags — no radio time required
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 Some vendors derive the default PSK deterministically from the
 BSSID, SSID suffix, or serial. If you can identify the vendor from
 the beacon, the PSK is a lookup, not a crack.

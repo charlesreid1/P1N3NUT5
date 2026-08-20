@@ -1,5 +1,7 @@
 # WPA3 transition-mode downgrade
 
+**Verified against:** hostapd 2.11 / hashcat 6.2.x as of 2026-Q3
+
 ## Recognition
 
 RSN IE carries BOTH:

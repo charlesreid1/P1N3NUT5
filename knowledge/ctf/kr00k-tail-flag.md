@@ -1,5 +1,7 @@
 # Kr00k tail flag — disassoc, decrypt tail frames with PTK=0
 
+**Verified against:** aircrack-ng 1.7 / tshark 4.2 as of 2026-Q3
+
 The Broadcom/Cypress/QCA disassoc bug. Force disassoc, capture the
 tail frames the chipset flushes with an all-zero PTK, decrypt with a
 16-byte zero key.

@@ -1,5 +1,7 @@
 # Framing Frames flag — power-save queue poisoning
 
+**Verified against:** scapy 2.5 as of 2026-Q3
+
 Vanhoef 2023. Frames destined for a sleeping victim can be poisoned
 in the AP's power-save queue and later delivered to a controlled peer
 when the victim wakes. The flag is what the victim was about to

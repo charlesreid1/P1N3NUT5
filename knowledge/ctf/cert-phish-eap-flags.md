@@ -1,5 +1,7 @@
 # Cert-phish EAP flags — weak validation reveals the flag
 
+**Verified against:** eaphammer 1.14 / hostapd-wpe (hostapd 2.10) as of 2026-Q3
+
 An enterprise client with weak certificate validation associates to
 your rogue RADIUS. The inner-EAP exchange reveals a credential, an
 MDM token, or a plaintext GTC prompt whose value is the flag.

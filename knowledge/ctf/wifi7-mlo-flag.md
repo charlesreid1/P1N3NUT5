@@ -1,5 +1,7 @@
 # Wi-Fi 7 MLO flag — link-desync between 2.4/5/6 GHz
 
+**Verified against:** IEEE Std 802.11-2020 (rollup) as of 2026-Q3
+
 Multi-Link Operation shares one PTK across links. A per-link desync
 (one link suppressed, others up) can surface an inconsistency in the
 security context — where 2024–2026 research is publishing primitives.

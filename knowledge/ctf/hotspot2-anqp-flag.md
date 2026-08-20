@@ -1,5 +1,7 @@
 # Hotspot 2.0 ANQP flag — GAS query, no association
 
+**Verified against:** wpa_supplicant 2.11 as of 2026-Q3
+
 The flag is embedded in an ANQP element. A single GAS Initial Request
 recovers it. No association, no crack, no handshake — this is the
 absolute fastest lane when the puzzle uses it.

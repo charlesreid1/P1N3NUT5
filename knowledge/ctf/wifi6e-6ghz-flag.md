@@ -1,5 +1,7 @@
 # Wi-Fi 6E — flag lives on a 6 GHz-only AP
 
+**Verified against:** aircrack-ng 1.7 / tshark 4.2 as of 2026-Q3
+
 Enumerate 6 GHz targets from 2.4/5 GHz Reduced Neighbor Reports, then
 associate (or attack) on 6 GHz if your radio can tune it.
 

@@ -1,5 +1,7 @@
 # WPS PIN flag — WPS is on, brute the PIN
 
+**Verified against:** reaver 1.6.6 as of 2026-Q3
+
 Reaver, Pixie Dust, null-PIN, vendor-derived PIN. Order matters.
 
 ## Recognition

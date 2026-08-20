@@ -1,5 +1,7 @@
 # Hidden-SSID puzzles
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 ## The puzzle shape
 
 An AP broadcasts with an empty SSID (SSID IE length 0). The flag

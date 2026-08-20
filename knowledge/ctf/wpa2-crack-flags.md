@@ -1,5 +1,7 @@
 # WPA2 crack flags — "the PSK is the flag"
 
+**Verified against:** hcxdumptool 7.3 / hashcat 6.2.x as of 2026-Q3
+
 The classic. Capture the 4-way (or PMKID), crack the PSK, hand over
 the PSK.
 

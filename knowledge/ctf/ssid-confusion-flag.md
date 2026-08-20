@@ -1,5 +1,7 @@
 # SSID Confusion flag — client thinks it's on X, is on Y
 
+**Verified against:** hostapd 2.11 as of 2026-Q3
+
 CVE-2023-52424. The 4-way handshake doesn't authenticate the SSID.
 Client-side policy (VPN toggle, MDM profile, per-SSID trust) reads
 the wrong SSID string. Flag surface is whatever the client sends

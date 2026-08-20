@@ -1,5 +1,7 @@
 # First 60 seconds — how to rank targets
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 You just landed in a WCTF room. The Pineapple is up, recon is
 running, `list_aps()` returns 30 APs. Which one is the puzzle?
 

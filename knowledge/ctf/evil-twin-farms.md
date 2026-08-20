@@ -1,5 +1,7 @@
 # Evil-twin farms — which one is the trap?
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 ## The puzzle shape
 
 WCTF drops you in a room where 3–10 APs advertise the same SSID

@@ -1,5 +1,7 @@
 # Captive-portal cred flags
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 ## The puzzle shape
 
 The AP is open (or PSK-known). Associating drops you into a captive

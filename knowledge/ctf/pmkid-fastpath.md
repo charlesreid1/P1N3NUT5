@@ -1,5 +1,7 @@
 # PMKID fastpath — the WCTF speedrun
 
+**Verified against:** hcxdumptool 7.3 / hashcat 6.2.x as of 2026-Q3
+
 ## Recognition
 
 Beacon RSN IE has PMKID Count > 0, or (more commonly) beacon says 0

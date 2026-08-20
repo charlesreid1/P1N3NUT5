@@ -1,5 +1,7 @@
 # FT-handshake flag — 802.11r roam, crack with hashcat 22000
 
+**Verified against:** hashcat 6.2.x / hcxdumptool 7.3 as of 2026-Q3
+
 Capture an 802.11r Fast Transition reassociation. Convert. Crack.
 
 ## Recognition
