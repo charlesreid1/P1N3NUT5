@@ -1,6 +1,7 @@
 # SSID Confusion — the 4-way handshake does not authenticate the SSID
 
-CVE-2023-52424, Vanhoef & Yseboodt 2024. The 802.11-2020 PTK derivation
+CVE-2023-52424, Héloïse Gollier & Mathy Vanhoef 2024 (KU Leuven /
+DistriNet), co-disclosed 2024-05-14. The 802.11-2020 PTK derivation
 mixes the PMK, both nonces, and both MAC addresses — but not the SSID.
 An attacker who controls two networks with the same PSK can convince a
 client that it is on network X while the client is actually associated
@@ -35,7 +36,8 @@ Per-OS status varies; check the specific client.
 
 ## Cite
 
-- Vanhoef & Yseboodt 2024 — SSID Confusion paper (top10vpn co-disclosure).
-- CVE-2023-52424.
+- Héloïse Gollier and Mathy Vanhoef, "SSID Confusion: Making Wi-Fi
+  Clients Connect to the Wrong Network" (2024, KU Leuven / DistriNet).
+  CVE-2023-52424, co-disclosed 2024-05-14 (Top10VPN co-disclosure).
 - IEEE Std 802.11-2020 §12.7 (the section that famously omits SSID
   from PTK derivation).

@@ -1,6 +1,6 @@
 # SSID Confusion recognition
 
-The point of the attack (Vanhoef & Yseboodt 2024, CVE-2023-52424) is
+The point of the attack (Gollier & Vanhoef 2024, CVE-2023-52424) is
 that it's *not* detectable the way an evil twin is. The SSID is not
 authenticated in the 4-way handshake, so a client can be steered
 between two legitimate SSIDs (both known to it, both with valid
@@ -86,7 +86,9 @@ under the wrong trust context.
 
 ## Cite
 
-- Vanhoef & Yseboodt 2024 — SSID Confusion, USENIX Security 2024.
+- Héloïse Gollier and Mathy Vanhoef, "SSID Confusion: Making Wi-Fi
+  Clients Connect to the Wrong Network" (2024, KU Leuven / DistriNet).
+  CVE-2023-52424, co-disclosed 2024-05-14.
 - CVE-2023-52424.
 - knowledge/ssid-confusion/reference.md.
 - attacks.json: `ssid-confusion-cve-2023-52424`.

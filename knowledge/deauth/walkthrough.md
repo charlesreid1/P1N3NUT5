@@ -155,8 +155,9 @@ a deauth:
   §11.34 (PMF).
 - aircrack-ng documentation — aireplay-ng.
 - mdk4 documentation.
-- Vanhoef 2018 (MC-MitM); Vanhoef & Yseboodt 2024 (SSID Confusion);
-  Cerrudo/ESET 2019 (Kr00k); Vanhoef 2022 (Framing Frames).
+- Vanhoef 2018 (MC-MitM); Gollier & Vanhoef 2024 (SSID Confusion,
+  CVE-2023-52424); ESET 2019 (Kr00k, CVE-2019-15126 + CVE-2020-3702);
+  Vanhoef 2022 (Framing Frames, CVE-2022-47522).
 - attacks.json: `deauth-targeted`, `deauth-broadcast`,
   `disassoc-targeted`, `sa-query-race`,
   `kr00k-broadcom-cve-2019-15126`,

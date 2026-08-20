@@ -71,7 +71,7 @@ includes the correct alternative.
 - IEEE Std 802.11-2020 §11.34 (PMF), §11.3.5.4 (SA Query),
   §11.10 (BSS Transition).
 - Wi-Fi Alliance WPA3 spec — 6 GHz mandatory PMF.
-- Vanhoef 2018 (MC-MitM); Vanhoef & Yseboodt 2024 (SSID Confusion);
+- Vanhoef 2018 (MC-MitM); Gollier & Vanhoef 2024 (SSID Confusion);
   ESET 2019 (Kr00k); Vanhoef 2022 (Framing Frames).
 - attacks.json: `deauth-broadcast`, `deauth-targeted`,
   `ssid-confusion-cve-2023-52424`,

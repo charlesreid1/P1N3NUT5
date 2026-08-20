@@ -1,4 +1,60 @@
+> **Status: template — confirm at the on-site briefing.** The details
+> below (portal URL, flag regex, blackout windows, submission
+> gotchas) are best guesses from prior years and community write-ups.
+> The Village staff hand out the *actual* values at opening. Overwrite
+> this file with the current-year specifics before relying on it.
+
+## DEF CON Wireless Village — WCTF specifics
+
+- **Portal URL pattern.** Historically the Village has run either a
+  self-hosted CTFd (`https://ctf.wctf.wirelessvillage.ninja/` or a
+  yearly subdomain) or, in older years, a `ctftime.org`-linked
+  scoreboard. Confirm the current-year URL at the Village desk.
+- **Flag regex.** Default assumption:
+  `flag\{[A-Za-z0-9_\-]+\}` (case-sensitive). Some challenges use
+  a vendor-specific `wctf\{...\}` or `dc\d+\{...\}` variant. If in
+  doubt, submit both cases.
+- **Blackout windows.** No submissions accepted during opening
+  ceremony (Fri ~10:00 Vegas time), closing/awards (Sun ~14:00), or
+  any explicitly announced maintenance pause. Save flags locally and
+  submit when the portal reopens.
+- **Submission caveats.**
+  - Some challenges accept the **SHA1 of a captured artifact**
+    (pcap, key hex, IE payload) rather than the plaintext — the
+    challenge text will name the artifact and the digest algorithm.
+  - Team submissions rate-limit ~1/sec; batch by hand if you have a
+    stack of small flags.
+  - Duplicate submissions do not count; if the flag lives on two
+    puzzles, submit under the canonical challenge ID.
+
 # Scoring recon — spot the scoreboard's own probes
+
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
+## DEF CON Wireless Village (WCTF) submission surface
+
+- **Scoreboard portal.** Confirm at the on-site briefing;
+  historically hosted at a Village-specific URL on the con network
+  (e.g., a CTFd instance served over the WCTF SSID). Check the
+  Wireless Village Discord / printed handouts for the current URL —
+  it changes year to year.
+- **Flag regex.** WCTF has historically used both
+  `flag\{[A-Za-z0-9_-]+\}` and vendor-specific formats
+  (`WCTF{...}`, `PineappleGang{...}`, hex-only artifacts). Some
+  challenges accept the SHA-1 of a captured artifact rather than a
+  plaintext string — read the challenge description carefully.
+- **Blackout windows.** No submissions during opening ceremony
+  (typically Fri 10:00–11:00 PT) or the awards session (Sun
+  ~13:00 PT). Bots may still respond during these windows; treat
+  timestamps as your own guide.
+- **Rate-limit / anti-abuse.** Submission endpoints typically
+  rate-limit at 3–5 attempts/minute per team; brute-forcing flag
+  strings will lock you out.
+
+Confirm the current-year specifics at the on-site Village briefing.
+This file is a template — the exact URLs and blackout hours change
+each year.
+
 
 WCTF scoring bots ping their own flag traps to verify uptime. If you
 can identify a scorer, you can pin down which APs are targets vs.
@@ -35,6 +91,33 @@ run_sequence([
     {"action": "list_scorer_targets",
      "client_macs": ["<candidate-mac>", "..."]},
 ])
+```
+
+## MCP mapping / fallback
+
+`list_periodic_clients` and `list_scorer_targets` are **not in `src/`**.
+Approximate them with periodicity analysis over `list_clients` and
+`list_associations` snapshots, or drive from a raw pcap with tshark.
+
+**Fallback shell chain — periodic-client detection:**
+
+```bash
+# 1. capture a long baseline
+sudo tcpdump -i wlan1mon -w /tmp/baseline.pcap &
+sleep 900
+sudo pkill tcpdump
+
+# 2. per-client probe cadence
+tshark -r /tmp/baseline.pcap \
+    -Y "wlan.fc.type_subtype == 0x04" \
+    -T fields -e frame.time_epoch -e wlan.sa \
+  | awk '{ print $2, $1 }' \
+  | sort \
+  | awk 'prev_mac==$1 { dt=$2-prev_t; print $1, dt } { prev_mac=$1; prev_t=$2 }' \
+  | sort -k1,1 -k2,2n
+
+# 3. flag any client whose intervals cluster around 30/60/300 seconds
+#    with < 5s stddev — that's a likely scorebot.
 ```
 
 ## The insight — target vs. decoy

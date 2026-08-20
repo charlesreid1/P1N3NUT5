@@ -62,5 +62,7 @@ the SSID string, which the attacker chose freely.
 
 ## Cite
 
-- Vanhoef & Yseboodt 2024 — SSID Confusion.
+- Héloïse Gollier and Mathy Vanhoef, "SSID Confusion: Making Wi-Fi
+  Clients Connect to the Wrong Network" (2024, KU Leuven / DistriNet).
+  CVE-2023-52424, co-disclosed 2024-05-14.
 - attacks.json: `ssid-confusion-cve-2023-52424`.

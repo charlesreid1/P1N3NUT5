@@ -128,8 +128,8 @@ target that step is a no-op but the attack still lands:
 - **6 GHz variant.** On 6 GHz, PMF is mandatory but WPA3-SAE
   (with per-connection PMKs) is common — SSID Confusion still
   works if the venue mirrors the same SAE credential across two
-  SSIDs (common for guest / corp splits). See Vanhoef &
-  Yseboodt 2024 §5.
+  SSIDs (common for guest / corp splits). See Gollier &
+  Vanhoef 2024 §5.
 - **BTM cooperation.** If Corp AP honors BTM Requests, hint the
   client toward GuestNet's BSSID — cooperative roam, no deauth.
 
@@ -137,6 +137,7 @@ target that step is a no-op but the attack still lands:
 
 - attacks.json: `ssid-confusion-cve-2023-52424`,
   `btm-forced-roam`.
-- Vanhoef & Yseboodt 2024.
+- Héloïse Gollier and Mathy Vanhoef, "SSID Confusion" (2024,
+  KU Leuven / DistriNet). CVE-2023-52424, co-disclosed 2024-05-14.
 - cves.json: CVE-2023-52424.
 - knowledge/ctf/pmf-required-targets.md.

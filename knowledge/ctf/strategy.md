@@ -43,6 +43,45 @@ If you have two operators: **op 1 runs `run_sequence` recon +
 top target from the ranked list.** The recon loop keeps updating
 which targets are alive and which clients are still probing.
 
+## Time budget — per target
+
+Cap wall-clock spend so a single bad target can't sink the run:
+
+| Phase                        | Budget          | Then                                    |
+| ---------------------------- | --------------- | --------------------------------------- |
+| Triage (recon + fingerprint) | 20 min          | If still unclear, drop → next target    |
+| Capture attempt (live radio) | 45 min          | If no PMKID + no 4-way, drop            |
+| Offline crack (rockyou)      | 30 min          | If <50% dict-in and no hits, queue      |
+| Hard cap (any target)        | 90 min total    | Unless offline crack ≥ 50% wordlist-in  |
+
+The 90-minute cap is the abandonment trigger unless the offline crack
+is already deep in the wordlist — burning through the last 50% of
+rockyou for a probable no-hit is worse than shifting to a fresh target.
+
+## Abandonment triggers — hard "skip"
+
+- **PMF-required + no clients associating.** No PMKID, no 4-way, no
+  Kr00k victim. Deauth won't land. Skip; check for a WPA3-transition
+  side elsewhere in the room.
+- **WPA3-SAE only with H2E-only bit set (RSN Ext IE bit).** No
+  Dragonblood side-channel, no PMKID, no downgrade. Skip unless a
+  cert-phish path opens.
+- **Passphrase not in rockyou + best64 after 30 min.** Queue for a
+  bigger overnight run (weakpass_3a / hashesorg2019); do not sit on
+  the target. Move to the next.
+- **All beacons show `AP Setup Locked=1` with no `Locked=0` window
+  in 5 min of watching.** WPS is not a path.
+- **Enterprise + strong cert pinning observed** (client refuses
+  rogue-RADIUS after 2 min). Skip unless another EAP method is on
+  offer.
+
+## Overnight queue
+
+Anything worth queueing (deep wordlist runs, Dragonblood collection,
+long ANQP dwells) goes on the operator's laptop, not the Pineapple.
+Note the target, the artifact path, and what "success" looks like so
+someone else can pick it up.
+
 ## Cite
 
 - Every ranked category has an `attacks.json` id — cross-reference

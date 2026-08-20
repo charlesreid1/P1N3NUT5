@@ -206,5 +206,9 @@ UI at all or silently dismisses it:
 ## Cite
 
 - IETF RFC 8908 — Captive Portal API (modern OS probe URLs).
+- IETF RFC 7710 — Captive-Portal Identification Using DHCP or RA
+  (option 114, obsoleted by RFC 8910).
+- IETF RFC 8910 — Captive-Portal Identification in DHCP + RA
+  (modernized replacement for RFC 7710).
 - Hak5 evil-portal module docs.
 - attacks.json: `captive-portal-cred-capture`.
