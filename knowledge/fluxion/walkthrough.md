@@ -1,5 +1,7 @@
 # fluxion — walkthrough
 
+**Verified against:** fluxion `master` (FluxionNetwork/fluxion) as of 2026-Q3
+
 Install once, run the chain, exit clean. Fluxion is menu-driven —
 this walkthrough covers what to select at each step.
 
@@ -14,8 +16,12 @@ this walkthrough covers what to select at each step.
 ```
 git clone https://github.com/FluxionNetwork/fluxion.git
 cd fluxion
-sudo ./fluxion.sh -i    # installs deps: hostapd, dnsmasq, mdk4, php
+sudo ./fluxion.sh       # first launch prompts for missing deps
+                        # (hostapd, dnsmasq, mdk4, php, aircrack-ng)
 ```
+
+The current upstream doesn't expose a bare `-i` install flag; the
+main script installs missing dependencies on first run.
 
 ## The engagement
 
@@ -55,9 +61,11 @@ captured handshake and:
 
 ## Where the flag lands
 
-`~/fluxion/handshakes/<ESSID>-<BSSID>.cap` — the captured 4-way.
-Successful PSK printed to the terminal and saved to
-`~/fluxion/attacks/Captive Portal/PSKs/`.
+Handshakes captured by the "Handshake Snooper" sub-attack live under
+`attacks/Handshake Snooper/handshakes/<ESSID>-<BSSID>.cap` inside the
+cloned fluxion tree. The Captive Portal attack consumes that
+handshake and, on a valid submission, prints the PSK to the terminal
+and records it under `attacks/Captive Portal/` in the same tree.
 
 ## Failure modes
 

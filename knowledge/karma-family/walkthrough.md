@@ -132,12 +132,46 @@ next layer:
   sure your DNS + HTTP mirror those probe endpoints (see
   `captive-portal/walkthrough.md`).
 
+## What still works when PMF-required
+
+The whole karma family is unaffected by PMF. The trigger for
+every path here is the *client's own probe-and-connect flow* —
+not a deauth from us. PMF protects management frames exchanged
+between an associated peer pair; a probing STA has no peer yet
+and no PMK-derived keys, so PMF has nothing to protect.
+
+This makes karma-family the go-to family on PMF-required and
+6 GHz targets:
+
+- **Passive baseline (Path A) is trivially PMF-safe.** No
+  transmit, no attack surface for PMF to guard.
+- **Known Beacons (Path B) still lands.** The client's PNL
+  match happens before association; PMF is negotiated in the
+  4-way handshake that runs *after* the client picks your SSID.
+- **MANA Loud / per-STA (Paths C & D) still land.** Same reason —
+  probe response is the hook, not a mgmt-frame injection into an
+  existing association.
+- **Chain into cert-phish (Path E) still works** on cold-start
+  enterprise clients. The rogue-RADIUS harvest happens on
+  first-associate; PMF doesn't factor in.
+- **6 GHz caveat.** 6 GHz mandates OWE / WPA3 minimums, and
+  clients require an out-of-band SSID hint (RNR / colocated AP
+  beacon) before probing there. Broadcast your pool on 2.4/5
+  and mirror the SSIDs on a 6 GHz twin only if a target client
+  has already probed the SSID in 6 GHz specifically.
+- **What breaks:** the "chain to captive-portal + deauth clients
+  off the real AP" combo. When PMF blocks that push, karma-family
+  becomes the *primary* mechanism (cold-start attraction) rather
+  than the accelerator on top of a deauth.
+
 ## Cite
 
 - SensePost 2014 — MANA.
 - Etizaz Mohsin / Bastille Networks 2017–2018 — Known Beacons.
 - Wilkinson 2012 — Snoopy.
 - Hak5 — PineAP module docs.
+- IEEE Std 802.11-2020, §11.34 (PMF); Wi-Fi Alliance WPA3 6 GHz
+  spec (mandatory PMF, OWE for open).
 - attacks.json: `mana-karma`, `mana-loud`, `mana-known-beacons`,
   `pineap-passive-probe-log`, `pineap-active-karma`,
   `pineap-ssid-pool-broadcast`.

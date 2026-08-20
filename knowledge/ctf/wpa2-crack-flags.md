@@ -69,7 +69,38 @@ query.
   bring one — the Pineapple's second radio can pose as a target
   client (association attempt = M1 = PMKID).
 
+## What still works when PMF-required
+
+The sequence above deauths a client to force a 4-way. When
+MFPR=1 on the beacon (or the target is 6 GHz, where PMF is
+mandatory), drop the `capture_handshake`+`deauth_count` step
+and replace it with PMF-safe capture paths:
+
+- **PMKID capture is unaffected.** M1 with a non-zero PMKID
+  field is not PMF-protected — the 4-way isn't robust-mgmt. The
+  step 3 `capture_pmkid` line above still runs. This is the
+  primary path against PMF-required WPA2/3-transition targets.
+- **Natural-reassoc wait.** Skip the deauth, extend the capture
+  window (`timeout_s=300`), and let the client roam or
+  re-associate on its own. Slower but no attack surface.
+- **Bring your own client.** Second Pineapple radio poses as a
+  target client; its association attempt to the AP produces an
+  M1 PMKID. No deauth needed, no live victim needed.
+- **Kr00k tail-frame decrypt (CVE-2019-15126 / -2020-3702).**
+  On a vulnerable Broadcom/Cypress/QCA STA, a natural disassoc
+  leaks queued frames encrypted under a zero PTK. Some WCTF flag
+  payloads sit specifically in that tail.
+- **Transition-mode carve-out.** If MFPR=1 but MFPC clients
+  coexist with PMF-off clients (transition mode), the PMF-off
+  clients are still deauthable. `list_clients` will tag PMF
+  state per STA — target them.
+- **FT reassoc capture (802.11r).** If the mobility domain is
+  in play, FT reassoc frames yield hashcat-22000 material even
+  without a deauth.
+
 ## Cite
 
-- attacks.json: `wpa2-4way-capture`, `pmkid-capture`.
+- attacks.json: `wpa2-4way-capture`, `pmkid-capture`,
+  `kr00k-broadcom-cve-2019-15126`, `ft-reassoc-capture`.
 - Steube 2018; aircrack-ng docs; hashcat wiki.
+- IEEE Std 802.11-2020 §11.34 (PMF), §12.7.6 (4-way handshake).

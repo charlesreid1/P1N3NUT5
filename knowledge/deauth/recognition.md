@@ -71,9 +71,40 @@ Filter `wlan.fc.type_subtype == 12` (deauthentication) or `== 10`
 - Reason=3, one-shot per STA, immediately followed by an M1 from
   the same BSSID → someone driving a WPA2 4-way capture.
 
+## What still works when PMF-required
+
+Recognition side of the same story: if you spot a target flagged
+PMF-required (RSN Capabilities MFPR=1 & MFPC=1) or on 6 GHz (where
+PMF is mandatory), no amount of deauth pattern-recognition helps
+because there is no deauth to analyze. Watch the pcap for these
+adjacent signatures instead:
+
+- **SA Query bursts.** A 3-frame Category 8 Action-frame exchange
+  (Class 3 action subtype 0/1) inside a 1 s window right after a
+  disassoc = someone racing an SA Query.
+- **Post-disassoc data frames with a zero-key look.** Kr00k tails
+  in a pcap have CCMP-headered data frames after disassoc whose
+  MIC field validates against a zero PTK — try
+  `airdecap-ng -p '' -e <SSID>` and see if a frame decrypts.
+- **Same PSK + two SSIDs + a client that flipped between them
+  without a reassoc.** SSID Confusion (CVE-2023-52424)
+  fingerprint. Look for identical Vendor-IE fingerprints on both
+  BSSIDs.
+- **FT Reassociation Request** frames (subtype 2) with FTIE
+  present — legitimate FT capture surface; PMF protects transit
+  but not the offline-crackable material.
+- **Unprotected control-frame bursts** — CTS-to-self with maxed
+  Duration/ID, or Framing-Frames-style TIM/PS-Poll — those are
+  the DoS primitives that survive PMF entirely.
+
 ## Cite
 
-- IEEE Std 802.11-2020, §9.4.1.7 (reason codes), §11.3.5 (deauth).
+- IEEE Std 802.11-2020, §9.4.1.7 (reason codes), §11.3.5 (deauth),
+  §11.3.5.4 (SA Query), §11.34 (PMF).
 - knowledge/deauth/reference.md.
+- knowledge/ctf/pmf-required-targets.md.
 - attacks.json: `deauth-broadcast`, `deauth-targeted`,
-  `disassoc-targeted`.
+  `disassoc-targeted`, `sa-query-race`,
+  `kr00k-broadcom-cve-2019-15126`,
+  `ssid-confusion-cve-2023-52424`,
+  `framing-frames-cve-2022-47522`.

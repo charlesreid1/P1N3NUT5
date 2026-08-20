@@ -38,6 +38,24 @@ E-Hash1/E-Hash2 (captured in M3) — it depends on the AP's WPS
 registrar seeding its internal RNG predictably, so E-S1/E-S2 can
 be re-derived without further round-trips.
 
+### When the halves-split actually enforces
+
+Load-bearing detail for time budgeting: **some registrars only
+enforce the halves-split AFTER M4** (not before). That is, the
+registrar accepts the enrollee's M3 (which commits to E-S1/E-S2)
+and sends M4 (which proves knowledge of the first-half PIN) whether
+or not the first half is correct — the mismatch is only surfaced
+once the enrollee sends M5 with the wrong second half's proof.
+
+Consequence: on those registrars, the attacker **cannot distinguish
+first-half-correct from first-half-wrong** without transmitting M5.
+Every candidate first half costs a full M1..M5 round-trip, not the
+M1..M3 the "halves-split" language suggests. This is the primary
+real-hardware time factor determining how long a Pixie Dust capture
+or an online PIN brute takes — not the 11,000-trial theoretical
+minimum. Vendor-dependent; check `Manufacturer` / `Model` IE
+fingerprint to pre-estimate.
+
 ## Vulnerable-registrar chipset table (2026 status)
 
 | chipset family | Pixie Dust | notes |

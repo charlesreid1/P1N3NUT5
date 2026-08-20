@@ -20,16 +20,29 @@ implementations. Vendor-side fixes rolled out piecewise across
 The 802.11-2020 §12 data-plane binds encryption to a **pairwise session
 keyed off the PMK, the ANonce, the SNonce, and both MAC addresses** —
 the client MAC and the AP MAC. What it does not bind is a *session
-identity* that survives disconnect. When the victim disassociates and the
-attacker (already associated to the AP) sends the AP a QoS Data frame
-with Address 1 = attacker MAC + Address 3 = target-server MAC and later
-reassociates *itself* under the victim's MAC:
+identity* that survives disconnect.
 
-1. Attacker requests a MAC change of its own STA to victim's MAC before
-   the AP has cleared the victim's association state.
-2. Attacker completes its own 4-way handshake under the borrowed MAC.
-3. AP now routes any pending return traffic that was addressed to the
-   victim MAC through the attacker's session.
+The specific AP-side state that makes this work: **the AP maintains
+one TX queue per STA MAC.** On some implementations, when a STA
+disassociates the queue is NOT flushed — the AP simply keeps holding
+frames that were destined for the disassoc'd MAC, waiting to redeliver
+them when the STA returns. When a *new* STA associates with the same
+MAC (spoofed by the attacker) and completes its own 4-way handshake,
+the queued frames get released encrypted under the attacker's fresh
+PTK. The AP does the decryption/re-encryption work for you.
+
+Concretely, when the victim disassociates and the attacker (already on
+the network) reassociates under the victim's MAC:
+
+1. Attacker waits for (or forces) the victim's disassociation. Buggy AP
+   leaves the per-STA TX queue populated with un-delivered downlink
+   frames.
+2. Attacker associates its own radio using the victim's MAC and
+   completes a fresh 4-way handshake — new PTK derived from the
+   attacker's ANonce/SNonce, but bound only to the borrowed MAC as
+   "session identity."
+3. AP dequeues the buffered frames and encrypts them under the
+   attacker's new PTK. Attacker decrypts them locally.
 
 The failure mode is at the AP: it treats the MAC as the session identity
 instead of the crypto binding of the 4-way. On patched APs the bind is

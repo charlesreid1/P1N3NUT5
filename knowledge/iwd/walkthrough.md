@@ -1,5 +1,7 @@
 # iwd — walkthrough
 
+**Verified against:** iwd 2.20 as of 2026-Q3
+
 The systemd-native wireless daemon. Different behavior under attack
 conditions from wpa_supplicant — matters when the target is a
 modern Fedora / Arch / IoT client.
@@ -54,15 +56,27 @@ EAP-PEAP-Phase2-Method=MSCHAPV2
 EAP-PEAP-Phase2-Identity=alice
 EAP-PEAP-Phase2-Password=<password>
 EAP-PEAP-CACert=/etc/ssl/certs/corp-ca.crt
-EAP-PEAP-ServerDomainMask=*.corp.local
+EAP-ServerDomainMask=*.corp.local
 EOF
 
 iwctl station wlan0 connect CorporateEAP
 ```
 
-`ServerDomainMask` is what stops trust-and-continue prompts on iwd.
-If the CN doesn't match, iwd refuses — good client hygiene, harder
-to attack.
+`EAP-ServerDomainMask` is what stops trust-and-continue prompts on
+iwd. If the CN doesn't match, iwd refuses — good client hygiene,
+harder to attack.
+
+**Key renames (iwd 2.0, 2022):** older writeups reference the
+pre-2.0 spellings. Modern iwd expects the new names but accepts the
+legacy ones as aliases:
+
+| pre-2.0 (deprecated alias)         | 2.0+ (canonical)             |
+| ---------------------------------- | ---------------------------- |
+| `EAP-Phase2-Identity`              | `EAP-PEAP-Phase2-Identity`   |
+| `EAP-PEAP-ServerDomainMask`        | `EAP-ServerDomainMask`       |
+
+Prefer the canonical form in new profiles; leave the alias only in
+snippets you're preserving verbatim for an old-iwd audience.
 
 ## Path D — Recognize an iwd client under attack
 

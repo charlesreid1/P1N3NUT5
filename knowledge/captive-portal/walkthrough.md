@@ -33,6 +33,37 @@ pkill dnsmasq
 dnsmasq -C /etc/dnsmasq.captive.conf
 ```
 
+## Step 1b — NAT redirect (force DNS + HTTP through us)
+
+Clients that hard-code `8.8.8.8` for DNS, or hard-code an IP for
+HTTPS, bypass dnsmasq entirely. Force everything through the portal
+box with a prerouting NAT redirect.
+
+### nftables (preferred — Debian/Kali default since Buster)
+
+```
+nft add table ip nat
+nft add chain ip nat prerouting { type nat hook prerouting priority -100 \; }
+nft add chain ip nat postrouting { type nat hook postrouting priority 100 \; }
+# All DNS queries -> local dnsmasq
+nft add rule ip nat prerouting iifname wlan1 udp dport 53 dnat to 172.16.0.1:53
+# All HTTP -> local portal
+nft add rule ip nat prerouting iifname wlan1 tcp dport 80 dnat to 172.16.0.1:80
+nft add rule ip nat prerouting iifname wlan1 tcp dport 443 dnat to 172.16.0.1:443
+# NAT masquerade outbound
+nft add rule ip nat postrouting oifname eth0 masquerade
+```
+
+### iptables (legacy) — fallback
+
+```
+iptables -t nat -A PREROUTING -i wlan1 -p udp --dport 53  -j DNAT --to-destination 172.16.0.1:53
+iptables -t nat -A PREROUTING -i wlan1 -p tcp --dport 80  -j DNAT --to-destination 172.16.0.1:80
+iptables -t nat -A PREROUTING -i wlan1 -p tcp --dport 443 -j DNAT --to-destination 172.16.0.1:443
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
+
 ## Step 2 — nginx or a Python one-liner for HTTP
 
 Minimum viable — every URL redirects to the login form:

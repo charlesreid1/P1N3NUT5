@@ -96,10 +96,51 @@ handshakes for the non-PMF clients.
   they roam to a neighbor rather than reassoc to the same AP, you
   see the wrong handshake. Set your rogue up first.
 
+## What still works when PMF-required
+
+Broadcast deauth is a no-op against MFPR-required peers, and 6 GHz
+mandates PMF end-to-end. The corpus above is written 80% for
+PMF-off/optional; here is the fallback ladder when you can't force
+a deauth:
+
+- **SA Query race.** An unprotected disassoc still triggers a 1 s
+  SA Query window at the STA (§11.3.5.4). A spoofed SA Query
+  Response times the STA out legitimately. Narrow but real —
+  requires precise timing and channel presence.
+- **Natural roam wait.** Sit on-channel and wait for the STA to
+  roam or re-associate. The 4-way / FT reassoc capture that
+  results is indistinguishable from an attacker-triggered one.
+  Slower, but reliable and near-zero WIDS surface.
+- **Kr00k tail-frame decrypt (CVE-2019-15126 / CVE-2020-3702).**
+  Vulnerable Broadcom/Cypress/QCA chipsets encrypt post-disassoc
+  queued frames with a zero PTK. PMF stops the *attacker* from
+  disassociating, but a natural disassoc still leaks the tail.
+  Wait for one and grab it.
+- **SSID Confusion (CVE-2023-52424).** The SSID field is not
+  authenticated in the 4-way; the client's own auto-reconnect
+  logic shifts onto a same-PSK sibling SSID without any deauth.
+  See `ssid-confusion/walkthrough.md`.
+- **MC-MitM (Vanhoef 2018).** Dual-channel interposition operates
+  below the PMF layer — PMF only protects management frames, not
+  the multi-channel data-frame primitive.
+- **FT reassoc capture (802.11r).** FT reassoc frames are
+  PMF-protected in transit, but the FT key material (PMK-R1
+  distribution + reassoc IEs) still yields a hashcat-22000 hash
+  when captured — offline crack, no live deauth needed.
+- **Framing Frames (CVE-2022-47522).** The power-save queue-
+  poisoning primitive relies on unprotected TIM / PS-Poll control
+  frames, which PMF does not cover.
+
 ## Cite
 
-- IEEE Std 802.11-2020, §9.3.3.13, §9.4.1.7, §11.34.
+- IEEE Std 802.11-2020, §9.3.3.13, §9.4.1.7, §11.3.5.4 (SA Query),
+  §11.34 (PMF).
 - aircrack-ng documentation — aireplay-ng.
 - mdk4 documentation.
+- Vanhoef 2018 (MC-MitM); Vanhoef & Yseboodt 2024 (SSID Confusion);
+  Cerrudo/ESET 2019 (Kr00k); Vanhoef 2022 (Framing Frames).
 - attacks.json: `deauth-targeted`, `deauth-broadcast`,
-  `disassoc-targeted`.
+  `disassoc-targeted`, `sa-query-race`,
+  `kr00k-broadcom-cve-2019-15126`,
+  `ssid-confusion-cve-2023-52424`,
+  `framing-frames-cve-2022-47522`.

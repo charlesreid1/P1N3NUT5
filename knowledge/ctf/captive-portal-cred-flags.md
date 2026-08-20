@@ -46,7 +46,34 @@ tail -f /tmp/portal-creds.log
 - The portal insists on "sign in" for a network the client has
   been on before (real captive portals honor a re-auth cookie).
 
+## What still works when PMF-required
+
+The Case B flow above deauths victims off the real AP to force
+reassoc to your open-portal rogue. When the real AP is
+PMF-required (or 6 GHz), step 3 `do_deauth` is a no-op — but the
+rest of the captive-portal cred-capture flow is intact:
+
+- **Beat the target on RSSI + karma-family attraction.** Stand up
+  the rogue louder than the real AP; probing clients that match
+  your SSID (via Known Beacons or a matching Probe Response)
+  associate on their own, before any deauth would matter.
+- **Cold-start clients.** Any client that hasn't associated to
+  the real AP yet has no PMF context. Set the twin up early and
+  wait — arrivals attach to the loudest match.
+- **BTM-forced roam.** If the real AP vendor honors unauth'd
+  Category 10 BTM Requests, hint the target toward your rogue
+  BSSID; the client cooperates in its own move.
+- **Wait for natural reassoc events.** Roams, band steers, and
+  AP outages all produce clean reassociation opportunities that
+  a louder rogue wins.
+- **Case A still works verbatim.** If the flag is *in* the
+  portal itself (page source, JS, API response), you never
+  needed a victim — just associate to the real AP yourself and
+  browse. PMF has no bearing.
+
 ## Cite
 
-- attacks.json: `captive-portal-cred-capture`, `evil-twin-clone`.
+- attacks.json: `captive-portal-cred-capture`, `evil-twin-clone`,
+  `btm-forced-roam`, `mana-known-beacons`.
 - knowledge/captive-portal/reference.md.
+- knowledge/ctf/pmf-required-targets.md.

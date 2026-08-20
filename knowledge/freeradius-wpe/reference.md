@@ -1,5 +1,7 @@
 # freeradius-wpe — reference
 
+**Verified against:** brad-anton/freeradius-wpe (patch series against FreeRADIUS 3.0.x) as of 2026-Q3
+
 `freeradius-wpe` is the freeradius counterpart to `hostapd-wpe`.
 Where `hostapd-wpe` patches hostapd to log inner-EAP material,
 `freeradius-wpe` patches freeradius to do the same at the RADIUS
@@ -23,14 +25,22 @@ Read alongside `enterprise/`, `hostapd-wpe/`, `eaphammer/`.
 
 ## Config diff vs stock freeradius
 
-The WPE patch adds instrumented modules:
+The WPE patch is applied against the *existing* freeradius tree,
+not a parallel `wpe` site/module. Where things live after `make
+install` on a Debian/Ubuntu freeradius layout:
 
-- **`raddb/mods-available/eap_wpe`** — logs each inner-method
-  challenge/response as it happens.
-- **`raddb/sites-available/wpe`** — an "outer" site that accepts
-  from hostapd, invokes the WPE inner-EAP module, and never rejects.
-- **Log file at `/var/log/freeradius-wpe.log`** — hashcat-formatted
-  MSCHAPv2, plaintext GTC tokens, EAP-TTLS-PAP passwords.
+- **`/etc/freeradius/3.0/sites-available/default`** — the stock
+  "default" virtual server, patched to log inner-EAP material and
+  never reject during phase-2.
+- **`/etc/freeradius/3.0/mods-available/eap`** — the stock EAP
+  module, patched with the WPE instrumentation for MSCHAPv2 / GTC
+  / PAP.
+- **`/var/log/freeradius/radius.log`** — the auth-log path used by
+  packaged freeradius. WPE writes each captured challenge/response
+  and plaintext GTC token here in a hashcat/asleap-friendly format.
+- **`/etc/freeradius/3.0/mods-config/files/authorize`** — the
+  credentials file WPE writes captured usernames + hashcat lines to
+  as they land (mirrors the log for easier consumption).
 
 Stock freeradius already logs auth events; WPE's addition is that
 it logs the *cryptographic material* usable for offline crack,
@@ -59,12 +69,19 @@ Example log line (MSCHAPv2 capture):
 
 ```
 Sun Aug  4 21:14:03 2026
-    username:  alice@corp.local
-    challenge: e3ac2d1f6b8c4092
-    response:  8e2f...  # 24 bytes hex
-    hashcat -m 5500:  alice::corp:8e2f...:e3ac2d1f6b8c4092
-    john NETNTLM:     alice:$NETNTLM$e3ac2d1f6b8c4092$8e2f...
+    username:      alice@corp.local
+    challenge:     e3ac2d1f6b8c4092              # 8-byte ChallengeHash
+    response:      8e2f...                       # 24-byte NTResponse
+    hashcat -m 5500: alice::corp::8e2f...:e3ac2d1f6b8c4092
+    john NETNTLM:    alice:$NETNTLM$e3ac2d1f6b8c4092$8e2f...
 ```
+
+The 8-byte `challenge` above is the SHA1-derived MSCHAPv2
+`ChallengeHash`, not the raw 16-byte PeerChallenge. WPE pre-derives
+it for you — see the shared "ChallengeHash derivation" callout in
+`enterprise/reference.md` for the formula. The hashcat 5500 line
+uses four `::`-separated fields:
+`user::domain::<NTResponse>:<ChallengeHash>`.
 
 Plaintext GTC:
 
@@ -76,7 +93,8 @@ Sun Aug  4 21:15:07 2026
 
 ## Cite
 
-- freeradius-wpe fork (frontline-radius / brad-anton / joswr1ght).
+- freeradius-wpe canonical fork: **brad-anton/freeradius-wpe** on
+  GitHub (patches against FreeRADIUS 3.0.x).
 - freeradius upstream documentation (freeradius.org).
 - RFC 2759 — MSCHAPv2.
 - attacks.json: `rogue-radius-hostapd-wpe`,

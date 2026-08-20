@@ -78,8 +78,36 @@ clean — different SSID, different BSSID, correct handshake.
   RSSI dominance — the rogue must be louder at the client than the
   real corp AP.
 
+## What still works when PMF-required
+
+SSID Confusion is *the* PMF-required-safe attack — the 4-way
+handshake doesn't authenticate the SSID string, and the trigger
+is the client's own reconnect logic. The one-shot above uses
+`deauth_targeted` as step 2 only to accelerate; on a PMF-required
+target that step is a no-op but the attack still lands:
+
+- **Drop the deauth entirely.** The client will re-select on its
+  next natural roam / wake / band-steer. Extend the capture
+  window and wait.
+- **RSSI dominance is the actual lever.** The rogue on GuestNet
+  has to out-signal the real Corp AP at the client. Position
+  matters more than deauth ever did.
+- **Same-PSK-across-SSIDs is the precondition, not PMF.** PMF's
+  scope is mgmt-frame integrity between an associated pair; SSID
+  confusion attacks the *client's own trust policy* about which
+  SSID string means what. That policy runs above PMF.
+- **6 GHz variant.** On 6 GHz, PMF is mandatory but WPA3-SAE
+  (with per-connection PMKs) is common — SSID Confusion still
+  works if the venue mirrors the same SAE credential across two
+  SSIDs (common for guest / corp splits). See Vanhoef &
+  Yseboodt 2024 §5.
+- **BTM cooperation.** If Corp AP honors BTM Requests, hint the
+  client toward GuestNet's BSSID — cooperative roam, no deauth.
+
 ## Cite
 
-- attacks.json: `ssid-confusion-cve-2023-52424`.
+- attacks.json: `ssid-confusion-cve-2023-52424`,
+  `btm-forced-roam`.
 - Vanhoef & Yseboodt 2024.
 - cves.json: CVE-2023-52424.
+- knowledge/ctf/pmf-required-targets.md.

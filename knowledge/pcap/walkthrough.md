@@ -110,13 +110,24 @@ tshark -r storm.pcapng -Y "wlan.fc.type_subtype == 0x0c" \
 
 See `ctf/deauth-forensics.md` for interpretation.
 
-## Recipe J — pcapng → classic pcap conversion
+## Recipe J — pcap ↔ pcapng conversion
 
 Some legacy tools (very old aircrack-ng builds) only speak classic
-pcap.
+pcap. hcxpcapngtool 6.x+ prefers pcapng; some airodump-ng builds
+still emit classic `.cap`.
 
 ```
+# pcapng → classic pcap
 editcap capture.pcapng capture.cap
+
+# classic pcap → pcapng (needed for hcxpcapngtool 6.x+)
+editcap capture.pcap capture.pcapng
+
+# Alternative via tshark (rewrite into pcapng)
+tshark -r capture.pcap -F pcapng -w capture.pcapng
+
+# Preserve nanosecond timestamps
+editcap -T nsec-pcap capture.pcapng capture.nsec.pcap
 ```
 
 ## Recipe K — Split a big capture

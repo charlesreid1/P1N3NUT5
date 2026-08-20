@@ -36,6 +36,30 @@ Skip `length` bytes to get to the 802.11 header. In the fixtures we
 ship, the pcap link type is `LINKTYPE_IEEE802_11 (105)` — no radiotap
 prefix. Real captures usually use `LINKTYPE_IEEE802_11_RADIOTAP (127)`.
 
+**Three 802.11 pcap link types to know about:**
+
+| DLT_ | libpcap number | Description                                        |
+| ---  | ---            | ---                                                |
+| 105  | IEEE802_11     | Bare 802.11 header — no radio metadata             |
+| 127  | IEEE802_11_RADIOTAP | 802.11 + radiotap prefix (the modern default)  |
+| 192  | PPI            | Per-Packet Information — CACE Technologies legacy  |
+
+- **105** — no channel/RSSI. You cannot use `radiotap.*` display
+  filters. Best to `mergecap -F pcapng` and add radiotap via a fresh
+  capture; the metadata cannot be reconstructed after the fact.
+- **127** — the standard. Every modern tool (hcxdumptool, airodump-ng,
+  scapy, `tcpdump -y IEEE802_11_RADIO`) emits it.
+- **192 / PPI** — older AirPcap Windows captures. Read with tshark
+  (`tshark` handles PPI transparently); the fields become `ppi.*`
+  rather than `radiotap.*`.
+
+**Radiotap extended presence flags.** The `present_flags` is a 32-bit
+bitmap. Bit 31 (`0x80000000`) is the **Extended Presence** bit —
+when set, another 4-byte presence word follows. Multiple extensions
+can chain until a `present_flags` word has bit 31 clear. Skipping
+the wrong number of bytes when bit 31 is set is a common
+parser-of-my-own bug; use scapy's `RadioTap` layer.
+
 ## tshark one-liners you will actually use
 
 ```

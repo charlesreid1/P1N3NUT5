@@ -69,7 +69,22 @@ hcxpcapngtool --info /tmp/cap.pcapng
 
 # Filter output to a specific ESSID
 hcxpcapngtool -o /tmp/hs.22000 --essid_regex '^UPC[0-9]{7}$' /tmp/cap.pcapng
+
+# Aggressive conversion tuning
+hcxpcapngtool \
+  -o /tmp/hs.22000 \
+  --all \                   # emit every 4-way/PMKID even if incomplete pairs
+  -E /tmp/essids.txt \      # dump every ESSID seen (for wordlist gen)
+  --ignore-ie-order \       # accept M2 even if the RSN IE order was
+                            # rearranged by the client (some Realtek chips)
+  --pmkid-client-only \     # only extract PMKIDs sourced from the STA's
+                            # M2, not AP's M1 — reduces false-positive
+                            # cracks when APs cache stale PMKIDs
+  /tmp/cap.pcapng
 ```
+
+Also see `pcap/walkthrough.md` for the `.pcap ↔ .pcapng` conversion
+recipe (`editcap`, `tshark -F pcapng`).
 
 ## The 22000 line format
 

@@ -1,5 +1,7 @@
 # OpenWRT — walkthrough
 
+**Verified against:** OpenWRT 23.05 / 24.10 UCI schema as of 2026-Q3
+
 Everything on the Pineapple Mk VII runs OpenWRT. Every attack that
 needs a rogue AP, a fresh iface, or a UCI tweak lives here. This is
 the operational playbook — see `records/openwrt_uci.json` for the
@@ -80,11 +82,17 @@ wifi reload
 ```
 # Set channel on radio0 (2.4 GHz):
 uci set wireless.radio0.channel=6
-uci set wireless.radio0.hwmode=11g
+uci set wireless.radio0.band='2g'      # 19.07+ replaces hwmode
+uci set wireless.radio0.htmode='HT20'  # or HT40, VHT80 on 5 GHz, etc.
 uci set wireless.radio0.txpower=20     # dBm
 uci commit wireless
 wifi reload
 ```
+
+`hwmode=11g` was the pre-19.07 spelling; on modern OpenWRT you set
+`option band '2g' | '5g' | '6g'` plus `option htmode` for the PHY
+mode. See the OpenWRT wireless config wiki for the full htmode
+matrix.
 
 ## Path F — Firewall rules for isolated engagement
 
@@ -129,11 +137,37 @@ that's on you.
 
 ### Monitor mode on a driver that resists
 
-Some ath10k builds resist monitor mode:
+Some ath10k builds resist monitor mode. `rawmode=1` is **not** an
+upstream ath10k option — it exists only on Candela Technologies'
+**ath10k-ct** fork (the driver most OpenWRT builds actually ship).
+If your kernel is running ath10k-ct, this works:
 
 ```
+# ath10k-ct fork only:
 echo "options ath10k_core rawmode=1" > /etc/modules.d/ath10k.conf
 reboot
+```
+
+If you're on upstream ath10k, drop that line entirely and instead
+add a monitor `wifi-iface` (Path B above) — some ath10k chipsets
+just don't cooperate with monitor+injection and need a different
+adapter.
+
+## DFS regulatory lockout — 5 GHz 52..144
+
+Channels 52-144 are DFS on US/EU. hostapd will refuse to bring
+those up without a full 60s CAC dwell watching for radar. Skip
+them for a rogue AP: use UNII-1 (36-48) or UNII-3 (149-165).
+
+```
+# Check regdomain
+iw reg get
+
+# Confirm channels the radio is willing to tune
+iw phy phy0 info | grep -E 'valid_frequencies|MHz \[' | head
+
+# Force reg reload after country change
+iw reg set US
 ```
 
 ## Path H — Reading system logs

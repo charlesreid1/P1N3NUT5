@@ -190,12 +190,51 @@ See `ctf/deauth-forensics.md` for the analysis side.
   DoS-triggered, you've spent time and generated a lot of WIDS noise
   for nothing. Read the brief.
 
+## What still works when PMF-required
+
+PMF only protects a subset of *management* frames (deauth,
+disassoc, and some robust action frames). It says nothing about
+*control* frames or unauthenticated pre-association mgmt frames.
+Every DoS below survives a PMF-required target — and a 6 GHz
+target, where PMF is mandatory:
+
+- **CTS-to-self NAV silencing (Path B).** Control-frame subtype
+  12. Not covered by PMF at all. A stream of maxed-Duration
+  CTS-to-self frames silences every 802.11 radio in earshot
+  regardless of the AP's PMF posture.
+- **RTS/CTS NAV abuse.** Same story — control frames, not
+  management. NAV reservation works on PMF-required nets and on
+  6 GHz.
+- **mdk4 `p` probe-request flood.** Probe Requests are
+  unassociated management frames, so PMF (which only kicks in
+  once the pairwise key is up) doesn't apply. CPU-burns the AP
+  serving probe responses.
+- **mdk4 `a` authentication flood.** 802.11 Authentication
+  frames are pre-association mgmt frames — no PMK, no MIC. Fills
+  the AP's auth-state table on PMF-required targets too.
+- **mdk4 `b` beacon flood.** Beacons are unprotected by design
+  (broadcast, no pairwise key). Confuses scanners regardless of
+  PMF.
+- **Association-request flood.** Same category as auth flood —
+  pre-4-way, unprotected. Fills assoc tables.
+- **mdk4 `f` fuzzed beacon / probe response.** Fuzzing surface
+  is entirely pre-association; PMF is irrelevant.
+- **What breaks:** mdk4 `d` (deauth flood), disassoc-based DoS,
+  and any robust-Action-frame DoS. For those, cross-reference
+  `deauth/walkthrough.md`'s PMF sidebar for alternatives.
+
+For WCTF flag-signal DoS (Path C above), if the puzzle expects a
+deauth-storm signature on a PMF-required AP, the intended path is
+usually the *pcap-forensics* variant — the attacker generated the
+storm from a different position (a rogue AP where MFPR=0) and the
+capture is the flag surface. See `ctf/deauth-forensics.md`.
+
 ## Cite
 
 - aircrack-ng documentation — mdk4 modes.
 - IEEE Std 802.11-2020, §9.4 (management frames), §9.3.2.6 (Michael
   MIC countermeasure), §11.2 (power management, TIM/DTIM), §10.3
-  (NAV).
+  (NAV), §11.34 (PMF — mgmt-frame protection scope).
 - attacks.json: `deauth-*`, `authentication-flood`,
   `association-flood`, `beacon-flood-mdk4`, `probe-flood-mdk4`,
   `rts-cts-nav-dos`, `cts-to-self-silencing`, `eapol-start-flood`,
