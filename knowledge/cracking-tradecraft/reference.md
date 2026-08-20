@@ -12,7 +12,10 @@
 | 9  | Association| known keyspace vs. a specific hash (rare) |
 
 WPA PSK is 8..63 printable ASCII. Everything below assumes that
-range (hashcat's optimized kernel for mode 22000 respects it).
+range. **Caveat**: hashcat's optimized kernel for `-m 22000 -O` caps
+password length at **32**, not 63 — so any candidate longer than 32
+is silently skipped under `-O`. Drop `-O` if the target space might
+exceed 32 chars.
 
 ## Mask character classes
 

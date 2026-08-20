@@ -1047,13 +1047,13 @@
     ],
     "primary": "ssh",
     "ssh": {
-      "cmd": "aireplay-ng --disassoc <count> -a <bssid> -c <client> <iface>",
+      "cmd": "aireplay-ng -0 <count> -a <bssid> -c <client> <iface>  # aireplay-ng has no --disassoc; -0 emits deauth. For true disassoc use mdk4 <iface> d -B <bssid> -c <chan> or a scapy Dot11Disas frame.",
       "requires_root": true,
       "requires_monitor": true
     },
     "firmware_min": "3.0.0",
     "firmware_max": null,
-    "caveat": "Transmitting."
+    "caveat": "Transmitting. Note: aircrack-ng has never shipped a --disassoc flag; the Kr00k trigger is a disassoc frame, so a scapy or mdk4 disassoc is technically closer to the ESET writeup than a deauth."
   },
   {
     "id": "pep-list-modules",

@@ -33,7 +33,10 @@ distribution. Anything past this needs domain knowledge.
 ## Path 3 — masks tailored to structure
 
 If Path 2 dies, guess the structure. Common WPA PSK shapes and
-runtimes at ~2 MH/s:
+runtimes at ~2.4 MH/s on a single RTX 4090 (mode 22000). Note that
+`-O` (optimized kernel) is faster but caps password length at **32**
+chars — safe for the ≤ 10-char masks below, unsafe if you extend
+past 32.
 
 ```
 # 8 digits — WPS-defaulted APs; instant.

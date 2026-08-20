@@ -24,7 +24,11 @@ Frame pattern → mdk4 mode / primitive:
 
 - `wlan.fc.type_subtype == 0x0c`
 - High rate (100s/sec) from one source MAC
-- Reason code typically 7 (Class 3 frame from nonassociated STA)
+- Reason code varies by tool version — legacy `aireplay-ng` (≤ 1.6)
+  defaulted to 7 (Class 3 frame from nonassociated STA); modern
+  aircrack-ng 1.7+ defaults to 1 (unspecified). `mdk4 d` defaults to
+  1. A constant-7 storm is a legacy-aireplay fingerprint, not a
+  general "deauth attack" fingerprint.
 - Destination = broadcast or one specific STA
 
 ### Auth flood (`a`)
@@ -41,11 +45,16 @@ Frame pattern → mdk4 mode / primitive:
 - Many distinct SSIDs (from a wordlist)
 - Same channel
 
-### RTS/CTS NAV (`v`)
+### RTS/CTS NAV (scapy — no mdk4 mode)
 
-- `wlan.fc.type_subtype == 0x1c` (RTS) or `0x1c` (CTS)
-- Long duration/ID field
-- No corresponding legitimate frame exchange
+mdk4 has no `v` mode; NAV-reservation floods are scapy-driven
+(CTS-to-self with a large Duration field). Pcap fingerprint:
+
+- `wlan.fc.type_subtype == 0x1b` (RTS) or `0x1c` (CTS)
+- Duration/ID field near 0x7FFF (32767 μs) — maxed NAV
+- No corresponding legitimate frame exchange (CTS with no matching
+  RTS, or RTS with no matching CTS/data)
+- RA = self on CTS-to-self ("cts-to-self silencing")
 
 ### Michael MIC DoS (`m`)
 

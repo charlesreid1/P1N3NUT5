@@ -34,8 +34,11 @@ airodump-ng --bssid <AP-BSSID> -c 6 wlan1mon
 ## Steps
 
 1. **Wait for the victim to disassociate** — natural disconnect, sleep-
-   induced disassoc, or attacker-forced deauth (`aireplay-ng --disassoc
-   1 -a <ap-bssid> -c <victim-mac> wlan1mon`). Note the moment.
+   induced disassoc, or attacker-forced deauth. `aireplay-ng` has no
+   `--disassoc` flag; use `aireplay-ng -0 1 -a <ap-bssid> -c <victim-mac>
+   wlan1mon` for a targeted deauth, or `mdk4 wlan1mon d -B <ap-bssid>
+   -c <chan>` / a scapy Dot11Disas frame for a true disassoc. Note the
+   moment.
 2. **Change your STA's MAC to the victim's** while the AP still has the
    victim's association state cached but before the AP's own idle-timeout
    sweeps it. Timing window is per-vendor — Vanhoef's paper reports 3-30

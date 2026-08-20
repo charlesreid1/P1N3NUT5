@@ -8,10 +8,16 @@ without probing.
 
 AKM Suite List selectors that indicate FT:
 
-- **`00-0F-AC:03`** — FT over 802.1X (enterprise FT)
-- **`00-0F-AC:04`** — FT over PSK
-- **`00-0F-AC:09`** — FT-SAE (WPA3 + fast transition)
-- **`00-0F-AC:13`** — FT-SAE-EXT-KEY
+Per IEEE 802.11-2020 Table 9-151. Trailing hex byte in the wire
+selector is the AKM number in hex — 0x0D = 13 decimal, 0x13 = 19
+decimal, 0x19 = 25 decimal. Watch the hex↔dec conversion.
+
+- **`00-0F-AC:03`** — AKM 3 — FT over 802.1X (enterprise FT).
+- **`00-0F-AC:04`** — AKM 4 — FT over PSK.
+- **`00-0F-AC:09`** — AKM 9 — FT-SAE (WPA3 + fast transition).
+- **`00-0F-AC:0D`** — AKM 13 — FT-802.1X-SHA384.
+- **`00-0F-AC:13`** — AKM 19 — FT-PSK-SHA384.
+- **`00-0F-AC:19`** — AKM 25 — FT-SAE-EXT-KEY.
 
 If any of these is in the RSN IE, the AP participates in an FT
 mobility domain and its roams may leak the FT-analog PMKID that
@@ -51,18 +57,23 @@ correspondingly-populated FTE in the reassoc-response is the
 capturable "FT 4-way analog" — feed it through `hcxpcapngtool` for
 hashcat 22000.
 
-## 802.11k support — Extended Capabilities
+## 802.11k support — RRM Enabled Capabilities + Extended Capabilities
 
-Element ID 127, "Extended Capabilities". Bit interpretations for
-11k:
+Neighbor Report answering is signaled in the **RRM Enabled
+Capabilities IE (Element ID 70)** — bit 1 = Neighbor Report support.
+The Extended Capabilities IE (Element ID 127) carries different
+things. The bit map for the bits people commonly reach for:
 
-- **Bit 30** — Neighbor Report response support.
-- **Bit 31** — Extended Channel Switching support.
-- **Bit 46** — QoS Map (informational).
+- **Ext-Caps bit 2** — Extended Channel Switching support.
+- **Ext-Caps bit 19** — BSS Transition Management (see §11v below).
+- **Ext-Caps bit 30** — SSID List (client can supply a list of
+  SSIDs in a Probe Request). NOT Neighbor Report — that's RRM bit 1.
+- **Ext-Caps bit 32** — QoS Map support.
 
-If bit 30 is set, the AP will answer a Neighbor Report Request. This
-is a recon accelerator — one request gets you a full list of the
+If RRM Enabled Capabilities bit 1 is set, the AP will answer a
+Neighbor Report Request. One request gets you a full list of the
 AP's peers in the mobility domain, complete with BSSID + channel.
+This is a recon accelerator.
 
 ## 802.11v support — BSS Transition Management
 
@@ -99,9 +110,9 @@ Combine the above:
 | -------- | ------- |
 | AKM 4 or 9 + MDE IE | FT-PSK or FT-SAE, roam capture worthwhile |
 | MDE with matching MDID across N BSSIDs | fleet-wide shared PMK-R0 |
-| Extended Caps bit 30 | 11k Neighbor Report answerable |
+| RRM Enabled Caps (IE 70) bit 1 | 11k Neighbor Report answerable |
 | Extended Caps bit 19 | 11v BTM — spoofable roam nudges |
-| RSN Capabilities bit 6/7 (PMF) | dictates whether spoofed 11v is authenticated |
+| RSN Capabilities bit 6 (MFPR) / bit 7 (MFPC) | dictates whether spoofed 11v is authenticated |
 
 ## Cite
 

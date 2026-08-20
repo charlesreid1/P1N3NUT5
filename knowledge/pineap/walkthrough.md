@@ -127,7 +127,7 @@ Associated clients' traffic transits the Pineapple. From here:
 
 - Hak5 WiFi Pineapple Mark VII API documentation.
 - SensePost 2014 — MANA.
-- Godsend 2018 — Known Beacons.
+- Etizaz Mohsin / Bastille Networks 2017–2018 — Known Beacons.
 - attacks.json: `pineap-passive-probe-log`, `pineap-active-karma`,
   `pineap-ssid-pool-broadcast`, `mana-karma`, `mana-known-beacons`,
   `mana-loud`.

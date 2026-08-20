@@ -10,15 +10,21 @@ Filter `wlan.fc.type_subtype == 12` (deauthentication) or `== 10`
 - **Frame count over time.** A single legitimate deauth per session
   disassoc is normal. Dozens per second is not.
 - **Reason code.** Legit deauths carry `1` (unspecified),
-  `3` (leaving BSS), `4` (inactivity). Attack tools default:
-  - `aireplay-ng -0` → reason `7` ("class 3 frame from nonassociated STA")
-  - `mdk4 d` → reason `1` unless overridden
+  `3` (leaving BSS), `4` (inactivity). Attack tool defaults —
+  version-dependent, check the build:
+  - `aireplay-ng -0` — the exact default varies across releases;
+    aircrack-ng ≤ 1.6 typically emitted reason `7` ("class 3 frame
+    from nonassociated STA"), while 1.7+ defaults to reason `1`.
+    Either way, callers usually set an explicit reason with
+    `--deauth <code>`; treat "no reason override" as ambiguous
+    and let the version identify the fingerprint.
+  - `mdk4 d` → reason `1` unless overridden.
   - `hcxdumptool` (6.x+) → does **not** send deauths at all; active
     attack modes were removed in 6.x. If a capture using hcxdumptool
     coincides with deauths, they are coming from a separately-driven
     tool (mdk4, aireplay-ng, scapy) on the same operator's rig.
-  Reason `7` in volume is a near-certain fingerprint of an old-school
-  `aireplay -0`.
+  Reason `7` in volume (with no cover traffic) is still a strong
+  fingerprint of legacy `aireplay -0` on aircrack-ng ≤ 1.6.
 - **Address triple.** Broadcast deauth: DA = `FF:FF:FF:FF:FF:FF`,
   BSSID = target AP. Targeted: DA = victim STA, TA/BSSID = AP.
   Attackers spoof TA to look like the AP.
@@ -55,7 +61,9 @@ Filter `wlan.fc.type_subtype == 12` (deauthentication) or `== 10`
 
 ## Distinguishing attacker family from the frame
 
-- Constant reason=7 + tight timing + broadcast DA → `aireplay-ng -0`.
+- Constant reason=7 + tight timing + broadcast DA → legacy
+  `aireplay-ng -0` (aircrack-ng ≤ 1.6 default). Newer aircrack-ng
+  (1.7+) defaults to reason 1; `--deauth <code>` overrides either.
 - Reason=1, bursty timing, seq gaps → `mdk4 d`.
 - Reason=1/7 from an aireplay-ng or mdk4 process running alongside
   an `hcxdumptool` channel-locked capture → the PMKID/handshake

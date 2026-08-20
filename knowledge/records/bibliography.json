@@ -330,15 +330,16 @@
     "url": "https://www.blackhat.com/docs/us-17/wednesday/us-17-Artenstein-Broadpwn-Remotely-Compromising-Android-And-iOS-Via-A-Bug-In-Broadcoms-Wifi-Chipsets.pdf"
   },
   {
-    "id": "godsend-known-beacons-2018",
-    "name": "Godsend — Known Beacons attack (WPA-Sec, 2018)",
+    "id": "known-beacons-2017",
+    "name": "Etizaz Mohsin (Bastille Networks) — Known Beacons attack (2017–2018)",
+    "aliases": ["godsend-known-beacons-2018"],
     "category": "bibliography",
-    "confidence": "community",
-    "kind": "talk",
-    "publisher": "WPA-Sec",
-    "year": 2018,
-    "url": "https://wpa-sec.stanev.org/?attacks",
-    "notes": "SSID-dictionary beacon flood to farm associations from clients with matching probes."
+    "confidence": "primary",
+    "kind": "research",
+    "publisher": "Bastille Networks",
+    "year": 2017,
+    "url": "https://www.bastille.net/research/vulnerabilities/known-beacons/",
+    "notes": "SSID-dictionary beacon flood to farm associations from clients with matching probes. Wpa-Sec archive at https://wpa-sec.stanev.org/?attacks."
   },
   {
     "id": "gabrielryan-eaphammer",

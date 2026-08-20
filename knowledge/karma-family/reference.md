@@ -3,7 +3,7 @@
 ## The family tree
 
 ```
-KARMA (Dai Zovi, Dinodai — 2004)
+KARMA (Dino Dai Zovi + Shane "K2" Macaulay — 2004)
     │
     │  "answer every probe request positively"
     │  fingerprint: AP responds to any SSID, always
@@ -17,7 +17,7 @@ KARMA (Dai Zovi, Dinodai — 2004)
     │              broadcast the *union* of every SSID seen from any
     │              STA. Louder than KARMA but pulls in more clients.
     │
-    ├── Known Beacons (Godsend — 2018)
+    ├── Known Beacons (Etizaz Mohsin / Bastille Networks — 2017)
     │       proactively BEACON a curated dictionary of common SSIDs
     │       (attwifi, xfinitywifi, GoogleGuest, common hotel SSIDs).
     │       Doesn't wait for probes. Passively-discovering clients
@@ -95,10 +95,12 @@ Records in `karma_family.json`:
 
 ## Cite
 
-- Dai Zovi & Dinodai 2004 — original KARMA.
-- SensePost 2014 — MANA writeup, DEFCON 22.
-- Godsend 2018 — Known Beacons.
-- Wilkinson 2012 — Snoopy paper.
+- Dino Dai Zovi & Shane "K2" Macaulay, 2004 — original KARMA (Black
+  Hat USA / DEF CON 12).
+- SensePost 2014 — MANA writeup, DEF CON 22.
+- Etizaz Mohsin / Bastille Networks, 2017–2018 — Known Beacons.
+- Glenn Wilkinson 2012 — Snoopy paper (Black Hat Abu Dhabi 2012 /
+  SensePost).
 - Hak5 — PineAP module documentation.
 - attacks.json: `mana-karma`, `mana-loud`, `mana-known-beacons`,
   `snoopy-track` (if present), `pineap-active-karma`,

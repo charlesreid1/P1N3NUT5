@@ -135,7 +135,7 @@ next layer:
 ## Cite
 
 - SensePost 2014 — MANA.
-- Godsend 2018 — Known Beacons.
+- Etizaz Mohsin / Bastille Networks 2017–2018 — Known Beacons.
 - Wilkinson 2012 — Snoopy.
 - Hak5 — PineAP module docs.
 - attacks.json: `mana-karma`, `mana-loud`, `mana-known-beacons`,

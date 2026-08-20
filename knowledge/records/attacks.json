@@ -774,7 +774,7 @@
       "monitor+injection-capable interface"
     ],
     "tools": [
-      "aireplay-ng --disassoc",
+      "aireplay-ng -0 (deauth; --disassoc does not exist) or mdk4 mode d / scapy Dot11Disas",
       "airodump-ng",
       "wireshark (decrypt with all-zero PTK)"
     ],
@@ -814,7 +814,7 @@
       "monitor-capable interface for post-disassoc capture"
     ],
     "tools": [
-      "aireplay-ng --disassoc",
+      "aireplay-ng -0 (deauth; --disassoc does not exist) or mdk4 mode d / scapy Dot11Disas",
       "airodump-ng",
       "wireshark (all-zero PTK decrypt)"
     ],
@@ -826,7 +826,7 @@
     ],
     "notes": "Paper: ESET 2020 follow-up disclosing the Qualcomm-Atheros variant. Same all-zero-PTK primitive on QCA-based clients. Still relevant in 2026 for embedded / IoT gear that predates the 2020 firmware update wave.",
     "aliases": [
-      "kr00k-qualcomm-cve-2020-3702"
+      "kr00k-qca-cve-2020-3702"
     ]
   },
   {
@@ -1453,7 +1453,7 @@
       "attacker can spoof or inject disassoc frames"
     ],
     "tools": [
-      "aireplay-ng --disassoc",
+      "aireplay-ng -0 (deauth; --disassoc does not exist) or mdk4 mode d / scapy Dot11Disas",
       "airodump-ng (capture the resulting tail on Kr00k targets)"
     ],
     "hashcat_mode": null,
@@ -1658,7 +1658,7 @@
       "km-wpa2-psk"
     ],
     "tools": [
-      "mdk4 v",
+      "scapy CTS-to-self flood (Dot11 subtype 12, Duration/ID=0x7FFF) — mdk4 has no `v` mode",
       "airodump-ng (verify airtime collapse)"
     ],
     "hashcat_mode": null,
@@ -3487,8 +3487,7 @@
       "attacker can jam or spoof congestion on the target's preferred band"
     ],
     "tools": [
-      "mdk4 v (NAV) on 5 GHz + rogue 2.4 GHz AP",
-      "mdk4 v (5 GHz NAV)",
+      "scapy CTS-to-self NAV flood on 5 GHz (Dot11 subtype 12, Duration=0x7FFF) — mdk4 has no `v` mode",
       "hostapd (rogue on 2.4 GHz)"
     ],
     "hashcat_mode": null,

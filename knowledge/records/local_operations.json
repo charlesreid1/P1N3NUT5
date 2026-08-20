@@ -19,8 +19,7 @@
       "ssh"
     ],
     "primary": "api",
-    "notes": "Purely local — not backed by a Pineapple endpoint. Every tool call the MCP makes is appended to the session's call_log; retrieval is via the MCP itself, not the device.",
-    "transport": "analysis"
+    "notes": "Purely local — not backed by a Pineapple endpoint. Every tool call the MCP makes is appended to the session's call_log; retrieval is via the MCP itself, not the device."
   },
   {
     "id": "pep-run-sequence",
@@ -42,8 +41,7 @@
       "ssh"
     ],
     "primary": "api",
-    "notes": "Meta-endpoint — composes any of the endpoints above into one call. See plan-organize.md § Orchestrate.",
-    "transport": "analysis"
+    "notes": "Meta-endpoint — composes any of the endpoints above into one call. See plan-organize.md § Orchestrate."
   },
   {
     "id": "pep-decode-ies",
@@ -64,8 +62,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local MCP tool — expands recon-DB IE bytes into named fields.",
-    "transport": "analysis"
+    "notes": "Local MCP tool — expands recon-DB IE bytes into named fields."
   },
   {
     "id": "pep-beacon-diff",
@@ -90,8 +87,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local. Perfect for evil-twin-farm triage.",
-    "transport": "analysis"
+    "notes": "Local. Perfect for evil-twin-farm triage."
   },
   {
     "id": "pep-client-fingerprint",
@@ -112,8 +108,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — cross-references client_fingerprints.json.",
-    "transport": "analysis"
+    "notes": "Local — cross-references client_fingerprints.json."
   },
   {
     "id": "pep-parse-pcap",
@@ -134,8 +129,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — runs on the MCP host, not the Pineapple.",
-    "transport": "analysis"
+    "notes": "Local — runs on the MCP host, not the Pineapple."
   },
   {
     "id": "pep-extract-handshakes",
@@ -160,8 +154,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — invokes hcxpcapngtool.",
-    "transport": "analysis"
+    "notes": "Local — invokes hcxpcapngtool."
   },
   {
     "id": "pep-extract-pmkids",
@@ -187,8 +180,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — invokes hcxpcapngtool.",
-    "transport": "analysis"
+    "notes": "Local — invokes hcxpcapngtool."
   },
   {
     "id": "pep-convert-to-hashcat",
@@ -210,8 +202,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — invokes hcxpcapngtool with either mode 22000 or legacy 2500.",
-    "transport": "analysis"
+    "notes": "Local — invokes hcxpcapngtool with either mode 22000 or legacy 2500."
   },
   {
     "id": "pep-crack-start",
@@ -232,8 +223,7 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — spawns a hashcat job on the MCP host GPU.",
-    "transport": "analysis"
+    "notes": "Local — spawns a hashcat job on the MCP host GPU."
   },
   {
     "id": "pep-crack-status",
@@ -254,7 +244,6 @@
       "api"
     ],
     "primary": "api",
-    "notes": "Local — poll or fetch results from a running crack job by id.",
-    "transport": "analysis"
+    "notes": "Local — poll or fetch results from a running crack job by id."
   }
 ]

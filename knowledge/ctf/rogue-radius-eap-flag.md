@@ -20,9 +20,10 @@ you log the MSCHAPv2 challenge/response or the GTC plaintext.
 # hostapd-wpe drops in as a hostapd replacement — same config +
 # extra logging of inner-EAP challenge/response.
 
-hostapd-wpe /etc/hostapd/rogue-enterprise.conf
+hostapd-wpe /etc/hostapd-wpe/rogue-enterprise.conf
 
-# Config:
+# Config (paths standardized on hostapd-wpe's own tree — matches
+# knowledge/hostapd-wpe/{reference,walkthrough}.md):
 interface=wlan0
 ssid=<target ent SSID>
 hw_mode=g
@@ -32,10 +33,10 @@ wpa_key_mgmt=WPA-EAP
 rsn_pairwise=CCMP
 ieee8021x=1
 eap_server=1
-eap_user_file=/etc/hostapd/hostapd.eap_user
-ca_cert=/etc/hostapd/ca.pem
-server_cert=/etc/hostapd/server.pem
-private_key=/etc/hostapd/server-key.pem
+eap_user_file=/etc/hostapd-wpe/hostapd-wpe.eap_user
+ca_cert=/etc/hostapd-wpe/certs/ca.pem
+server_cert=/etc/hostapd-wpe/certs/server.pem
+private_key=/etc/hostapd-wpe/certs/server.key
 ```
 
 Watch `/var/log/hostapd-wpe.log`. When a client associates + falls

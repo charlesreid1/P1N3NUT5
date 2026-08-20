@@ -37,4 +37,4 @@ acts on:
 
 - Hak5 WiFi Pineapple Mark VII documentation.
 - SensePost 2014 — MANA.
-- Godsend 2018 — Known Beacons.
+- Etizaz Mohsin / Bastille Networks 2017–2018 — Known Beacons.

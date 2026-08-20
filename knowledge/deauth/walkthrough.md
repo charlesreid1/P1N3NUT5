@@ -11,7 +11,10 @@ mode); crafted-scapy is the fallback when the tool ergonomics fight you.
 aireplay-ng -0 10 -a AA:BB:CC:DD:EE:FF wlan1mon
 ```
 
-- Reason code: `7` (Class 3 frame from nonassociated STA).
+- Reason code: version-dependent. aircrack-ng ≤ 1.6 defaulted to
+  `7` (Class 3 frame from nonassociated STA); 1.7+ defaults to `1`
+  (unspecified). Pin your build (`aireplay-ng --help | head -1`) or
+  set the code explicitly with `--deauth <code>` (aliases: `-r`).
 - Blocked by PMF-required.
 - Trips loud WIDS signatures instantly.
 
