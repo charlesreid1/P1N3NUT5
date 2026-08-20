@@ -37,14 +37,14 @@
   },
   {
     "id": "chipset-broadcom-bcm43xx-broadpwn",
-    "name": "Broadcom BCM43xx — Broadpwn (CVE-2017-11120)",
+    "name": "Broadcom BCM43xx — Broadpwn (CVE-2017-9417)",
     "category": "chipset_vuln",
     "region": "universal",
     "era_bounds": ["2017-07", null],
     "still_effective_2026": true,
     "confidence": "primary",
     "citations": ["artenstein-broadpwn-2017"],
-    "see_also": ["cve-2017-11120"],
+    "see_also": ["cve-2017-9417", "cve-2017-11120"],
     "technical_body": {
       "vendor": "Broadcom",
       "chipset_family": "BCM43xx",

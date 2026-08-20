@@ -69,6 +69,19 @@ mixed fleets during rollout. Attack: your rogue AP advertises WPA2-only,
 the client fails-over, its WPA2 4-way is captured, and the WPA2 PSK is
 the WPA3 password. See `attacks.json:wpa3-transition-downgrade`.
 
+## OWE (Opportunistic Wireless Encryption) — WPA3 companion
+
+Not SAE, but ships alongside WPA3 as the "no-password but still
+encrypted" option (AKM 18 = `00-0F-AC:12`). OWE runs an anonymous
+Diffie-Hellman inside the association exchange; every client-AP pair
+gets a distinct PMK. Transition-mode OWE advertises both an OWE BSS
+and an open (unencrypted) BSS with matching BSS IDs so legacy clients
+still associate. That transition mode is exactly the door
+CVE-2021-30004 (wpa_supplicant OWE candidate-selection race) walks
+through: a supplicant with an OWE transition profile can be nudged
+onto the open sibling BSS by a rogue AP that suppresses the OWE
+beacon, downgrading to unencrypted.
+
 ## 6 GHz — WPA3-only mandate
 
 Wi-Fi 6E (6 GHz, UNII-5..8) mandates WPA3-Personal or WPA3-Enterprise.
@@ -82,3 +95,5 @@ implementation is weak.
 - Wi-Fi Alliance WPA3 Specification.
 - Vanhoef & Ronen 2019 — Dragonblood.
 - RFC 7664 — Dragonfly.
+- RFC 8110 — Opportunistic Wireless Encryption (OWE).
+- CVE-2021-30004 — wpa_supplicant OWE transition-mode downgrade race.

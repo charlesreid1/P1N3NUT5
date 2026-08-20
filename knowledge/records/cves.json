@@ -248,19 +248,36 @@
     }
   },
   {
-    "id": "cve-2017-11120",
-    "name": "CVE-2017-11120 — Broadpwn: Broadcom Wi-Fi chipset RCE from the air",
-    "aliases": ["broadpwn"],
+    "id": "cve-2017-9417",
+    "name": "CVE-2017-9417 — Broadpwn: Broadcom BCM43xx Wi-Fi firmware RCE (Artenstein, Black Hat USA 2017)",
+    "aliases": ["broadpwn", "cve-2017-9417"],
     "category": "cve",
     "region": "universal",
-    "era_bounds": ["2017-07-25", null],
-    "still_effective_2026": true,
+    "era_bounds": ["2017-07-05", null],
+    "still_effective_2026": false,
     "confidence": "primary",
     "citations": ["cve-mitre", "artenstein-broadpwn-2017"],
     "technical_body": {
-      "vector": "Broadcom BCM43xx firmware heap corruption reachable over the air",
+      "vector": "Broadcom BCM43xx Wi-Fi firmware heap corruption reachable over the air via crafted 802.11 frames (WMM parsing)",
+      "impact": "kernel-mode RCE on affected iOS 9/10 and Android devices (BCM4355C0 / BCM4339 / BCM4358 / BCM4356 …)",
+      "patch_status_2026": "patched on modern devices; historical marker for 'the air can compromise the kernel'. Do NOT confuse with CVE-2017-11120 (a related, separate Broadcom RCE published the same year by Google Project Zero — see cve-2017-11120)."
+    }
+  },
+  {
+    "id": "cve-2017-11120",
+    "name": "CVE-2017-11120 — Broadcom BCM43xx Wi-Fi RCE (Project Zero, distinct from Broadpwn)",
+    "aliases": ["cve-2017-11120"],
+    "category": "cve",
+    "region": "universal",
+    "era_bounds": ["2017-07-25", null],
+    "still_effective_2026": false,
+    "confidence": "primary",
+    "citations": ["cve-mitre"],
+    "technical_body": {
+      "vector": "Broadcom BCM43xx firmware memory corruption reachable over the air",
       "impact": "kernel-mode RCE on affected iOS/Android devices",
-      "patch_status_2026": "patched on modern devices; historical marker for 'the air can compromise the kernel'"
+      "patch_status_2026": "patched on modern devices; historical marker for 'the air can compromise the kernel'",
+      "not_broadpwn_note": "Broadpwn is CVE-2017-9417 (Artenstein, Black Hat USA 2017). CVE-2017-11120 is a related, separate Broadcom Wi-Fi RCE from the same era (Google Project Zero disclosure). Historical writeups sometimes conflate the two."
     }
   },
   {

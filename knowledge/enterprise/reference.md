@@ -45,7 +45,7 @@ session is what seeds the WPA 4-way handshake.
 | PEAPv0       | TLS      | server-only | MSCHAPv2, GTC         |
 | PEAPv1       | TLS      | server-only | GTC (or MSCHAPv2)     |
 | EAP-FAST     | TLS(PAC) | optional    | MSCHAPv2, GTC         |
-| EAP-PWD      | none     | none        | (Dragonfly PAKE)      |
+| EAP-PWD      | none     | none        | (Dragonfly PAKE — CVE-2019-9497/9498/9499, CVE-2022-23303/23304) |
 | LEAP         | none     | none        | MSCHAPv1              |
 | EAP-MD5      | none     | none        | (plaintext CHAP)      |
 | EAP-SIM/AKA  | (celllar)| SIM cred    | (3GPP-side)           |
@@ -112,6 +112,8 @@ the profile push, extract the cred. See
 - RFC 9190 — EAP-TLS 1.3.
 - Gabriel Ryan — eaphammer talks (DEFCON, BSides).
 - Wright — `asleap` (hacking-exposed-wireless-3e).
+- CVE-2022-23303, CVE-2022-23304 — hostapd/wpa_supplicant EAP-pwd
+  memory-safety bugs; see also `dragonblood-deep/reference.md`.
 - attacks.json: `rogue-radius-hostapd-wpe`,
   `rogue-radius-eaphammer`,
   `cert-phish-eaphammer-weak-validation`,

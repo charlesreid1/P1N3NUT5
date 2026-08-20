@@ -3792,10 +3792,11 @@
     "notes": "Older recon primitive but 2026-relevant because IE ordering and sequence-number continuity still allow cross-randomization correlation on many stacks. See client_fingerprints.json."
   },
   {
-    "id": "broadpwn-broadcom-cve-2017-11120",
-    "name": "Broadpwn — Broadcom Wi-Fi firmware RCE (CVE-2017-11120)",
+    "id": "broadpwn-broadcom-cve-2017-9417",
+    "name": "Broadpwn — Broadcom BCM43xx Wi-Fi firmware RCE (CVE-2017-9417)",
     "aliases": [
-      "broadpwn"
+      "broadpwn",
+      "broadpwn-broadcom-cve-2017-11120"
     ],
     "category": "attack",
     "region": "universal",
@@ -3810,6 +3811,7 @@
     ],
     "see_also": [
       "chipset-broadcom-bcm43xx-broadpwn",
+      "cve-2017-9417",
       "cve-2017-11120",
       "frame-mgmt-assoc-request"
     ],

@@ -66,3 +66,5 @@ does not require PMF authentication on the action-frame category. See
 - IEEE Std 802.11-2020 §12.11 (FT), §11.10 (Radio Measurement, 11k),
   §11.24 (BSS Transition Management, 11v).
 - Vanhoef & Piessens 2017 — KRACK, on FT reassoc replay.
+- CVE-2017-13082 (KRACK FT variant); CVE-2019-16275 (hostapd FT
+  source-address spoof).

@@ -89,6 +89,71 @@ exists.
 - **TWT** — Target Wake Time (802.11ax). Power-save schedule. See
   `wifi6-6e/`.
 - **WIDS/WIPS** — Wireless Intrusion Detection / Prevention System.
+- **BIP-CMAC-128 / BIP-CMAC-256** — Broadcast/Multicast Integrity
+  Protocol using AES-CMAC. Group-management-frame integrity under PMF.
+  Cipher selectors 00-0F-AC:06 (128) and 00-0F-AC:0D (256).
+- **BIP-GMAC-128 / BIP-GMAC-256** — GMAC variants of BIP. Selectors
+  00-0F-AC:0B and 00-0F-AC:0C. Required for WPA3-Enterprise 192-bit.
+- **BSS Color** — 6-bit spatial-reuse identifier (802.11ax). Advertised
+  in the HE Operation IE.
+- **DTIM** — Delivery Traffic Indication Message. Broadcast/multicast
+  wake indicator inside the TIM IE (IE 5).
+- **EAPOL** — EAP over LAN. Wrapper for the 4-way handshake key frames
+  (EtherType 0x888E).
+- **EMSK** — Extended Master Session Key. Additional 64-byte key derived
+  by the EAP inner method; typically 0 in Wi-Fi deployments.
+- **ESSID** — Extended SSID. Human-readable network name across all
+  BSSs in an ESS; identical to SSID in practice.
+- **GMK** — Group Master Key. AP-generated random used to derive the
+  GTK/IGTK.
+- **GO Negotiation** — Group Owner negotiation in Wi-Fi Direct / P2P.
+  Determines which peer acts as the AP.
+- **MDID** — Mobility Domain Identifier. 2-byte field in the MDE (IE 54)
+  that groups FT-capable APs.
+- **MFPC** — MFP Capable. Bit 7 of RSN Capabilities. AP/STA supports PMF.
+- **MFPR** — MFP Required. Bit 6 of RSN Capabilities. PMF mandatory —
+  broadcast deauth no-ops against MFPR-required peers.
+- **ML-IE** — Multi-Link Element. Wi-Fi 7 IE (Ext ID 106/107/108/109
+  variants) carrying MLD MAC and per-link setup info.
+- **MSK** — Master Session Key. 64-byte key exported by the EAP inner
+  method; first 32 bytes become the PMK.
+- **NAV** — Network Allocation Vector. Duration field in 802.11 headers;
+  peers defer for the stated microseconds. CTS-to-self with a large NAV
+  is a classic silencing attack.
+- **P2P** — Peer-to-Peer / Wi-Fi Direct. Client-to-client Wi-Fi without
+  an AP; uses Group Owner + Client roles.
+- **PMKSA / PTKSA** — PMK / PTK Security Association. The keying context
+  cached on both AP and STA.
+- **PSC** — Preferred Scanning Channels. Every 4th 20 MHz channel on 6
+  GHz (5, 21, 37, ..., 229) — the channels a client will actually probe.
+- **PSK** — Pre-Shared Key. The passphrase-derived 256-bit key used as
+  PMK in WPA-Personal.
+- **RSNE** — RSN Element (IE 48). Same thing as the RSN IE.
+- **RSNXE** — RSN Extension Element (IE 244). Carries the SAE H2E-only
+  bit (bit 5) and other post-2018 capability bits (Secure LTF, etc.).
+- **SA Query** — Security Association Query. Category 8 Action frame
+  pair used to verify a STA is still associated when PMF is required
+  and an unprotected disassoc/deauth arrives.
+- **TSN** — Transition Security Network. WPA + WPA2 mixed-mode advertised
+  in the beacon during a fleet upgrade.
+- **TXOP** — Transmission Opportunity. Reserved airtime block; a
+  station holding a TXOP can burst up to `TXOP Limit` microseconds.
+- **WFD** — Wi-Fi Direct. Same as P2P.
+- **WPS PBC** — WPS Push-Button Configuration. 2-minute window during
+  which any WPS-capable client can enroll without a PIN.
+- **WPS PIN** — 8-digit WPS Personal Identification Number, split into
+  two halves for external-registrar authentication. Cracked in
+  ~11k tries by Reaver (CVE-2011-5053) unless AP Setup Lock kicks in.
+
+## Wrong entries to avoid duplicating
+
+- **PMKID hashing**. The hash algorithm depends on the AKM: SHA-1 for
+  AKM 2 (WPA2-PSK), SHA-256 for AKM 8/12/other SHA-256 KDF AKMs,
+  SHA-384 for AKM 12 (Suite-B-192) / 13 (FT-802.1X-SHA384) / 24
+  (SAE-EXT-KEY). hashcat mode 22000 handles all three via the WPA*04
+  and WPA*05 variants.
+- **KCK length varies with PRF.** 128 bits for AKM 2/6 (SHA-1/SHA-256),
+  192 bits for AKM 12/13/24 (SHA-384). Never assume "KCK = 16 bytes."
 
 ## Growing
 
