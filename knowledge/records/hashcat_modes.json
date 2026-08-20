@@ -1,7 +1,7 @@
 [
   {
     "id": "hashcat-mode-22000",
-    "name": "hashcat mode 22000 — WPA-PBKDF2-PMKID+EAPOL",
+    "name": "hashcat mode 22000 \u2014 WPA-PBKDF2-PMKID+EAPOL",
     "aliases": [
       "22000",
       "wpa-pbkdf2-pmkid+eapol"
@@ -34,7 +34,7 @@
   },
   {
     "id": "hashcat-mode-22001",
-    "name": "hashcat mode 22001 — WPA-PMK-PMKID+EAPOL",
+    "name": "hashcat mode 22001 \u2014 WPA-PMK-PMKID+EAPOL",
     "aliases": [
       "22001"
     ],
@@ -57,7 +57,7 @@
   },
   {
     "id": "hashcat-mode-2500",
-    "name": "hashcat mode 2500 — WPA-EAPOL-PBKDF2 (legacy)",
+    "name": "hashcat mode 2500 \u2014 WPA-EAPOL-PBKDF2 (legacy)",
     "aliases": [
       "2500",
       "wpa-eapol-pbkdf2"
@@ -84,7 +84,7 @@
   },
   {
     "id": "hashcat-mode-2501",
-    "name": "hashcat mode 2501 — WPA-EAPOL-PMK",
+    "name": "hashcat mode 2501 \u2014 WPA-EAPOL-PMK",
     "aliases": [
       "2501"
     ],
@@ -107,7 +107,7 @@
   },
   {
     "id": "hashcat-mode-16800",
-    "name": "hashcat mode 16800 — WPA-PMKID-PBKDF2 (legacy)",
+    "name": "hashcat mode 16800 \u2014 WPA-PMKID-PBKDF2 (legacy)",
     "aliases": [
       "16800"
     ],
@@ -131,7 +131,7 @@
   },
   {
     "id": "hashcat-mode-16801",
-    "name": "hashcat mode 16801 — WPA-PMKID-PMK",
+    "name": "hashcat mode 16801 \u2014 WPA-PMKID-PMK",
     "aliases": [
       "16801"
     ],
@@ -154,7 +154,7 @@
   },
   {
     "id": "hashcat-mode-5500",
-    "name": "hashcat mode 5500 — NetNTLMv1 / MSCHAPv2 / LEAP",
+    "name": "hashcat mode 5500 \u2014 NetNTLMv1 / MSCHAPv2 / LEAP",
     "aliases": [
       "5500",
       "netntlmv1",
@@ -177,14 +177,14 @@
     ],
     "technical_body": {
       "mode": 5500,
-      "note": "MSCHAPv2 challenge-response captured from PEAP / EAP-TTLS inner exchanges via hostapd-wpe or eaphammer. Also the correct mode for **legacy Cisco LEAP** — LEAP uses MSCHAPv2 internally, so its challenge-response has the same NetNTLMv1 shape. asleap is the classic offline cracker for both.",
+      "note": "MSCHAPv2 challenge-response captured from PEAP / EAP-TTLS inner exchanges via hostapd-wpe or eaphammer. Also the correct mode for **legacy Cisco LEAP** \u2014 LEAP uses MSCHAPv2 internally, so its challenge-response has the same NetNTLMv1 shape. asleap is the classic offline cracker for both.",
       "aliases_note": "LEAP goes here, not in mode 4800.",
       "example_command": "hashcat -m 5500 mschapv2.txt rockyou.txt -w 4 -r rules/best64.rule"
     }
   },
   {
     "id": "hashcat-mode-4800",
-    "name": "hashcat mode 4800 — iSCSI CHAP authentication / EAP-MD5 (MD5(chal+pass+salt))",
+    "name": "hashcat mode 4800 \u2014 iSCSI CHAP authentication / EAP-MD5 (MD5(chal+pass+salt))",
     "aliases": [
       "4800",
       "iscsi-chap",
@@ -209,7 +209,7 @@
   },
   {
     "id": "hashcat-mode-5300",
-    "name": "hashcat mode 5300 — IKE-PSK MD5",
+    "name": "hashcat mode 5300 \u2014 IKE-PSK MD5",
     "aliases": [
       "5300"
     ],
@@ -232,7 +232,7 @@
   },
   {
     "id": "hashcat-mode-5400",
-    "name": "hashcat mode 5400 — IKE-PSK SHA1",
+    "name": "hashcat mode 5400 \u2014 IKE-PSK SHA1",
     "aliases": [
       "5400"
     ],
@@ -254,7 +254,7 @@
   },
   {
     "id": "hashcat-mode-7300",
-    "name": "hashcat mode 7300 — IPMI2 RAKP HMAC-SHA1",
+    "name": "hashcat mode 7300 \u2014 IPMI2 RAKP HMAC-SHA1",
     "aliases": [
       "7300"
     ],
@@ -271,13 +271,13 @@
     ],
     "technical_body": {
       "mode": 7300,
-      "note": "IPMI2 RAKP hash — adjacent when an engagement pivots to management-plane recon after WiFi entry.",
+      "note": "IPMI2 RAKP hash \u2014 adjacent when an engagement pivots to management-plane recon after WiFi entry.",
       "example_command": "hashcat -m 7300 ipmi.txt rockyou.txt -w 4"
     }
   },
   {
     "id": "hashcat-mode-5600",
-    "name": "hashcat mode 5600 — NetNTLMv2",
+    "name": "hashcat mode 5600 \u2014 NetNTLMv2",
     "aliases": [
       "5600",
       "ntlmv2"
@@ -301,7 +301,7 @@
   },
   {
     "id": "hashcat-mode-1000",
-    "name": "hashcat mode 1000 — NTLM",
+    "name": "hashcat mode 1000 \u2014 NTLM",
     "aliases": [
       "1000",
       "ntlm"
@@ -319,13 +319,13 @@
     ],
     "technical_body": {
       "mode": 1000,
-      "note": "Raw NTLM hash. Not directly a WiFi hash — but recovered PSK cracks may match Windows account NTLMs in domain environments.",
+      "note": "Raw NTLM hash. Not directly a WiFi hash \u2014 but recovered PSK cracks may match Windows account NTLMs in domain environments.",
       "example_command": "hashcat -m 1000 ntlm.txt rockyou.txt -w 4"
     }
   },
   {
     "id": "hashcat-mode-1800",
-    "name": "hashcat mode 1800 — sha512crypt $6$",
+    "name": "hashcat mode 1800 \u2014 sha512crypt $6$",
     "aliases": [
       "1800"
     ],
@@ -342,13 +342,13 @@
     ],
     "technical_body": {
       "mode": 1800,
-      "note": "Adjacent — modern Linux /etc/shadow hash class. Not a WiFi hash but appears in post-crack pivot scenarios.",
+      "note": "Adjacent \u2014 modern Linux /etc/shadow hash class. Not a WiFi hash but appears in post-crack pivot scenarios.",
       "example_command": "hashcat -m 1800 shadow.txt rockyou.txt -w 3"
     }
   },
   {
     "id": "hashcat-mode-0",
-    "name": "hashcat mode 0 — raw MD5",
+    "name": "hashcat mode 0 \u2014 raw MD5",
     "aliases": [
       "0",
       "md5"
@@ -372,7 +372,7 @@
   },
   {
     "id": "hashcat-mode-100",
-    "name": "hashcat mode 100 — raw SHA1",
+    "name": "hashcat mode 100 \u2014 raw SHA1",
     "aliases": [
       "100",
       "sha1"
@@ -395,7 +395,7 @@
   },
   {
     "id": "hashcat-mode-1400",
-    "name": "hashcat mode 1400 — raw SHA-256",
+    "name": "hashcat mode 1400 \u2014 raw SHA-256",
     "aliases": [
       "1400",
       "sha256"
@@ -418,7 +418,7 @@
   },
   {
     "id": "hashcat-mode-1700",
-    "name": "hashcat mode 1700 — raw SHA-512",
+    "name": "hashcat mode 1700 \u2014 raw SHA-512",
     "aliases": [
       "1700"
     ],
@@ -440,7 +440,7 @@
   },
   {
     "id": "hashcat-attack-mode-0",
-    "name": "hashcat attack mode -a 0 — straight (wordlist)",
+    "name": "hashcat attack mode -a 0 \u2014 straight (wordlist)",
     "aliases": [
       "-a 0",
       "attack-mode-0"
@@ -465,7 +465,7 @@
   },
   {
     "id": "hashcat-attack-mode-1",
-    "name": "hashcat attack mode -a 1 — combinator (wordlist × wordlist)",
+    "name": "hashcat attack mode -a 1 \u2014 combinator (wordlist \u00d7 wordlist)",
     "aliases": [
       "-a 1",
       "attack-mode-1"
@@ -490,7 +490,7 @@
   },
   {
     "id": "hashcat-attack-mode-3",
-    "name": "hashcat attack mode -a 3 — mask attack",
+    "name": "hashcat attack mode -a 3 \u2014 mask attack",
     "aliases": [
       "-a 3",
       "attack-mode-3",
@@ -521,13 +521,13 @@
         "?b": "0x00..0xff"
       },
       "custom_charsets": "--custom-charset1 through --custom-charset4",
-      "note": "Load-bearing for numeric-suffix PSKs — /^[A-Z]{4}[0-9]{6}$/ style default patterns.",
+      "note": "Load-bearing for numeric-suffix PSKs \u2014 /^[A-Z]{4}[0-9]{6}$/ style default patterns.",
       "example_command": "hashcat -m 22000 -a 3 hs.22000 '?d?d?d?d?d?d?d?d' -w 4"
     }
   },
   {
     "id": "hashcat-attack-mode-6",
-    "name": "hashcat attack mode -a 6 — hybrid wordlist + mask",
+    "name": "hashcat attack mode -a 6 \u2014 hybrid wordlist + mask",
     "aliases": [
       "-a 6",
       "attack-mode-6"
@@ -552,7 +552,7 @@
   },
   {
     "id": "hashcat-attack-mode-7",
-    "name": "hashcat attack mode -a 7 — hybrid mask + wordlist",
+    "name": "hashcat attack mode -a 7 \u2014 hybrid mask + wordlist",
     "aliases": [
       "-a 7",
       "attack-mode-7"
@@ -577,7 +577,7 @@
   },
   {
     "id": "hashcat-attack-mode-9",
-    "name": "hashcat attack mode -a 9 — association attack (22000-specific)",
+    "name": "hashcat attack mode -a 9 \u2014 association attack (22000-specific)",
     "aliases": [
       "-a 9",
       "attack-mode-9",
@@ -598,13 +598,13 @@
     "technical_body": {
       "attack_mode": 9,
       "syntax": "hashcat -m 22000 -a 9 hs.22000 wordlist.txt",
-      "note": "22000-specific — associate ESSID with candidate PSK derivation. Uses the ESSID field from the 22000 line to seed PBKDF2. Faster than -a 0 on PMKID-only captures.",
+      "note": "22000-specific \u2014 associate ESSID with candidate PSK derivation. Uses the ESSID field from the 22000 line to seed PBKDF2. Faster than -a 0 on PMKID-only captures.",
       "example_command": "hashcat -m 22000 -a 9 hs.22000 rockyou.txt -w 4"
     }
   },
   {
     "id": "hashcat-rule-best64",
-    "name": "hashcat rule — best64",
+    "name": "hashcat rule \u2014 best64",
     "aliases": [
       "best64",
       "best64.rule"
@@ -622,13 +622,13 @@
     ],
     "technical_body": {
       "rule_file": "rules/best64.rule",
-      "note": "Standard shipped rule — 64 highest-yield mutations. First-line rule tuning for WPA cracks.",
+      "note": "Standard shipped rule \u2014 64 highest-yield mutations. First-line rule tuning for WPA cracks.",
       "example_command": "hashcat -m 22000 -a 0 hs.22000 rockyou.txt -r rules/best64.rule -w 4"
     }
   },
   {
     "id": "hashcat-rule-oneruletorulethemall",
-    "name": "hashcat rule — OneRuleToRuleThemAll",
+    "name": "hashcat rule \u2014 OneRuleToRuleThemAll",
     "aliases": [
       "OneRuleToRuleThemAll"
     ],
@@ -644,13 +644,13 @@
       "hashcat-modes"
     ],
     "technical_body": {
-      "note": "Community-curated aggressive ruleset (~50k rules). Overnight-run scale — pair with a strong GPU and rockyou.txt.",
+      "note": "Community-curated aggressive ruleset (~50k rules). Overnight-run scale \u2014 pair with a strong GPU and rockyou.txt.",
       "example_command": "hashcat -m 22000 -a 0 hs.22000 rockyou.txt -r rules/OneRuleToRuleThemAll.rule -w 4"
     }
   },
   {
     "id": "hashcat-workload-profile",
-    "name": "hashcat -w — workload profile",
+    "name": "hashcat -w \u2014 workload profile",
     "aliases": [
       "-w",
       "workload"
@@ -704,7 +704,7 @@
   },
   {
     "id": "hashcat-rule-d3ad0ne",
-    "name": "hashcat rule — d3ad0ne",
+    "name": "hashcat rule \u2014 d3ad0ne",
     "aliases": [
       "d3ad0ne"
     ],
@@ -721,7 +721,7 @@
     ],
     "technical_body": {
       "rule_file": "rules/d3ad0ne.rule",
-      "note": "Aggressive standard rule set — bigger than best64, smaller than OneRuleToRuleThemAll.",
+      "note": "Aggressive standard rule set \u2014 bigger than best64, smaller than OneRuleToRuleThemAll.",
       "example_command": "hashcat -m 22000 -a 0 hs.22000 rockyou.txt -r rules/d3ad0ne.rule -w 4"
     }
   },
@@ -742,6 +742,30 @@
     "technical_body": {
       "note": "22000 is a slow hash (PBKDF2-HMAC-SHA1 with 4096 iterations). Modern RTX 4090 hits ~2 MH/s. rockyou.txt (~14M words) crackable in seconds; 12-char alnum mask is at the wall-time barrier.",
       "example_command": "hashcat -m 22000 -a 0 hs.22000 rockyou.txt -w 4 --status --status-timer=30"
+    }
+  },
+  {
+    "id": "hashcat-mode-12000",
+    "name": "hashcat mode 12000 \u2014 PBKDF2-HMAC-SHA1 (generic)",
+    "aliases": [
+      "12000",
+      "pbkdf2-hmac-sha1"
+    ],
+    "category": "hashcat_mode",
+    "region": "universal",
+    "era_bounds": [
+      "2000",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hashcat-modes"
+    ],
+    "technical_body": {
+      "mode": 12000,
+      "note": "Generic PBKDF2-HMAC-SHA1 kernel. Applicable when a hash matches PBKDF2-HMAC-SHA1(pw, salt, iter) form outside the WPA-specific 22000/2500 wrappers \u2014 e.g. some vendor-specific key derivations that reuse PBKDF2-HMAC-SHA1 with non-standard iteration counts / salts.",
+      "example_command": "hashcat -m 12000 pbkdf2_sha1.txt rockyou.txt -w 4"
     }
   }
 ]

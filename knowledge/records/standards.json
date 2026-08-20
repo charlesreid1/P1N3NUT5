@@ -2,15 +2,24 @@
   {
     "id": "std-802-11a",
     "name": "802.11a",
-    "aliases": ["a"],
+    "aliases": [
+      "a"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["1999", null],
+    "era_bounds": [
+      "1999",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "bands_ghz": [5],
+      "bands_ghz": [
+        5
+      ],
       "max_phy_mbps": 54,
       "max_channel_width_mhz": 20,
       "modulation": "OFDM",
@@ -20,15 +29,24 @@
   {
     "id": "std-802-11b",
     "name": "802.11b",
-    "aliases": ["b"],
+    "aliases": [
+      "b"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["1999", null],
+    "era_bounds": [
+      "1999",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "bands_ghz": [2.4],
+      "bands_ghz": [
+        2.4
+      ],
       "max_phy_mbps": 11,
       "max_channel_width_mhz": 22,
       "modulation": "DSSS/CCK",
@@ -38,15 +56,24 @@
   {
     "id": "std-802-11g",
     "name": "802.11g",
-    "aliases": ["g"],
+    "aliases": [
+      "g"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2003", null],
+    "era_bounds": [
+      "2003",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "bands_ghz": [2.4],
+      "bands_ghz": [
+        2.4
+      ],
       "max_phy_mbps": 54,
       "max_channel_width_mhz": 20,
       "modulation": "OFDM",
@@ -56,53 +83,100 @@
   {
     "id": "std-802-11n",
     "name": "802.11n (Wi-Fi 4)",
-    "aliases": ["n", "wi-fi 4", "ht"],
+    "aliases": [
+      "n",
+      "wi-fi 4",
+      "ht"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "bands_ghz": [2.4, 5],
+      "bands_ghz": [
+        2.4,
+        5
+      ],
       "max_phy_mbps": 600,
       "max_channel_width_mhz": 40,
       "modulation": "OFDM",
       "mimo_streams": 4,
-      "features": ["HT", "A-MPDU", "A-MSDU", "Short GI"]
+      "features": [
+        "HT",
+        "A-MPDU",
+        "A-MSDU",
+        "Short GI"
+      ]
     }
   },
   {
     "id": "std-802-11ac",
     "name": "802.11ac (Wi-Fi 5)",
-    "aliases": ["ac", "wi-fi 5", "vht"],
+    "aliases": [
+      "ac",
+      "wi-fi 5",
+      "vht"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "bands_ghz": [5],
+      "bands_ghz": [
+        5
+      ],
       "max_phy_mbps": 6933,
       "max_channel_width_mhz": 160,
       "modulation": "OFDM (256-QAM)",
       "mimo_streams": 8,
-      "features": ["VHT", "MU-MIMO downlink", "beamforming"]
+      "features": [
+        "VHT",
+        "MU-MIMO downlink",
+        "beamforming"
+      ]
     }
   },
   {
     "id": "std-802-11ax",
     "name": "802.11ax (Wi-Fi 6 / 6E)",
-    "aliases": ["ax", "wi-fi 6", "wi-fi 6e", "he"],
+    "aliases": [
+      "ax",
+      "wi-fi 6",
+      "wi-fi 6e",
+      "he"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2021", null],
+    "era_bounds": [
+      "2021",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11ax-2021", "wfa-wpa3-6ghz-mandate"],
+    "citations": [
+      "ieee-802-11ax-2021",
+      "wfa-wpa3-6ghz-mandate"
+    ],
     "technical_body": {
-      "bands_ghz": [2.4, 5, 6],
+      "bands_ghz": [
+        2.4,
+        5,
+        6
+      ],
       "max_phy_mbps": 9608,
       "max_channel_width_mhz": 160,
       "modulation": "OFDMA (1024-QAM)",
@@ -113,22 +187,35 @@
         "TWT",
         "BSS Coloring",
         "Trigger frames",
-        "6 GHz (Wi-Fi 6E) — WPA3-only mandate"
+        "6 GHz (Wi-Fi 6E) \u2014 WPA3-only mandate"
       ]
     }
   },
   {
     "id": "std-802-11be",
     "name": "802.11be (Wi-Fi 7)",
-    "aliases": ["be", "wi-fi 7", "eht"],
+    "aliases": [
+      "be",
+      "wi-fi 7",
+      "eht"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2024", null],
+    "era_bounds": [
+      "2024",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11be-2024"],
+    "citations": [
+      "ieee-802-11be-2024"
+    ],
     "technical_body": {
-      "bands_ghz": [2.4, 5, 6],
+      "bands_ghz": [
+        2.4,
+        5,
+        6
+      ],
       "max_phy_mbps": 46000,
       "max_channel_width_mhz": 320,
       "modulation": "OFDMA (4096-QAM)",
@@ -144,123 +231,233 @@
   {
     "id": "std-802-11w",
     "name": "802.11w (PMF / Management Frame Protection)",
-    "aliases": ["w", "pmf", "mfp"],
+    "aliases": [
+      "w",
+      "pmf",
+      "mfp"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "protects": ["deauth", "disassoc", "action frames (subset)"],
+      "protects": [
+        "deauth",
+        "disassoc",
+        "action frames (subset)"
+      ],
       "cipher": "BIP-CMAC-128 (default); BIP-GMAC-128/256 optional",
       "modes": {
         "disabled": "no PMF",
-        "optional": "client may negotiate — mixed fleet",
-        "required": "PMF mandatory — WPA3-mandated"
+        "optional": "client may negotiate \u2014 mixed fleet",
+        "required": "PMF mandatory \u2014 WPA3-mandated"
       }
     }
   },
   {
     "id": "std-802-11r",
     "name": "802.11r (Fast BSS Transition, FT)",
-    "aliases": ["r", "ft", "fast transition"],
+    "aliases": [
+      "r",
+      "ft",
+      "fast transition"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "features": ["PMK-R0/R1 hierarchy", "Mobility Domain (MDE)", "over-the-air / over-the-DS reassoc"],
-      "attack_surface": ["FT-handshake capture (hashcat mode 22000)", "PMK-R0 shared across misconfigured deployments"]
+      "features": [
+        "PMK-R0/R1 hierarchy",
+        "Mobility Domain (MDE)",
+        "over-the-air / over-the-DS reassoc"
+      ],
+      "attack_surface": [
+        "FT-handshake capture (hashcat mode 22000)",
+        "PMK-R0 shared across misconfigured deployments"
+      ]
     }
   },
   {
     "id": "std-802-11k",
     "name": "802.11k (Radio Resource Measurement)",
-    "aliases": ["k", "neighbor reports"],
+    "aliases": [
+      "k",
+      "neighbor reports"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "features": ["Neighbor Report", "Beacon Report Request"],
-      "attack_surface": ["spoofed Neighbor Report steers a client onto a rogue BSSID"]
+      "features": [
+        "Neighbor Report",
+        "Beacon Report Request"
+      ],
+      "attack_surface": [
+        "spoofed Neighbor Report steers a client onto a rogue BSSID"
+      ]
     }
   },
   {
     "id": "std-802-11v",
     "name": "802.11v (BSS Transition Management, BTM)",
-    "aliases": ["v", "btm"],
+    "aliases": [
+      "v",
+      "btm"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "features": ["BTM Request/Response", "Wireless Network Management"],
-      "attack_surface": ["crafted BTM Request from a rogue shoves a client onto attacker BSSID with the client's cooperation"]
+      "features": [
+        "BTM Request/Response",
+        "Wireless Network Management"
+      ],
+      "attack_surface": [
+        "crafted BTM Request from a rogue shoves a client onto attacker BSSID with the client's cooperation"
+      ]
     }
   },
   {
     "id": "std-802-11u",
     "name": "802.11u (Interworking with external networks)",
-    "aliases": ["u", "interworking"],
+    "aliases": [
+      "u",
+      "interworking"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "features": ["ANQP (Access Network Query Protocol)", "GAS (Generic Advertisement Service)", "NAI Realm, Roaming Consortium, Venue Info, 3GPP Cellular, Domain Name IEs"],
-      "attack_surface": ["ANQP query pre-association leaks Realm / Roaming Consortium", "Passpoint OSU spoofing"]
+      "features": [
+        "ANQP (Access Network Query Protocol)",
+        "GAS (Generic Advertisement Service)",
+        "NAI Realm, Roaming Consortium, Venue Info, 3GPP Cellular, Domain Name IEs"
+      ],
+      "attack_surface": [
+        "ANQP query pre-association leaks Realm / Roaming Consortium",
+        "Passpoint OSU spoofing"
+      ]
     }
   },
   {
     "id": "std-802-1x",
     "name": "802.1X (Port-based Network Access Control)",
-    "aliases": ["dot1x", "802.1x"],
+    "aliases": [
+      "dot1x",
+      "802.1x"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2001", null],
+    "era_bounds": [
+      "2001",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-1x-2020"],
+    "citations": [
+      "ieee-802-1x-2020"
+    ],
     "technical_body": {
-      "roles": ["supplicant", "authenticator", "authentication server"],
-      "frames": ["EAPOL-Start", "EAPOL-Key", "EAPOL-Packet", "EAPOL-Logoff"]
+      "roles": [
+        "supplicant",
+        "authenticator",
+        "authentication server"
+      ],
+      "frames": [
+        "EAPOL-Start",
+        "EAPOL-Key",
+        "EAPOL-Packet",
+        "EAPOL-Logoff"
+      ]
     }
   },
   {
     "id": "std-rfc-3748",
     "name": "EAP (RFC 3748)",
-    "aliases": ["eap", "extensible authentication protocol"],
+    "aliases": [
+      "eap",
+      "extensible authentication protocol"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["rfc-3748"],
+    "citations": [
+      "rfc-3748"
+    ],
     "technical_body": {
-      "packets": ["Request", "Response", "Success", "Failure"],
-      "carries": ["identity", "arbitrary inner method"]
+      "packets": [
+        "Request",
+        "Response",
+        "Success",
+        "Failure"
+      ],
+      "carries": [
+        "identity",
+        "arbitrary inner method"
+      ]
     }
   },
   {
     "id": "std-rfc-5216",
     "name": "EAP-TLS (RFC 5216)",
-    "aliases": ["eap-tls"],
+    "aliases": [
+      "eap-tls"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["rfc-5216"],
+    "citations": [
+      "rfc-5216"
+    ],
     "technical_body": {
       "credential": "client certificate + server certificate",
       "attack_surface_summary": "server-cert pinning is load-bearing; without it, rogue-RADIUS captures nothing useful but the client will still associate"
@@ -269,24 +466,39 @@
   {
     "id": "std-rfc-5281",
     "name": "EAP-TTLSv0 (RFC 5281)",
-    "aliases": ["eap-ttls"],
+    "aliases": [
+      "eap-ttls"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["rfc-5281"]
+    "citations": [
+      "rfc-5281"
+    ]
   },
   {
     "id": "std-rfc-7664",
     "name": "Dragonfly Key Exchange (RFC 7664)",
-    "aliases": ["dragonfly"],
+    "aliases": [
+      "dragonfly"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2015", null],
+    "era_bounds": [
+      "2015",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["rfc-7664", "wfa-wpa3-spec"],
+    "citations": [
+      "rfc-7664",
+      "wfa-wpa3-spec"
+    ],
     "technical_body": {
       "role": "mathematical basis of WPA3-SAE",
       "vulnerabilities": "Dragonblood side-channel + timing attacks against implementations that fell back to weak MODP groups (see cves.json)"
@@ -295,13 +507,23 @@
   {
     "id": "std-wfa-wpa3",
     "name": "Wi-Fi Alliance WPA3 profile",
-    "aliases": ["wpa3", "wpa3-personal", "wpa3-enterprise"],
+    "aliases": [
+      "wpa3",
+      "wpa3-personal",
+      "wpa3-enterprise"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2018-06-25", null],
+    "era_bounds": [
+      "2018-06-25",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wpa3-spec", "ieee-802-11-2020"],
+    "citations": [
+      "wfa-wpa3-spec",
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "personal": "SAE (Dragonfly)",
       "enterprise": "192-bit suite optional; requires PMF",
@@ -312,29 +534,60 @@
   {
     "id": "std-wfa-wps",
     "name": "Wi-Fi Alliance WPS 2.0",
-    "aliases": ["wps", "wsc", "wi-fi protected setup"],
+    "aliases": [
+      "wps",
+      "wsc",
+      "wi-fi protected setup"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2007", null],
+    "era_bounds": [
+      "2007",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wps-2-0", "viehboeck-wps-2011"],
+    "citations": [
+      "wfa-wps-2-0",
+      "viehboeck-wps-2011"
+    ],
     "technical_body": {
       "pin_structure": "8 digits, split 7+1 (last is checksum), authenticated in halves",
-      "state_machine": ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"],
-      "attacks": ["reaver online brute (11k trials worst-case)", "Pixie Dust offline E-S1/E-S2 recovery"]
+      "state_machine": [
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8"
+      ],
+      "attacks": [
+        "reaver online brute (11k trials worst-case)",
+        "Pixie Dust offline E-S1/E-S2 recovery"
+      ]
     }
   },
   {
     "id": "std-802-11h",
     "name": "802.11h (DFS + TPC)",
-    "aliases": ["h", "dfs", "tpc"],
+    "aliases": [
+      "h",
+      "dfs",
+      "tpc"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2003", null],
+    "era_bounds": [
+      "2003",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "role": "DFS (radar avoidance) + TPC (transmit power control) for 5 GHz",
       "regulatory_driver": "ETSI EN 301 893; FCC subpart E for the US"
@@ -343,43 +596,69 @@
   {
     "id": "std-802-11i",
     "name": "802.11i (WPA2 / RSN)",
-    "aliases": ["i", "rsn"],
+    "aliases": [
+      "i",
+      "rsn"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "role": "Defines RSN — 4-way handshake, CCMP, TKIP replacement, PMKSA caching",
-      "note": "Fully integrated into 802.11-2020 §12. Cited by name in older docs."
+      "role": "Defines RSN \u2014 4-way handshake, CCMP, TKIP replacement, PMKSA caching",
+      "note": "Fully integrated into 802.11-2020 \u00a712. Cited by name in older docs."
     }
   },
   {
     "id": "std-802-11e",
     "name": "802.11e (QoS / EDCA)",
-    "aliases": ["e", "qos", "edca", "wmm"],
+    "aliases": [
+      "e",
+      "qos",
+      "edca",
+      "wmm"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "role": "Enhanced Distributed Channel Access — QoS data traffic priorities. WMM is Wi-Fi Alliance's certified profile of 802.11e.",
-      "wctf_relevance": "QoS-Data frames (frame subtype 8) carry EAPOL and CCMP-encrypted payloads on modern networks — this standard defines them."
+      "role": "Enhanced Distributed Channel Access \u2014 QoS data traffic priorities. WMM is Wi-Fi Alliance's certified profile of 802.11e.",
+      "wctf_relevance": "QoS-Data frames (frame subtype 8) carry EAPOL and CCMP-encrypted payloads on modern networks \u2014 this standard defines them."
     }
   },
   {
     "id": "std-802-11s",
     "name": "802.11s (Mesh)",
-    "aliases": ["s", "mesh"],
+    "aliases": [
+      "s",
+      "mesh"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "role": "802.11 mesh networking primitives",
       "note": "Rarely load-bearing in a WCTF puzzle; consumer mesh gear typically implements its own proprietary mesh instead."
@@ -388,13 +667,21 @@
   {
     "id": "std-802-11ai",
     "name": "802.11ai (Fast Initial Link Setup, FILS)",
-    "aliases": ["ai", "fils"],
+    "aliases": [
+      "ai",
+      "fils"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "role": "Reduces association time by combining discovery + auth + 4-way + DHCP",
       "carrier": "IEs 240 (FILS Indication), 241 (Key Confirmation), 242 (Session)",
@@ -404,76 +691,128 @@
   {
     "id": "std-802-11ac-wave2",
     "name": "802.11ac Wave 2",
-    "aliases": ["ac-wave-2"],
+    "aliases": [
+      "ac-wave-2"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2016", "2021"],
+    "era_bounds": [
+      "2016",
+      "2021"
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "role": "Second-generation Wi-Fi 5 — 160 MHz channels, MU-MIMO downlink, up to 6.9 Gbps",
+      "role": "Second-generation Wi-Fi 5 \u2014 160 MHz channels, MU-MIMO downlink, up to 6.9 Gbps",
       "note": "Not a separate standard, but a marketing tier of 802.11ac. Superseded by Wi-Fi 6."
     }
   },
   {
     "id": "std-passpoint",
     "name": "Wi-Fi Alliance Passpoint (Hotspot 2.0)",
-    "aliases": ["passpoint", "hotspot 2.0", "hs2"],
+    "aliases": [
+      "passpoint",
+      "hotspot 2.0",
+      "hs2"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2012", null],
+    "era_bounds": [
+      "2012",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wpa3-spec"],
-    "see_also": ["std-802-11u", "roaming-passpoint-osu", "anqp-realm-enum"],
+    "citations": [
+      "wfa-wpa3-spec"
+    ],
+    "see_also": [
+      "std-802-11u",
+      "roaming-passpoint-osu",
+      "anqp-realm-enum"
+    ],
     "technical_body": {
-      "role": "WFA profile on top of 802.11u — automatic association via Roaming Consortium OI matching, no SSID selection needed",
+      "role": "WFA profile on top of 802.11u \u2014 automatic association via Roaming Consortium OI matching, no SSID selection needed",
       "attack_surface": "Rogue OSU + spoofed Roaming Consortium OI = client auto-associates with your BSSID"
     }
   },
   {
     "id": "std-owe",
     "name": "OWE (RFC 8110)",
-    "aliases": ["opportunistic wireless encryption"],
+    "aliases": [
+      "opportunistic wireless encryption"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2017", null],
+    "era_bounds": [
+      "2017",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
-    "see_also": ["km-owe", "ie-owe-diffie-hellman"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec",
+      "rfc-8110"
+    ],
+    "see_also": [
+      "km-owe",
+      "ie-owe-diffie-hellman"
+    ],
     "technical_body": {
       "role": "Opportunistic Wireless Encryption. ECDH exchange on Open networks.",
-      "note": "Provides encryption but NOT AP authentication — see the OWE trap in verify_claim."
+      "note": "Provides encryption but NOT AP authentication \u2014 see the OWE trap in verify_claim."
     }
   },
   {
     "id": "std-rfc-2759",
     "name": "MSCHAPv2 (RFC 2759)",
-    "aliases": ["mschapv2", "ms-chap-v2"],
+    "aliases": [
+      "mschapv2",
+      "ms-chap-v2"
+    ],
     "category": "standard",
     "region": "universal",
-    "era_bounds": ["2000", null],
+    "era_bounds": [
+      "2000",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["rfc-2759"],
-    "see_also": ["hashcat-mode-5500", "eap-peap", "eap-ttls"],
+    "citations": [
+      "rfc-2759"
+    ],
+    "see_also": [
+      "hashcat-mode-5500",
+      "eap-peap",
+      "eap-ttls"
+    ],
     "technical_body": {
       "role": "Microsoft's PPP-CHAP variant used inside PEAP / EAP-TTLS tunnels",
-      "attack_surface": "Captured challenge/response → hashcat mode 5500 or asleap"
+      "attack_surface": "Captured challenge/response \u2192 hashcat mode 5500 or asleap"
     }
   },
   {
     "id": "std-fcc-part-15",
     "name": "FCC Part 15 (US regulatory framework)",
-    "aliases": ["fcc part 15", "47 cfr part 15"],
+    "aliases": [
+      "fcc part 15",
+      "47 cfr part 15"
+    ],
     "category": "standard",
     "region": "US",
-    "era_bounds": ["1938", null],
+    "era_bounds": [
+      "1938",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["fcc-part-15"],
+    "citations": [
+      "fcc-part-15"
+    ],
     "technical_body": {
       "role": "US regulatory rules for unlicensed radio devices; subpart E is the U-NII/5 GHz rules; 6 GHz is added in subpart E amendments (2020)",
       "note": "Every US channels.json record cites this."
@@ -482,25 +821,162 @@
   {
     "id": "std-etsi-en-300-328",
     "name": "ETSI EN 300 328 (EU 2.4 GHz regulatory)",
-    "aliases": ["en 300 328"],
+    "aliases": [
+      "en 300 328"
+    ],
     "category": "standard",
     "region": "EU",
-    "era_bounds": ["2001", null],
+    "era_bounds": [
+      "2001",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["etsi-en-300-328"],
-    "technical_body": {"role": "Harmonised EU standard for 2.4 GHz WiFi / Bluetooth transmit power"}
+    "citations": [
+      "etsi-en-300-328"
+    ],
+    "technical_body": {
+      "role": "Harmonised EU standard for 2.4 GHz WiFi / Bluetooth transmit power"
+    }
   },
   {
     "id": "std-etsi-en-301-893",
     "name": "ETSI EN 301 893 (EU 5 GHz regulatory)",
-    "aliases": ["en 301 893"],
+    "aliases": [
+      "en 301 893"
+    ],
     "category": "standard",
     "region": "EU",
-    "era_bounds": ["2001", null],
+    "era_bounds": [
+      "2001",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["etsi-en-301-893"],
-    "technical_body": {"role": "Harmonised EU standard for 5 GHz WiFi — DFS + TPC requirements"}
+    "citations": [
+      "etsi-en-301-893"
+    ],
+    "technical_body": {
+      "role": "Harmonised EU standard for 5 GHz WiFi \u2014 DFS + TPC requirements"
+    }
+  },
+  {
+    "id": "std-802-11ah",
+    "name": "802.11ah (HaLow, sub-1 GHz IoT)",
+    "aliases": [
+      "ah",
+      "halow",
+      "wi-fi halow"
+    ],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": [
+      "2017",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "bands_ghz": [
+        0.9
+      ],
+      "channel_widths_mhz": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "max_phy_mbps": 347,
+      "modulation": "OFDM (BPSK\u2013256-QAM)",
+      "features": [
+        "extended range (~1 km)",
+        "narrow channels",
+        "large BSS support (8k stations)",
+        "TIM segmentation"
+      ],
+      "role": "Wi-Fi Alliance 'Wi-Fi HaLow' \u2014 sub-1 GHz industrial IoT / long-range sensors. Uses 902\u2013928 MHz in the US, 863\u2013868 MHz in the EU.",
+      "note": "Runs in the 900 MHz ISM band. Regulatory-mediated (part of FCC Part 15.247) \u2014 different attack surface than main-band 802.11."
+    }
+  },
+  {
+    "id": "std-802-11ad",
+    "name": "802.11ad (60 GHz WiGig)",
+    "aliases": [
+      "ad",
+      "wigig",
+      "dmg"
+    ],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": [
+      "2012",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "bands_ghz": [
+        60
+      ],
+      "max_phy_mbps": 6800,
+      "channel_widths_mhz": [
+        2160
+      ],
+      "modulation": "SC / OFDM at 60 GHz",
+      "features": [
+        "directional beamforming",
+        "short-range (~10 m)",
+        "DMG (Directional Multi-Gigabit)",
+        "Extension frame type (type=3) \u2014 DMG Beacon (subtype 0)"
+      ],
+      "role": "60 GHz millimeter-wave. Docking, VR, in-room streaming. Rare in the field but showing up on some Ultrabooks."
+    }
+  },
+  {
+    "id": "std-802-11ay",
+    "name": "802.11ay (60 GHz next-gen WiGig, EDMG)",
+    "aliases": [
+      "ay",
+      "edmg",
+      "wigig 2"
+    ],
+    "category": "standard",
+    "region": "universal",
+    "era_bounds": [
+      "2021",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "bands_ghz": [
+        60
+      ],
+      "max_phy_mbps": 100000,
+      "channel_widths_mhz": [
+        2160,
+        4320,
+        6480,
+        8640
+      ],
+      "modulation": "SC / OFDM at 60 GHz + MU-MIMO",
+      "features": [
+        "channel bonding up to 8.64 GHz",
+        "MU-MIMO",
+        "up to 100 Gbps aggregate",
+        "EDMG (Enhanced Directional Multi-Gigabit)"
+      ],
+      "role": "60 GHz next-gen. 802.11ad successor."
+    }
   }
 ]
