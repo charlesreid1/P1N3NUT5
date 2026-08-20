@@ -129,17 +129,20 @@ logged with the credentials.
 
 ## Failure modes
 
-- **Client rejects the cert.** Rewrite `raddb/certs/server.pem` with
-  a matching CN. See `enterprise/walkthrough.md` for cert phishing.
-- **freeradius-wpe fails to start with "eap: rlm_eap: No EAP
-  method configured".** The WPE module is disabled. `ln -s` in
-  `mods-enabled/eap_wpe`.
+- **Client rejects the cert.** Rewrite the certs under
+  `/etc/freeradius/3.0/certs/` with a matching CN. See
+  `enterprise/walkthrough.md` for cert phishing.
+- **freeradius fails to start with "eap: rlm_eap: No EAP method
+  configured".** `mods-enabled/eap` is missing or the patched
+  `mods-available/eap` was overwritten by a package upgrade. Confirm
+  the WPE patch is still applied.
 - **Nothing logs even though hostapd shows EAP frames.** Shared
   secret mismatch or firewall dropping 1812/UDP.
 
 ## Cite
 
-- freeradius-wpe community fork (joswr1ght / brad-anton lineage).
+- freeradius-wpe canonical fork: **brad-anton/freeradius-wpe** on
+  GitHub (patch series against FreeRADIUS 3.0.x).
 - freeradius.org upstream docs.
 - Gabriel Ryan — eaphammer talks.
 - Wright — asleap; hacking-exposed-wireless-3e.

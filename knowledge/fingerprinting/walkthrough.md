@@ -131,6 +131,69 @@ Two probes with:
 - **Vendor-IE spoofed.** Sophisticated targets randomize per session.
   Rare in the wild.
 
+## Path H — Script fingerprints into records/*.json
+
+Once you have a stable per-STA fingerprint bag, script it into a
+`records/`-shaped snippet for future reuse. This template pipes
+tshark → jq → JSON that plugs into `records/client_fingerprints.json`
+or a scratch file for cross-target correlation:
+
+```bash
+STA=11:22:33:44:55:66
+tshark -r probes.pcapng \
+  -Y "wlan.fc.type_subtype == 4 and wlan.sa == $STA" \
+  -T fields \
+    -e wlan.sa \
+    -e wlan.ssid \
+    -e wlan.tag.number \
+    -e wlan.extcap \
+    -e wlan.tag.oui \
+    -e frame.time_relative \
+    -e wlan.seq \
+  -E separator=';' -E occurrence=a \
+  | jq -Rn --arg sta "$STA" '
+      [inputs | split(";")]
+      | { id: ("fp-" + $sta | ascii_downcase | gsub(":"; "-")),
+          sta: $sta,
+          probed_ssids: [.[][1] | select(. != "")] | unique,
+          ie_order:      [.[] | .[2] | split(",")] | flatten | unique,
+          ext_caps:      [.[] | .[3]] | unique | map(select(. != "")),
+          vendor_ouis:   [.[] | .[4] | split(",")] | flatten | unique,
+          samples: length,
+          duration_s:    ([.[] | .[5] | tonumber] | (max - min)) }
+  '
+```
+
+For AP-side fingerprinting (`knowledge/ap-fingerprinting/`), swap the
+filter to `wlan.fc.type_subtype == 8` (beacon) and pull the RSN, WPS,
+and Vendor-Specific IEs.
+
+## Path I — Beacon-order / probe-response timing (Kismet)
+
+Kismet ships two beacon-order detectors:
+
+- **`fp_fingerprint`** — computes a hash over the IE order + tag
+  lengths of every beacon per BSSID. A rogue that swaps in when the
+  legit AP is silenced usually has a different IE order (different
+  hostapd build, different chipset) → different hash → Kismet
+  fingerprint alert.
+- **`fingerprint_apspoof`** — matches beacons against a curated list
+  of "known good" BSSID+SSID+fingerprint tuples. Any deviation from
+  a preloaded entry fires. Fetch/curate the list at
+  `~/.kismet/apspoof.list`.
+
+Both alerts show up in the Kismet UI under the "Alerts" tab and in
+the SQLite `alerts` table:
+
+```sql
+sqlite3 kismet.kismetdb "SELECT ts_sec, header, text FROM alerts \
+  WHERE header IN ('APSPOOF', 'AP_FP') ORDER BY ts_sec DESC LIMIT 20;"
+```
+
+Cross-reference with the `devices.strongest_signal` values on the
+matching BSSID pair — a rogue often shows a higher RSSI than the
+legit AP from the operator's vantage.
+
 ## Cite
 
 - SensePost 2014 — probe request analysis (MANA writeup).

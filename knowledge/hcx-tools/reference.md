@@ -97,6 +97,61 @@ WPA*<type>*<PMKID/MIC>*<AP_MAC>*<STA_MAC>*<ESSID hex>*<ANonce>*<EAPOL frame>*<MC
 - `type=01` — PMKID (only M1 needed)
 - `type=02` — EAPOL 4-way (M2 present)
 
+## Entering monitor mode — the two canonical paths
+
+Every capture in the corpus assumes a monitor iface. Two ways to get
+one. Do the `airmon-ng check kill` (or explicit `systemctl stop`)
+step first either way — the userland stack fights monitor mode.
+
+```
+# Path A — airmon-ng (renames interface, kills interfering processes)
+sudo airmon-ng check kill
+sudo airmon-ng start wlan1
+# Now wlan1mon exists.
+
+# Path B — plain iw (keeps original name, no interference kill)
+sudo systemctl stop NetworkManager wpa_supplicant iwd
+sudo ip link set wlan1 down
+sudo iw dev wlan1 set monitor none
+sudo ip link set wlan1 up
+# wlan1 is now monitor. Set channel:
+sudo iw dev wlan1 set channel 6
+```
+
+Path A renames the iface (`wlan1` → `wlan1mon`) and does the
+process-kill for you; scripts and tooling that hard-code `wlan1mon`
+prefer it. Path B keeps the original name (matters for `hostapd`
+configs that reference `wlan1` verbatim) and is faster to script,
+but you must stop the daemons yourself.
+
+## Canonical channel lists
+
+Handy when passing `-c` to `airodump-ng`, `--channel_list=` to
+`hcxdumptool`, or picking a `channel=` for hostapd:
+
+```
+# 2.4 GHz all
+1,2,3,4,5,6,7,8,9,10,11        # US
+1,2,3,4,5,6,7,8,9,10,11,12,13  # EU / most-of-world
+# US only allows 12/13 for STA/passive scan, not AP TX
+
+# 5 GHz UNII-1 (no DFS, always safe)
+36,40,44,48
+
+# 5 GHz UNII-3 (no DFS, higher power OK)
+149,153,157,161,165
+
+# 6 GHz PSCs (only every 4th channel — the 15 canonical scan chans)
+5,21,37,53,69,85,101,117,133,149,165,181,197,213,229
+
+# Combined 2.4 + UNII-1 capture list
+1,6,11,36,40,44,48
+```
+
+DFS band (52-144) is intentionally omitted — the 60 s CAC dwell
+makes it useless for rogue APs and ambient enough for capture that
+you'd normally hop it separately.
+
 ## Cite
 
 - ZerBea hcxdumptool GitHub.

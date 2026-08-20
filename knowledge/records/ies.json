@@ -39,7 +39,7 @@
           "name": "SSID",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "0–32 bytes; length 0 = hidden SSID beacon; not NUL-terminated"
+          "notes": "0\u201332 bytes; length 0 = hidden SSID beacon; not NUL-terminated"
         }
       ]
     }
@@ -97,7 +97,7 @@
         "DTIM period",
         "bitmap of AID with pending traffic"
       ],
-      "attack_surface": "Framing Frames (Vanhoef 2023) — power-save queue poisoning.",
+      "attack_surface": "Framing Frames (Vanhoef 2023) \u2014 power-save queue poisoning.",
       "layout": [
         {
           "name": "DTIM Count",
@@ -115,13 +115,13 @@
           "name": "Bitmap Control",
           "offset_bytes": 2,
           "length_bytes": 1,
-          "notes": "bit 0 = broadcast traffic pending; bits 1–7 = bitmap offset"
+          "notes": "bit 0 = broadcast traffic pending; bits 1\u20137 = bitmap offset"
         },
         {
           "name": "Partial Virtual Bitmap",
           "offset_bytes": 3,
           "length_bytes": null,
-          "notes": "1–251 bytes; each bit = AID with buffered traffic"
+          "notes": "1\u2013251 bytes; each bit = AID with buffered traffic"
         }
       ]
     }
@@ -201,7 +201,9 @@
         "10": "CCMP-256",
         "11": "BIP-GMAC-128 (group mgmt)",
         "12": "BIP-GMAC-256 (group mgmt)",
-        "13": "BIP-CMAC-256 (group mgmt)"
+        "13": "BIP-CMAC-256 (group mgmt)",
+        "3": "Reserved (was WRAP in 802.11i draft; unused in 802.11-2020)",
+        "7": "Group addressed traffic not allowed (pseudo \u2014 pairwise cipher only)"
       },
       "akm_suites": {
         "1": "802.1X (Enterprise, PMKSA cache)",
@@ -225,7 +227,10 @@
         "19": "FT-PSK-SHA384",
         "20": "PSK-SHA384",
         "24": "SAE-EXT-KEY (GCMP-256/SHA-384 extended-key derivation)",
-        "25": "FT-SAE-EXT-KEY"
+        "25": "FT-SAE-EXT-KEY",
+        "21": "PASN (Pre-Association Security Negotiation, 802.11az/2022 pre-association ranging)",
+        "22": "Reserved (unused in 802.11-2020; slot for future assignment)",
+        "23": "Reserved (unused in 802.11-2020; slot for future assignment)"
       },
       "wctf_uses": [
         "beacon-RSN inspection is the first-60-seconds triage",
@@ -255,7 +260,7 @@
           "name": "Pairwise Cipher Suite List",
           "offset_bytes": 8,
           "length_bytes": null,
-          "notes": "N × 4 bytes (OUI + Suite Type)"
+          "notes": "N \u00d7 4 bytes (OUI + Suite Type)"
         },
         {
           "name": "AKM Suite Count",
@@ -267,13 +272,13 @@
           "name": "AKM Suite List",
           "offset_bytes": null,
           "length_bytes": null,
-          "notes": "N × 4 bytes (OUI + Suite Type). Per IEEE 802.11-2020 Table 9-151: 1=802.1X 2=PSK 3=FT-802.1X 4=FT-PSK 5=802.1X-SHA256 6=PSK-SHA256 7=TDLS 8=SAE 9=FT-SAE 11=Suite-B-128 (SHA-256) 12=Suite-B-192 (SHA-384) 13=FT-802.1X-SHA384 14=FILS-SHA256 15=FILS-SHA384 16=FT-FILS-SHA256 17=FT-FILS-SHA384 18=OWE 19=FT-PSK-SHA384 20=PSK-SHA384 24=SAE-EXT-KEY 25=FT-SAE-EXT-KEY. NOTE: hex byte in the wire suite selector = decimal AKM. AKM 18 = 0x12 (OWE), AKM 24 = 0x18 (SAE-EXT-KEY) — a common source of confusion."
+          "notes": "N \u00d7 4 bytes (OUI + Suite Type). Per IEEE 802.11-2020 Table 9-151: 1=802.1X 2=PSK 3=FT-802.1X 4=FT-PSK 5=802.1X-SHA256 6=PSK-SHA256 7=TDLS 8=SAE 9=FT-SAE 11=Suite-B-128 (SHA-256) 12=Suite-B-192 (SHA-384) 13=FT-802.1X-SHA384 14=FILS-SHA256 15=FILS-SHA384 16=FT-FILS-SHA256 17=FT-FILS-SHA384 18=OWE 19=FT-PSK-SHA384 20=PSK-SHA384 24=SAE-EXT-KEY 25=FT-SAE-EXT-KEY. NOTE: hex byte in the wire suite selector = decimal AKM. AKM 18 = 0x12 (OWE), AKM 24 = 0x18 (SAE-EXT-KEY) \u2014 a common source of confusion."
         },
         {
           "name": "RSN Capabilities",
           "offset_bytes": null,
           "length_bytes": 2,
-          "notes": "MFPR = bit 6, MFPC = bit 7 (per 802.11-2020 §9.4.2.24.4); PeerKey / SPP-A-MSDU / …"
+          "notes": "MFPR = bit 6, MFPC = bit 7 (per 802.11-2020 \u00a79.4.2.24.4); PeerKey / SPP-A-MSDU / \u2026"
         },
         {
           "name": "PMKID Count",
@@ -285,13 +290,13 @@
           "name": "PMKID List",
           "offset_bytes": null,
           "length_bytes": null,
-          "notes": "N × 16 bytes; M1 with a PMKID here is the Steube-2018 crack path"
+          "notes": "N \u00d7 16 bytes; M1 with a PMKID here is the Steube-2018 crack path"
         },
         {
           "name": "Group Management Cipher Suite",
           "offset_bytes": null,
           "length_bytes": 4,
-          "notes": "PMF group cipher — BIP-CMAC-128 by default"
+          "notes": "PMF group cipher \u2014 BIP-CMAC-128 by default"
         }
       ]
     }
@@ -330,7 +335,7 @@
           "name": "Supported MCS Set",
           "offset_bytes": 3,
           "length_bytes": 16,
-          "notes": "16-byte bitmap of supported MCS indices — strong device fingerprint"
+          "notes": "16-byte bitmap of supported MCS indices \u2014 strong device fingerprint"
         },
         {
           "name": "HT Extended Capabilities",
@@ -427,7 +432,7 @@
           "name": "Supported HE-MCS and NSS Set",
           "offset_bytes": 18,
           "length_bytes": null,
-          "notes": "variable — 4/8/12 bytes based on max NSS + BW combinations"
+          "notes": "variable \u2014 4/8/12 bytes based on max NSS + BW combinations"
         }
       ]
     }
@@ -558,7 +563,7 @@
       "element_id": 221,
       "format": "OUI (3 bytes) + OUI type + vendor-defined body",
       "notable_ouis": {
-        "00-50-F2:01": "Microsoft WPA (legacy WPA1 IE — TKIP)",
+        "00-50-F2:01": "Microsoft WPA (legacy WPA1 IE \u2014 TKIP)",
         "00-50-F2:04": "WPS",
         "00-90-4C": "legacy Epigram / early Broadcom-b silicon (Broadcom acquired Epigram in 2000); modern Broadcom CPEs use 00-10-18, 00-1E-D3",
         "00-40-96": "Cisco Aironet (legacy); modern Cisco APs use 00-23-04, 00-0C-85, 00-1B-D4, and more"
@@ -671,13 +676,13 @@
           "name": "Venue Info",
           "offset_bytes": 1,
           "length_bytes": 2,
-          "notes": "Group + Type — optional; present when Venue subfield bit set"
+          "notes": "Group + Type \u2014 optional; present when Venue subfield bit set"
         },
         {
           "name": "HESSID",
           "offset_bytes": 3,
           "length_bytes": 6,
-          "notes": "Homogeneous ESSID — optional MAC-formatted identifier"
+          "notes": "Homogeneous ESSID \u2014 optional MAC-formatted identifier"
         }
       ]
     },
@@ -722,7 +727,7 @@
           "name": "OI 1",
           "offset_bytes": 2,
           "length_bytes": null,
-          "notes": "3-15 bytes — the Roaming Consortium OI to auto-associate"
+          "notes": "3-15 bytes \u2014 the Roaming Consortium OI to auto-associate"
         },
         {
           "name": "OI 2 (optional)",
@@ -761,7 +766,7 @@
       "spec": "802.11ax",
       "contents": "Neighbor AP information across bands (BSSID, operating class, channel)",
       "wctf_uses": [
-        "6 GHz APs advertise themselves via RNR in 2.4/5 GHz beacons — enumerate 6 GHz targets from a card that can't tune 6 GHz"
+        "6 GHz APs advertise themselves via RNR in 2.4/5 GHz beacons \u2014 enumerate 6 GHz targets from a card that can't tune 6 GHz"
       ],
       "layout": [
         {
@@ -786,7 +791,7 @@
           "name": "Channel Number",
           "offset_bytes": 3,
           "length_bytes": 1,
-          "notes": "the 6 GHz channel — enumerable without a 6 GHz radio"
+          "notes": "the 6 GHz channel \u2014 enumerable without a 6 GHz radio"
         },
         {
           "name": "TBTT Information Set",
@@ -914,14 +919,14 @@
         "reassoc-response"
       ],
       "wctf_uses": [
-        "fingerprint — real APs typically advertise every rate 1..54 Mbps; rogues sometimes omit low rates"
+        "fingerprint \u2014 real APs typically advertise every rate 1..54 Mbps; rogues sometimes omit low rates"
       ],
       "layout": [
         {
           "name": "Supported Rates",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "1–8 bytes; each byte = rate in 500 kbps units; high bit = 'basic rate'"
+          "notes": "1\u20138 bytes; each byte = rate in 500 kbps units; high bit = 'basic rate'"
         }
       ]
     }
@@ -942,13 +947,13 @@
     ],
     "technical_body": {
       "element_id": 2,
-      "note": "802.11 FHSS PHY — essentially extinct.",
+      "note": "802.11 FHSS PHY \u2014 essentially extinct.",
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -969,13 +974,13 @@
     ],
     "technical_body": {
       "element_id": 4,
-      "note": "Contention-Free (PCF) periods — legacy; rarely seen.",
+      "note": "Contention-Free (PCF) periods \u2014 legacy; rarely seen.",
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -996,13 +1001,13 @@
     ],
     "technical_body": {
       "element_id": 6,
-      "contents": "ATIM Window (2 bytes) — ad-hoc mode only",
+      "contents": "ATIM Window (2 bytes) \u2014 ad-hoc mode only",
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1029,7 +1034,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1056,7 +1061,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1086,7 +1091,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1113,14 +1118,14 @@
         "Available Admission Capacity (2 bytes)"
       ],
       "wctf_uses": [
-        "airtime-load fingerprinting — a suspiciously idle 'popular' AP is a rogue"
+        "airtime-load fingerprinting \u2014 a suspiciously idle 'popular' AP is a rogue"
       ],
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1151,7 +1156,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1178,7 +1183,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1205,7 +1210,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1235,7 +1240,7 @@
         "Channel Switch Count (1B)"
       ],
       "attack_surface": [
-        "spoofed CSA drags a client to a rogue channel — mitigated on modern clients via CSA protection but still real on legacy stacks"
+        "spoofed CSA drags a client to a rogue channel \u2014 mitigated on modern clients via CSA protection but still real on legacy stacks"
       ],
       "layout": [
         {
@@ -1281,7 +1286,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1308,7 +1313,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1335,7 +1340,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1361,7 +1366,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1394,7 +1399,7 @@
         "beacon",
         "probe-response"
       ],
-      "note": "802.11g mixed-mode signal — a fingerprint hint (real APs in mixed environments toggle Use_Protection).",
+      "note": "802.11g mixed-mode signal \u2014 a fingerprint hint (real APs in mixed environments toggle Use_Protection).",
       "layout": [
         {
           "name": "ERP Information",
@@ -1426,7 +1431,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1453,7 +1458,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1476,14 +1481,14 @@
       "element_id": 50,
       "contents": "up to 255 rates when Supported Rates (IE 1) overflows",
       "wctf_uses": [
-        "client fingerprint — the union of rates 1..54 Mbps splits IE 1 + IE 50 the same way per driver family"
+        "client fingerprint \u2014 the union of rates 1..54 Mbps splits IE 1 + IE 50 the same way per driver family"
       ],
       "layout": [
         {
           "name": "Extended Supported Rates",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "1..255 bytes; format identical to IE 1 — used when IE 1 overflows 8 rates"
+          "notes": "1..255 bytes; format identical to IE 1 \u2014 used when IE 1 overflows 8 rates"
         }
       ]
     }
@@ -1510,7 +1515,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1608,7 +1613,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1703,7 +1708,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1730,7 +1735,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1756,7 +1761,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1783,7 +1788,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1810,7 +1815,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1837,7 +1842,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1864,14 +1869,14 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
   },
   {
     "id": "ie-mobility-domain-parameters",
-    "name": "Mobility Domain Parameters — extended attributes",
+    "name": "Mobility Domain Parameters \u2014 extended attributes",
     "category": "information_element",
     "region": "universal",
     "era_bounds": [
@@ -1894,7 +1899,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1921,7 +1926,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1947,7 +1952,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -1974,7 +1979,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2003,7 +2008,7 @@
     "technical_body": {
       "element_id": 76,
       "spec": "802.11w",
-      "role": "MIC over broadcast/multicast robust management frames — BIP-CMAC-128 by default",
+      "role": "MIC over broadcast/multicast robust management frames \u2014 BIP-CMAC-128 by default",
       "layout": [
         {
           "name": "Key ID",
@@ -2048,7 +2053,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2075,7 +2080,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2106,7 +2111,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2133,7 +2138,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2160,7 +2165,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2180,13 +2185,13 @@
       "ieee-802-11-2020"
     ],
     "technical_body": {
-      "note": "Tunneled Direct-Link Setup family — carriers a family of IEs 118+",
+      "note": "Tunneled Direct-Link Setup family \u2014 carriers a family of IEs 118+",
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2213,7 +2218,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2240,7 +2245,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2267,7 +2272,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2294,7 +2299,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2327,7 +2332,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2441,7 +2446,7 @@
           "name": "TWT Parameters",
           "offset_bytes": 2,
           "length_bytes": null,
-          "notes": "Target Wake Time (8 B), Nominal Minimum TWT Wake Duration (1 B), TWT Wake Interval Mantissa (2 B), TWT Wake Interval Exponent (5 bits) — encoded per §9.4.2.199"
+          "notes": "Target Wake Time (8 B), Nominal Minimum TWT Wake Duration (1 B), TWT Wake Interval Mantissa (2 B), TWT Wake Interval Exponent (5 bits) \u2014 encoded per \u00a79.4.2.199"
         }
       ]
     }
@@ -2469,7 +2474,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2499,20 +2504,20 @@
       "element_id": 255,
       "element_id_ext": 107,
       "spec": "802.11be",
-      "note": "Alternate name for the ML element — the fine-grained per-link fields inside MLD.",
+      "note": "Alternate name for the ML element \u2014 the fine-grained per-link fields inside MLD.",
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
   },
   {
     "id": "ie-probe-response-mesh",
-    "name": "Probe Response — Mesh subset",
+    "name": "Probe Response \u2014 Mesh subset",
     "category": "information_element",
     "region": "universal",
     "era_bounds": [
@@ -2531,7 +2536,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2558,7 +2563,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2585,7 +2590,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2651,7 +2656,7 @@
     "technical_body": {
       "element_id": 255,
       "element_id_ext": 54,
-      "note": "Introduced as a partial KRACK mitigation — binds the negotiated channel into the 4-way handshake.",
+      "note": "Introduced as a partial KRACK mitigation \u2014 binds the negotiated channel into the 4-way handshake.",
       "layout": [
         {
           "name": "Element ID Extension",
@@ -2699,13 +2704,13 @@
     ],
     "technical_body": {
       "role": "Wi-Fi Alliance-defined KDE delivered in M3; instructs the client to disable WPA2 fallback for this network from now on",
-      "note": "Only clients that honor the KDE benefit — many do not, which keeps transition-downgrade viable in 2026.",
+      "note": "Only clients that honor the KDE benefit \u2014 many do not, which keeps transition-downgrade viable in 2026.",
       "layout": [
         {
           "name": "KDE Type",
           "offset_bytes": 0,
           "length_bytes": 4,
-          "notes": "WFA-defined OUI 50:6F:9A + Data Type 0x20 (Transition Disable) — delivered in EAPOL-Key M3 Key Data"
+          "notes": "WFA-defined OUI 50:6F:9A + Data Type 0x20 (Transition Disable) \u2014 delivered in EAPOL-Key M3 Key Data"
         },
         {
           "name": "Transition Disable Bitmap",
@@ -2731,7 +2736,7 @@
       "ieee-802-11-2020"
     ],
     "technical_body": {
-      "note": "Sub-field inside IE 45; 16-byte bitmap of supported MCS indices — a strong device fingerprint.",
+      "note": "Sub-field inside IE 45; 16-byte bitmap of supported MCS indices \u2014 a strong device fingerprint.",
       "layout": [
         {
           "name": "Supported MCS Set",
@@ -2768,7 +2773,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2795,7 +2800,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2816,13 +2821,13 @@
     ],
     "technical_body": {
       "element_id": 16,
-      "note": "Shared Key authentication challenge — WEP-era only.",
+      "note": "Shared Key authentication challenge \u2014 WEP-era only.",
       "layout": [
         {
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2884,7 +2889,7 @@
           "name": "opaque",
           "offset_bytes": 0,
           "length_bytes": null,
-          "notes": "see IEEE 802.11-2020 §9.4"
+          "notes": "see IEEE 802.11-2020 \u00a79.4"
         }
       ]
     }
@@ -2913,7 +2918,7 @@
     ],
     "technical_body": {
       "anqp_element_id": 268,
-      "spec": "802.11u §9.4.5.10",
+      "spec": "802.11u \u00a79.4.5.10",
       "layout": [
         {
           "name": "NAI Realm Count",
@@ -2953,7 +2958,7 @@
     ],
     "technical_body": {
       "anqp_element_id": 264,
-      "spec": "802.11u §9.4.5.6",
+      "spec": "802.11u \u00a79.4.5.6",
       "layout": [
         {
           "name": "OI Duples",
@@ -2986,7 +2991,7 @@
     ],
     "technical_body": {
       "anqp_element_id": 262,
-      "spec": "802.11u §9.4.5.4",
+      "spec": "802.11u \u00a79.4.5.4",
       "layout": [
         {
           "name": "Venue Group",
@@ -3031,7 +3036,7 @@
     ],
     "technical_body": {
       "anqp_element_id": 267,
-      "spec": "802.11u §9.4.5.9",
+      "spec": "802.11u \u00a79.4.5.9",
       "layout": [
         {
           "name": "GUD Version",
@@ -3053,7 +3058,7 @@
         }
       ],
       "wctf_uses": [
-        "carrier Wi-Fi offload — the PLMN list leaks which cellular networks the AP will accept"
+        "carrier Wi-Fi offload \u2014 the PLMN list leaks which cellular networks the AP will accept"
       ]
     }
   },
@@ -3076,7 +3081,7 @@
     ],
     "technical_body": {
       "anqp_element_id": 271,
-      "spec": "802.11u §9.4.5.13",
+      "spec": "802.11u \u00a79.4.5.13",
       "layout": [
         {
           "name": "Domain Name Duples",
@@ -3086,7 +3091,7 @@
         }
       ],
       "wctf_uses": [
-        "operator/venue domain revealed pre-association — useful for phishing-page brand match"
+        "operator/venue domain revealed pre-association \u2014 useful for phishing-page brand match"
       ]
     }
   },
@@ -3110,7 +3115,7 @@
     ],
     "technical_body": {
       "anqp_vendor_specific": true,
-      "spec": "Hotspot 2.0 OSU Providers List — vendor-specific ANQP-VS OUI 50:6F:9A subtype 0x0B",
+      "spec": "Hotspot 2.0 OSU Providers List \u2014 vendor-specific ANQP-VS OUI 50:6F:9A subtype 0x0B",
       "layout": [
         {
           "name": "OSU SSID",

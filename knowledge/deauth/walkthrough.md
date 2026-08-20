@@ -4,6 +4,24 @@ Three flavors. Broadcast is loud and blocked by PMF; targeted is quiet
 and works against non-PMF clients on a PMF-required AP (transition
 mode); crafted-scapy is the fallback when the tool ergonomics fight you.
 
+## Kill the userland network stack first
+
+Every path below drives a monitor-mode interface. Stop
+NetworkManager / wpa_supplicant / iwd before you touch the radio,
+otherwise the daemons keep retuning the interface out from under you
+and injected frames vanish:
+
+```
+# 1. Stop NetworkManager / wpa_supplicant / iwd before entering monitor mode.
+sudo airmon-ng check kill
+# or explicitly:
+sudo systemctl stop NetworkManager wpa_supplicant iwd
+```
+
+Re-run after any `nmcli` / `iwctl` / GUI toggle puts them back on
+the radio. This preamble is canonical — the pcap and hcx-tools
+walkthroughs link back here rather than repeat it.
+
 ## Path A — Broadcast (works on legacy / unprotected)
 
 ```

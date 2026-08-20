@@ -1,7 +1,7 @@
 [
   {
     "id": "pep-status",
-    "name": "pineapple_status — device reachable / firmware / uptime / radios",
+    "name": "pineapple_status \u2014 device reachable / firmware / uptime / radios",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -35,7 +35,7 @@
   },
   {
     "id": "pep-list-aps",
-    "name": "list_aps — enumerate APs from recon DB",
+    "name": "list_aps \u2014 enumerate APs from recon DB",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -72,7 +72,7 @@
   },
   {
     "id": "pep-recon-start",
-    "name": "recon_start — begin a scan",
+    "name": "recon_start \u2014 begin a scan",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -100,7 +100,7 @@
   },
   {
     "id": "pep-pineap-config",
-    "name": "pineap_config — SSID pool + karma toggles",
+    "name": "pineap_config \u2014 SSID pool + karma toggles",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -132,7 +132,7 @@
   },
   {
     "id": "pep-filter-ssid",
-    "name": "filter_ssid_set — allow/deny SSID list",
+    "name": "filter_ssid_set \u2014 allow/deny SSID list",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -160,7 +160,7 @@
   },
   {
     "id": "pep-deauth",
-    "name": "deauth — send deauthentication frames",
+    "name": "deauth \u2014 send deauthentication frames",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -194,7 +194,7 @@
   },
   {
     "id": "pep-capture-handshake",
-    "name": "capture_handshake — 4-way capture with optional targeted deauth",
+    "name": "capture_handshake \u2014 4-way capture with optional targeted deauth",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -226,7 +226,7 @@
   },
   {
     "id": "pep-capture-pmkid",
-    "name": "capture_pmkid — hcxdumptool PMKID capture",
+    "name": "capture_pmkid \u2014 hcxdumptool PMKID capture",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -251,14 +251,14 @@
       "cmd": "hcxdumptool -i <iface> -w <out.pcapng> --enable_status=3 [--bpf=<compiled_bpf>]",
       "requires_root": true,
       "requires_monitor": false,
-      "notes": "hcxdumptool 7.3 CLI: -w (not -o); --bpf=<compiled_bpf> replaces --filterlist_ap/--filtermode. hcxdumptool manages monitor mode itself; do not pre-set with airmon-ng. Active deauth was removed in 6.x — pair with mdk4/aireplay-ng if a reassoc is needed."
+      "notes": "hcxdumptool 7.3 CLI: -w (not -o); --bpf=<compiled_bpf> replaces --filterlist_ap/--filtermode. hcxdumptool manages monitor mode itself; do not pre-set with airmon-ng. Active deauth was removed in 6.x \u2014 pair with mdk4/aireplay-ng if a reassoc is needed."
     },
     "firmware_min": "3.0.0",
     "firmware_max": null
   },
   {
     "id": "pep-create-rogue-ap",
-    "name": "create_rogue_ap — spin up an hostapd rogue AP",
+    "name": "create_rogue_ap \u2014 spin up an hostapd rogue AP",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -290,7 +290,7 @@
   },
   {
     "id": "pep-recon-stop",
-    "name": "recon_stop — halt an ongoing scan",
+    "name": "recon_stop \u2014 halt an ongoing scan",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -317,7 +317,7 @@
   },
   {
     "id": "pep-recon-status",
-    "name": "recon_status — is recon running, on what channels",
+    "name": "recon_status \u2014 is recon running, on what channels",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -344,7 +344,7 @@
   },
   {
     "id": "pep-list-clients",
-    "name": "list_clients — enumerate clients seen in recon",
+    "name": "list_clients \u2014 enumerate clients seen in recon",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -372,7 +372,7 @@
   },
   {
     "id": "pep-list-probe-requests",
-    "name": "list_probe_requests — client probe history",
+    "name": "list_probe_requests \u2014 client probe history",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -400,7 +400,7 @@
   },
   {
     "id": "pep-list-associations",
-    "name": "list_associations — associate/disassociate events",
+    "name": "list_associations \u2014 associate/disassociate events",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -427,7 +427,7 @@
   },
   {
     "id": "pep-client-history",
-    "name": "client_history — client trajectory + preferred networks",
+    "name": "client_history \u2014 client trajectory + preferred networks",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -454,7 +454,7 @@
   },
   {
     "id": "pep-get-ap-details",
-    "name": "get_ap_details — full IE dump for a BSSID",
+    "name": "get_ap_details \u2014 full IE dump for a BSSID",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -481,7 +481,7 @@
   },
   {
     "id": "pep-recon-download",
-    "name": "recon_download — pull recon DB as a file",
+    "name": "recon_download \u2014 pull recon DB as a file",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -513,7 +513,7 @@
   },
   {
     "id": "pep-list-interfaces",
-    "name": "list_interfaces — wlanX name / MAC / mode / band",
+    "name": "list_interfaces \u2014 wlanX name / MAC / mode / band",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -540,7 +540,7 @@
   },
   {
     "id": "pep-pineap-status",
-    "name": "pineap_status — is PineAP running",
+    "name": "pineap_status \u2014 is PineAP running",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -567,7 +567,7 @@
   },
   {
     "id": "pep-pineap-start",
-    "name": "pineap_start — start PineAP",
+    "name": "pineap_start \u2014 start PineAP",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -595,7 +595,7 @@
   },
   {
     "id": "pep-pineap-stop",
-    "name": "pineap_stop — stop PineAP",
+    "name": "pineap_stop \u2014 stop PineAP",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -622,7 +622,7 @@
   },
   {
     "id": "pep-pineap-beacon-add",
-    "name": "pineap_beacon_add — add SSIDs to broadcast pool",
+    "name": "pineap_beacon_add \u2014 add SSIDs to broadcast pool",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -653,7 +653,7 @@
   },
   {
     "id": "pep-pineap-beacon-remove",
-    "name": "pineap_beacon_remove — remove SSIDs from broadcast pool",
+    "name": "pineap_beacon_remove \u2014 remove SSIDs from broadcast pool",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -680,7 +680,7 @@
   },
   {
     "id": "pep-pineap-beacon-pool-list",
-    "name": "pineap_beacon_pool_list — current SSID pool",
+    "name": "pineap_beacon_pool_list \u2014 current SSID pool",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -707,7 +707,7 @@
   },
   {
     "id": "pep-filter-client",
-    "name": "filter_client_set — allow/deny client MAC list",
+    "name": "filter_client_set \u2014 allow/deny client MAC list",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -735,7 +735,7 @@
   },
   {
     "id": "pep-list-rogue-aps",
-    "name": "list_rogue_aps — every rogue AP this MCP instance is running",
+    "name": "list_rogue_aps \u2014 every rogue AP this MCP instance is running",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -761,7 +761,7 @@
   },
   {
     "id": "pep-stop-rogue-ap",
-    "name": "stop_rogue_ap — tear down a rogue by handle",
+    "name": "stop_rogue_ap \u2014 tear down a rogue by handle",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -787,7 +787,7 @@
   },
   {
     "id": "pep-evil-twin",
-    "name": "evil_twin — clone SSID+BSSID+channel of a target AP",
+    "name": "evil_twin \u2014 clone SSID+BSSID+channel of a target AP",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -817,7 +817,7 @@
   },
   {
     "id": "pep-serve-captive-portal",
-    "name": "serve_captive_portal — bring up DHCP/DNS/HTTP portal",
+    "name": "serve_captive_portal \u2014 bring up DHCP/DNS/HTTP portal",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -847,7 +847,7 @@
   },
   {
     "id": "pep-rogue-radius",
-    "name": "rogue_radius — spin up a rogue RADIUS for EAP capture",
+    "name": "rogue_radius \u2014 spin up a rogue RADIUS for EAP capture",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -879,7 +879,7 @@
   },
   {
     "id": "pep-beacon-flood",
-    "name": "beacon_flood — mdk4 mode b",
+    "name": "beacon_flood \u2014 mdk4 mode b",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -910,7 +910,7 @@
   },
   {
     "id": "pep-probe-flood",
-    "name": "probe_flood — mdk4 mode p",
+    "name": "probe_flood \u2014 mdk4 mode p",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -941,7 +941,7 @@
   },
   {
     "id": "pep-packet-inject",
-    "name": "packet_inject — raw frame injection (hex or pcap)",
+    "name": "packet_inject \u2014 raw frame injection (hex or pcap)",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -972,7 +972,7 @@
   },
   {
     "id": "pep-channel-hop-start",
-    "name": "channel_hop_start — begin hopping on iface",
+    "name": "channel_hop_start \u2014 begin hopping on iface",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -998,7 +998,7 @@
   },
   {
     "id": "pep-channel-hop-stop",
-    "name": "channel_hop_stop — halt hopper",
+    "name": "channel_hop_stop \u2014 halt hopper",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1024,7 +1024,7 @@
   },
   {
     "id": "pep-client-disassoc",
-    "name": "client_disassoc — targeted disassoc (Kr00k trigger)",
+    "name": "client_disassoc \u2014 targeted disassoc (Kr00k trigger)",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1057,7 +1057,7 @@
   },
   {
     "id": "pep-list-modules",
-    "name": "list_modules — installed Pineapple modules",
+    "name": "list_modules \u2014 installed Pineapple modules",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1084,7 +1084,7 @@
   },
   {
     "id": "pep-install-module",
-    "name": "install_module — install a community module",
+    "name": "install_module \u2014 install a community module",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1138,7 +1138,7 @@
   },
   {
     "id": "pep-dashboard",
-    "name": "dashboard — device summary + connection state",
+    "name": "dashboard \u2014 device summary + connection state",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1165,7 +1165,7 @@
   },
   {
     "id": "pep-logs",
-    "name": "logs — tail /tmp/log/*",
+    "name": "logs \u2014 tail /tmp/log/*",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1191,7 +1191,7 @@
   },
   {
     "id": "pep-firmware-version",
-    "name": "firmware_version — running firmware string",
+    "name": "firmware_version \u2014 running firmware string",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1223,7 +1223,7 @@
   },
   {
     "id": "pep-wpa-supplicant-connect",
-    "name": "wpa_supplicant_connect — join a target network as STA (post-crack)",
+    "name": "wpa_supplicant_connect \u2014 join a target network as STA (post-crack)",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1250,7 +1250,7 @@
   },
   {
     "id": "pep-scp-pull",
-    "name": "scp_pull — pull a file (usually a pcap) back to the operator",
+    "name": "scp_pull \u2014 pull a file (usually a pcap) back to the operator",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1276,7 +1276,7 @@
   },
   {
     "id": "pep-scp-push",
-    "name": "scp_push — upload a file to the Pineapple",
+    "name": "scp_push \u2014 upload a file to the Pineapple",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1303,7 +1303,7 @@
   },
   {
     "id": "pep-uci-get",
-    "name": "uci_get — read an OpenWRT UCI value",
+    "name": "uci_get \u2014 read an OpenWRT UCI value",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1329,7 +1329,7 @@
   },
   {
     "id": "pep-uci-set",
-    "name": "uci_set — write an OpenWRT UCI value",
+    "name": "uci_set \u2014 write an OpenWRT UCI value",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1356,7 +1356,7 @@
   },
   {
     "id": "pep-wifi-reload",
-    "name": "wifi_reload — reload wireless config",
+    "name": "wifi_reload \u2014 reload wireless config",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1382,7 +1382,7 @@
   },
   {
     "id": "pep-sweep-teardown",
-    "name": "sweep_teardown — auto-teardown of rogue APs past MAX_ROGUE_MINUTES",
+    "name": "sweep_teardown \u2014 auto-teardown of rogue APs past MAX_ROGUE_MINUTES",
     "category": "pineapple_endpoint",
     "region": "universal",
     "era_bounds": [
@@ -1405,6 +1405,176 @@
     },
     "firmware_min": "3.0.0",
     "firmware_max": null,
-    "notes": "The MAX_ROGUE_MINUTES env-var guardrail — see plan-organize.md."
+    "notes": "The MAX_ROGUE_MINUTES env-var guardrail \u2014 see plan-organize.md."
+  },
+  {
+    "id": "pep-system-reboot",
+    "name": "system_reboot \u2014 reboot the Pineapple",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "system_reboot",
+    "transports": [
+      "api",
+      "ssh"
+    ],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/system/reboot",
+      "body": "{}",
+      "auth_scope": "system.write",
+      "note": "Mark VII firmware 3.x uses POST-JSON RPC style \u2014 this endpoint accepts an empty body and returns immediately before the reboot fires."
+    },
+    "ssh": {
+      "cmd": "reboot",
+      "requires_root": true,
+      "requires_monitor": false,
+      "fallback_for": "API unreachable"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-system-factory-reset",
+    "name": "system_factory_reset \u2014 restore Pineapple to factory defaults",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "system_factory_reset",
+    "transports": [
+      "api",
+      "ssh"
+    ],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/system/factory-reset",
+      "body": "{confirm: true}",
+      "auth_scope": "system.write",
+      "note": "Destructive. Wipes UCI + module state + recon DB. Mark VII 3.x."
+    },
+    "ssh": {
+      "cmd": "firstboot -y && reboot",
+      "requires_root": true,
+      "requires_monitor": false,
+      "fallback_for": "API unreachable"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null,
+    "caveat": "Destructive. Refuses unless session authorization allows destructive ops."
+  },
+  {
+    "id": "pep-recon-scan-results",
+    "name": "recon_scan_results \u2014 retrieve accumulated recon scan results",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "recon_scan_results",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/recon/scan/results",
+      "body": "{scan_id: string?, since_ts: int?}",
+      "auth_scope": "recon.read",
+      "response_shape": "{aps: [...], clients: [...], probes: [...]}",
+      "note": "Mark VII firmware 3.x RPC-style aggregated recon results. Distinct from /api/recon/ap which is the current AP list only."
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-pineap-handshake-list",
+    "name": "pineap_handshake_list \u2014 enumerate captured 4-way handshakes",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "pineap_handshake_list",
+    "transports": [
+      "api"
+    ],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/pineap/handshake/list",
+      "body": "{bssid: string?, ssid: string?}",
+      "auth_scope": "pineap.read",
+      "response_shape": "array of {bssid, ssid, filename, captured_at, has_m1, has_m2, has_pmkid}",
+      "note": "Lists PCAPs the PineAP module recorded that contain 4-way handshake material. Follow with /api/pineap/handshake/download for the pcap."
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
+  },
+  {
+    "id": "pep-logging",
+    "name": "logging \u2014 retrieve / tail Pineapple logs",
+    "category": "pineapple_endpoint",
+    "region": "universal",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "hak5-mk7-docs"
+    ],
+    "capability": "logging",
+    "transports": [
+      "api",
+      "ssh"
+    ],
+    "primary": "api",
+    "api": {
+      "method": "POST",
+      "path": "/api/logging",
+      "body": "{source: 'syslog'|'pineap'|'recon', since_ts: int?, lines: int?}",
+      "auth_scope": "system.read",
+      "response_shape": "{lines: string[]}",
+      "note": "Mark VII 3.x uses POST-JSON with a source selector. GET-only variants exist in older firmware but 3.x expects POST."
+    },
+    "ssh": {
+      "cmd": "logread -e 'pineap|hostapd|wpa'",
+      "requires_root": true,
+      "requires_monitor": false,
+      "fallback_for": "API unreachable"
+    },
+    "firmware_min": "3.0.0",
+    "firmware_max": null
   }
 ]

@@ -16,6 +16,22 @@ CLI reworks renamed or removed most of the flags stale write-ups use.
 - A precompiled BPF filter if you want to scope capture to specific
   BSSIDs (see `reference.md` for the compile command).
 
+## Kill the userland network stack first
+
+Every monitor-mode capture in this doc assumes NetworkManager,
+wpa_supplicant, and iwd are stopped. Otherwise they keep retuning
+the radio out from under you and the capture is silently empty:
+
+```
+# 1. Stop NetworkManager / wpa_supplicant / iwd before entering monitor mode.
+sudo airmon-ng check kill
+# or explicitly:
+sudo systemctl stop NetworkManager wpa_supplicant iwd
+```
+
+Run this once per session. Re-run after any `nmcli`, `iwctl`, or
+GUI network operation puts the daemons back on the radio.
+
 ## Path A — PMKID capture (client-free)
 
 ```
