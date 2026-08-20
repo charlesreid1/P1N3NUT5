@@ -145,10 +145,16 @@ the profile push, extract the cred. See
 ## Cite
 
 - IEEE Std 802.1X-2020.
-- RFC 3748 — EAP.
+- RFC 3748 — Extensible Authentication Protocol (EAP) framework.
+- RFC 4137 — State machine for EAP peer and authenticator.
 - RFC 5216 — EAP-TLS.
 - RFC 5281 — EAP-TTLSv0.
-- RFC 2759 — MSCHAPv2.
+- RFC 2759 — Microsoft PPP CHAP Extensions, Version 2 (MSCHAPv2).
+- RFC 2865 — Remote Authentication Dial-In User Service (RADIUS).
+- RFC 3579 — RADIUS Support For Extensible Authentication Protocol
+  (EAP).
+- RFC 7170 — Tunnel Extensible Authentication Protocol (EAP-TEAP)
+  Version 1.
 - RFC 9190 — EAP-TLS 1.3.
 - Gabriel Ryan — eaphammer talks (DEFCON, BSides).
 - Wright — `asleap` (hacking-exposed-wireless-3e).

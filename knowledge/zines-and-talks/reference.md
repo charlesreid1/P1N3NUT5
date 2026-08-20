@@ -40,6 +40,8 @@ year, the primary artifact, and the bibliography id.
   WPA-Sec archive: wpa-sec.stanev.org/?attacks)
 - **2018 — Vanhoef, Piessens.** *Release the Kraken: New KRACKs in
   the 802.11 Standard.* CCS 2018. Multi-channel MitM (MC-MitM).
+  DOI: 10.1145/3243734.3243807
+  (dl.acm.org/doi/10.1145/3243734.3243807).
   → `vanhoef-mcmitm-2018`
 - **2019 — Vanhoef, Ronen.** *Dragonblood.* IEEE S&P 2020. WPA3-SAE
   side channels. → `vanhoef-dragonblood-2019`
@@ -53,7 +55,8 @@ year, the primary artifact, and the bibliography id.
   `vanhoef-macstealer-2023`
 - **2024 — Héloïse Gollier, Mathy Vanhoef.** *SSID Confusion:
   Making Wi-Fi Clients Connect to the Wrong Network.* CVE-2023-52424,
-  co-disclosed 2024-05-14 at KU Leuven / DistriNet.
+  co-disclosed 2024-05-14 at KU Leuven / DistriNet (Top10VPN
+  co-disclosure: top10vpn.com/research/wifi-vulnerability-ssid/).
   → `vanhoef-yseboodt-ssid-2024`
 
 ## Wi-Fi 7 / MLO research (2023+)

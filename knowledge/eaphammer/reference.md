@@ -67,6 +67,15 @@ Everything lands in `~/.eaphammer/loot/`:
 ## Cite
 
 - s0lst1c3 eaphammer GitHub.
+- RFC 3748 — EAP framework.
+- RFC 4137 — EAP peer/authenticator state machine.
+- RFC 5216 — EAP-TLS.
+- RFC 5281 — EAP-TTLSv0.
+- RFC 2759 — MSCHAPv2.
+- RFC 2865 — RADIUS.
+- RFC 3579 — RADIUS support for EAP.
+- RFC 7170 — EAP-TEAP.
+- RFC 9190 — EAP-TLS 1.3.
 - attacks.json: `rogue-radius-eaphammer`,
   `eap-inner-downgrade-peap-mschapv2`,
   `eap-inner-downgrade-peap-gtc`,

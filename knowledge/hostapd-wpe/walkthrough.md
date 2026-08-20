@@ -170,6 +170,9 @@ asleap -C <challenge_hex> -R <response_hex> -W /path/to/wordlist.txt
 - hostapd-wpe GitHub (OpenSecurityResearch / brad-anton).
 - Gabriel Ryan — eaphammer talks discuss both.
 - Wright — asleap; hacking-exposed-wireless-3e.
+- RFC 2865 — RADIUS (the protocol hostapd-wpe's mini-RADIUS speaks).
+- RFC 2759 — MSCHAPv2 (the inner-EAP method whose ChallengeHash /
+  NTResponse fields hostapd-wpe logs).
 - attacks.json: `rogue-radius-hostapd-wpe`,
   `mschapv2-challenge-response-capture`,
   `hashcat-5500-mschapv2-crack`.

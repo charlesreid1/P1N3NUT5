@@ -1,5 +1,7 @@
 # Rogue-RADIUS EAP flag
 
+**Verified against:** hostapd-wpe (hostapd 2.10) / eaphammer 1.14 / hashcat 6.2.x as of 2026-Q3
+
 ## The puzzle shape
 
 The target AP is WPA2/3-Enterprise (RSN AKM 1 or the WPA3-Ent
