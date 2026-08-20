@@ -1,5 +1,7 @@
 # Dragonblood — walkthrough
 
+**Verified against:** dragonblood-tools (github.com/vanhoefm) as of 2026-Q3
+
 The 2019 SAE attack family. Companion: `dragonblood-deep/` for the
 post-2020 H2E follow-ups. This walkthrough is the launchpad: cache
 side channel, timing side channel, MODP downgrade, transition-mode

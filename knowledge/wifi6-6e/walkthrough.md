@@ -1,5 +1,7 @@
 # Wi-Fi 6 / 6E — walkthrough
 
+**Verified against:** IEEE Std 802.11ax-2021 + hcxdumptool 7.3 as of 2026-Q3
+
 Three practical primitives against 6/6E gear. All three assume a
 Pineapple Mk VII plus a `wlan1` capable of 5 GHz monitor+injection. 6 GHz
 tuning is optional; the RNR path deliberately does not need it.

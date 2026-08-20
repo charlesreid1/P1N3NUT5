@@ -1,5 +1,7 @@
 # hcxtools — walkthrough
 
+**Verified against:** hcxdumptool 7.3 as of 2026-Q3
+
 The modern PMKID + 4-way capture toolchain. Supersedes aircrack-ng's
 `airodump-ng + aireplay-ng` pipeline for handshake collection.
 

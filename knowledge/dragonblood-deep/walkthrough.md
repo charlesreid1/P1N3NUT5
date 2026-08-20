@@ -1,5 +1,7 @@
 # Dragonblood deep — walkthrough
 
+**Verified against:** hostapd 2.11 + dragonblood-tools as of 2026-Q3
+
 Three concrete plays against a WPA3-SAE deployment: transition-mode
 downgrade, MODP-group downgrade, and hunt-loop-timing-oracle attack.
 The transition-mode play is the practical one; the two side channels

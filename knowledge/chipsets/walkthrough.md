@@ -1,5 +1,7 @@
 # chipsets — walkthrough
 
+**Verified against:** IEEE Std 802.11-2020 rollup + CVE-MITRE snapshot as of 2026-Q3
+
 Identify what silicon you're pointing at (attacker-side or target-
 side), then look up the driver's or firmware's known attack surface.
 

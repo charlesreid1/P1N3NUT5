@@ -1,5 +1,7 @@
 # KRACK — walkthrough
 
+**Verified against:** krackattacks-scripts (github.com/vanhoefm) as of 2026-Q3
+
 Reach for this when the target is an unpatched wpa_supplicant on a
 legacy embedded stack. Modern flagship OSes are patched. The bar is
 "is this device < ~2018 and never updated."

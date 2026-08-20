@@ -1,5 +1,7 @@
 # AP fingerprinting — walkthrough
 
+**Verified against:** tshark 4.2 / IEEE Std 802.11-2020 as of 2026-Q3
+
 Read a beacon. Identify the vendor, firmware family, chipset,
 security posture. Feed the answer into every next attack decision.
 

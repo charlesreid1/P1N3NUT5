@@ -1,5 +1,7 @@
 # Framing Frames walkthrough (short)
 
+**Verified against:** scapy 2.5 (Vanhoef 2023 PoC) as of 2026-Q3
+
 Public PoC scripts accompany the 2023 paper (CVE-2022-47522). Setup is
 fiddly and depends on the target AP firmware; the below is the primitive.
 

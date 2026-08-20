@@ -1,5 +1,7 @@
 # Fast Transition walkthrough — capture, crack, spoof
 
+**Verified against:** hostapd 2.11 + hcxdumptool 7.3 as of 2026-Q3
+
 ## Capturing an FT roam
 
 Set up two monitor interfaces if possible (one on each candidate

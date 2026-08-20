@@ -1,5 +1,7 @@
 # Pineapple modules — walkthrough
 
+**Verified against:** Pineapple Mark VII firmware 3.x as of 2026-Q3
+
 A scripted engagement that (a) enumerates what's installed, (b) installs
 the community `evil-portal` module, (c) runs a captive-portal capture
 against a rogue AP, (d) tears down cleanly. All from the MCP's tool

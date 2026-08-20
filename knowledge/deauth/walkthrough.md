@@ -1,5 +1,7 @@
 # Deauth — walkthrough
 
+**Verified against:** aircrack-ng 1.7 + mdk4 1.6 as of 2026-Q3
+
 Three flavors. Broadcast is loud and blocked by PMF; targeted is quiet
 and works against non-PMF clients on a PMF-required AP (transition
 mode); crafted-scapy is the fallback when the tool ergonomics fight you.

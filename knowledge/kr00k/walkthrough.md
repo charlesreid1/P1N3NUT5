@@ -1,5 +1,7 @@
 # Kr00k walkthrough
 
+**Verified against:** scapy 2.5 + tshark 4.2 as of 2026-Q3
+
 Force a disassoc on a vulnerable client, capture the tail frames it
 sends with PTK=0, decrypt them offline with a known-zero key.
 

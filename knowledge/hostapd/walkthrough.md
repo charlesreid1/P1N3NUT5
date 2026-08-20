@@ -1,5 +1,7 @@
 # hostapd — walkthrough
 
+**Verified against:** hostapd 2.11 as of 2026-Q3
+
 Bring up a rogue AP in each security mode we care about. Every
 config below runs on the Pineapple (`hostapd /tmp/config.conf`) or
 on a laptop with a supported chipset.

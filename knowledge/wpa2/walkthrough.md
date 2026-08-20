@@ -1,5 +1,7 @@
 # WPA2 — capture and crack walkthrough
 
+**Verified against:** hcxdumptool 7.3 + hashcat 6.2.x as of 2026-Q3
+
 Two workhorse paths. Try PMKID first (no client interaction). If the AP
 suppresses PMKID, fall back to 4-way capture with targeted deauth.
 

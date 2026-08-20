@@ -1,5 +1,7 @@
 # DoS — walkthrough
 
+**Verified against:** mdk4 1.6 + aircrack-ng 1.7 as of 2026-Q3
+
 Management + control-frame denial-of-service families. This is the
 "mdk4 mode catalog + a handful of extras" walkthrough. Use these when
 the DoS itself is the flag signal (some WCTF puzzles fire on a

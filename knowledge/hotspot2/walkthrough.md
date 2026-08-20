@@ -1,5 +1,7 @@
 # Hotspot 2.0 / ANQP — walkthrough
 
+**Verified against:** wpa_supplicant 2.11 as of 2026-Q3
+
 Two plays. Pre-association ANQP recon is the passive one — often
 enough to grab a flag without ever associating. Roaming Consortium
 spoof is the active one — a Passpoint-configured client silently

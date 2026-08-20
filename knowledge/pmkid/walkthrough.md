@@ -1,5 +1,7 @@
 # PMKID capture — walkthrough
 
+**Verified against:** hcxdumptool 7.3 + hashcat 6.2.x as of 2026-Q3
+
 The client-free WPA2-PSK attack. One association attempt, one M1, one
 hash line. If the AP emits PMKID, you never need to see a real client.
 

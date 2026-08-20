@@ -1,5 +1,7 @@
 # cracking-tradecraft — walkthrough
 
+**Verified against:** hashcat 6.2.x as of 2026-Q3
+
 Reach for these in order, cheapest first. Every `hs.22000` file feeds
 the same pipeline; the only variable is *how* you generate candidates.
 

@@ -1,5 +1,7 @@
 # pcap / pcapng — walkthrough
 
+**Verified against:** tshark 4.2 as of 2026-Q3
+
 tshark one-liners for the analysis you actually run at a WCTF.
 Everything below assumes an 802.11-radiotap capture. If your pcap
 doesn't have radiotap, the header field references (`radiotap.*`)

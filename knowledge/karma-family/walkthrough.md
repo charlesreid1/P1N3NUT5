@@ -1,5 +1,7 @@
 # karma-family — walkthrough
 
+**Verified against:** hostapd-mana + Pineapple Mark VII firmware 3.x as of 2026-Q3
+
 Three modes: passive-first (Snoopy / passive log), Known-Beacons
 dictionary broadcast, and MANA per-STA. All three coexist with
 PineAP where noted.

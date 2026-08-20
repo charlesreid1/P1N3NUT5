@@ -1,5 +1,7 @@
 # WPA3 — walkthrough
 
+**Verified against:** hostapd 2.11 + wpa_supplicant 2.11 as of 2026-Q3
+
 Offline dictionary attack on the SAE PMK is *not* the fast path.
 SAE resists it by design. Reach for these in order.
 

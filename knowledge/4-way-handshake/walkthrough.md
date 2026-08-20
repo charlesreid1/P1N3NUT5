@@ -1,5 +1,7 @@
 # 4-way handshake — walkthrough
 
+**Verified against:** aircrack-ng 1.7 + hcxdumptool 7.3 as of 2026-Q3
+
 Corner cases beyond the wpa2 fast path. Reach for these when the
 straightforward `airodump-ng + aireplay -0` doesn't yield a usable
 capture.

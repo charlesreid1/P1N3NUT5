@@ -1,5 +1,7 @@
 # MacStealer walkthrough
 
+**Verified against:** scapy 2.5 (Vanhoef 2023 PoC) as of 2026-Q3
+
 You are on the target network with the PSK (or the network is Open / OWE).
 You know the victim's MAC. You want the AP's next queued return-traffic
 frame for the victim to arrive at your STA.

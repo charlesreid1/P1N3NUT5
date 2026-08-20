@@ -1,5 +1,7 @@
 # Wi-Fi 7 (MLO) — walkthrough
 
+**Verified against:** IEEE Std 802.11be-2024 as of 2026-Q3
+
 MLO attacks are frontier — the corpus tracks published primitives as
 they appear. What follows is the 2024–2026 baseline: reconnaissance,
 link-desync trigger, and the practical evil-twin-per-link pivot that

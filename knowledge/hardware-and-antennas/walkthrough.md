@@ -1,5 +1,7 @@
 # hardware-and-antennas — walkthrough
 
+**Verified against:** FCC Part 15 + Hak5 hardware spec as of 2026-Q3
+
 Choosing, mounting, aiming, and validating.
 
 ## Path A — Con-floor engagement (2026 DEF CON)

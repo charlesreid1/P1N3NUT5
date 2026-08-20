@@ -1,5 +1,7 @@
 # default-psk-derivation — walkthrough
 
+**Verified against:** hcxpsktool + upc_keys as of 2026-Q3
+
 Match the beacon's SSID against a known-vendor regex; run the
 vendor's derivation; validate against a captured PMKID or 4-way.
 

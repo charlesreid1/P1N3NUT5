@@ -1,5 +1,7 @@
 # Pineapple Mk VII — walkthrough
 
+**Verified against:** Pineapple Mark VII firmware 3.x as of 2026-Q3
+
 Fresh setup → engagement-ready → factory reset from a wedged state.
 Everything below assumes the tether cable is connected (default
 `172.16.42.1`).

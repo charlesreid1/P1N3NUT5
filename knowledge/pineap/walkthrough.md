@@ -1,5 +1,7 @@
 # PineAP — walkthrough
 
+**Verified against:** Pineapple Mark VII firmware 3.x as of 2026-Q3
+
 A 15-minute engagement. Broadcast a curated SSID pool, log every probe
 seen, generate a target list from what associated. This is the passive
 recon path; active KARMA is one toggle away.

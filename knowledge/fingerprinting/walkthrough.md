@@ -1,5 +1,7 @@
 # Client fingerprinting — walkthrough
 
+**Verified against:** tshark 4.2 as of 2026-Q3
+
 Identify a client's OS and version from its probe requests and
 association frames, even under MAC randomization.
 

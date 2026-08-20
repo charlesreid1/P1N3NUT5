@@ -1,5 +1,7 @@
 # SSID Confusion walkthrough
 
+**Verified against:** hostapd 2.11 + tshark 4.2 as of 2026-Q3
+
 Two networks, same PSK. Client believes it's on network X. It's on Y.
 The client's higher-layer policy (VPN, per-SSID trust) responds to the
 wrong signal.

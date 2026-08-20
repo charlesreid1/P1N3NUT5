@@ -1,5 +1,7 @@
 # FragAttacks — walkthrough
 
+**Verified against:** fragattacks (github.com/vanhoefm) as of 2026-Q3
+
 Twelve CVEs. Two headline paths — A-MSDU flag confusion (plaintext-
 inject) and mixed-key fragment reassembly. Both require MC-MitM plus
 crafted-frame injection. Vanhoef's PoC repo drives most of the

@@ -1,5 +1,7 @@
 # Evil twin — walkthrough
 
+**Verified against:** hostapd 2.11 as of 2026-Q3
+
 Two modes: match the RF, or match the RF *and* the association handshake.
 The first is enough for cred-capture via captive portal. The second is
 what you need when the target's supplicant validates the PMK against
