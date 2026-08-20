@@ -9,8 +9,10 @@ blacklists you from scoring for N minutes.
 
 ## Recognition — spot the odd one out
 
-Use `beacon_diff` (Phase 4 tool). Diff every AP's beacon against
-every other AP's beacon. The signals that distinguish the real one:
+Use `beacon_diff` — real MCP tool: `server.beacon_diff(bssid_a,
+bssid_b, pcap_path)` (see `src/p1n3nut5_mcp/server.py`; wraps
+`detect.beacon_diff`). Diff every AP's beacon against every other AP's
+beacon. The signals that distinguish the real one:
 
 - **IE order.** Legitimate APs of the same firmware family emit
   IEs in a consistent order. A rogue built with hostapd will emit
@@ -30,14 +32,29 @@ every other AP's beacon. The signals that distinguish the real one:
 ## Recognition — spot the real one differently
 
 Alternately: watch which BSSID legitimate clients associate to
-over time. `list_associations` will surface it — a real
-scorebot-driven client keeps returning to the real AP.
+over time. `list_associations` (real MCP tool:
+`server.list_associations`) will surface it — a real scorebot-driven
+client keeps returning to the real AP.
+
+**Fallback (no MCP) — beacon IE diff via tshark:**
+
+```bash
+# List IEs for each beacon; compare BSSIDs pairwise.
+for bssid in AA:BB:CC:DD:EE:01 AA:BB:CC:DD:EE:02; do
+  echo "=== $bssid ==="
+  tshark -r /tmp/recon.pcapng \
+      -Y "wlan.fc.type_subtype == 8 && wlan.bssid == $bssid" \
+      -T fields -e wlan.tag.number -e wlan.tag.length \
+      -e wlan.tag.oui | sort -u | head -30
+done
+```
 
 ## When to build your own
 
 If the puzzle wants you to *become* the evil twin (capture what a
-victim client sends when it lands on you), use `do_evil_twin` with
-`deauth_clients=True` to knock clients off the real AP.
+victim client sends when it lands on you), use `do_evil_twin` (real
+MCP tool: `server.do_evil_twin(target_bssid, target_ssid,
+target_channel, deauth_clients=True, i_own_the_airspace=True)`).
 
 ## What still works when PMF-required
 

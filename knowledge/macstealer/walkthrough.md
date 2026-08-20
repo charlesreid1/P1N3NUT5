@@ -95,5 +95,7 @@ once inside.
 ## Cite
 
 - Vanhoef, "MacStealer" (BlackHat Asia 2023).
+- CVE-2022-47521 — MacStealer (Linux mac80211 post-disassoc queue).
+- CVE-2022-47522 — companion Framing Frames power-save queue tap.
 - `attacks.json: macstealer-mac-hijack`.
 - `ssid-confusion/` — the companion attack on the same 4-way binding gap.

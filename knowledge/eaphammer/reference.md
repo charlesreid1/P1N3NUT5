@@ -58,6 +58,9 @@ adjacent template ecosystem eaphammer imports from.
 
 Everything lands in `~/.eaphammer/loot/`:
 - `hashcat.cred` — hashcat 5500 input for each captured MSCHAPv2
+  (`user::domain::<NTResponse>:<ChallengeHash>` — 8-byte
+  ChallengeHash pre-derived; see the callout in
+  `enterprise/reference.md`).
 - `john.cred` — the same in JtR format
 - `raw/` — pcaps
 

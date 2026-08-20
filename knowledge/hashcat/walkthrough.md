@@ -1,5 +1,7 @@
 # hashcat — walkthrough
 
+**Verified against:** hashcat 6.2.x as of 2026-Q3
+
 Baseline dictionary → rule stacking → mask attack → hybrid. In that
 order for a WCTF-scale PSK: the corpus of DEF CON WCTF PSKs is
 mostly rockyou + best64 with occasional theme-derived candidates.

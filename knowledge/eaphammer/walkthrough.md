@@ -1,5 +1,7 @@
 # eaphammer — walkthrough
 
+**Verified against:** eaphammer 1.14 as of 2026-Q3
+
 Gabriel Ryan's enterprise-evil-twin standard. Ergonomically superior
 to hostapd-wpe when you're cert-phishing with weak validators. Reach
 for it first unless you specifically need the hostapd-wpe layer of
