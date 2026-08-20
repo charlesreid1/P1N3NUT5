@@ -21,15 +21,17 @@
       "inner": "MD5 challenge/response",
       "credential": "password",
       "provides_mutual_auth": false,
-      "keying": "none — cannot derive PMK",
+      "keying": "none \u2014 cannot derive PMK",
       "known_flaws": [
         "offline dictionary from a captured challenge/response",
-        "no mutual auth → rogue-RADIUS accepts everything"
+        "no mutual auth \u2192 rogue-RADIUS accepts everything"
       ],
       "attacks": [
         "mschapv2-challenge-response-capture",
         "rogue-radius-hostapd-wpe"
-      ]
+      ],
+      "eap_type_number": 4,
+      "hashcat_mode_if_crackable": 4800
     }
   },
   {
@@ -57,7 +59,9 @@
       "attacks": [
         "leap-legacy-crack",
         "asleap-mschapv2-crack"
-      ]
+      ],
+      "eap_type_number": 17,
+      "hashcat_mode_if_crackable": 5500
     }
   },
   {
@@ -80,11 +84,12 @@
     "technical_body": {
       "credential": "client certificate + server certificate",
       "provides_mutual_auth": true,
-      "notes": "The gold standard. A rogue RADIUS can't authenticate because it lacks the client's issuing CA. Attackers pivot to captive-portal social engineering — 'reinstall your WiFi profile' — to swap the client cert.",
+      "notes": "The gold standard. A rogue RADIUS can't authenticate because it lacks the client's issuing CA. Attackers pivot to captive-portal social engineering \u2014 'reinstall your WiFi profile' \u2014 to swap the client cert.",
       "attacks": [
         "cert-phish-eaphammer-weak-validation",
         "mdm-profile-theft-captive-portal"
-      ]
+      ],
+      "eap_type_number": 13
     }
   },
   {
@@ -113,13 +118,14 @@
       ],
       "known_flaws": [
         "rogue-RADIUS captures inner plaintext if the client doesn't validate the outer cert",
-        "MSCHAPv2 inner → hashcat mode 5500 offline crack"
+        "MSCHAPv2 inner \u2192 hashcat mode 5500 offline crack"
       ],
       "attacks": [
         "rogue-radius-hostapd-wpe",
         "rogue-radius-eaphammer",
         "cert-phish-eaphammer-weak-validation"
-      ]
+      ],
+      "eap_type_number": 21
     }
   },
   {
@@ -150,8 +156,8 @@
         "GTC plaintext"
       ],
       "known_flaws": [
-        "cert-phish against weak client validation → inner MSCHAPv2 captured → hashcat 5500 / asleap",
-        "inner-EAP downgrade PEAP-MSCHAPv2 → PEAP-GTC yields plaintext token (RSA/Duo/Yubico OTP)"
+        "cert-phish against weak client validation \u2192 inner MSCHAPv2 captured \u2192 hashcat 5500 / asleap",
+        "inner-EAP downgrade PEAP-MSCHAPv2 \u2192 PEAP-GTC yields plaintext token (RSA/Duo/Yubico OTP)"
       ],
       "attacks": [
         "rogue-radius-hostapd-wpe",
@@ -159,7 +165,8 @@
         "cert-phish-eaphammer-weak-validation",
         "eap-inner-downgrade-peap-mschapv2",
         "eap-inner-downgrade-peap-gtc"
-      ]
+      ],
+      "eap_type_number": 25
     }
   },
   {
@@ -183,12 +190,13 @@
       "outer": "TLS tunnel with PAC (Protected Access Credential)",
       "inner": "MSCHAPv2 / EAP-GTC",
       "known_flaws": [
-        "anonymous PAC provisioning without server-cert pinning → rogue RADIUS captures inner exchange"
+        "anonymous PAC provisioning without server-cert pinning \u2192 rogue RADIUS captures inner exchange"
       ],
       "attacks": [
         "rogue-radius-eaphammer",
         "cert-phish-eaphammer-weak-validation"
-      ]
+      ],
+      "eap_type_number": 43
     }
   },
   {
@@ -215,7 +223,8 @@
       "attacks": [
         "dragonblood-sidechannel",
         "dragonblood-timing"
-      ]
+      ],
+      "eap_type_number": 52
     }
   },
   {
@@ -237,12 +246,13 @@
       "notes": "Cellular offload networks (carrier Wi-Fi).",
       "attacks": [
         "rogue-radius-eaphammer"
-      ]
+      ],
+      "eap_type_number": 18
     }
   },
   {
     "id": "eap-aka",
-    "name": "EAP-AKA / EAP-AKA'",
+    "name": "EAP-AKA (RFC 4187)",
     "category": "eap_method",
     "region": "universal",
     "era_bounds": [
@@ -259,7 +269,9 @@
       "notes": "3G/4G/5G offload authentication.",
       "attacks": [
         "rogue-radius-eaphammer"
-      ]
+      ],
+      "eap_type_number": 23,
+      "note": "3G AKA (UMTS). See also eap-aka-prime (RFC 5448) for the 4G/5G-aware variant with network-name-bound key derivation."
     }
   },
   {
@@ -285,7 +297,8 @@
       "attacks": [
         "eap-inner-downgrade-peap-gtc",
         "eap-gtc-plaintext-token-capture"
-      ]
+      ],
+      "eap_type_number": 6
     }
   },
   {
@@ -316,7 +329,7 @@
       "inner": "MSCHAPv2",
       "credential": "username + password (MSCHAPv2 hash)",
       "known_flaws": [
-        "rogue-RADIUS captures challenge/response → hashcat 5500 or asleap"
+        "rogue-RADIUS captures challenge/response \u2192 hashcat 5500 or asleap"
       ],
       "attacks": [
         "eap-inner-downgrade-peap-mschapv2",
@@ -324,7 +337,9 @@
         "hashcat-5500-mschapv2-crack",
         "asleap-mschapv2-crack",
         "rogue-radius-hostapd-wpe"
-      ]
+      ],
+      "eap_type_number": 25,
+      "hashcat_mode_if_crackable": 5500
     }
   },
   {
@@ -360,7 +375,8 @@
       "attacks": [
         "eap-inner-downgrade-peap-gtc",
         "eap-gtc-plaintext-token-capture"
-      ]
+      ],
+      "eap_type_number": 25
     }
   },
   {
@@ -385,12 +401,13 @@
       "inner": "PAP (plaintext password)",
       "credential": "username + plaintext password inside the tunnel",
       "known_flaws": [
-        "rogue-RADIUS captures plaintext credentials — worst-case inner method"
+        "rogue-RADIUS captures plaintext credentials \u2014 worst-case inner method"
       ],
       "attacks": [
         "rogue-radius-eaphammer",
         "rogue-radius-hostapd-wpe"
-      ]
+      ],
+      "eap_type_number": 21
     }
   },
   {
@@ -415,12 +432,14 @@
       "inner": "CHAP challenge/response",
       "credential": "username + password (CHAP hash)",
       "known_flaws": [
-        "captured challenge/response → offline crack"
+        "captured challenge/response \u2192 offline crack"
       ],
       "attacks": [
         "rogue-radius-eaphammer",
         "mschapv2-challenge-response-capture"
-      ]
+      ],
+      "eap_type_number": 21,
+      "hashcat_mode_if_crackable": 5500
     }
   },
   {
@@ -448,7 +467,7 @@
       "outer": "EAP-TTLS TLS tunnel",
       "inner": "MSCHAPv2",
       "known_flaws": [
-        "rogue-RADIUS captures → hashcat 5500"
+        "rogue-RADIUS captures \u2192 hashcat 5500"
       ],
       "attacks": [
         "rogue-radius-hostapd-wpe",
@@ -456,7 +475,9 @@
         "mschapv2-challenge-response-capture",
         "hashcat-5500-mschapv2-crack",
         "asleap-mschapv2-crack"
-      ]
+      ],
+      "eap_type_number": 21,
+      "hashcat_mode_if_crackable": 5500
     }
   },
   {
@@ -486,7 +507,9 @@
         "rogue-radius-eaphammer",
         "mschapv2-challenge-response-capture",
         "hashcat-5500-mschapv2-crack"
-      ]
+      ],
+      "eap_type_number": 43,
+      "hashcat_mode_if_crackable": 5500
     }
   },
   {
@@ -512,7 +535,8 @@
       "attacks": [
         "rogue-radius-eaphammer",
         "eap-gtc-plaintext-token-capture"
-      ]
+      ],
+      "eap_type_number": 43
     }
   },
   {
@@ -530,7 +554,8 @@
     "still_effective_2026": true,
     "confidence": "primary",
     "citations": [
-      "rfc-5216"
+      "rfc-5216",
+      "rfc-9190"
     ],
     "technical_body": {
       "credential": "client + server cert",
@@ -538,7 +563,8 @@
       "attacks": [
         "cert-phish-eaphammer-weak-validation",
         "mdm-profile-theft-captive-portal"
-      ]
+      ],
+      "eap_type_number": 13
     }
   },
   {
@@ -553,14 +579,16 @@
     "still_effective_2026": true,
     "confidence": "community",
     "citations": [
-      "rfc-3748"
+      "rfc-3748",
+      "rfc-5106"
     ],
     "technical_body": {
       "credential": "IKEv2 mutual auth (cert or PSK)",
       "note": "Rare on WiFi in practice.",
       "attacks": [
         "hashcat-5500-mschapv2-crack"
-      ]
+      ],
+      "eap_type_number": 49
     }
   },
   {
@@ -575,14 +603,16 @@
     "still_effective_2026": true,
     "confidence": "community",
     "citations": [
-      "rfc-3748"
+      "rfc-3748",
+      "rfc-6124"
     ],
     "technical_body": {
       "credential": "shared password (PAKE)",
       "note": "Rarely deployed.",
       "attacks": [
         "dragonblood-modp-downgrade"
-      ]
+      ],
+      "eap_type_number": 53
     }
   },
   {
@@ -597,14 +627,16 @@
     "still_effective_2026": true,
     "confidence": "community",
     "citations": [
-      "rfc-3748"
+      "rfc-3748",
+      "rfc-9140"
     ],
     "technical_body": {
       "credential": "out-of-band exchange for IoT devices",
       "note": "Rare; IoT-specific.",
       "attacks": [
         "rogue-radius-eaphammer"
-      ]
+      ],
+      "eap_type_number": 56
     }
   },
   {
@@ -625,12 +657,13 @@
       "credential": "one-time password",
       "provides_mutual_auth": false,
       "known_flaws": [
-        "not mutual — rogue-RADIUS captures OTP + replays within validity window"
+        "not mutual \u2014 rogue-RADIUS captures OTP + replays within validity window"
       ],
       "attacks": [
         "rogue-radius-hostapd-wpe",
         "eap-gtc-plaintext-token-capture"
-      ]
+      ],
+      "eap_type_number": 5
     }
   },
   {
@@ -655,12 +688,14 @@
       "hashcat-mode-5500"
     ],
     "technical_body": {
-      "note": "MSCHAPv2 as an outer method (not tunneled) — extreme legacy on Windows AD-integrated deployments. Captured challenge/response is directly hashcat-5500-cracked without any tunnel to strip.",
+      "note": "MSCHAPv2 as an outer method (not tunneled) \u2014 extreme legacy on Windows AD-integrated deployments. Captured challenge/response is directly hashcat-5500-cracked without any tunnel to strip.",
       "attacks": [
         "mschapv2-challenge-response-capture",
         "hashcat-5500-mschapv2-crack",
         "asleap-mschapv2-crack"
-      ]
+      ],
+      "eap_type_number": 26,
+      "hashcat_mode_if_crackable": 5500
     }
   },
   {
@@ -681,11 +716,12 @@
       "rfc-3748"
     ],
     "technical_body": {
-      "credential": "USIM AKA' — updated key derivation binding network name",
+      "credential": "USIM AKA' \u2014 updated key derivation binding network name",
       "note": "5G-aware. Cellular offload.",
       "attacks": [
         "rogue-radius-eaphammer"
-      ]
+      ],
+      "eap_type_number": 50
     }
   },
   {
@@ -709,7 +745,8 @@
       "note": "Rarely deployed. v0 is the shipping variant.",
       "attacks": [
         "rogue-radius-eaphammer"
-      ]
+      ],
+      "eap_type_number": 21
     }
   },
   {
@@ -727,7 +764,8 @@
     "still_effective_2026": true,
     "confidence": "primary",
     "citations": [
-      "rfc-3748"
+      "rfc-3748",
+      "rfc-7170"
     ],
     "technical_body": {
       "outer": "TLS tunnel (like PEAP/TTLS/FAST)",
@@ -736,7 +774,8 @@
       "attacks": [
         "rogue-radius-eaphammer",
         "cert-phish-eaphammer-weak-validation"
-      ]
+      ],
+      "eap_type_number": 55
     }
   },
   {
@@ -763,7 +802,8 @@
       ],
       "attacks": [
         "anqp-realm-enum"
-      ]
+      ],
+      "eap_type_number": 1
     }
   },
   {
@@ -784,7 +824,8 @@
       "role": "One-way string sent from authenticator to supplicant. No credential; used for informational messages.",
       "attacks": [
         "rogue-radius-eaphammer"
-      ]
+      ],
+      "eap_type_number": 2
     }
   },
   {
@@ -812,7 +853,8 @@
       "attacks": [
         "eap-inner-downgrade-peap-mschapv2",
         "eap-inner-downgrade-peap-gtc"
-      ]
+      ],
+      "eap_type_number": 3
     }
   },
   {
@@ -837,7 +879,8 @@
       "attacks": [
         "eap-inner-downgrade-peap-mschapv2",
         "eap-inner-downgrade-peap-gtc"
-      ]
+      ],
+      "eap_type_number": 254
     }
   }
 ]

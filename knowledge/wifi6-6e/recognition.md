@@ -44,12 +44,24 @@ beacon = 802.11ax capable. First bytes carry:
 - Supported HE-MCS And NSS Set
 - PPE Thresholds (optional)
 
-**Bit-level signals worth reading:**
+**Bit-level signals worth reading** (802.11ax-2021 Figures 9-589a /
+9-589b — bit positions are within the field, not byte-relative):
 
-- HE MAC Cap bit 2 — TWT (Target Wake Time) Requester Support.
-- HE MAC Cap bit 3 — TWT Responder Support (AP side).
-- HE PHY Cap byte 0 bits 1–7 — supported channel widths.
-- HE PHY Cap byte 3 bit 4 — OFDMA support.
+| Field                     | Bit(s) | Meaning                          |
+| ------------------------- | ------ | -------------------------------- |
+| HE MAC Capabilities Info  | 0      | HTC HE Support                   |
+| HE MAC Capabilities Info  | 1      | **TWT Requester Support** (STA)  |
+| HE MAC Capabilities Info  | 2      | **TWT Responder Support** (AP)   |
+| HE MAC Capabilities Info  | 3      | Dynamic Fragmentation Support    |
+| HE PHY Capabilities Info  | 1..5   | **Channel Width Set** (5 bits — b1 = 40 MHz in 2.4 GHz, b2 = 40/80 MHz in 5/6 GHz, b3 = 160 MHz in 5/6 GHz, b4 = 160/80+80 MHz in 5/6 GHz, b5 = 242-tone RU in 20 MHz) |
+| HE PHY Capabilities Info  | 34     | HE SU PPDU with 1x LTF + 0.8 μs GI |
+
+There is **no dedicated "OFDMA support" bit** in HE PHY Capabilities.
+OFDMA support is implied by the combination of Channel Width Set +
+the Trigger Frame MAC Padding Duration / HE-MCS-NSS support bits. If
+you need a single-bit shortcut, the Trigger Frame MAC Padding Duration
+subfield being non-zero and HE Cap being advertised at all is the
+practical "yes" indicator.
 
 A TWT-responder AP is a candidate for the `twt-forced-sleep-abuse`
 attack — spoof a TWT Element to shove a client into extended sleep.
@@ -107,13 +119,18 @@ Two frequent WCTF patterns:
 TWT (Target Wake Time) is the Wi-Fi 6 power-save feature. Beacon
 signaling:
 
-- HE MAC Cap bit 3 = TWT Responder (AP)
+- HE MAC Cap **bit 2** = TWT Responder (AP); **bit 1** = TWT Requester (STA)
 - Broadcast TWT elements in beacon frames
-- Individual TWT setup via TWT Setup Action frames
+- Individual TWT setup via TWT Setup Action frames (Category 30, HE Action 6)
 
 If an AP is TWT-responder and a target client is TWT-requester, a
 spoofed TWT Setup Action can force the client into extended sleep
 periods, opening a Framing-Frames-like queue-poisoning window.
+
+**Bit reference (repeat from above for the reader landing here):**
+
+- HE MAC Cap **bit 1** = TWT Requester Support (STA).
+- HE MAC Cap **bit 2** = TWT Responder Support (AP).
 
 ## Cite
 

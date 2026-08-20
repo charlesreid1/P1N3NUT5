@@ -1,5 +1,7 @@
 # SSID Confusion walkthrough
 
+**Verified against:** hostapd 2.11 + tshark 4.2 as of 2026-Q3
+
 Two networks, same PSK. Client believes it's on network X. It's on Y.
 The client's higher-layer policy (VPN, per-SSID trust) responds to the
 wrong signal.
@@ -62,5 +64,7 @@ the SSID string, which the attacker chose freely.
 
 ## Cite
 
-- Vanhoef & Yseboodt 2024 — SSID Confusion.
+- Héloïse Gollier and Mathy Vanhoef, "SSID Confusion: Making Wi-Fi
+  Clients Connect to the Wrong Network" (2024, KU Leuven / DistriNet).
+  CVE-2023-52424, co-disclosed 2024-05-14.
 - attacks.json: `ssid-confusion-cve-2023-52424`.

@@ -1,5 +1,7 @@
 # WPS walkthrough — pick the right attack first
 
+**Verified against:** reaver 1.6.6 + pixiewps 1.4.2 as of 2026-Q3
+
 Order of operations at a WCTF AP with WPS enabled:
 
 ## 1. Look at the WPS IE first

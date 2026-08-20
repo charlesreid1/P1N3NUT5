@@ -1,5 +1,7 @@
 # Wi-Fi 6E — flag lives on a 6 GHz-only AP
 
+**Verified against:** aircrack-ng 1.7 / tshark 4.2 as of 2026-Q3
+
 Enumerate 6 GHz targets from 2.4/5 GHz Reduced Neighbor Reports, then
 associate (or attack) on 6 GHz if your radio can tune it.
 
@@ -35,6 +37,31 @@ run_sequence([
      "bssid": "<the-2.4-BSSID>",
      "timeout_s": 45},
 ])
+```
+
+## MCP mapping / fallback
+
+- `recon_start` / `recon_stop` → `server.recon_start` / `server.recon_stop`.
+- `capture_pmkid` → `server.do_capture_pmkid`.
+- `list_rnr_neighbors`, `match_essid_across_bands` — **not in `src/`**.
+  Parse from the pcap manually.
+
+**Fallback shell chain — RNR enumeration:**
+
+```bash
+# RNR is IE 201 (0xC9). Wireshark dissects it as wlan.tag.number == 201.
+tshark -r /tmp/recon.pcapng \
+       -Y "wlan.fc.type_subtype == 8 && wlan.tag.number == 201" \
+       -T fields -e wlan.bssid -e wlan.tag.number \
+       -e wlan.rnr.tbtt_info.bssid -e wlan.rnr.tbtt_info.oper_class \
+       -e wlan.rnr.tbtt_info.channel \
+  | sort -u > /tmp/6ghz_targets.tsv
+
+# Match ESSID across bands — group beacons by SSID, filter operating-class 131..137
+tshark -r /tmp/recon.pcapng \
+       -Y "wlan.fc.type_subtype == 8" \
+       -T fields -e wlan.ssid -e wlan.bssid -e wlan.ds.current_channel \
+  | sort -u
 ```
 
 ## The flag surface

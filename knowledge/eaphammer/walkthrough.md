@@ -1,5 +1,7 @@
 # eaphammer — walkthrough
 
+**Verified against:** eaphammer 1.14 as of 2026-Q3
+
 Gabriel Ryan's enterprise-evil-twin standard. Ergonomically superior
 to hostapd-wpe when you're cert-phishing with weak validators. Reach
 for it first unless you specifically need the hostapd-wpe layer of
@@ -119,7 +121,7 @@ freeradius-wpe:
 
 - **Cert rejected.** Client strictly validates. Retry with Path B
   (target CA).
-- **`--negotiate downgrade` refused.** Client profile pins the inner
+- **`--negotiate weakest` refused.** Client profile pins the inner
   method. Only that method opens.
 - **eaphammer's setup script fails.** Distro-specific dep problem.
   `./kali-setup` targets Kali; on Ubuntu use `./ubuntu-setup`; on

@@ -1,5 +1,7 @@
 # Beacon-IE stego — the flag is in the air, no crack
 
+**Verified against:** P1N3NUT5 knowledge corpus as of 2026-Q3
+
 ## The puzzle shape
 
 The flag is not behind a PSK. It is hidden **inside the beacon

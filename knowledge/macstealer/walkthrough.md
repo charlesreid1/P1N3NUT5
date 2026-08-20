@@ -1,5 +1,7 @@
 # MacStealer walkthrough
 
+**Verified against:** scapy 2.5 (Vanhoef 2023 PoC) as of 2026-Q3
+
 You are on the target network with the PSK (or the network is Open / OWE).
 You know the victim's MAC. You want the AP's next queued return-traffic
 frame for the victim to arrive at your STA.
@@ -34,8 +36,11 @@ airodump-ng --bssid <AP-BSSID> -c 6 wlan1mon
 ## Steps
 
 1. **Wait for the victim to disassociate** — natural disconnect, sleep-
-   induced disassoc, or attacker-forced deauth (`aireplay-ng --disassoc
-   1 -a <ap-bssid> -c <victim-mac> wlan1mon`). Note the moment.
+   induced disassoc, or attacker-forced deauth. `aireplay-ng` has no
+   `--disassoc` flag; use `aireplay-ng -0 1 -a <ap-bssid> -c <victim-mac>
+   wlan1mon` for a targeted deauth, or `mdk4 wlan1mon d -B <ap-bssid>
+   -c <chan>` / a scapy Dot11Disas frame for a true disassoc. Note the
+   moment.
 2. **Change your STA's MAC to the victim's** while the AP still has the
    victim's association state cached but before the AP's own idle-timeout
    sweeps it. Timing window is per-vendor — Vanhoef's paper reports 3-30
@@ -92,5 +97,7 @@ once inside.
 ## Cite
 
 - Vanhoef, "MacStealer" (BlackHat Asia 2023).
+- CVE-2022-47521 — MacStealer (Linux mac80211 post-disassoc queue).
+- CVE-2022-47522 — companion Framing Frames power-save queue tap.
 - `attacks.json: macstealer-mac-hijack`.
 - `ssid-confusion/` — the companion attack on the same 4-way binding gap.

@@ -1,5 +1,7 @@
 # hashcat — walkthrough
 
+**Verified against:** hashcat 6.2.x as of 2026-Q3
+
 Baseline dictionary → rule stacking → mask attack → hybrid. In that
 order for a WCTF-scale PSK: the corpus of DEF CON WCTF PSKs is
 mostly rockyou + best64 with occasional theme-derived candidates.
@@ -82,10 +84,69 @@ hashcat --session=defcon --restore
 
 - `-w 4` — insane workload (max card utilization).
 - `-O` — optimized kernel; caps password length but is faster.
-  hashcat 22000 optimized-kernel max length is 63 (the WPA/WPA2
-  passphrase spec cap) — always safe.
+  For `-m 22000 -O` the optimized-kernel cap is **32 characters**
+  (not 63). The WPA/WPA2 passphrase spec allows up to 63 ASCII
+  chars — so `-O` will silently miss any candidate longer than 32.
+  Drop `-O` if the target password space might exceed 32 chars.
 - `--status --status-timer=5` — periodic ETA output.
 - `--gpu-temp-abort=90` — safety cap on toaster laptops.
+- `--keep-guessing` — keep running past first crack (some captures
+  contain multiple 4-ways for the same ESSID with different PSKs,
+  e.g., temp guest network next to primary).
+- `--potfile-disable` — skip auto-remembering (useful for
+  reproducible benchmarks).
+- `--potfile-path=/path/to/pot` — custom potfile; combine with
+  `--session=<name>` for per-target restore.
+- `--restore` — resume the last session from the CWD. **Caveat:**
+  hashcat's restore file is CWD-relative; run `--restore` from the
+  directory you started the session in, or pass `--session=<name>`
+  explicitly.
+
+## GPU baselines (2024 reference, mode 22000)
+
+| GPU           | H/s (no `-O`) | H/s (`-O`)   | notes                    |
+| ---           | ---           | ---          | ---                      |
+| RTX 3080      | ~750 KH/s     | ~900 KH/s    | 320 W baseline           |
+| RTX 3090      | ~1.1 MH/s     | ~1.4 MH/s    | 350 W baseline           |
+| RTX 4080      | ~1.5 MH/s     | ~1.8 MH/s    |                          |
+| RTX 4090      | ~2.0 MH/s     | ~2.4-2.6 MH/s| 450 W; the standard 2024 |
+| M2 Max        | ~200 KH/s     | ~250 KH/s    | Apple Neural Engine      |
+
+## Post-crack validation
+
+Once hashcat spits out a PSK candidate, verify it decrypts real
+traffic before claiming the flag:
+
+```
+# 1. Trial-associate with wpa_supplicant
+cat > /tmp/verify.conf <<EOF
+network={
+    ssid="<ESSID>"
+    psk="<candidate PSK>"
+    key_mgmt=WPA-PSK
+}
+EOF
+sudo wpa_supplicant -i wlan1 -c /tmp/verify.conf -B
+sudo dhclient wlan1
+
+# 2. Or, offline: decrypt a data frame in Wireshark
+tshark -r cap.pcapng \
+  -o "wlan.enable_decryption:TRUE" \
+  -o "uat:80211_keys:\"wpa-pwd\",\"<PSK>:<ESSID>\"" \
+  -Y "data and not eapol" -c 5
+# If the plaintext DA/SA and IP fields look right, PSK is confirmed.
+```
+
+## Candidate generation for vendor defaults
+
+`hcxpsktool` generates candidate PSKs for known vendor default
+schemes (Comcast xfinity, Netgear, Belkin, D-Link, TP-Link,
+Verizon Fios). Feed its output into hashcat:
+
+```
+hcxpsktool -a AA:BB:CC:DD:EE:FF > /tmp/candidates.txt
+hashcat -m 22000 hs.22000 /tmp/candidates.txt
+```
 
 ## Distributed cracking
 

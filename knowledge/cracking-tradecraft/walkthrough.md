@@ -1,5 +1,7 @@
 # cracking-tradecraft — walkthrough
 
+**Verified against:** hashcat 6.2.x as of 2026-Q3
+
 Reach for these in order, cheapest first. Every `hs.22000` file feeds
 the same pipeline; the only variable is *how* you generate candidates.
 
@@ -33,7 +35,10 @@ distribution. Anything past this needs domain knowledge.
 ## Path 3 — masks tailored to structure
 
 If Path 2 dies, guess the structure. Common WPA PSK shapes and
-runtimes at ~2 MH/s:
+runtimes at ~2.4 MH/s on a single RTX 4090 (mode 22000). Note that
+`-O` (optimized kernel) is faster but caps password length at **32**
+chars — safe for the ≤ 10-char masks below, unsafe if you extend
+past 32.
 
 ```
 # 8 digits — WPS-defaulted APs; instant.
@@ -49,8 +54,9 @@ hashcat -m 22000 hs.22000 -a 3 ?l?l?l?l?l?l?d?d?d?d
 hashcat -m 22000 hs.22000 -a 3 ?u?l?l?l?l?l?d?d
 ```
 
-`?a?a?a?a?a?a?a?a` (all printable, 8 chars) is 33 days at 2 MH/s.
-Don't. Structure-first.
+`?a?a?a?a?a?a?a?a` (all printable, 8 chars) is **~87 years** at
+2.4 MH/s — 95^8 ≈ 6.634e15 candidates ÷ (2.4e6 H/s × 86400 s/day)
+≈ 31 990 days. Don't. Structure-first.
 
 ## Path 4 — SSID-derived wordlist
 

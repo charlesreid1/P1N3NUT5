@@ -12,10 +12,15 @@ driver=nl80211
 ssid=RogueNet
 hw_mode=g              # 'a' for 5 GHz, 'g' for 2.4 GHz
 channel=6
+country_code=US        # required for 5 GHz; harmless on 2.4 GHz
+ieee80211d=1           # advertise country IE — hostapd refuses many 5 GHz chans without this
 bssid=aa:bb:cc:dd:ee:ff   # optional; omit for adapter default
 ```
 
-Add one of the security blocks below.
+Add one of the security blocks below. Every full config should carry
+the `country_code` + `ieee80211d=1` pair, even for 2.4 GHz — without
+them hostapd rejects many 5 GHz channels outright and clients treat
+missing Country IEs as a fingerprint.
 
 ## Security modes
 

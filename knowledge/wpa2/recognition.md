@@ -31,11 +31,13 @@ Two ways to check:
 
 ## Is PMF required?
 
-RSN Capabilities bit 7 (MFPR — Management Frame Protection Required):
+RSN Capabilities bit 6 (MFPR — Management Frame Protection Required)
+and bit 7 (MFPC — MFP Capable):
 
 - **0/0** — no PMF. Deauth is unrestricted.
-- **1/0** — PMF optional (bit 6 MFPC set). Some clients negotiate PMF,
-  some don't. Unicast deauth still works against non-PMF clients.
+- **0/1** — PMF optional (bit 7 MFPC set, bit 6 MFPR clear). Some
+  clients negotiate PMF, some don't. Unicast deauth still works
+  against non-PMF clients.
 - **1/1** — PMF required. Broadcast deauth is a no-op; unicast is
   authenticated. Pivot to Kr00k (disassoc triggers all-zero PTK on
   vulnerable clients), SSID Confusion, or the WPA3-side (if this is

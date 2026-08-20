@@ -1,5 +1,7 @@
 # PineAP — walkthrough
 
+**Verified against:** Pineapple Mark VII firmware 3.x as of 2026-Q3
+
 A 15-minute engagement. Broadcast a curated SSID pool, log every probe
 seen, generate a target list from what associated. This is the passive
 recon path; active KARMA is one toggle away.
@@ -127,7 +129,7 @@ Associated clients' traffic transits the Pineapple. From here:
 
 - Hak5 WiFi Pineapple Mark VII API documentation.
 - SensePost 2014 — MANA.
-- Godsend 2018 — Known Beacons.
+- Etizaz Mohsin / Bastille Networks 2017–2018 — Known Beacons.
 - attacks.json: `pineap-passive-probe-log`, `pineap-active-karma`,
   `pineap-ssid-pool-broadcast`, `mana-karma`, `mana-known-beacons`,
   `mana-loud`.

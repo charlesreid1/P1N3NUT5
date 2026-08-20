@@ -41,12 +41,15 @@ tshark -r capture.pcapng -Y "wlan.tag.number == 48" -V
 - **IE 48 — RSN** (`ie-rsn`). Load-bearing. Cipher + AKM + PMKID
   fields. See `wpa2/recognition.md`, `wpa3/recognition.md`.
 - **IE 221 (Microsoft WPA1)** — vendor-specific WPA1 predecessor.
-- **IE 191..192 — HT/VHT Capabilities** — driver / chipset
-  fingerprint surface.
-- **IE 55 — MDE (Mobility Domain Element)** — 802.11r tell.
-- **IE 56..57 — FT Element, Timeout Interval** — Fast Transition
-  session state.
-- **IE 76 — RIC Descriptor** — 802.11r QoS+11r.
+- **IE 45 — HT Capabilities** / **IE 191 — VHT Capabilities** — driver /
+  chipset fingerprint surface.
+- **IE 54 — MDE (Mobility Domain Element)** — 802.11r tell.
+- **IE 55 — FTE (Fast BSS Transition Element)** — carries ANonce/SNonce/MIC.
+- **IE 56 — Timeout Interval** — Fast Transition session state.
+- **IE 57 — RIC Data** — 802.11r Resource Information Container.
+- **IE 244 — RSNXE (RSN Extension)** — new AKM selectors added
+  post-2018; carries the SAE-H2E-only bit (bit 5 of the RSNX
+  Capabilities field).
 
 ### Roaming / neighbor / interworking
 
@@ -59,9 +62,9 @@ tshark -r capture.pcapng -Y "wlan.tag.number == 48" -V
 - **IE 107 — Interworking** — 802.11u; ANQP-capable bit.
 - **IE 108 — Advertisement Protocol** — GAS.
 - **IE 111 — Roaming Consortium** — Passpoint OI advertisement.
-- **IE 199 — RSN Extension** — new AKM selectors added post-2018.
 - **IE 201 — Reduced Neighbor Report (RNR)** — 6 GHz-target
   advertisement in 2.4/5 GHz beacons.
+- **IE 244 — RSNXE (RSN Extension)** — see Security section above.
 
 ### Wi-Fi 6/6E/7 (all IE 255 extensions)
 
@@ -81,13 +84,22 @@ tshark -r capture.pcapng -Y "wlan.tag.number == 48" -V
 ### Passpoint / Hotspot 2.0
 
 Nested inside ANQP payloads (GAS Initial Response). ANQP element
-IDs are a separate namespace:
+IDs are a separate namespace. Per IEEE 802.11-2020 Table 9-271:
 
-- **ANQP 257 — Venue Name**.
-- **ANQP 258 — Network Authentication Type**.
-- **ANQP 259 — Roaming Consortium List**.
-- **ANQP 261 — NAI Realm**.
-- **ANQP 265 — Domain Name**.
+- **ANQP 257 — Query List**.
+- **ANQP 258 — Capability List**.
+- **ANQP 259 — Venue Name**.
+- **ANQP 260 — Emergency Call Number**.
+- **ANQP 261 — Network Authentication Type**.
+- **ANQP 262 — Roaming Consortium**.
+- **ANQP 263 — IP Address Type Availability**.
+- **ANQP 264 — NAI Realm**.
+- **ANQP 265 — 3GPP Cellular Network**.
+- **ANQP 266 — AP Geospatial Location**.
+- **ANQP 267 — AP Civic Location**.
+- **ANQP 268 — AP Location Public Identifier URI**.
+- **ANQP 269 — Domain Name**.
+- **ANQP 270 — Emergency Alert Identifier URI**.
 
 See `hotspot2/reference.md`.
 
@@ -98,8 +110,11 @@ The corpus tracks well-known ones:
 
 - **OUI 00-50-F2 (Microsoft)** — WPA1 (subtype 1), WPS (subtype 4).
 - **OUI 00-0F-AC (IEEE)** — used inside RSN cipher/AKM selectors.
-- **OUI 00-40-96 (Cisco/Aironet)** — CCX extensions.
-- **OUI 00-90-4C (Broadcom)** — proprietary vendor extensions.
+- **OUI 00-40-96 (Cisco/Aironet, legacy)** — CCX extensions. Modern
+  Cisco APs use `00-23-04`, `00-0C-85`, `00-1B-D4`, etc.
+- **OUI 00-90-4C (legacy Epigram / early Broadcom)** — proprietary
+  vendor extensions from Broadcom's Epigram-inherited 802.11b silicon.
+  Modern Broadcom consumer CPEs surface `00-10-18` and `00-1E-D3`.
 - **OUI 8C-FD-F0 (Apple)** — beacon-time Apple markers.
 
 Vendor-Specific IEs are also where **beacon-stego WCTF flags** hide.

@@ -1,5 +1,7 @@
 # Multi-Channel MitM — walkthrough
 
+**Verified against:** hostapd 2.11 (Vanhoef 2018 PoC) as of 2026-Q3
+
 Two radios, one victim. The Pineapple Mk VII's dual-radio hardware is
 exactly what this primitive assumes. This is the substrate for KRACK,
 FT-handshake capture, SSID Confusion in the presence of band-steering,

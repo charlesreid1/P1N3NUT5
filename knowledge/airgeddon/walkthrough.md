@@ -1,13 +1,22 @@
 # airgeddon — walkthrough
 
+**Verified against:** airgeddon v11.x as of 2026-Q3
+
 Menu-driven TUI in the same class as wifite2, but with a stronger
 captive-portal / evil-twin workflow built in. Reach for it when you
 want a one-shot evil-twin engagement without hand-editing hostapd.
 
 ## Preconditions
 
-- airgeddon installed (`apt install airgeddon` on Kali or clone
-  the git repo).
+- airgeddon installed. Debian/Ubuntu/Kali do **not** ship it via apt;
+  clone from upstream:
+
+  ```
+  git clone https://github.com/v1s1t0r1sh3r3/airgeddon.git
+  cd airgeddon
+  sudo bash airgeddon.sh
+  ```
+
 - Monitor+injection adapter.
 - Optional: rockyou.
 
@@ -30,15 +39,20 @@ Menu navigation:
 
 ## Path B — Evil-twin captive-portal engagement
 
-airgeddon's evil-twin menu is its strongest feature. Sub-modes:
+airgeddon's evil-twin flow is its strongest feature. From the main
+attack menu, pick the **Evil twin attacks menu** and choose the
+sub-mode that fits the engagement:
 
-1. **Just AP.**
-2. **AP with sniffing (Ettercap-in-the-middle).**
-3. **AP with sniffing + SSLstrip.**
-4. **AP with sniffing + SSLstrip + BeEF hook.**
-5. **AP with captive portal (cred capture).**
+1. Rogue AP only (no client-side capture).
+2. Rogue AP with sniffing (ettercap-in-the-middle).
+3. Rogue AP with sniffing + SSLstrip.
+4. Rogue AP with sniffing + SSLstrip + BeEF hook.
+5. Rogue AP with captive portal (cred capture; the WCTF favorite).
 
-Sub-mode 5 is the WCTF favorite. airgeddon:
+Menu strings drift between airgeddon releases — treat the list as
+"pick the captive-portal sub-mode" rather than quoting exact text.
+Verified against v11.x; earlier v10.x runs used slightly different
+wording. In the captive-portal sub-mode, airgeddon:
 
 - Brings up hostapd with the target SSID + BSSID.
 - Runs dnsmasq for DHCP.
@@ -49,11 +63,13 @@ Sub-mode 5 is the WCTF favorite. airgeddon:
 
 ## Path C — Enterprise attack
 
-airgeddon wraps hostapd-wpe:
+airgeddon wraps hostapd-wpe. Enter the **Enterprise attacks menu**
+from the main attack menu and walk through:
 
 ```
-# Menu path:
-#   Enterprise attacks → Certificate creation → Wildcard portal
+# Menu flow (labels paraphrased — verify against your v11.x build):
+#   Enterprise attacks → Certificate creation → Wildcard/branded cert
+#   → Rogue AP launch (hostapd-wpe under the hood)
 ```
 
 Ships a pre-baked hostapd-wpe workflow with cert-CN spoofing.

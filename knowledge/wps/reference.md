@@ -18,20 +18,43 @@ before the second half is ever transmitted. Total worst-case:
 ```
 STA (Enrollee) ────────────────── AP (Registrar)
 
-M1: E-Nonce, E-Hash1, E-Hash2, PK-E    ────►
-                                       ◄──── M2: R-Nonce, PK-R, ConfigAuth
-M3: E-S1 (proves knowledge of first half PIN) ────►
-                                       ◄──── M4: R-S1 (proves R knows first half)
-M5: E-S2 (second half PIN) ────►
-                                       ◄──── M6: R-S2
-M7: Encrypted config settings ────►
-                                       ◄──── M8: Ack
+M1: E-Nonce (N1), PK-E                 ────►
+                                       ◄──── M2: R-Nonce (N2), PK-R, AuthKey,
+                                              R-Hash1, R-Hash2
+M3: E-Hash1, E-Hash2 (commitments to
+    E-S1/E-S2)                         ────►
+                                       ◄──── M4: ENC(R-S1) (proves R knows
+                                              first-half PIN half)
+M5: ENC(E-S1) (proves E knows
+    first-half PIN half)               ────►
+                                       ◄──── M6: ENC(R-S2)
+M7: ENC(E-S2, ConfigData)              ────►
+                                       ◄──── M8: ENC(ConfigData)
 ```
 
 Reaver walks this loop, sweeping the first half then the second.
-Pixie Dust attacks the *offline* recovery of E-S1 + E-S2 from the
-first exchange, without further round-trips — it depends on the
-AP's WPS registrar seeding its internal RNG predictably.
+Pixie Dust attacks the *offline* recovery of E-S1 + E-S2 from
+E-Hash1/E-Hash2 (captured in M3) — it depends on the AP's WPS
+registrar seeding its internal RNG predictably, so E-S1/E-S2 can
+be re-derived without further round-trips.
+
+### When the halves-split actually enforces
+
+Load-bearing detail for time budgeting: **some registrars only
+enforce the halves-split AFTER M4** (not before). That is, the
+registrar accepts the enrollee's M3 (which commits to E-S1/E-S2)
+and sends M4 (which proves knowledge of the first-half PIN) whether
+or not the first half is correct — the mismatch is only surfaced
+once the enrollee sends M5 with the wrong second half's proof.
+
+Consequence: on those registrars, the attacker **cannot distinguish
+first-half-correct from first-half-wrong** without transmitting M5.
+Every candidate first half costs a full M1..M5 round-trip, not the
+M1..M3 the "halves-split" language suggests. This is the primary
+real-hardware time factor determining how long a Pixie Dust capture
+or an online PIN brute takes — not the 11,000-trial theoretical
+minimum. Vendor-dependent; check `Manufacturer` / `Model` IE
+fingerprint to pre-estimate.
 
 ## Vulnerable-registrar chipset table (2026 status)
 

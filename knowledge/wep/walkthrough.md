@@ -1,5 +1,7 @@
 # WEP walkthrough — crack in under a minute
 
+**Verified against:** aircrack-ng 1.7 as of 2026-Q3
+
 ```
 # 1. Monitor mode.
 airmon-ng start wlan1

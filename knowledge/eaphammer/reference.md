@@ -1,5 +1,7 @@
 # eaphammer — the modern enterprise-evil-twin standard
 
+**Verified against:** eaphammer 1.14 as of 2026-Q3
+
 Gabriel Ryan's tool. Higher-level than hostapd-wpe: generates certs,
 templates hostile portals, drives multiple attack profiles from a
 single CLI invocation.
@@ -21,10 +23,10 @@ outer security mode.
 ```
 eaphammer --interface wlan0 --essid "CorpWiFi" \
           --creds --auth wpa-eap \
-          --negotiate downgrade
+          --negotiate weakest
 ```
 
-`downgrade` tells the tool to accept whatever weaker inner method the
+`weakest` tells the tool to accept whatever weaker inner method the
 client offers — PEAP-GTC is the sweet spot because GTC sends the
 token in plaintext under the tunnel.
 
@@ -56,12 +58,24 @@ adjacent template ecosystem eaphammer imports from.
 
 Everything lands in `~/.eaphammer/loot/`:
 - `hashcat.cred` — hashcat 5500 input for each captured MSCHAPv2
+  (`user::domain::<NTResponse>:<ChallengeHash>` — 8-byte
+  ChallengeHash pre-derived; see the callout in
+  `enterprise/reference.md`).
 - `john.cred` — the same in JtR format
 - `raw/` — pcaps
 
 ## Cite
 
 - s0lst1c3 eaphammer GitHub.
+- RFC 3748 — EAP framework.
+- RFC 4137 — EAP peer/authenticator state machine.
+- RFC 5216 — EAP-TLS.
+- RFC 5281 — EAP-TTLSv0.
+- RFC 2759 — MSCHAPv2.
+- RFC 2865 — RADIUS.
+- RFC 3579 — RADIUS support for EAP.
+- RFC 7170 — EAP-TEAP.
+- RFC 9190 — EAP-TLS 1.3.
 - attacks.json: `rogue-radius-eaphammer`,
   `eap-inner-downgrade-peap-mschapv2`,
   `eap-inner-downgrade-peap-gtc`,

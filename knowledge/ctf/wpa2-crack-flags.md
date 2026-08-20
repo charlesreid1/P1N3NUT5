@@ -1,5 +1,7 @@
 # WPA2 crack flags — "the PSK is the flag"
 
+**Verified against:** hcxdumptool 7.3 / hashcat 6.2.x as of 2026-Q3
+
 The classic. Capture the 4-way (or PMKID), crack the PSK, hand over
 the PSK.
 
@@ -69,7 +71,73 @@ query.
   bring one — the Pineapple's second radio can pose as a target
   client (association attempt = M1 = PMKID).
 
+## What still works when PMF-required
+
+The sequence above deauths a client to force a 4-way. When
+MFPR=1 on the beacon (or the target is 6 GHz, where PMF is
+mandatory), drop the `capture_handshake`+`deauth_count` step
+and replace it with PMF-safe capture paths:
+
+- **PMKID capture is unaffected.** M1 with a non-zero PMKID
+  field is not PMF-protected — the 4-way isn't robust-mgmt. The
+  step 3 `capture_pmkid` line above still runs. This is the
+  primary path against PMF-required WPA2/3-transition targets.
+- **Natural-reassoc wait.** Skip the deauth, extend the capture
+  window (`timeout_s=300`), and let the client roam or
+  re-associate on its own. Slower but no attack surface.
+- **Bring your own client.** Second Pineapple radio poses as a
+  target client; its association attempt to the AP produces an
+  M1 PMKID. No deauth needed, no live victim needed.
+- **Kr00k tail-frame decrypt (CVE-2019-15126 / -2020-3702).**
+  On a vulnerable Broadcom/Cypress/QCA STA, a natural disassoc
+  leaks queued frames encrypted under a zero PTK. Some WCTF flag
+  payloads sit specifically in that tail.
+- **Transition-mode carve-out.** If MFPR=1 but MFPC clients
+  coexist with PMF-off clients (transition mode), the PMF-off
+  clients are still deauthable. `list_clients` will tag PMF
+  state per STA — target them.
+- **FT reassoc capture (802.11r).** If the mobility domain is
+  in play, FT reassoc frames yield hashcat-22000 material even
+  without a deauth.
+
+## MCP mapping
+
+The sequence above uses only actions with real backing tools in `src/`:
+
+- `capture_pmkid` → `server.do_capture_pmkid` (hcxdumptool via SSH).
+- `capture_handshake` → `server.do_capture_handshake` (hcxdumptool +
+  optional targeted deauth). Note: the parameter name is
+  `deauth_client=<mac>`, not `client` + `deauth_count` — the count is
+  hard-coded by the underlying `attacks.capture_handshake` primitive.
+  If you want an explicit deauth burst first, prepend a separate
+  `{"action": "deauth", ...}` step (maps to `server.do_deauth`).
+- `convert_to_hashcat` → `server.convert_to_hashcat` (hcxpcapngtool
+  under the hood; `rules` is a hashcat-invocation knob, not a
+  conversion knob — move it to `crack_start` in real runs).
+- `crack_start` → `server.crack_start`.
+
+## Fallback shell chain (no MCP)
+
+```bash
+# 1. capture (either PMKID or full 4-way — pick one interface run)
+sudo hcxdumptool -i wlan1 -c 6a -w /tmp/hs.pcapng \
+    --disable_deauthentication=1
+# 2. convert
+hcxpcapngtool -o /tmp/hs.22000 /tmp/hs.pcapng
+# 3. crack
+hashcat -m 22000 /tmp/hs.22000 /opt/wordlists/rockyou.txt \
+    -r rules/best64.rule
+```
+
+If you need a targeted deauth (only on PMF-off targets):
+
+```bash
+sudo aireplay-ng -0 3 -a AA:BB:CC:DD:EE:FF -c 11:22:33:44:55:66 wlan1mon
+```
+
 ## Cite
 
-- attacks.json: `wpa2-4way-capture`, `pmkid-capture`.
+- attacks.json: `wpa2-4way-capture`, `pmkid-capture`,
+  `kr00k-broadcom-cve-2019-15126`, `ft-reassoc-capture`.
 - Steube 2018; aircrack-ng docs; hashcat wiki.
+- IEEE Std 802.11-2020 §11.34 (PMF), §12.7.6 (4-way handshake).

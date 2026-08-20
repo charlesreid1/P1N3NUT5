@@ -2,17 +2,42 @@
   {
     "id": "vendor-cisco",
     "name": "Cisco (Aironet / Meraki / Catalyst WLC)",
-    "aliases": ["Cisco Aironet", "Cisco Meraki", "Cisco WLC"],
+    "aliases": [
+      "Cisco Aironet",
+      "Cisco Meraki",
+      "Cisco WLC"
+    ],
     "category": "vendor_profile",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wright-asleap"],
-    "see_also": ["eap-leap", "leap-legacy-crack", "ie-vendor-specific", "def-wids-deauth-flood", "def-rogue-radius-hardening"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wright-asleap"
+    ],
+    "see_also": [
+      "eap-leap",
+      "leap-legacy-crack",
+      "ie-vendor-specific",
+      "def-wids-deauth-flood",
+      "def-rogue-radius-hardening"
+    ],
     "technical_body": {
-      "vendor_oui_examples": ["00-40-96", "00-1B-D4"],
-      "roles": ["enterprise WLC", "campus AP", "SMB Meraki cloud AP"],
+      "vendor_oui_examples": [
+        "00-40-96 (legacy Aironet)",
+        "00-23-04",
+        "00-0C-85",
+        "00-1B-D4"
+      ],
+      "roles": [
+        "enterprise WLC",
+        "campus AP",
+        "SMB Meraki cloud AP"
+      ],
       "era_footprint": {
         "wpa2_era": "widespread on enterprise WLCs; canonical LEAP deployments",
         "wpa3_era": "Catalyst 9800 + Meraki cloud APs support WPA3-Personal / Enterprise",
@@ -24,40 +49,89 @@
   {
     "id": "vendor-ubiquiti",
     "name": "Ubiquiti (UniFi / EdgeMAX)",
-    "aliases": ["UniFi", "Ubiquiti Networks"],
+    "aliases": [
+      "UniFi",
+      "Ubiquiti Networks"
+    ],
     "category": "vendor_profile",
     "region": "universal",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "hostapd-docs"],
-    "see_also": ["km-wpa2-psk", "km-wpa3-sae", "km-wpa2-eap", "wpa3-transition-downgrade", "std-802-11r", "std-802-11k", "std-802-11v"],
+    "citations": [
+      "ieee-802-11-2020",
+      "hostapd-docs"
+    ],
+    "see_also": [
+      "km-wpa2-psk",
+      "km-wpa3-sae",
+      "km-wpa2-eap",
+      "wpa3-transition-downgrade",
+      "std-802-11r",
+      "std-802-11k",
+      "std-802-11v"
+    ],
     "technical_body": {
-      "vendor_oui_examples": ["00-27-22", "24-A4-3C", "78-8A-20"],
-      "roles": ["prosumer / SMB", "campus WiFi via UniFi Controller"],
+      "vendor_oui_examples": [
+        "00-27-22",
+        "24-A4-3C",
+        "78-8A-20"
+      ],
+      "roles": [
+        "prosumer / SMB",
+        "campus WiFi via UniFi Controller"
+      ],
       "era_footprint": {
-        "wpa2_era": "AC-Pro / AC-LR / AC-Lite were the workhorses ~2015–2020",
+        "wpa2_era": "AC-Pro / AC-LR / AC-Lite were the workhorses ~2015\u20132020",
         "wpa3_era": "UniFi 6 / U6-LR / U6-Pro / U6-Enterprise support WPA3-Personal and transition mode",
         "wifi6_6e_era": "U6-Enterprise / U6-Mesh support Wi-Fi 6E on 6 GHz UNII-5/6/7/8"
       },
-      "notable_defaults": ["802.11r/k/v enabled by default on modern controllers", "PMF-optional (mixed) by default"],
+      "notable_defaults": [
+        "802.11r/k/v enabled by default on modern controllers",
+        "PMF-optional (mixed) by default"
+      ],
       "attack_surface_summary": "Transition-mode downgrade against UniFi 6 with legacy clients; FT-handshake capture on 11r roams; UniFi controller ships default WPA2 evil-twin targets."
     }
   },
   {
     "id": "vendor-tp-link",
     "name": "TP-Link",
-    "aliases": ["TPLink", "TP Link", "Archer"],
+    "aliases": [
+      "TPLink",
+      "TP Link",
+      "Archer"
+    ],
     "category": "vendor_profile",
     "region": "universal",
-    "era_bounds": ["2005", null],
+    "era_bounds": [
+      "2005",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wps-2-0"],
-    "see_also": ["wps-vendor-pin-derivation", "wps-pixie-dust", "wps-reaver-online", "chipset-realtek-rtl8xxx-cve-2021-28492", "chipset-broadcom-bcm43xx-broadpwn"],
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "wps-vendor-pin-derivation",
+      "wps-pixie-dust",
+      "wps-reaver-online",
+      "chipset-realtek-rtl8xxx-cve-2021-28492",
+      "chipset-broadcom-bcm43xx-broadpwn"
+    ],
     "technical_body": {
-      "vendor_oui_examples": ["50-C7-BF", "C4-6E-1F", "AC-84-C6"],
-      "roles": ["consumer / SOHO", "outdoor CPE (Pharos)"],
+      "vendor_oui_examples": [
+        "50-C7-BF",
+        "C4-6E-1F",
+        "AC-84-C6"
+      ],
+      "roles": [
+        "consumer / SOHO",
+        "outdoor CPE (Pharos)"
+      ],
       "era_footprint": {
         "wpa2_era": "Archer C7 / C1200 / C2300 were the volume plays; WPS PIN derivation viable on many generations",
         "wpa3_era": "Archer AX line (AX10/AX50/AX55/AX73) supports WPA3-Personal from 2019+",
@@ -69,75 +143,557 @@
   {
     "id": "vendor-mikrotik",
     "name": "MikroTik (RouterOS)",
-    "aliases": ["RouterOS", "MikroTik RB", "hAP"],
+    "aliases": [
+      "RouterOS",
+      "MikroTik RB",
+      "hAP"
+    ],
     "category": "vendor_profile",
     "region": "universal",
-    "era_bounds": ["2003", null],
+    "era_bounds": [
+      "2003",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "hostapd-docs"],
-    "see_also": ["km-wpa2-psk", "km-wpa2-eap", "km-wpa3-sae", "std-802-11r"],
+    "citations": [
+      "ieee-802-11-2020",
+      "hostapd-docs"
+    ],
+    "see_also": [
+      "km-wpa2-psk",
+      "km-wpa2-eap",
+      "km-wpa3-sae",
+      "std-802-11r"
+    ],
     "technical_body": {
-      "vendor_oui_examples": ["4C-5E-0C", "6C-3B-6B", "B8-69-F4"],
-      "roles": ["ISP-grade / WISP", "prosumer routers", "outdoor point-to-point (Metal / SXT / LHG)"],
+      "vendor_oui_examples": [
+        "4C-5E-0C",
+        "6C-3B-6B",
+        "B8-69-F4"
+      ],
+      "roles": [
+        "ISP-grade / WISP",
+        "prosumer routers",
+        "outdoor point-to-point (Metal / SXT / LHG)"
+      ],
       "era_footprint": {
         "wpa2_era": "Widespread on WISP and small-ISP deployments 2010+",
         "wpa3_era": "RouterOS 7.x adds WPA3 support (2021+)",
-        "wifi6_6e_era": "hAP ax² / hAP ax³ / cAP ax lines support Wi-Fi 6"
+        "wifi6_6e_era": "hAP ax\u00b2 / hAP ax\u00b3 / cAP ax lines support Wi-Fi 6"
       },
-      "notable_defaults": ["hostapd underneath but exposed through RouterOS wireless config", "default admin creds on old RouterBOARDs are a persistent problem"],
+      "notable_defaults": [
+        "hostapd underneath but exposed through RouterOS wireless config",
+        "default admin creds on old RouterBOARDs are a persistent problem"
+      ],
       "attack_surface_summary": "Unusual RouterOS beacon fingerprints (see AP fingerprinting); administrative interface CVEs are OUT OF SCOPE (see plan-knowledge.md scope rule)."
     }
   },
   {
     "id": "vendor-ruckus",
-    "name": "Ruckus (Commscope) — R-series / T-series",
-    "aliases": ["Ruckus Wireless", "Commscope Ruckus", "SmartZone"],
+    "name": "Ruckus (Commscope) \u2014 R-series / T-series",
+    "aliases": [
+      "Ruckus Wireless",
+      "Commscope Ruckus",
+      "SmartZone"
+    ],
     "category": "vendor_profile",
     "region": "universal",
-    "era_bounds": ["2007", null],
+    "era_bounds": [
+      "2007",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
-    "see_also": ["km-wpa2-eap", "km-wpa3-enterprise", "def-wids-deauth-flood", "def-rogue-radius-hardening", "std-802-11r"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "km-wpa2-eap",
+      "km-wpa3-enterprise",
+      "def-wids-deauth-flood",
+      "def-rogue-radius-hardening",
+      "std-802-11r"
+    ],
     "technical_body": {
-      "vendor_oui_examples": ["00-1D-2E", "24-79-2A", "58-93-96"],
-      "roles": ["large-venue enterprise", "hospitality / stadium"],
+      "vendor_oui_examples": [
+        "00-1D-2E",
+        "24-79-2A",
+        "58-93-96"
+      ],
+      "roles": [
+        "large-venue enterprise",
+        "hospitality / stadium"
+      ],
       "era_footprint": {
         "wpa2_era": "R710 / R610 workhorses in enterprise deployments 2015+",
         "wpa3_era": "R750 / R850 support WPA3-Enterprise + 192-bit suite",
         "wifi6_6e_era": "R760 / R770 support Wi-Fi 6E"
       },
-      "notable_features": ["BeamFlex adaptive antennas (proprietary)", "SmartZone controller stack"],
-      "attack_surface_summary": "Aggressive WIDS on SmartZone — noisy attacks get logged; enterprise cert-pinning discipline typically strong; targets are the misconfigured 802.1X profiles, not the AP itself."
+      "notable_features": [
+        "BeamFlex adaptive antennas (proprietary)",
+        "SmartZone controller stack"
+      ],
+      "attack_surface_summary": "Aggressive WIDS on SmartZone \u2014 noisy attacks get logged; enterprise cert-pinning discipline typically strong; targets are the misconfigured 802.1X profiles, not the AP itself."
     }
   },
   {
     "id": "vendor-consumer-mesh",
     "name": "Consumer mesh (eero / Google Nest WiFi / TP-Link Deco / Netgear Orbi)",
-    "aliases": ["eero", "Google Nest WiFi", "Deco", "Orbi", "consumer-mesh"],
+    "aliases": [
+      "eero",
+      "Google Nest WiFi",
+      "Deco",
+      "Orbi",
+      "consumer-mesh"
+    ],
     "category": "vendor_profile",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
-    "see_also": ["km-wpa2-psk", "km-wpa3-sae", "wpa3-transition-downgrade", "std-802-11r", "std-802-11k", "std-802-11v", "captive-portal-cred-capture", "chipset-broadcom-bcm4358-kr00k"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec"
+    ],
+    "see_also": [
+      "km-wpa2-psk",
+      "km-wpa3-sae",
+      "wpa3-transition-downgrade",
+      "std-802-11r",
+      "std-802-11k",
+      "std-802-11v",
+      "captive-portal-cred-capture",
+      "chipset-broadcom-bcm4358-kr00k"
+    ],
     "technical_body": {
       "vendor_oui_examples": {
-        "eero": ["18-93-7F", "AC-63-BE"],
-        "google_nest": ["F4-F5-D8", "CC-3A-61"],
-        "netgear_orbi": ["9C-D3-6D", "B0-B9-8A"],
-        "tplink_deco": ["50-D4-F7"]
+        "eero": [
+          "18-93-7F",
+          "AC-63-BE"
+        ],
+        "google_nest": [
+          "F4-F5-D8",
+          "CC-3A-61"
+        ],
+        "netgear_orbi": [
+          "9C-D3-6D",
+          "B0-B9-8A"
+        ],
+        "tplink_deco": [
+          "50-D4-F7"
+        ]
       },
-      "roles": ["consumer whole-home mesh"],
+      "roles": [
+        "consumer whole-home mesh"
+      ],
       "era_footprint": {
-        "wpa2_era": "eero Gen 1 / 2, Google WiFi Gen 1, Orbi RBK50 — WPA2-Personal only",
+        "wpa2_era": "eero Gen 1 / 2, Google WiFi Gen 1, Orbi RBK50 \u2014 WPA2-Personal only",
         "wpa3_era": "eero 6 / 6+ / Pro 6, Nest WiFi Pro, Deco X60 / X68, Orbi RBK850 all support WPA3-Personal (mostly in transition mode by default)",
         "wifi6_6e_era": "eero Pro 6E, Nest WiFi Pro (6E), Deco XE75, Orbi RBKE960 support Wi-Fi 6E"
       },
-      "notable_defaults": ["WPA3 transition mode almost universally the default in 2024–2026", "802.11k/v enabled by default; 11r off on many for compatibility", "PMF-optional (mixed) — not required"],
+      "notable_defaults": [
+        "WPA3 transition mode almost universally the default in 2024\u20132026",
+        "802.11k/v enabled by default; 11r off on many for compatibility",
+        "PMF-optional (mixed) \u2014 not required"
+      ],
       "attack_surface_summary": "The dominant WPA3-transition-downgrade target class. Aggressive band-steering makes MC-MitM effective. Kr00k tail exists on Broadcom-based older units. Captive-portal cred capture works well against guest-network configurations."
+    }
+  },
+  {
+    "id": "vendor-aruba",
+    "name": "Aruba (HPE) \u2014 Instant / ArubaOS",
+    "aliases": [
+      "Aruba Networks",
+      "HPE Aruba",
+      "ArubaOS"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2002",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "km-wpa2-eap",
+      "km-wpa3-enterprise",
+      "std-802-11r",
+      "std-802-11k",
+      "std-802-11v"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "00-0B-86",
+        "94-B4-0F",
+        "20-4C-03",
+        "6C-F3-7F"
+      ],
+      "roles": [
+        "enterprise WLC",
+        "campus/branch AP",
+        "airport/hospitality"
+      ],
+      "era_footprint": {
+        "wpa2_era": "AP-2xx / AP-3xx workhorses in enterprise",
+        "wpa3_era": "AP-5xx / AP-6xx support WPA3-Personal + Enterprise",
+        "wifi6_6e_era": "AP-635 / AP-655 / AP-655 support Wi-Fi 6E"
+      },
+      "attack_surface_summary": "Aggressive WIDS on ArubaOS; enterprise cert-pinning discipline typically strong. Targets are misconfigured 802.1X profiles and 11k neighbor-report spoofing."
+    }
+  },
+  {
+    "id": "vendor-fortinet",
+    "name": "Fortinet \u2014 FortiAP",
+    "aliases": [
+      "FortiAP",
+      "FortiGate WiFi"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2010",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "04-D5-90",
+        "70-4C-A5",
+        "90-6C-AC"
+      ],
+      "roles": [
+        "SMB/enterprise UTM-integrated WiFi",
+        "branch AP under FortiGate controller"
+      ],
+      "era_footprint": {
+        "wpa2_era": "FAP-2xx-B / -C series",
+        "wpa3_era": "FAP-431F / 433F / 831F support WPA3",
+        "wifi6_6e_era": "FAP-431G / 833G Wi-Fi 6E"
+      },
+      "attack_surface_summary": "UTM-controller-managed; WIDS + rogue-AP-containment features common. 802.1X profiles frequently backed by FortiAuthenticator RADIUS."
+    }
+  },
+  {
+    "id": "vendor-aerohive-extreme",
+    "name": "Aerohive / Extreme Networks",
+    "aliases": [
+      "Aerohive",
+      "Extreme Networks",
+      "ExtremeWireless"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2007",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "00-19-77",
+        "40-E3-D6",
+        "88-DC-96"
+      ],
+      "roles": [
+        "K-12 education",
+        "SMB",
+        "cloud-managed enterprise"
+      ],
+      "era_footprint": {
+        "wpa2_era": "AP-1xx / 2xx series widespread in K-12",
+        "wpa3_era": "AP-3xx / 4xx support WPA3",
+        "wifi6_6e_era": "AP-4xx / AP-5010 Wi-Fi 6E"
+      },
+      "attack_surface_summary": "Cloud-managed; ExtremeCloud IQ analytics detect anomalies fast."
+    }
+  },
+  {
+    "id": "vendor-netgear",
+    "name": "Netgear",
+    "aliases": [
+      "NETGEAR",
+      "Nighthawk",
+      "Orbi"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2000",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "dpsk-netgear-genie",
+      "wps-vendor-pin-derivation"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "20-E5-2A",
+        "9C-D3-6D",
+        "B0-B9-8A",
+        "10-0D-7F"
+      ],
+      "roles": [
+        "consumer/SOHO",
+        "Orbi mesh",
+        "Nighthawk gaming routers"
+      ],
+      "era_footprint": {
+        "wpa2_era": "R7000 / R8000 workhorses; WPS-PIN issues on old firmware",
+        "wpa3_era": "AX-line (AX8/12) supports WPA3",
+        "wifi6_6e_era": "RAXE-500 / RBKE960 Wi-Fi 6E"
+      },
+      "attack_surface_summary": "WPS PIN historically derivable on many generations; older Netgear default PSK patterns."
+    }
+  },
+  {
+    "id": "vendor-linksys",
+    "name": "Linksys (Belkin / Foxconn)",
+    "aliases": [
+      "Linksys",
+      "Belkin"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "1999",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "dpsk-belkin",
+      "wps-vendor-pin-derivation"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "5C-CF-7F",
+        "94-10-3E",
+        "48-F8-B3"
+      ],
+      "roles": [
+        "consumer/SOHO",
+        "Velop mesh"
+      ],
+      "era_footprint": {
+        "wpa2_era": "WRT / EA workhorses",
+        "wpa3_era": "MR / MX-series (Velop) support WPA3",
+        "wifi6_6e_era": "Velop AXE and MR9600 support Wi-Fi 6E"
+      },
+      "attack_surface_summary": "Older WRT / EA lines had WPS PIN issues; Belkin default-PSK derivation from MAC still in the field (Craig Heffner)."
+    }
+  },
+  {
+    "id": "vendor-asus",
+    "name": "ASUS",
+    "aliases": [
+      "ASUS",
+      "ASUSTeK",
+      "RT-AX",
+      "RT-AC"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2000",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "04-D9-F5",
+        "00-1F-C6",
+        "88-D7-F6"
+      ],
+      "roles": [
+        "consumer/enthusiast",
+        "AiMesh"
+      ],
+      "era_footprint": {
+        "wpa2_era": "RT-AC5300 / AC88U",
+        "wpa3_era": "RT-AX88U / RT-AX86U / GT-AX line support WPA3",
+        "wifi6_6e_era": "RT-AXE7800 / GT-AXE16000 Wi-Fi 6E"
+      },
+      "attack_surface_summary": "Merlin firmware fork community. Historic AiCloud / AiMesh CVEs on management plane (OUT OF SCOPE per project rules)."
+    }
+  },
+  {
+    "id": "vendor-dlink",
+    "name": "D-Link",
+    "aliases": [
+      "D-Link",
+      "DLink"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "1998",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "dpsk-dlink-arc",
+      "wps-vendor-pin-derivation"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "14-D6-4D",
+        "00-15-E9",
+        "B8-A3-86"
+      ],
+      "roles": [
+        "consumer/SOHO"
+      ],
+      "era_footprint": {
+        "wpa2_era": "DIR / DAP workhorses; WPS PIN derivation viable on many generations",
+        "wpa3_era": "DIR-X / COVR support WPA3",
+        "wifi6_6e_era": "DIR-X6060 Wi-Fi 6"
+      },
+      "attack_surface_summary": "WPS default PIN / ARC-PIN patterns; legacy WEP defaults on DIR-6xx-era models."
+    }
+  },
+  {
+    "id": "vendor-huawei",
+    "name": "Huawei (WLAN AirEngine / consumer B-series)",
+    "aliases": [
+      "Huawei",
+      "AirEngine"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "dpsk-huawei-hg8xxx"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "00-E0-FC",
+        "80-FB-06",
+        "F4-9F-F3"
+      ],
+      "roles": [
+        "ISP-supplied GPON ONT (HG8xxx)",
+        "enterprise campus (AirEngine)",
+        "consumer WiFi (B-series LTE modems)"
+      ],
+      "era_footprint": {
+        "wpa2_era": "HG8xxx GPON ONT default-PSK derivable",
+        "wpa3_era": "AirEngine 5760 / 6760 support WPA3",
+        "wifi6_6e_era": "AirEngine 8760 Wi-Fi 6E"
+      },
+      "attack_surface_summary": "Huawei ISP-supplied gear ships with derivable default PSK on many generations. Enterprise AirEngine is a modern platform."
+    }
+  },
+  {
+    "id": "vendor-zte",
+    "name": "ZTE",
+    "aliases": [
+      "ZTE"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2005",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "see_also": [
+      "dpsk-zte-h298"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "34-0A-98",
+        "00-1A-58",
+        "18-31-BF"
+      ],
+      "roles": [
+        "ISP-supplied consumer gateway / GPON ONT"
+      ],
+      "era_footprint": {
+        "wpa2_era": "H298x / H288 CPE workhorses",
+        "wpa3_era": "H388X / H198X support WPA3",
+        "wifi6_6e_era": "some 2024+ models Wi-Fi 6E"
+      },
+      "attack_surface_summary": "ISP-supplied gear; default PSK derivable from serial on many generations."
+    }
+  },
+  {
+    "id": "vendor-xiaomi",
+    "name": "Xiaomi (Mi Router / Redmi Router)",
+    "aliases": [
+      "Xiaomi",
+      "Mi Router",
+      "Redmi Router"
+    ],
+    "category": "vendor_profile",
+    "region": "universal",
+    "era_bounds": [
+      "2014",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "vendor_oui_examples": [
+        "78-11-DC",
+        "8C-BE-BE",
+        "50-EC-50"
+      ],
+      "roles": [
+        "consumer/SOHO (China + APAC)"
+      ],
+      "era_footprint": {
+        "wpa2_era": "Mi Router 3 / 4",
+        "wpa3_era": "Mi AX line supports WPA3",
+        "wifi6_6e_era": "Xiaomi AX9000 / AXE16000 Wi-Fi 6E"
+      },
+      "attack_surface_summary": "OpenWRT-derivative firmware base on some models; community mods common. Historic UART/root-shell footholds exist but OOS."
     }
   }
 ]

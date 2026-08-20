@@ -1,5 +1,7 @@
 # scapy 802.11 — walkthrough
 
+**Verified against:** scapy 2.5 as of 2026-Q3
+
 When no other tool emits the frame you need. Every recipe below
 assumes a monitor+injection interface (`wlan1mon`) and Python 3
 with scapy installed.

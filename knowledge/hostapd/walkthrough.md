@@ -1,5 +1,7 @@
 # hostapd — walkthrough
 
+**Verified against:** hostapd 2.11 as of 2026-Q3
+
 Bring up a rogue AP in each security mode we care about. Every
 config below runs on the Pineapple (`hostapd /tmp/config.conf`) or
 on a laptop with a supported chipset.
@@ -20,6 +22,8 @@ driver=nl80211
 ssid=CorpGuest
 hw_mode=g
 channel=6
+country_code=US
+ieee80211d=1
 ignore_broadcast_ssid=0
 auth_algs=1
 EOF
@@ -38,6 +42,8 @@ driver=nl80211
 ssid=CorpWiFi
 hw_mode=g
 channel=6
+country_code=US
+ieee80211d=1
 wpa=2
 wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
@@ -59,6 +65,8 @@ driver=nl80211
 ssid=CorporateEAP
 hw_mode=g
 channel=6
+country_code=US
+ieee80211d=1
 wpa=2
 wpa_key_mgmt=WPA-EAP
 rsn_pairwise=CCMP
@@ -83,6 +91,8 @@ driver=nl80211
 ssid=WPA3Net
 hw_mode=g
 channel=6
+country_code=US
+ieee80211d=1
 wpa=2
 wpa_key_mgmt=SAE
 rsn_pairwise=CCMP
@@ -103,6 +113,8 @@ driver=nl80211
 ssid=MixedNet
 hw_mode=g
 channel=6
+country_code=US
+ieee80211d=1
 wpa=2
 wpa_key_mgmt=WPA-PSK SAE
 rsn_pairwise=CCMP
@@ -132,7 +144,19 @@ vht_oper_chwidth=1
 vht_oper_centr_freq_seg0_idx=42
 ```
 
-Add `dfs=1` if you're on UNII-2A/2C — driver-side DFS handling.
+On UNII-2A/2C DFS channels (52-144), `dfs=1` is **not** a valid
+hostapd option. DFS is enabled with:
+
+```
+ieee80211h=1
+ieee80211d=1
+country_code=US
+# hostapd then performs CAC automatically on DFS channels (60 s min).
+```
+
+Prefer non-DFS channels (UNII-1: 36-48, UNII-3: 149-165) for rogue
+APs — the CAC dwell delays beacons and the driver will bounce off
+detected radar mid-engagement.
 
 ## Path G — Vendor-IE cloning (for evil-twin fidelity)
 

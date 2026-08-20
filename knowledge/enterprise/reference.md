@@ -1,5 +1,7 @@
 # enterprise — reference
 
+**Verified against:** hostapd 2.10 / freeradius 3.0.x / hashcat 6.2.x as of 2026-Q3
+
 ## The chain
 
 ```
@@ -45,7 +47,7 @@ session is what seeds the WPA 4-way handshake.
 | PEAPv0       | TLS      | server-only | MSCHAPv2, GTC         |
 | PEAPv1       | TLS      | server-only | GTC (or MSCHAPv2)     |
 | EAP-FAST     | TLS(PAC) | optional    | MSCHAPv2, GTC         |
-| EAP-PWD      | none     | none        | (Dragonfly PAKE)      |
+| EAP-PWD      | none     | none        | (Dragonfly PAKE — CVE-2019-9497/9498/9499, CVE-2022-23303/23304) |
 | LEAP         | none     | none        | MSCHAPv1              |
 | EAP-MD5      | none     | none        | (plaintext CHAP)      |
 | EAP-SIM/AKA  | (celllar)| SIM cred    | (3GPP-side)           |
@@ -94,6 +96,44 @@ or TTLS-MSCHAPv2 inside a rogue tunnel), the crack is offline:
 - **`chapcrack` / cloudcracker** (2012 vintage) — DES-collision-
   based; not needed post-hashcat-5500 but historically referenced.
 
+### MSCHAPv2 ChallengeHash derivation (shared callout)
+
+`hashcat -m 5500` and `asleap` both expect an 8-byte `ChallengeHash`,
+**not** the raw 16-byte `PeerChallenge` seen on the wire. hostapd-wpe
+and freeradius-wpe pre-derive `ChallengeHash` for you; operators
+reading a raw pcap must derive it themselves.
+
+Given the three MSCHAPv2 inputs (RFC 2759 §8.1):
+
+```
+ChallengeHash = SHA1(PeerChallenge || AuthenticatorChallenge || Username)[:8]
+```
+
+- `PeerChallenge` — 16 bytes, sent by the client in the MSCHAPv2
+  Response.
+- `AuthenticatorChallenge` — 16 bytes, sent by the server in the
+  MSCHAPv2 Challenge.
+- `Username` — ASCII, no realm suffix.
+- Take the first 8 bytes of the SHA-1 digest.
+
+The canonical hashcat 5500 input format is a single line per
+capture, four colon-separated fields:
+
+```
+user::domain::<NTResponse_hex>:<ChallengeHash_hex>
+```
+
+- `user` — inner-EAP identity.
+- `domain` — realm / SSID / empty; not used cryptographically.
+- `NTResponse_hex` — 24-byte MSCHAPv2 NTResponse, hex-encoded.
+- `ChallengeHash_hex` — the 8-byte derived value above, hex-encoded.
+
+Every tool walkthrough in this corpus that touches mode 5500
+(hostapd-wpe, freeradius-wpe, asleap, hashcat, eaphammer) references
+this callout — do not re-derive by hand from a pcap unless you
+control the derivation and can verify it against a known-good
+capture.
+
 ## MDM profile theft
 
 A separate variant: after rogue-RADIUS association, the client's
@@ -105,13 +145,21 @@ the profile push, extract the cred. See
 ## Cite
 
 - IEEE Std 802.1X-2020.
-- RFC 3748 — EAP.
+- RFC 3748 — Extensible Authentication Protocol (EAP) framework.
+- RFC 4137 — State machine for EAP peer and authenticator.
 - RFC 5216 — EAP-TLS.
 - RFC 5281 — EAP-TTLSv0.
-- RFC 2759 — MSCHAPv2.
+- RFC 2759 — Microsoft PPP CHAP Extensions, Version 2 (MSCHAPv2).
+- RFC 2865 — Remote Authentication Dial-In User Service (RADIUS).
+- RFC 3579 — RADIUS Support For Extensible Authentication Protocol
+  (EAP).
+- RFC 7170 — Tunnel Extensible Authentication Protocol (EAP-TEAP)
+  Version 1.
 - RFC 9190 — EAP-TLS 1.3.
 - Gabriel Ryan — eaphammer talks (DEFCON, BSides).
 - Wright — `asleap` (hacking-exposed-wireless-3e).
+- CVE-2022-23303, CVE-2022-23304 — hostapd/wpa_supplicant EAP-pwd
+  memory-safety bugs; see also `dragonblood-deep/reference.md`.
 - attacks.json: `rogue-radius-hostapd-wpe`,
   `rogue-radius-eaphammer`,
   `cert-phish-eaphammer-weak-validation`,

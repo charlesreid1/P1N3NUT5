@@ -1,5 +1,7 @@
 # enterprise — recognition
 
+**Verified against:** hostapd 2.10 / freeradius 3.0.x / hashcat 6.2.x as of 2026-Q3
+
 Distinguish enterprise from PSK by the RSN IE, then predict which
 inner method a client will negotiate by initial-EAP fingerprint.
 
@@ -45,7 +47,7 @@ any. Downgrade priority:
 2. **EAP-MSCHAPv2** — challenge/response; crack with hashcat 5500.
 3. **EAP-MD5** — plaintext-equivalent; instant crack.
 
-`eaphammer --negotiate downgrade` presents these in ascending
+`eaphammer --negotiate weakest` presents these in ascending
 strength to see what the client will accept.
 
 ## Distinguishing cert validators from non-validators

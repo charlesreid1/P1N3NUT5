@@ -42,6 +42,10 @@ remain vulnerable.
 ## Cite
 
 - Vanhoef 2020 — Fragment and Forge (USENIX Security 2021).
-- CVE-2020-24586..24588 (12 CVEs total in the family).
+- Full family (12 CVEs). Design flaws in the 802.11 fragmentation
+  spec: CVE-2020-24586, CVE-2020-24587, CVE-2020-24588. Implementation
+  flaws: CVE-2020-26139, CVE-2020-26140, CVE-2020-26141, CVE-2020-26142,
+  CVE-2020-26143, CVE-2020-26144, CVE-2020-26145, CVE-2020-26146,
+  CVE-2020-26147.
 - attacks.json: `fragattacks-plaintext-inject`,
   `fragattacks-mixed-key`.

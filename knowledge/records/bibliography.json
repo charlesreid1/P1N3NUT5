@@ -8,7 +8,7 @@
     "publisher": "IEEE",
     "year": 2020,
     "url": "https://standards.ieee.org/ieee/802.11/7028/",
-    "notes": "The 802.11 rollup. §12 (Security) is the load-bearing chapter — RSN, key management, PMF, SAE, FT."
+    "notes": "The 802.11 rollup. \u00a712 (Security) is the load-bearing chapter \u2014 RSN, key management, PMF, SAE, FT."
   },
   {
     "id": "ieee-802-11-2016",
@@ -50,11 +50,11 @@
     "publisher": "IEEE",
     "year": 2020,
     "url": "https://standards.ieee.org/ieee/802.1X/7345/",
-    "notes": "Port-based network access control. The 'authenticator ↔ supplicant ↔ authentication server' framing used in WPA2/3-Enterprise."
+    "notes": "Port-based network access control. The 'authenticator \u2194 supplicant \u2194 authentication server' framing used in WPA2/3-Enterprise."
   },
   {
     "id": "rfc-3748",
-    "name": "RFC 3748 — Extensible Authentication Protocol (EAP)",
+    "name": "RFC 3748 \u2014 Extensible Authentication Protocol (EAP)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "rfc",
@@ -64,7 +64,7 @@
   },
   {
     "id": "rfc-5216",
-    "name": "RFC 5216 — EAP-TLS Authentication Protocol",
+    "name": "RFC 5216 \u2014 EAP-TLS Authentication Protocol",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "rfc",
@@ -74,7 +74,7 @@
   },
   {
     "id": "rfc-5281",
-    "name": "RFC 5281 — Extensible Authentication Protocol Tunneled TLS (EAP-TTLSv0)",
+    "name": "RFC 5281 \u2014 Extensible Authentication Protocol Tunneled TLS (EAP-TTLSv0)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "rfc",
@@ -84,7 +84,7 @@
   },
   {
     "id": "rfc-7664",
-    "name": "RFC 7664 — Dragonfly Key Exchange",
+    "name": "RFC 7664 \u2014 Dragonfly Key Exchange",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "rfc",
@@ -95,7 +95,7 @@
   },
   {
     "id": "rfc-2759",
-    "name": "RFC 2759 — Microsoft PPP CHAP Extensions v2 (MSCHAPv2)",
+    "name": "RFC 2759 \u2014 Microsoft PPP CHAP Extensions v2 (MSCHAPv2)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "rfc",
@@ -125,7 +125,7 @@
   },
   {
     "id": "wfa-wpa3-6ghz-mandate",
-    "name": "Wi-Fi Alliance — Wi-Fi CERTIFIED 6E: 6 GHz WPA3 requirement",
+    "name": "Wi-Fi Alliance \u2014 Wi-Fi CERTIFIED 6E: 6 GHz WPA3 requirement",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "vendor-spec",
@@ -136,7 +136,7 @@
   },
   {
     "id": "fcc-part-15",
-    "name": "47 CFR Part 15 — U-NII regulatory rules",
+    "name": "47 CFR Part 15 \u2014 U-NII regulatory rules",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "regulatory",
@@ -146,7 +146,7 @@
   },
   {
     "id": "etsi-en-300-328",
-    "name": "ETSI EN 300 328 — 2.4 GHz wideband transmission systems",
+    "name": "ETSI EN 300 328 \u2014 2.4 GHz wideband transmission systems",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "regulatory",
@@ -156,7 +156,7 @@
   },
   {
     "id": "etsi-en-301-893",
-    "name": "ETSI EN 301 893 — 5 GHz RLAN harmonised standard",
+    "name": "ETSI EN 301 893 \u2014 5 GHz RLAN harmonised standard",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "regulatory",
@@ -166,7 +166,7 @@
   },
   {
     "id": "fms-2001",
-    "name": "Fluhrer, Mantin, Shamir — Weaknesses in the Key Scheduling Algorithm of RC4 (2001)",
+    "name": "Fluhrer, Mantin, Shamir \u2014 Weaknesses in the Key Scheduling Algorithm of RC4 (2001)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -177,7 +177,7 @@
   },
   {
     "id": "korek-2004",
-    "name": "KoreK — WEP attack refinements (2004)",
+    "name": "KoreK \u2014 WEP attack refinements (2004)",
     "category": "bibliography",
     "confidence": "community",
     "kind": "forum-post",
@@ -188,29 +188,29 @@
   },
   {
     "id": "ptw-2007",
-    "name": "Tews, Weinmann, Pyshkin — Breaking 104 bit WEP in less than 60 seconds (2007)",
+    "name": "Tews, Weinmann, Pyshkin \u2014 Breaking 104 bit WEP in less than 60 seconds (2007)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
     "publisher": "WISA 2007",
     "year": 2007,
     "url": "https://eprint.iacr.org/2007/120",
-    "notes": "The PTW attack — aircrack-ng's default."
+    "notes": "The PTW attack \u2014 aircrack-ng's default."
   },
   {
     "id": "beck-tews-2008",
-    "name": "Beck, Tews — Practical Attacks against WEP and WPA (2008)",
+    "name": "Beck, Tews \u2014 Practical Attacks against WEP and WPA (2008)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
     "publisher": "ePrint",
     "year": 2008,
     "url": "https://eprint.iacr.org/2008/472",
-    "notes": "TKIP MIC key recovery — the reason TKIP is on its way out."
+    "notes": "TKIP MIC key recovery \u2014 the reason TKIP is on its way out."
   },
   {
     "id": "viehboeck-wps-2011",
-    "name": "Viehböck — Brute forcing Wi-Fi Protected Setup (2011)",
+    "name": "Viehb\u00f6ck \u2014 Brute forcing Wi-Fi Protected Setup (2011)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -221,7 +221,7 @@
   },
   {
     "id": "bongard-pixie-2014",
-    "name": "Bongard — Offline bruteforce attack on WiFi Protected Setup / Pixie Dust (Passwords^14)",
+    "name": "Bongard \u2014 Offline bruteforce attack on WiFi Protected Setup / Pixie Dust (Passwords^14)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "talk",
@@ -231,7 +231,7 @@
   },
   {
     "id": "sensepost-mana-2014",
-    "name": "Wilhelm & de Ruiter (SensePost) — Manna from Heaven / MANA attack (DEF CON 22, 2014)",
+    "name": "Wilhelm & de Ruiter (SensePost) \u2014 Manna from Heaven / MANA attack (DEF CON 22, 2014)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "talk",
@@ -241,7 +241,7 @@
   },
   {
     "id": "vanhoef-krack-2017",
-    "name": "Vanhoef, Piessens — Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2 (CCS 2017)",
+    "name": "Vanhoef, Piessens \u2014 Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2 (CCS 2017)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -251,7 +251,7 @@
   },
   {
     "id": "steube-pmkid-2018",
-    "name": "Steube — New attack on WPA/WPA2 using PMKID (hashcat forum, 2018)",
+    "name": "Steube \u2014 New attack on WPA/WPA2 using PMKID (hashcat forum, 2018)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "forum-post",
@@ -261,7 +261,7 @@
   },
   {
     "id": "vanhoef-dragonblood-2019",
-    "name": "Vanhoef, Ronen — Dragonblood: Analyzing the Dragonfly Handshake of WPA3 (IEEE S&P 2020)",
+    "name": "Vanhoef, Ronen \u2014 Dragonblood: Analyzing the Dragonfly Handshake of WPA3 (IEEE S&P 2020)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -271,7 +271,7 @@
   },
   {
     "id": "eset-kr00k-2020",
-    "name": "ESET — Kr00k: Serious vulnerability affected encryption of billions of Wi-Fi devices (white paper, 2020)",
+    "name": "ESET \u2014 Kr00k: Serious vulnerability affected encryption of billions of Wi-Fi devices (white paper, 2020)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "vendor-advisory",
@@ -281,7 +281,7 @@
   },
   {
     "id": "vanhoef-fragattacks-2021",
-    "name": "Vanhoef — Fragment and Forge: Breaking Wi-Fi Through Frame Aggregation and Fragmentation (USENIX Security 2021)",
+    "name": "Vanhoef \u2014 Fragment and Forge: Breaking Wi-Fi Through Frame Aggregation and Fragmentation (USENIX Security 2021)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -291,7 +291,7 @@
   },
   {
     "id": "vanhoef-framing-frames-2023",
-    "name": "Vanhoef — Framing Frames: Bypassing Wi-Fi Encryption by Manipulating Transmit Queues (USENIX Security 2023)",
+    "name": "Vanhoef \u2014 Framing Frames: Bypassing Wi-Fi Encryption by Manipulating Transmit Queues (USENIX Security 2023)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -301,7 +301,7 @@
   },
   {
     "id": "vanhoef-macstealer-2023",
-    "name": "Vanhoef — MacStealer: hijacking traffic based on MAC address (BlackHat Asia 2023)",
+    "name": "Vanhoef \u2014 MacStealer: hijacking traffic based on MAC address (BlackHat Asia 2023)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "talk",
@@ -311,7 +311,7 @@
   },
   {
     "id": "vanhoef-yseboodt-ssid-2024",
-    "name": "Vanhoef, Yseboodt — SSID Confusion: Making Wi-Fi Clients Connect to the Wrong Network (2024)",
+    "name": "Gollier, Vanhoef \u2014 SSID Confusion: Making Wi-Fi Clients Connect to the Wrong Network (2024, KU Leuven / DistriNet; CVE-2023-52424, co-disclosed 2024-05-14)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "paper",
@@ -321,7 +321,7 @@
   },
   {
     "id": "artenstein-broadpwn-2017",
-    "name": "Artenstein — Broadpwn: Remotely Compromising Android and iOS via a Bug in Broadcom's Wi-Fi Chipsets (Black Hat USA 2017)",
+    "name": "Artenstein \u2014 Broadpwn: Remotely Compromising Android and iOS via a Bug in Broadcom's Wi-Fi Chipsets (Black Hat USA 2017)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "talk",
@@ -330,19 +330,22 @@
     "url": "https://www.blackhat.com/docs/us-17/wednesday/us-17-Artenstein-Broadpwn-Remotely-Compromising-Android-And-iOS-Via-A-Bug-In-Broadcoms-Wifi-Chipsets.pdf"
   },
   {
-    "id": "godsend-known-beacons-2018",
-    "name": "Godsend — Known Beacons attack (WPA-Sec, 2018)",
+    "id": "known-beacons-2017",
+    "name": "Etizaz Mohsin (Bastille Networks) \u2014 Known Beacons attack (2017\u20132018)",
+    "aliases": [
+      "godsend-known-beacons-2018"
+    ],
     "category": "bibliography",
-    "confidence": "community",
-    "kind": "talk",
-    "publisher": "WPA-Sec",
-    "year": 2018,
-    "url": "https://wpa-sec.stanev.org/?attacks",
-    "notes": "SSID-dictionary beacon flood to farm associations from clients with matching probes."
+    "confidence": "primary",
+    "kind": "research",
+    "publisher": "Bastille Networks",
+    "year": 2017,
+    "url": "https://www.bastille.net/research/vulnerabilities/known-beacons/",
+    "notes": "SSID-dictionary beacon flood to farm associations from clients with matching probes. Wpa-Sec archive at https://wpa-sec.stanev.org/?attacks."
   },
   {
     "id": "gabrielryan-eaphammer",
-    "name": "Ryan — eaphammer (github)",
+    "name": "Ryan \u2014 eaphammer (github)",
     "category": "bibliography",
     "confidence": "secondary",
     "kind": "github",
@@ -362,7 +365,7 @@
   },
   {
     "id": "wright-asleap",
-    "name": "Wright — asleap (LEAP / MSCHAPv2 offline dictionary attack)",
+    "name": "Wright \u2014 asleap (LEAP / MSCHAPv2 offline dictionary attack)",
     "category": "bibliography",
     "confidence": "secondary",
     "kind": "github",
@@ -372,7 +375,7 @@
   },
   {
     "id": "hashcat-modes",
-    "name": "hashcat — example hashes / mode reference",
+    "name": "hashcat \u2014 example hashes / mode reference",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "vendor-doc",
@@ -382,7 +385,7 @@
   },
   {
     "id": "hcxtools",
-    "name": "ZerBea — hcxdumptool / hcxtools (GitHub)",
+    "name": "ZerBea \u2014 hcxdumptool / hcxtools (GitHub)",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "github",
@@ -402,7 +405,7 @@
   },
   {
     "id": "hak5-mk7-docs",
-    "name": "Hak5 — WiFi Pineapple Mark VII documentation",
+    "name": "Hak5 \u2014 WiFi Pineapple Mark VII documentation",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "vendor-doc",
@@ -412,7 +415,7 @@
   },
   {
     "id": "openwrt-uci-docs",
-    "name": "OpenWRT — UCI configuration reference",
+    "name": "OpenWRT \u2014 UCI configuration reference",
     "category": "bibliography",
     "confidence": "primary",
     "kind": "vendor-doc",
@@ -432,7 +435,7 @@
   },
   {
     "id": "upc-keys-repo",
-    "name": "blasty — upc_keys (UPC/UBEE default-PSK derivation)",
+    "name": "blasty \u2014 upc_keys (UPC/UBEE default-PSK derivation)",
     "category": "bibliography",
     "confidence": "secondary",
     "kind": "github",
@@ -453,7 +456,7 @@
   },
   {
     "id": "wright-hacking-exposed-wireless-3e",
-    "name": "Wright, Cache — Hacking Exposed Wireless (3rd ed., 2015)",
+    "name": "Wright, Cache \u2014 Hacking Exposed Wireless (3rd ed., 2015)",
     "category": "bibliography",
     "confidence": "secondary",
     "kind": "book",
@@ -461,5 +464,78 @@
     "year": 2015,
     "url": "https://www.hackingexposed.com/wireless/",
     "notes": "Long-form domain reference; still the go-to for the WPA2 / WPA3-transition era."
+  },
+  {
+    "id": "rfc-6124",
+    "name": "RFC 6124 \u2014 EAP-EKE (Encrypted Key Exchange)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2011,
+    "url": "https://www.rfc-editor.org/rfc/rfc6124"
+  },
+  {
+    "id": "rfc-7170",
+    "name": "RFC 7170 \u2014 Tunnel EAP Method (EAP-TEAP) Version 1",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2014,
+    "url": "https://www.rfc-editor.org/rfc/rfc7170"
+  },
+  {
+    "id": "rfc-8110",
+    "name": "RFC 8110 \u2014 Opportunistic Wireless Encryption (OWE)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IRTF",
+    "year": 2017,
+    "url": "https://www.rfc-editor.org/rfc/rfc8110",
+    "notes": "OWE \u2014 encrypts open networks via Diffie-Hellman without AP authentication."
+  },
+  {
+    "id": "rfc-9140",
+    "name": "RFC 9140 \u2014 Nimble Out-of-Band Authentication for EAP (EAP-NOOB)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2021,
+    "url": "https://www.rfc-editor.org/rfc/rfc9140"
+  },
+  {
+    "id": "rfc-9190",
+    "name": "RFC 9190 \u2014 EAP-TLS 1.3 (Using TLS 1.3 with EAP-TLS)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2022,
+    "url": "https://www.rfc-editor.org/rfc/rfc9190",
+    "notes": "Updates EAP-TLS to use TLS 1.3 wire format. Server-cert pinning remains the load-bearing defense."
+  },
+  {
+    "id": "rfc-5106",
+    "name": "RFC 5106 \u2014 EAP-IKEv2",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "rfc",
+    "publisher": "IETF",
+    "year": 2008,
+    "url": "https://www.rfc-editor.org/rfc/rfc5106"
+  },
+  {
+    "id": "vanhoef-mcmitm-2018",
+    "name": "Vanhoef \u2014 Multi-Channel Man-in-the-Middle (MC-MitM) attacks against Wi-Fi (CCS 2018)",
+    "category": "bibliography",
+    "confidence": "primary",
+    "kind": "paper",
+    "publisher": "ACM CCS 2018",
+    "year": 2018,
+    "url": "https://papers.mathyvanhoef.com/ccs2018.pdf",
+    "notes": "MC-MitM primitive underpinning KRACK-follow-on and FragAttacks \u2014 attacker forwards frames between STA and AP on two different channels."
   }
 ]

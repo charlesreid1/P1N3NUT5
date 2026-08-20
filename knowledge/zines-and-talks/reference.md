@@ -17,6 +17,12 @@ year, the primary artifact, and the bibliography id.
   Reaver's foundation. → `viehboeck-wps-2011`
 - **2014 — Bongard.** *Offline bruteforce attack on WPS / Pixie
   Dust.* Passwords^14. WPS is done. → `bongard-pixie-2014`
+- **2004 — Dino Dai Zovi & Shane "K2" Macaulay.** *All Your Layer
+  Are Belong To Us.* Black Hat USA / DEF CON 12. Original KARMA.
+  → `karma-daizovi-macaulay-2004`
+- **2012 — Glenn Wilkinson (SensePost).** *Snoopy: A distributed
+  tracking and profiling framework.* Black Hat Abu Dhabi 2012.
+  Passive probe correlation for geo-tracking. → `wilkinson-snoopy-2012`
 - **2014 — SensePost.** *Manna from Heaven.* DEF CON 22. KARMA
   reborn. → `sensepost-mana-2014`
 
@@ -28,8 +34,15 @@ year, the primary artifact, and the bibliography id.
   chipset RCE. → `artenstein-broadpwn-2017`
 - **2018 — Steube.** *New attack on WPA/WPA2 using PMKID.* hashcat
   forum thread 7717. Client-free capture. → `steube-pmkid-2018`
-- **2018 — Godsend.** *Known Beacons.* WPA-Sec. SSID-dictionary
-  beacon flood. → `godsend-known-beacons-2018`
+- **2017–2018 — Etizaz Mohsin (Bastille Networks).** *Known Beacons.*
+  SSID-dictionary beacon flood; landed in wifite2 / hostapd-mana.
+  → `known-beacons-2017` (bastille.net/research/vulnerabilities/known-beacons/;
+  WPA-Sec archive: wpa-sec.stanev.org/?attacks)
+- **2018 — Vanhoef, Piessens.** *Release the Kraken: New KRACKs in
+  the 802.11 Standard.* CCS 2018. Multi-channel MitM (MC-MitM).
+  DOI: 10.1145/3243734.3243807
+  (dl.acm.org/doi/10.1145/3243734.3243807).
+  → `vanhoef-mcmitm-2018`
 - **2019 — Vanhoef, Ronen.** *Dragonblood.* IEEE S&P 2020. WPA3-SAE
   side channels. → `vanhoef-dragonblood-2019`
 - **2019 — ESET.** *Kr00k.* CVE-2019-15126. All-zero PTK on
@@ -40,8 +53,20 @@ year, the primary artifact, and the bibliography id.
   Power-save queue poisoning. → `vanhoef-framing-frames-2023`
 - **2023 — Vanhoef.** *MacStealer.* Black Hat Asia 2023. →
   `vanhoef-macstealer-2023`
-- **2024 — Vanhoef, Yseboodt.** *SSID Confusion.* CVE-2023-52424.
+- **2024 — Héloïse Gollier, Mathy Vanhoef.** *SSID Confusion:
+  Making Wi-Fi Clients Connect to the Wrong Network.* CVE-2023-52424,
+  co-disclosed 2024-05-14 at KU Leuven / DistriNet (Top10VPN
+  co-disclosure: top10vpn.com/research/wifi-vulnerability-ssid/).
   → `vanhoef-yseboodt-ssid-2024`
+
+## Wi-Fi 7 / MLO research (2023+)
+
+- **2023 — Kachhwaha, Chattopadhyay et al.** *Security Analysis of
+  IEEE 802.11be Multi-Link Operation (MLO).* Early MLO surface
+  analysis; queue-race / per-link PTKSA hierarchy.
+- **2024 — Vanhoef et al.** ongoing MLO / Wi-Fi 7 vulnerability
+  disclosures at USENIX Security. Cross-link race conditions and
+  new deauth-on-MLO behavior.
 
 ## Tooling talks
 

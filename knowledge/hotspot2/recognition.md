@@ -32,13 +32,18 @@ Initial Requests for ANQP elements.** No association required.
 Once you've spotted the Interworking IE, send a GAS Initial Request
 (Public Action frame, category 4, action 10) with an ANQP query for:
 
+Per IEEE 802.11-2020 Table 9-271:
+
 | ANQP Element | ID | What you get |
 | ------------ | -- | ------------ |
-| Venue Name | 258 | Free-text venue name (often the flag hiding spot) |
-| NAI Realm | 261 | Auth realm domains — @corp.example.com, etc. |
-| 3GPP Cellular Network | 264 | MCC/MNC codes for cellular offload |
+| Query List | 257 | Client's list of desired element IDs |
+| Capability List | 258 | AP's list of supported ANQP element IDs |
+| Venue Name | 259 | Free-text venue name (often the flag hiding spot) |
+| Network Authentication Type | 261 | Free/authenticated/redirect indicator |
 | Roaming Consortium | 262 | 3-byte OI list — Passpoint provider identifiers |
-| Domain Name | 268 | AP's DNS domain |
+| NAI Realm | 264 | Auth realm domains — @corp.example.com, etc. |
+| 3GPP Cellular Network | 265 | MCC/MNC codes for cellular offload |
+| Domain Name | 269 | AP's DNS domain |
 | Hotspot 2.0 (Wi-Fi Alliance vendor) | Vendor-Specific | Operator name, WAN metrics |
 
 `hostapd_cli` from the Pineapple, or a scapy GAS builder, will send
@@ -76,7 +81,7 @@ seen.
 2. For each hit, check for Roaming Consortium (`wlan.tag.number ==
    111`) and Advertisement Protocol (`108`).
 3. Send GAS Initial Request from `hostapd_cli anqp_get <bssid>
-   258,261,262,268`. Response is logged.
+   259,261,262,264,269`. Response is logged.
 4. Parse the response elements. NAI Realm entries often reveal
    corp domain names, EAP method support, and TLD hints.
 

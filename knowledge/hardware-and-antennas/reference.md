@@ -41,18 +41,30 @@ Antennas are frequency-band-tuned:
 
 ## TX power caps
 
-Regulatory ceilings on EIRP (Equivalent Isotropic Radiated Power),
-which is TX power + antenna gain minus cable loss.
+Two different numbers get conflated. Keep them separate:
 
-- **US, 2.4 GHz** — 30 dBm EIRP for point-to-multipoint.
-- **US, 5 GHz UNII-1** — 23 dBm (indoor); 30 dBm point-to-point
-  under specific rules.
-- **US, 5 GHz UNII-3** — 30 dBm EIRP.
-- **US, 6 GHz (Wi-Fi 6E)** — LPI (Low Power Indoor) 30 dBm EIRP;
-  SP (Standard Power) via AFC coordination up to 36 dBm; VLP (Very
-  Low Power) 14 dBm EIRP portable.
-- **EU** — mostly 20 dBm EIRP indoor on 2.4/5; 23 dBm on UNII-1.
-- **JP** — often stricter; some UNII-2 restrictions.
+- **Conducted TX power** — what the radio pushes into the antenna
+  port, measured in dBm. This is what `iw dev wlan0 set txpower` and
+  `iwconfig ... txpower` control.
+- **EIRP (Equivalent Isotropic Radiated Power)** — conducted TX
+  power + antenna gain (in dBi) − cable loss. This is what the
+  regulator actually caps.
+
+Regulatory caps by band / region (point-to-multipoint unless noted):
+
+| Band            | Region | Conducted TX (dBm) | Antenna gain (dBi) | EIRP (dBm) | Notes |
+| --------------- | ------ | ------------------ | ------------------ | ---------- | ----- |
+| 2.4 GHz         | US     | ≤ 30               | ≤ 6                | ≤ 36       | Point-to-point may exceed 36 dBm EIRP via the 3-for-1 rule: each 3 dBi of gain above 6 dBi permits 1 dB conducted reduction, so EIRP rises while conducted TX falls. |
+| 5 GHz UNII-1    | US     | ≤ 30               | ≤ 6                | ≤ 36       | Indoor + outdoor since 2014 rules update. |
+| 5 GHz UNII-2A/C | US     | ≤ 24               | ≤ 6                | ≤ 30       | DFS required. |
+| 5 GHz UNII-3    | US     | ≤ 30               | ≤ 6                | ≤ 36       | Point-to-point ≤ 53 dBm EIRP (fixed link rules). |
+| 6 GHz LPI       | US     | ≤ 24               | —                  | ≤ 30       | Wi-Fi 6E indoor, no AFC. |
+| 6 GHz SP        | US     | ≤ 30               | —                  | ≤ 36       | Standard Power; requires AFC coordination. |
+| 6 GHz VLP       | US     | —                  | —                  | ≤ 14       | Very Low Power portable. |
+| 2.4 GHz         | EU     | —                  | —                  | ≤ 20       | ETSI EN 300 328. |
+| 5 GHz UNII-1    | EU     | —                  | —                  | ≤ 23       | Indoor. |
+| 5 GHz UNII-2    | EU     | —                  | —                  | ≤ 30       | DFS + TPC required. |
+| 2.4 / 5 GHz     | JP     | —                  | —                  | varies     | Some UNII-2 sub-band restrictions; consult MIC. |
 
 Above these caps, cards drop TX silently or the driver refuses.
 `iw reg get` and `iw phy phy0 info` show what your driver honors.
@@ -71,8 +83,8 @@ Above these caps, cards drop TX silently or the driver refuses.
 | Netgear A6210          | MT7612U                   | yes      | yes       | yes   | no    | Same silicon as AWUS036ACM         |
 | Intel AX210 (M.2)      | iwlwifi                   | limited  | no        | yes   | yes   | Great client, poor attacker card   |
 | Intel AX411 (M.2)      | iwlwifi                   | limited  | no        | yes   | yes   | Same story                         |
-| Pineapple Mk VII wlan1 | ath9k (2.4) + ath10k (5)  | yes      | yes       | yes   | no    | Built into the target device       |
-| Pineapple Mk VII wlan0 | ath9k                     | yes      | yes       | no    | no    | Built-in 2.4 GHz radio             |
+| Pineapple Mk VII wlan1 | MT7615 (mt76)             | yes      | yes       | yes   | no    | Built-in dual-band radio; authoritative spec: `pineapple-mk7/reference.md` |
+| Pineapple Mk VII wlan0 | MT7628AN (mt76)           | yes      | yes       | no    | no    | Built-in 2.4 GHz radio on the Mark VII SoC |
 
 ## Rehoming the Pineapple's antennas
 

@@ -1,5 +1,7 @@
 # AP fingerprinting — walkthrough
 
+**Verified against:** tshark 4.2 / IEEE Std 802.11-2020 as of 2026-Q3
+
 Read a beacon. Identify the vendor, firmware family, chipset,
 security posture. Feed the answer into every next attack decision.
 
@@ -60,8 +62,11 @@ Common OUIs:
 
 - `00-50-F2` → Microsoft (WPS, WPA1).
 - `00-0F-AC` → IEEE-registered (RSN internal).
-- `00-40-96` → Cisco Aironet.
-- `00-90-4C` → Broadcom (embedded).
+- `00-40-96` → Cisco Aironet — legacy only. Modern Cisco APs use
+  `00-23-04`, `00-0C-85`, `00-1B-D4`, and many more.
+- `00-90-4C` → legacy Epigram / Broadcom-b-era (Broadcom acquired
+  Epigram in 2000). Modern Broadcom consumer CPEs use `00-10-18`
+  and `00-1E-D3`.
 - `00-03-7F` → Atheros.
 - `8C-FD-F0` → Apple.
 - `00-17-F2` → Apple (different variant).

@@ -1,5 +1,7 @@
 # Dragonblood — walkthrough
 
+**Verified against:** dragonblood-tools (github.com/vanhoefm) as of 2026-Q3
+
 The 2019 SAE attack family. Companion: `dragonblood-deep/` for the
 post-2020 H2E follow-ups. This walkthrough is the launchpad: cache
 side channel, timing side channel, MODP downgrade, transition-mode
@@ -69,16 +71,17 @@ the hunt-and-peck loop iteration count. Use `dragontime`
 
 Requires co-location with the SAE implementation — process on the
 same host, or a network-adjacent attacker with cache-observation
-capability (rare in a WCTF).
+capability (rare in a WCTF). Tool ships in
+`github.com/vanhoefm/dragonblood-tools`; the co-location cache-probe
+flag shape is:
 
 ```
-# The dragondrain tool: collect enough cache observations to recover
-# per-run PWE-loop iteration counts.
-./dragondrain --target <victim-host> --sample-count 5000
+./dragondrain --iface wlan1 --mac AA:BB:CC:DD:EE:FF
 ```
 
-Output: per-iteration bits leaked; brute the remaining passphrase
-bits offline.
+`--mac` is the target AP BSSID whose SAE implementation is being
+observed for cache-timing side-channel leakage. Output: per-iteration
+bits leaked; brute the remaining passphrase bits offline.
 
 ## Path D — Timing side channel (dragontime)
 
@@ -87,7 +90,9 @@ response.
 
 ```
 # On attacker STA co-located with the target AP:
-./dragontime --ap AA:BB:CC:DD:EE:FF --iterations 1000
+./dragontime --iface wlan1 \
+             --target AA:BB:CC:DD:EE:FF \
+             --ssid <ESSID>
 
 # Output: per-Commit timing samples.
 # Analyze offline to recover partial PWE-loop iteration bits.

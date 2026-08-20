@@ -1,5 +1,7 @@
 # Deauth forensics — the flag is in the deauth
 
+**Verified against:** tshark 4.2 as of 2026-Q3
+
 Some WCTF puzzles hand you a pcap of a "deauth storm" and ask what
 happened. The flag is either the specific reason code, a signature
 in the pattern (timing, sequence, addresses), or an OUI in the

@@ -77,4 +77,4 @@ Echo / Kindle / camera-class client, this is the puzzle to run.
 - knowledge/kr00k/reference.md.
 - knowledge/chipsets/reference.md (Broadcom/Cypress/QCA lineage).
 - attacks.json: `kr00k-broadcom-cve-2019-15126`,
-  `kr00k-qualcomm-cve-2020-3702`.
+  `kr00k-qca-cve-2020-3702`.

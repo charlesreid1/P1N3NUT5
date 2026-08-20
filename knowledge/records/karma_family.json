@@ -1,7 +1,7 @@
 [
   {
     "id": "karma-2004-original",
-    "name": "KARMA (Dai Zovi & Dinodai, 2004)",
+    "name": "KARMA (Dino Dai Zovi & Shane \"K2\" Macaulay, 2004)",
     "aliases": ["karma"],
     "category": "karma_family",
     "region": "universal",
@@ -47,7 +47,7 @@
   },
   {
     "id": "karma-known-beacons",
-    "name": "Known Beacons (Godsend, 2018)",
+    "name": "Known Beacons (Etizaz Mohsin / Bastille Networks, 2017–2018)",
     "category": "karma_family",
     "region": "universal",
     "era_bounds": ["2018", null],

@@ -1,5 +1,7 @@
 # fluxion — reference
 
+**Verified against:** fluxion `master` (FluxionNetwork/fluxion) as of 2026-Q3
+
 Fluxion is a captive-portal-phishing tool built for laptop-based
 engagements. It chains deauth → evil twin → captive portal →
 PSK-guess validation via a captured handshake. Popular among CTF
@@ -31,15 +33,24 @@ rate against users who make typos.
 
 ```
 fluxion/
-├── fluxion.sh              main menu driver
-├── attacks/
-│   └── Captive Portal/
+├── fluxion.sh                        main menu driver (sudo ./fluxion.sh)
+├── language/                         top-level localized string files
+├── attacks/                          one directory per attack module
+│   ├── Captive Portal/
+│   │   ├── attack.sh
+│   │   ├── language/                 attack-local translations
+│   │   └── sites/                    portal templates per vendor
+│   └── Handshake Snooper/
 │       ├── attack.sh
-│       ├── captive_portal.pot
-│       └── language/       localized strings for the portal page
-├── scripts/                dependency install + iface helpers
-└── logos/                  vendor branding assets
+│       └── handshakes/               captured 4-way handshakes land here
+├── lib/                              helpers sourced by fluxion.sh
+└── logos/                            vendor branding assets
 ```
+
+Validation chain: the Captive Portal attack requires a handshake
+under `attacks/Handshake Snooper/handshakes/`; if none exists,
+fluxion invokes Handshake Snooper first, then feeds the resulting
+`.cap` back into the portal's `aircrack-ng`-based validator.
 
 ## Comparison with P1N3NUT5's native path
 
@@ -48,7 +59,7 @@ fluxion/
 | capture      | airodump + aireplay (laptop)  | hcxdumptool on the Mark VII             |
 | rogue AP     | hostapd on the laptop         | hostapd on the Pineapple's wlan1        |
 | DHCP/DNS     | dnsmasq (laptop)              | dnsmasq or PineOS built-in              |
-| portal       | fluxion's bundled templates   | evil-portal module / custom             |
+| portal       | fluxion sites/ templates      | evil-portal module / custom             |
 | validation   | aircrack-ng offline check     | trial-decrypt via `post-crack-rf`       |
 | ergonomics   | menu-driven, one shell        | scripted, MCP-native                    |
 | deniability  | none                          | Pineapple hides in a backpack           |

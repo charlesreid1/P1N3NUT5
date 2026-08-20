@@ -2,13 +2,23 @@
   {
     "id": "cipher-wep-40",
     "name": "WEP-40",
-    "aliases": ["wep", "wep 64-bit"],
+    "aliases": [
+      "wep",
+      "wep 64-bit"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2016", "fms-2001", "ptw-2007"],
+    "citations": [
+      "ieee-802-11-2016",
+      "fms-2001",
+      "ptw-2007"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:01",
       "cipher": "RC4",
@@ -21,13 +31,21 @@
   {
     "id": "cipher-wep-104",
     "name": "WEP-104",
-    "aliases": ["wep 128-bit"],
+    "aliases": [
+      "wep 128-bit"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2001", null],
+    "era_bounds": [
+      "2001",
+      null
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2016", "ptw-2007"],
+    "citations": [
+      "ieee-802-11-2016",
+      "ptw-2007"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:05",
       "cipher": "RC4",
@@ -40,13 +58,22 @@
   {
     "id": "cipher-tkip",
     "name": "TKIP",
-    "aliases": ["tkip", "temporal key integrity protocol"],
+    "aliases": [
+      "tkip",
+      "temporal key integrity protocol"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2003", null],
+    "era_bounds": [
+      "2003",
+      null
+    ],
     "still_effective_2026": false,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "beck-tews-2008"],
+    "citations": [
+      "ieee-802-11-2020",
+      "beck-tews-2008"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:02",
       "cipher": "RC4 (per-packet key mixing)",
@@ -58,13 +85,21 @@
   {
     "id": "cipher-ccmp-128",
     "name": "CCMP-128 (AES-CCM)",
-    "aliases": ["ccmp", "aes-ccmp"],
+    "aliases": [
+      "ccmp",
+      "aes-ccmp"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:04",
       "cipher": "AES-CCM",
@@ -75,15 +110,51 @@
     }
   },
   {
-    "id": "cipher-gcmp-128",
-    "name": "GCMP-128 (AES-GCM)",
-    "aliases": ["gcmp-128"],
+    "id": "cipher-ccmp-256",
+    "name": "CCMP-256 (AES-CCM, 256-bit)",
+    "aliases": [
+      "ccmp-256",
+      "aes-ccmp-256"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "rsn_selector_hex": "00-0F-AC:0A",
+      "cipher_selector": 10,
+      "cipher": "AES-CCM",
+      "key_bits": 256,
+      "block_size_bits": 128,
+      "nonce_bits": 104,
+      "integrity": "CCM (AES-CBC-MAC)",
+      "notes": "256-bit variant of CCMP. Rarely seen; GCMP-256 dominates the 192-bit-suite deployments."
+    }
+  },
+  {
+    "id": "cipher-gcmp-128",
+    "name": "GCMP-128 (AES-GCM)",
+    "aliases": [
+      "gcmp-128"
+    ],
+    "category": "cipher",
+    "region": "universal",
+    "era_bounds": [
+      "2013",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:08",
       "cipher": "AES-GCM",
@@ -94,13 +165,20 @@
   {
     "id": "cipher-gcmp-256",
     "name": "GCMP-256 (AES-GCM, 256-bit)",
-    "aliases": ["gcmp-256"],
+    "aliases": [
+      "gcmp-256"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:09",
       "cipher": "AES-GCM",
@@ -112,13 +190,21 @@
   {
     "id": "cipher-bip-cmac-128",
     "name": "BIP-CMAC-128",
-    "aliases": ["bip", "bip-cmac"],
+    "aliases": [
+      "bip",
+      "bip-cmac"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:06",
       "role": "group management (PMF)",
@@ -131,12 +217,18 @@
     "name": "BIP-GMAC-256",
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "rsn_selector_hex": "00-0F-AC:12",
+      "rsn_selector_hex": "00-0F-AC:0C",
+      "cipher_selector": 12,
       "role": "group management (PMF)",
       "cipher": "AES-GMAC",
       "notes": "Required for WPA3-Enterprise 192-bit suite."
@@ -145,46 +237,76 @@
   {
     "id": "km-open",
     "name": "Open (no encryption)",
-    "aliases": ["open"],
+    "aliases": [
+      "open"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["1997", null],
+    "era_bounds": [
+      "1997",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "auth": "802.11 Open Auth (or none)",
       "keying": "none",
-      "wctf_uses": ["captive-portal traps", "OWE-transition companion", "evil-twin destinations"]
+      "wctf_uses": [
+        "captive-portal traps",
+        "OWE-transition companion",
+        "evil-twin destinations"
+      ],
+      "requires_pmf": false
     }
   },
   {
     "id": "km-wpa-psk",
     "name": "WPA-PSK (WPA1)",
-    "aliases": ["wpa1-psk", "wpa1"],
+    "aliases": [
+      "wpa1-psk",
+      "wpa1"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2003", "2018"],
+    "era_bounds": [
+      "2003",
+      "2018"
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2016"],
+    "citations": [
+      "ieee-802-11-2016"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC (via WPA1 vendor IE, not RSN)",
       "pairwise_cipher": "TKIP (typical) / CCMP-128",
       "kdf": "PBKDF2-HMAC-SHA1(passphrase, ESSID, 4096, 256)",
-      "notes": "Legacy. Almost always ships with TKIP. Deprecated by every modern client but still associates."
+      "notes": "Legacy. Almost always ships with TKIP. Deprecated by every modern client but still associates.",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "TKIP"
     }
   },
   {
     "id": "km-wpa2-psk",
     "name": "WPA2-PSK",
-    "aliases": ["wpa2", "wpa2-personal"],
+    "aliases": [
+      "wpa2",
+      "wpa2-personal"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:02",
       "akm_selector": 2,
@@ -200,42 +322,72 @@
   {
     "id": "km-wpa2-eap",
     "name": "WPA2-Enterprise (802.1X)",
-    "aliases": ["wpa2-eap", "wpa2-enterprise"],
+    "aliases": [
+      "wpa2-eap",
+      "wpa2-enterprise"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "ieee-802-1x-2020"],
+    "citations": [
+      "ieee-802-11-2020",
+      "ieee-802-1x-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:01",
       "akm_selector": 1,
       "pairwise_cipher_default": "CCMP-128",
       "kdf": "MSK-derived PMK from EAP inner method",
-      "wctf_uses": ["rogue-RADIUS inner-method capture", "cert-phish against weak client validation"]
+      "wctf_uses": [
+        "rogue-RADIUS inner-method capture",
+        "cert-phish against weak client validation"
+      ],
+      "requires_pmf": false
     }
   },
   {
     "id": "km-wpa3-sae",
     "name": "WPA3-SAE (Simultaneous Authentication of Equals)",
-    "aliases": ["wpa3-sae", "sae", "dragonfly"],
+    "aliases": [
+      "wpa3-sae",
+      "sae",
+      "dragonfly"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2018-06-25", null],
+    "era_bounds": [
+      "2018-06-25",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec", "rfc-7664"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec",
+      "rfc-7664"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:08",
       "akm_selector": 8,
       "requires_pmf": true,
       "kdf": "HMAC-SHA-256",
       "curves_default": "P-256",
-      "curves_allowed": ["P-256", "P-384", "P-521", "MODP-groups (deprecated)"],
+      "curves_allowed": [
+        "P-256",
+        "P-384",
+        "P-521",
+        "MODP-groups (deprecated)"
+      ],
       "commit_exchange": "Peer-Commit-Element + scalar",
       "confirm_exchange": "MIC over confirm elements",
       "pmk_bytes": 32,
-      "offline_dictionary_resistance": "high, absent side channel"
+      "offline_dictionary_resistance": "high, absent side channel",
+      "pairwise_cipher_default": "CCMP-128"
     },
     "disputed": {
       "offline_dictionary_resistance": "Dragonblood (Vanhoef+Ronen 2019, CVE-2019-9494/9495) demonstrates side-channel + timing attacks that partially defeat the resistance when weak MODP groups are used."
@@ -243,53 +395,86 @@
   },
   {
     "id": "km-wpa3-sae-ext-key",
-    "name": "WPA3-SAE-EXT-KEY (H2E)",
-    "aliases": ["sae-h2e", "hash-to-element", "sae-ext-key"],
+    "name": "WPA3-SAE-EXT-KEY",
+    "aliases": [
+      "sae-ext-key",
+      "akm-24"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2020", null],
+    "era_bounds": [
+      "2020",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:18",
-      "akm_selector": 18,
+      "akm_selector": 24,
+      "akm_selector_hex": "0x18",
       "requires_pmf": true,
-      "kdf": "HMAC-SHA-384",
-      "notes": "Dragonblood mitigation — the Hash-to-Element / SAE-PT construction removes the timing-oracle branches present in the original hunt-and-peck loop."
+      "pairwise_cipher_default": "GCMP-256",
+      "kdf": "HMAC-SHA-384 (extended-key derivation)",
+      "notes": "Per IEEE 802.11-2020 Table 9-151, AKM 24 (0x18) = SAE-EXT-KEY. Extended-key AKM used when GCMP-256 pairwise cipher is negotiated (WPA3-Enterprise 192-bit compatible). NOT the same as H2E \u2014 H2E is signaled by the RSNXE 'SAE-H2E only' bit, not by AKM number. See [[akm-selector-glossary]]."
     }
   },
   {
     "id": "km-wpa3-enterprise",
     "name": "WPA3-Enterprise",
-    "aliases": ["wpa3-eap"],
+    "aliases": [
+      "wpa3-eap"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2018-06-25", null],
+    "era_bounds": [
+      "2018-06-25",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wpa3-spec", "ieee-802-11-2020"],
+    "citations": [
+      "wfa-wpa3-spec",
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "requires_pmf": true,
-      "notes": "Base WPA3-Enterprise = WPA2-Enterprise + PMF required. Optional 192-bit suite mandates GCMP-256 + BIP-GMAC-256 + P-384."
+      "notes": "Base WPA3-Enterprise = WPA2-Enterprise + PMF required. Optional 192-bit suite mandates GCMP-256 + BIP-GMAC-256 + P-384.",
+      "pairwise_cipher_default": "CCMP-128"
     }
   },
   {
     "id": "km-owe",
     "name": "OWE (Opportunistic Wireless Encryption)",
-    "aliases": ["owe"],
+    "aliases": [
+      "owe",
+      "akm-18"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2018", null],
+    "era_bounds": [
+      "2018",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec",
+      "rfc-8110"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:12",
-      "akm_selector": 12,
+      "akm_selector": 18,
+      "akm_selector_hex": "0x12",
+      "pairwise_cipher_default": "CCMP-128",
+      "requires_pmf": true,
       "authenticates_ap": false,
       "provides_encryption": true,
-      "notes": "Diffie-Hellman on Open networks. Encrypts opportunistically but doesn't stop evil twin (no client-side AP auth)."
+      "notes": "Per IEEE 802.11-2020 Table 9-151, AKM 18 (0x12) = OWE. Diffie-Hellman on Open networks. Encrypts opportunistically but doesn't stop evil twin (no client-side AP auth). See [[akm-selector-glossary]]."
     }
   },
   {
@@ -297,14 +482,21 @@
     "name": "FT-PSK (802.11r + PSK)",
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:04",
       "akm_selector": 4,
-      "notes": "FT-roam reassociation carries a PMKID-analogue that hashcat mode 22000 handles."
+      "notes": "FT-roam reassociation carries a PMKID-analogue that hashcat mode 22000 handles.",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "CCMP-128"
     }
   },
   {
@@ -312,24 +504,43 @@
     "name": "FT-SAE (802.11r + SAE)",
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2018", null],
+    "era_bounds": [
+      "2018",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
-    "technical_body": {"rsn_akm_hex": "00-0F-AC:09", "akm_selector": 9, "requires_pmf": true}
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec"
+    ],
+    "technical_body": {
+      "rsn_akm_hex": "00-0F-AC:09",
+      "akm_selector": 9,
+      "requires_pmf": true,
+      "pairwise_cipher_default": "CCMP-128"
+    }
   },
   {
     "id": "cipher-bip-gmac-128",
     "name": "BIP-GMAC-128",
-    "aliases": ["bip-gmac-128"],
+    "aliases": [
+      "bip-gmac-128"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "rsn_selector_hex": "00-0F-AC:11",
+      "rsn_selector_hex": "00-0F-AC:0B",
+      "cipher_selector": 11,
       "role": "group management (PMF)",
       "cipher": "AES-GMAC",
       "notes": "128-bit BIP variant using GMAC. Optional PMF group-management cipher."
@@ -338,15 +549,23 @@
   {
     "id": "cipher-bip-cmac-256",
     "name": "BIP-CMAC-256",
-    "aliases": ["bip-cmac-256"],
+    "aliases": [
+      "bip-cmac-256"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "rsn_selector_hex": "00-0F-AC:13",
+      "rsn_selector_hex": "00-0F-AC:0D",
+      "cipher_selector": 13,
       "role": "group management (PMF)",
       "cipher": "AES-CMAC-256",
       "notes": "256-bit BIP variant using CMAC. Optional PMF group-management cipher."
@@ -354,14 +573,21 @@
   },
   {
     "id": "cipher-group-addressed-only",
-    "name": "Group-addressed cipher — 'use-group-cipher' pseudo-selector",
-    "aliases": ["use-group-cipher"],
+    "name": "Group-addressed cipher \u2014 'use-group-cipher' pseudo-selector",
+    "aliases": [
+      "use-group-cipher"
+    ],
     "category": "cipher",
     "region": "universal",
-    "era_bounds": ["2004", null],
+    "era_bounds": [
+      "2004",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_selector_hex": "00-0F-AC:00",
       "role": "pairwise-cipher fallback",
@@ -371,13 +597,21 @@
   {
     "id": "km-wpa2-eap-sha256",
     "name": "WPA2-Enterprise (802.1X, SHA-256)",
-    "aliases": ["wpa2-eap-sha256"],
+    "aliases": [
+      "wpa2-eap-sha256"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "ieee-802-1x-2020"],
+    "citations": [
+      "ieee-802-11-2020",
+      "ieee-802-1x-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:05",
       "akm_selector": 5,
@@ -390,13 +624,20 @@
   {
     "id": "km-wpa2-psk-sha256",
     "name": "WPA2-PSK (SHA-256)",
-    "aliases": ["wpa2-psk-sha256"],
+    "aliases": [
+      "wpa2-psk-sha256"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2009", null],
+    "era_bounds": [
+      "2009",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:06",
       "akm_selector": 6,
@@ -409,33 +650,50 @@
   {
     "id": "km-ft-eap",
     "name": "FT-802.1X (802.11r + Enterprise)",
-    "aliases": ["ft-eap", "ft-8021x"],
+    "aliases": [
+      "ft-eap",
+      "ft-8021x"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:03",
       "akm_selector": 3,
       "pairwise_cipher_default": "CCMP-128",
-      "notes": "Fast Transition on top of 802.1X. FT reassoc capture yields a PMK-R1 derived MIC that hashcat mode 22000 handles."
+      "notes": "Fast Transition on top of 802.1X. FT reassoc capture yields a PMK-R1 derived MIC that hashcat mode 22000 handles.",
+      "requires_pmf": false
     }
   },
   {
     "id": "km-ft-eap-sha384",
     "name": "FT-802.1X (SHA-384)",
-    "aliases": ["ft-eap-sha384"],
+    "aliases": [
+      "ft-eap-sha384"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
-      "rsn_akm_hex": "00-0F-AC:13",
+      "rsn_akm_hex": "00-0F-AC:0D",
       "akm_selector": 13,
+      "akm_selector_hex": "0x0D",
       "pairwise_cipher_default": "GCMP-256",
       "kdf": "HMAC-SHA-384",
       "requires_pmf": true,
@@ -445,137 +703,265 @@
   {
     "id": "km-suite-b-192",
     "name": "802.1X Suite-B 192-bit (CNSA)",
-    "aliases": ["suite-b-192", "cnsa"],
+    "aliases": [
+      "suite-b-192",
+      "cnsa"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020", "wfa-wpa3-spec"],
+    "citations": [
+      "ieee-802-11-2020",
+      "wfa-wpa3-spec"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:0C",
       "akm_selector": 12,
+      "akm_selector_hex": "0x0C",
       "pairwise_cipher_default": "GCMP-256",
       "group_management_cipher": "BIP-GMAC-256",
       "kdf": "HMAC-SHA-384",
       "requires_pmf": true,
       "curves_required": "P-384",
-      "notes": "The 192-bit CNSA / Suite-B-192 profile mandated for WPA3-Enterprise 192-bit certifications. Overlaps AKM selector 12 with OWE; the context (Enterprise vs. Open) disambiguates."
+      "notes": "The 192-bit CNSA / Suite-B-192 profile mandated for WPA3-Enterprise 192-bit certifications. Per IEEE 802.11-2020 Table 9-151, AKM 12 (0x0C) = 802.1X + SHA-384. Distinct from AKM 18 (OWE) \u2014 different byte in the RSN AKM suite selector."
     }
   },
   {
-    "id": "km-suite-b-192-alt",
-    "name": "802.1X Suite-B 192-bit (alternate SHA-384 selector)",
-    "aliases": ["suite-b-192-alt"],
+    "id": "km-suite-b-128",
+    "name": "802.1X Suite-B 128-bit",
+    "aliases": [
+      "suite-b-128"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2016", null],
+    "era_bounds": [
+      "2016",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:0B",
       "akm_selector": 11,
+      "akm_selector_hex": "0x0B",
       "pairwise_cipher_default": "GCMP-128",
       "kdf": "HMAC-SHA-256",
-      "notes": "Suite-B / 192-bit precursor AKM. Uses CCMP/GCMP-128 with SHA-256 KDF."
+      "requires_pmf": true,
+      "notes": "Per IEEE 802.11-2020 Table 9-151: AKM 11 = 802.1X + SHA-256 (Suite-B 128-bit / EAP-TLS with SHA-256). Distinct from AKM 12 (Suite-B 192-bit / SHA-384)."
     }
   },
   {
     "id": "km-fils-sha256",
     "name": "FILS (SHA-256)",
-    "aliases": ["fils-sha256"],
+    "aliases": [
+      "fils-sha256"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2017", null],
+    "era_bounds": [
+      "2017",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:0E",
       "akm_selector": 14,
       "kdf": "HMAC-SHA-256",
-      "notes": "Fast Initial Link Setup (802.11ai). Combines authentication and 4-way in a single frame exchange. Rare in the wild; watch for it at large public venues."
+      "notes": "Fast Initial Link Setup (802.11ai). Combines authentication and 4-way in a single frame exchange. Rare in the wild; watch for it at large public venues.",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "CCMP-128"
     }
   },
   {
     "id": "km-fils-sha384",
     "name": "FILS (SHA-384)",
-    "aliases": ["fils-sha384"],
+    "aliases": [
+      "fils-sha384"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2017", null],
+    "era_bounds": [
+      "2017",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:0F",
       "akm_selector": 15,
-      "kdf": "HMAC-SHA-384"
+      "kdf": "HMAC-SHA-384",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "GCMP-256"
     }
   },
   {
     "id": "km-ft-fils-sha256",
     "name": "FT-FILS (SHA-256)",
-    "aliases": ["ft-fils-sha256"],
+    "aliases": [
+      "ft-fils-sha256"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2017", null],
+    "era_bounds": [
+      "2017",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:10",
       "akm_selector": 16,
       "kdf": "HMAC-SHA-256",
-      "notes": "FILS with Fast Transition; combined single-frame reassoc + PMK-R1 hierarchy."
+      "notes": "FILS with Fast Transition; combined single-frame reassoc + PMK-R1 hierarchy.",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "CCMP-128"
     }
   },
   {
     "id": "km-ft-fils-sha384",
     "name": "FT-FILS (SHA-384)",
-    "aliases": ["ft-fils-sha384"],
+    "aliases": [
+      "ft-fils-sha384"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2017", null],
+    "era_bounds": [
+      "2017",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2020"],
+    "citations": [
+      "ieee-802-11-2020"
+    ],
     "technical_body": {
       "rsn_akm_hex": "00-0F-AC:11",
       "akm_selector": 17,
-      "kdf": "HMAC-SHA-384"
+      "kdf": "HMAC-SHA-384",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "GCMP-256"
     }
   },
   {
     "id": "km-owe-transition",
     "name": "OWE transition mode",
-    "aliases": ["owe-transition"],
+    "aliases": [
+      "owe-transition"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2018", null],
+    "era_bounds": [
+      "2018",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["wfa-wpa3-spec"],
+    "citations": [
+      "wfa-wpa3-spec"
+    ],
     "technical_body": {
       "beacon_pair": "Open BSS + hidden OWE BSS with cross-reference IEs",
-      "notes": "OWE-capable clients follow the vendor-specific 'OWE Transition Mode' IE from the Open beacon to a hidden BSSID doing real OWE. Legacy clients associate to the Open side. WCTF puzzles may hide flags in the transition IE payload."
+      "notes": "OWE-capable clients follow the vendor-specific 'OWE Transition Mode' IE from the Open beacon to a hidden BSSID doing real OWE. Legacy clients associate to the Open side. WCTF puzzles may hide flags in the transition IE payload.",
+      "requires_pmf": false,
+      "pairwise_cipher_default": "CCMP-128"
     }
   },
   {
     "id": "km-wpa1-eap",
     "name": "WPA-Enterprise (WPA1 / 802.1X + TKIP)",
-    "aliases": ["wpa1-eap", "wpa1-enterprise"],
+    "aliases": [
+      "wpa1-eap",
+      "wpa1-enterprise"
+    ],
     "category": "key_management",
     "region": "universal",
-    "era_bounds": ["2003", "2018"],
+    "era_bounds": [
+      "2003",
+      "2018"
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["ieee-802-11-2016", "ieee-802-1x-2020"],
+    "citations": [
+      "ieee-802-11-2016",
+      "ieee-802-1x-2020"
+    ],
     "technical_body": {
       "pairwise_cipher_default": "TKIP",
       "auth": "802.1X (EAP inner method)",
-      "notes": "WPA1 uses a vendor-specific IE (Microsoft OUI 00-50-F2) rather than the RSN IE. Still occasionally seen on 2000s-era APs at a con."
+      "notes": "WPA1 uses a vendor-specific IE (Microsoft OUI 00-50-F2) rather than the RSN IE. Still occasionally seen on 2000s-era APs at a con.",
+      "requires_pmf": false
+    }
+  },
+  {
+    "id": "km-tdls",
+    "name": "TDLS AKM (802.11z)",
+    "aliases": [
+      "tdls",
+      "akm-7"
+    ],
+    "category": "key_management",
+    "region": "universal",
+    "era_bounds": [
+      "2010",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "rsn_akm_hex": "00-0F-AC:07",
+      "akm_selector": 7,
+      "akm_selector_hex": "0x07",
+      "pairwise_cipher_default": "CCMP-128",
+      "requires_pmf": false,
+      "notes": "Tunneled Direct-Link Setup \u2014 peer-to-peer key management for STAs bypassing the AP data path. AKM 7 per IEEE 802.11-2020 Table 9-151."
+    }
+  },
+  {
+    "id": "km-appeerkey",
+    "name": "APPeerKey AKM",
+    "aliases": [
+      "appeerkey",
+      "akm-10"
+    ],
+    "category": "key_management",
+    "region": "universal",
+    "era_bounds": [
+      "2012",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "ieee-802-11-2020"
+    ],
+    "technical_body": {
+      "rsn_akm_hex": "00-0F-AC:0A",
+      "akm_selector": 10,
+      "akm_selector_hex": "0x0A",
+      "pairwise_cipher_default": "CCMP-128",
+      "requires_pmf": false,
+      "notes": "AP PeerKey / SMK Peer-Key \u2014 peer-to-peer key management between STAs mediated by their AP. AKM 10 per IEEE 802.11-2020 Table 9-151. Rare in the wild."
     }
   }
 ]

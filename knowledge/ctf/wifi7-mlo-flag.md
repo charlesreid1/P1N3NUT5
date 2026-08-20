@@ -1,5 +1,7 @@
 # Wi-Fi 7 MLO flag — link-desync between 2.4/5/6 GHz
 
+**Verified against:** IEEE Std 802.11-2020 (rollup) as of 2026-Q3
+
 Multi-Link Operation shares one PTK across links. A per-link desync
 (one link suppressed, others up) can surface an inconsistency in the
 security context — where 2024–2026 research is publishing primitives.
@@ -49,6 +51,45 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+None of `list_mld_targets`, `deauth_targeted`, `capture_start`,
+`capture_stop`, `hostapd_up` are exposed as MCP tools with those exact
+names. The closest mappings are:
+
+- `deauth_targeted` → `server.do_deauth(bssid=..., client_mac=..., count=...)`
+  or the `deauth` action in `run_sequence`.
+- `capture_start` / `capture_stop` → **no `src/` equivalent** — drive
+  `tcpdump`/`hcxdumptool` on the Pineapple over SSH, or use
+  `server.do_capture_handshake` for a bounded window.
+- `hostapd_up` → `server.do_create_rogue_ap(ssid, channel, security,
+  psk, ...)` (WPA-PSK only for now — no WPA-EAP in the current API).
+- `list_mld_targets` → parse the pcap; there's no dedicated tool.
+
+**Fallback shell chain — enumerate MLDs and per-link BSSIDs:**
+
+```bash
+# EHT Capabilities is Extension-ID 108 (wlan.tag.ext.number == 108).
+# Basic Multi-Link element is Extension-ID 107.
+tshark -r /tmp/recon.pcapng \
+    -Y "wlan.fc.type_subtype == 8 && wlan.ext_tag.number == 108" \
+    -T fields -e wlan.bssid -e wlan.ssid -e wlan.ds.current_channel \
+  | sort -u
+
+# Association Requests carrying the Basic Multi-Link element:
+tshark -r /tmp/recon.pcapng \
+    -Y "wlan.fc.type_subtype == 0 && wlan.ext_tag.number == 107" \
+    -T fields -e wlan.sa -e wlan.bssid \
+    -e wlan.ext_tag.data
+```
+
+**Fallback shell chain — per-link deauth (PMF-off only):**
+
+```bash
+sudo aireplay-ng -0 3 -a <per-link-BSSID-2.4> \
+    -c <per-link-MAC-2.4> wlan1mon
+```
+
 ## The flag surface
 
 Two candidates:
@@ -76,8 +117,39 @@ seemingly-independent radios.
 - **Per-link MAC randomization without MLD leak.** Rare but possible
   in some 2026 patched supplicants.
 
+## What still works when PMF-required
+
+Wi-Fi 7 hardware is basically always PMF-required — 6 GHz mandates
+it and the MLD context inherits the strictest link's posture. The
+sequence above uses a 2.4 GHz-link deauth (step 3) as the desync
+trigger; on a fully PMF-required MLD that step drops out. The
+useful desync primitives that remain:
+
+- **Natural per-link outage.** Physical interference on one band
+  (a wide 2.4 GHz beacon flood on an adjacent BSSID, mdk4 `b`) or
+  a DFS radar event on 5 GHz produces the same per-link desync
+  a deauth would — from below the mgmt-frame layer that PMF
+  guards.
+- **Control-frame silencing.** CTS-to-self NAV reservation on
+  one band (see `dos/walkthrough.md` §CTS-to-self) suppresses
+  activity on that link without any mgmt frames. PMF doesn't
+  cover control frames.
+- **Per-link evil-twin on the weakest band.** Step 5 above (the
+  fallback per-link twin) still works: single-link Wi-Fi 7
+  clients associate to it on RSSI. No deauth needed.
+- **MLO handshake capture is not PMF-protected.** The initial
+  MLD 4-way + Basic Multi-Link element in (Re)Assoc frames
+  captures cleanly as long as you're on-channel when the client
+  associates. Wait for a natural reassoc.
+- **Per-link key-reinstall research.** The frontier primitives
+  in `wifi7-mlo-link-desync` typically exercise a control- or
+  data-frame path anyway; the deauth step is a convenience, not
+  a requirement.
+
 ## Cite
 
 - attacks.json: `wifi7-mlo-link-desync` (confidence: secondary —
-  active frontier area).
-- IEEE Std 802.11be-2024, §35 (MLO).
+  active frontier area), `cts-to-self-silencing`,
+  `beacon-flood-mdk4`.
+- IEEE Std 802.11be-2024, §35 (MLO); §11.34 (PMF, inherited).
+- knowledge/ctf/pmf-required-targets.md.

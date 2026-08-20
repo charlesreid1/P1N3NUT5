@@ -1,5 +1,7 @@
 # DoS — walkthrough
 
+**Verified against:** mdk4 1.6 + aircrack-ng 1.7 as of 2026-Q3
+
 Management + control-frame denial-of-service families. This is the
 "mdk4 mode catalog + a handful of extras" walkthrough. Use these when
 the DoS itself is the flag signal (some WCTF puzzles fire on a
@@ -51,23 +53,26 @@ Consumes AP CPU on probe response; often a nuisance more than a DoS.
 
 ### `b` — Beacon flood
 
-Fake APs — every SSID in a wordlist. Confuses passive scanners.
+Fake APs — a chosen SSID (or many). Confuses passive scanners.
 
 ```
-mdk4 wlan1mon b -c 6 -n /root/ssids.txt -h
+# Single SSID, locked to channel 6, 500 pkts/sec.
+mdk4 wlan1mon b -n TargetSSID -c 6 -s 500
+
+# Many SSIDs from a wordlist (one per line).
+mdk4 wlan1mon b -f /root/ssids.txt -c 6 -s 500
 ```
 
 Also used to *distract* — a WIDS overwhelmed with fake beacons may
 miss a genuine attack elsewhere.
 
-### `v` — RTS/CTS NAV manipulation
+### RTS/CTS NAV manipulation — NOT an mdk4 mode
 
-Send CTS frames with long NAV durations, silencing legitimate STAs
-that respect the NAV.
-
-```
-mdk4 wlan1mon v -a AA:BB:CC:DD:EE:FF -t
-```
+mdk4 has no `v` mode; its valid mode set is `b/a/p/d/m/e/f/s/w/x/g`.
+For the NAV-reservation primitive (CTS-to-self with a large Duration
+field, 802.11 Control frame subtype 12, so ID=0x7fff maxes the NAV
+at 32767 μs), use scapy — see [Path B: CTS-to-self
+silencing](#cts-to-self-silencing) below.
 
 ### `m` — Michael MIC countermeasure
 
@@ -88,8 +93,11 @@ For 802.1X targets. Each EAPOL-Start provokes an EAP-Request from
 the authenticator. Fills the RADIUS backend's state.
 
 ```
-mdk4 wlan1mon e -t AA:BB:CC:DD:EE:FF -e
+mdk4 wlan1mon e -t AA:BB:CC:DD:EE:FF -n TargetSSID
 ```
+
+mdk4 mode `e` needs `-t <BSSID>` and `-n <SSID>`; the older `-e`
+flag has been dropped in current mdk4 builds.
 
 ### `f` — Fuzzed beacon / probe response
 
@@ -118,16 +126,22 @@ for i in range(1000):
     sendp(RadioTap()/a, iface="wlan1mon", verbose=False)
 ```
 
-### CTS-to-self silencing
+<a id="cts-to-self-silencing"></a>
+### CTS-to-self silencing (RTS/CTS NAV reservation)
 
-Send frequent CTS-to-self with long NAV. Adjacent radios go quiet
-for the NAV duration.
+Send frequent CTS-to-self frames with a large NAV duration. 802.11
+radios that respect the NAV go quiet for the reserved airtime.
+Control-frame subtype 12 = CTS; the Duration/ID field carries the
+NAV in microseconds and maxes at 0x7FFF (32767 μs) per frame — chain
+frames back-to-back to hold the medium.
 
 ```python
-cts = Dot11(type=1, subtype=12,        # control, cts
+# 802.11 Control frame, subtype 12 (CTS). RA (addr1) = self, no TA.
+cts = Dot11(type=1, subtype=12,
             addr1=YOUR_MAC,             # cts-to-self target = us
-            ID=0x7fff)                  # max NAV
-sendp(RadioTap()/cts, iface="wlan1mon", verbose=False)
+            ID=0x7fff)                  # max NAV = 32767 μs
+sendp(RadioTap()/cts, iface="wlan1mon", verbose=False, loop=1,
+      inter=0.001)                     # ~1000 pps → continuous NAV
 ```
 
 ### TIM / DTIM poisoning
@@ -178,12 +192,51 @@ See `ctf/deauth-forensics.md` for the analysis side.
   DoS-triggered, you've spent time and generated a lot of WIDS noise
   for nothing. Read the brief.
 
+## What still works when PMF-required
+
+PMF only protects a subset of *management* frames (deauth,
+disassoc, and some robust action frames). It says nothing about
+*control* frames or unauthenticated pre-association mgmt frames.
+Every DoS below survives a PMF-required target — and a 6 GHz
+target, where PMF is mandatory:
+
+- **CTS-to-self NAV silencing (Path B).** Control-frame subtype
+  12. Not covered by PMF at all. A stream of maxed-Duration
+  CTS-to-self frames silences every 802.11 radio in earshot
+  regardless of the AP's PMF posture.
+- **RTS/CTS NAV abuse.** Same story — control frames, not
+  management. NAV reservation works on PMF-required nets and on
+  6 GHz.
+- **mdk4 `p` probe-request flood.** Probe Requests are
+  unassociated management frames, so PMF (which only kicks in
+  once the pairwise key is up) doesn't apply. CPU-burns the AP
+  serving probe responses.
+- **mdk4 `a` authentication flood.** 802.11 Authentication
+  frames are pre-association mgmt frames — no PMK, no MIC. Fills
+  the AP's auth-state table on PMF-required targets too.
+- **mdk4 `b` beacon flood.** Beacons are unprotected by design
+  (broadcast, no pairwise key). Confuses scanners regardless of
+  PMF.
+- **Association-request flood.** Same category as auth flood —
+  pre-4-way, unprotected. Fills assoc tables.
+- **mdk4 `f` fuzzed beacon / probe response.** Fuzzing surface
+  is entirely pre-association; PMF is irrelevant.
+- **What breaks:** mdk4 `d` (deauth flood), disassoc-based DoS,
+  and any robust-Action-frame DoS. For those, cross-reference
+  `deauth/walkthrough.md`'s PMF sidebar for alternatives.
+
+For WCTF flag-signal DoS (Path C above), if the puzzle expects a
+deauth-storm signature on a PMF-required AP, the intended path is
+usually the *pcap-forensics* variant — the attacker generated the
+storm from a different position (a rogue AP where MFPR=0) and the
+capture is the flag surface. See `ctf/deauth-forensics.md`.
+
 ## Cite
 
 - aircrack-ng documentation — mdk4 modes.
 - IEEE Std 802.11-2020, §9.4 (management frames), §9.3.2.6 (Michael
   MIC countermeasure), §11.2 (power management, TIM/DTIM), §10.3
-  (NAV).
+  (NAV), §11.34 (PMF — mgmt-frame protection scope).
 - attacks.json: `deauth-*`, `authentication-flood`,
   `association-flood`, `beacon-flood-mdk4`, `probe-flood-mdk4`,
   `rts-cts-nav-dos`, `cts-to-self-silencing`, `eapol-start-flood`,

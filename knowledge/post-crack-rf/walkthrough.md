@@ -1,5 +1,7 @@
 # post-crack-rf — walkthrough
 
+**Verified against:** hashcat 6.2.x + tshark 4.2 as of 2026-Q3
+
 ## Path A — Decrypt a captured pcap
 
 You have a `.pcapng` and a PSK. Recover the plaintext data frames.

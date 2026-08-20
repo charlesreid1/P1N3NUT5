@@ -2,39 +2,61 @@
   {
     "id": "dpsk-upc-ubee",
     "name": "UPC / UBEE default PSK",
-    "aliases": ["upc_keys", "UPC default PSK"],
+    "aliases": [
+      "upc_keys",
+      "UPC default PSK"
+    ],
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2015", null],
+    "era_bounds": [
+      "2015",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["upc-keys-repo"],
-    "see_also": ["default-psk-upc-ubee"],
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "see_also": [
+      "default-psk-upc-ubee"
+    ],
     "technical_body": {
       "ssid_regex": "^UPC\\d{7}$",
       "vendor": "UPC / UBEE (Liberty Global, EU cable ISP)",
       "derivation_tool": "upc_keys",
       "psk_shape": "8 uppercase alphanumeric (candidate list ~8 per SSID)",
-      "known_generations": ["Ubee EVW3226", "UPC Connect Box (Compal CH7465LG)"],
-      "target_availability_2026": "still deployed on legacy modems in EU markets"
+      "known_generations": [
+        "Ubee EVW3226",
+        "UPC Connect Box (Compal CH7465LG)"
+      ],
+      "target_availability_2026": "still deployed on legacy modems in EU markets",
+      "entropy_bits": 40
     }
   },
   {
     "id": "dpsk-thomson-speedtouch",
     "name": "Thomson SpeedTouch default PSK",
-    "aliases": ["stkeys"],
+    "aliases": [
+      "stkeys"
+    ],
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "primary",
-    "citations": ["upc-keys-repo"],
+    "citations": [
+      "upc-keys-repo"
+    ],
     "technical_body": {
       "ssid_regex": "^SpeedTouch[0-9A-F]{6}$",
       "vendor": "Thomson / Alcatel-Lucent",
       "derivation_tool": "stkeys",
       "psk_shape": "10 uppercase hex",
-      "target_availability_2026": "long tail on residential DSL"
+      "target_availability_2026": "long tail on residential DSL",
+      "entropy_bits": 40
     }
   },
   {
@@ -42,15 +64,21 @@
     "name": "BT Home Hub default PSK",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2010", null],
+    "era_bounds": [
+      "2010",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
     "technical_body": {
       "ssid_regex": "^BTHub\\d-.+$",
       "vendor": "BT (British Telecom)",
       "derivation_tool": "vendor-known lookup + candidate generators",
-      "target_availability_2026": "widespread on UK home broadband"
+      "target_availability_2026": "widespread on UK home broadband",
+      "entropy_bits": 50
     }
   },
   {
@@ -58,14 +86,20 @@
     "name": "Sky Broadband default PSK",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2012", null],
+    "era_bounds": [
+      "2012",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
     "technical_body": {
       "ssid_regex": "^SKY[0-9A-Z]{5}$",
       "vendor": "Sky Broadband (UK)",
-      "target_availability_2026": "widespread on UK home broadband"
+      "target_availability_2026": "widespread on UK home broadband",
+      "entropy_bits": 41
     }
   },
   {
@@ -73,14 +107,20 @@
     "name": "Livebox / Sagemcom default PSK",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
     "technical_body": {
       "ssid_regex": "^Livebox-.{4}$",
       "vendor": "Sagemcom (Orange FR)",
-      "target_availability_2026": "widespread on French ISP-supplied gear"
+      "target_availability_2026": "widespread on French ISP-supplied gear",
+      "entropy_bits": 40
     }
   },
   {
@@ -88,15 +128,21 @@
     "name": "Netgear Genie default PSK",
     "category": "default_psk",
     "region": "universal",
-    "era_bounds": ["2011", "2020"],
+    "era_bounds": [
+      "2011",
+      "2020"
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wright-hacking-exposed-wireless-3e"],
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
     "technical_body": {
       "ssid_regex": "^NETGEAR\\d{2}$",
       "vendor": "Netgear",
       "psk_shape": "adjective+noun+3digits pattern",
-      "target_availability_2026": "rare — mostly retired; check age"
+      "target_availability_2026": "rare \u2014 mostly retired; check age",
+      "entropy_bits": 26
     }
   },
   {
@@ -104,14 +150,20 @@
     "name": "Technicolor default PSK",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2014", null],
+    "era_bounds": [
+      "2014",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["upc-keys-repo"],
+    "citations": [
+      "upc-keys-repo"
+    ],
     "technical_body": {
       "ssid_regex": "^Technicolor.+$",
       "vendor": "Technicolor",
-      "target_availability_2026": "widespread on ISP-supplied gear across EU"
+      "target_availability_2026": "widespread on ISP-supplied gear across EU",
+      "entropy_bits": 40
     }
   },
   {
@@ -119,88 +171,314 @@
     "name": "AirTies default PSK",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2013", null],
+    "era_bounds": [
+      "2013",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["upc-keys-repo"],
-    "technical_body": {"vendor": "AirTies", "ssid_regex": "^AirTies.+", "target_availability_2026": "ISP-supplied gear in TR / EU"}
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "technical_body": {
+      "vendor": "AirTies",
+      "ssid_regex": "^AirTies.+",
+      "target_availability_2026": "ISP-supplied gear in TR / EU",
+      "entropy_bits": 40
+    }
   },
   {
     "id": "dpsk-vodafone-easybox",
     "name": "Vodafone EasyBox default PSK",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2011", null],
+    "era_bounds": [
+      "2011",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["upc-keys-repo"],
-    "technical_body": {"vendor": "Vodafone (Arcadyan / Astoria)", "ssid_regex": "^EasyBox-\\w{6}$", "note": "Historically derivable from MAC on many generations."}
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "technical_body": {
+      "vendor": "Vodafone (Arcadyan / Astoria)",
+      "ssid_regex": "^EasyBox-\\w{6}$",
+      "note": "Historically derivable from MAC on many generations.",
+      "entropy_bits": 30
+    }
   },
   {
     "id": "dpsk-alice",
     "name": "Alice-Gate / Alice-Box default PSK (IT)",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2010", null],
+    "era_bounds": [
+      "2010",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["upc-keys-repo"],
-    "technical_body": {"vendor": "Pirelli / Telecom Italia", "ssid_regex": "^Alice-\\d{8}$", "note": "Italian ISP-supplied hardware."}
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "technical_body": {
+      "vendor": "Pirelli / Telecom Italia",
+      "ssid_regex": "^Alice-\\d{8}$",
+      "note": "Italian ISP-supplied hardware.",
+      "entropy_bits": 40
+    }
   },
   {
     "id": "dpsk-orange-livebox-old",
     "name": "Orange Livebox (older generations)",
     "category": "default_psk",
     "region": "EU",
-    "era_bounds": ["2008", null],
+    "era_bounds": [
+      "2008",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wright-hacking-exposed-wireless-3e"],
-    "technical_body": {"vendor": "Sagemcom / Orange FR", "ssid_regex": "^Orange-.{4}$", "note": "Predecessor to the Livebox-…4-char generation covered by dpsk-livebox-sagemcom."}
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
+    "technical_body": {
+      "vendor": "Sagemcom / Orange FR",
+      "ssid_regex": "^Orange-.{4}$",
+      "note": "Predecessor to the Livebox-\u20264-char generation covered by dpsk-livebox-sagemcom.",
+      "entropy_bits": 40
+    }
   },
   {
     "id": "dpsk-huawei-hg8xxx",
     "name": "Huawei HG8xxx GPON ONT default PSK",
     "category": "default_psk",
     "region": "universal",
-    "era_bounds": ["2014", null],
+    "era_bounds": [
+      "2014",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["upc-keys-repo"],
-    "technical_body": {"vendor": "Huawei", "ssid_regex": "^Huawei-B\\d{4}$", "note": "GPON ONT devices; often ship with default WPA2-PSK derived from serial."}
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "technical_body": {
+      "vendor": "Huawei",
+      "ssid_regex": "^Huawei-B\\d{4}$",
+      "note": "GPON ONT devices; often ship with default WPA2-PSK derived from serial.",
+      "entropy_bits": 40
+    }
   },
   {
     "id": "dpsk-zte-h298",
     "name": "ZTE H298x default PSK",
     "category": "default_psk",
     "region": "universal",
-    "era_bounds": ["2015", null],
+    "era_bounds": [
+      "2015",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["upc-keys-repo"],
-    "technical_body": {"vendor": "ZTE", "ssid_regex": "^ZTE-\\w{6}$", "note": "Common ISP-supplied hardware in EMEA + LATAM."}
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "technical_body": {
+      "vendor": "ZTE",
+      "ssid_regex": "^ZTE-\\w{6}$",
+      "note": "Common ISP-supplied hardware in EMEA + LATAM.",
+      "entropy_bits": 40
+    }
   },
   {
     "id": "dpsk-comcast-xfinity-legacy",
     "name": "Comcast Xfinity default PSK (legacy generations)",
     "category": "default_psk",
     "region": "US",
-    "era_bounds": ["2013", "2020"],
+    "era_bounds": [
+      "2013",
+      "2020"
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wright-hacking-exposed-wireless-3e"],
-    "technical_body": {"vendor": "Comcast (Arris / Technicolor)", "ssid_regex": "^HOME-\\w{4}$", "note": "Older Arris TG862/TG1682 generations. Newer Xfinity Gateway (XB6/XB7/XB8) use non-derivable random PSKs."}
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
+    "technical_body": {
+      "vendor": "Comcast (Arris / Technicolor)",
+      "ssid_regex": "^HOME-\\w{4}$",
+      "note": "Older Arris TG862/TG1682 generations. Newer Xfinity Gateway (XB6/XB7/XB8) use non-derivable random PSKs.",
+      "entropy_bits": 45
+    }
   },
   {
     "id": "dpsk-belkin",
     "name": "Belkin default PSK / WPS PIN algorithm",
     "category": "default_psk",
     "region": "universal",
-    "era_bounds": ["2012", null],
+    "era_bounds": [
+      "2012",
+      null
+    ],
     "still_effective_2026": true,
     "confidence": "community",
-    "citations": ["wfa-wps-2-0"],
-    "see_also": ["wps-vendor-pin-derivation"],
-    "technical_body": {"vendor": "Belkin", "ssid_regex": "^Belkin\\.\\w{4}$", "note": "Both PSK and WPS PIN historically derivable from MAC on many generations."}
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "wps-vendor-pin-derivation"
+    ],
+    "technical_body": {
+      "vendor": "Belkin",
+      "ssid_regex": "^Belkin\\.\\w{4}$",
+      "note": "Both PSK and WPS PIN historically derivable from MAC on many generations.",
+      "entropy_bits": 26
+    }
+  },
+  {
+    "id": "dpsk-verizon-fios",
+    "name": "Verizon FiOS-XXXX default PSK / SSID pattern",
+    "category": "default_psk",
+    "region": "US",
+    "era_bounds": [
+      "2010",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
+    "technical_body": {
+      "vendor": "Verizon (Actiontec / Greenwave / ARRIS)",
+      "ssid_regex": "^FiOS-[A-Z0-9]{4,5}$|^Verizon_[A-Z0-9]{5,6}$",
+      "psk_shape": "12-char alphanumeric mixed case, printed on router label",
+      "derivation_tool": "not publicly derivable \u2014 search-space attacks only",
+      "note": "Older Actiontec MI424WR generations shipped short (10-char) mixed-alnum defaults. Newer G-series Verizon gateways (Greenwave, ARRIS G1100 / G3100) ship 12-char defaults printed on the label; not currently known to be MAC-derivable.",
+      "target_availability_2026": "widespread on US FiOS residential broadband",
+      "entropy_bits": 60
+    }
+  },
+  {
+    "id": "dpsk-xfinity-legacy-pattern",
+    "name": "XFINITY-XXXX legacy SSID pattern",
+    "category": "default_psk",
+    "region": "US",
+    "era_bounds": [
+      "2015",
+      "2022"
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
+    "technical_body": {
+      "vendor": "Comcast (Arris TG862/TG1682/XB3)",
+      "ssid_regex": "^XFINITY-\\w{4}$|^xfinitywifi$",
+      "psk_shape": "10-14 mixed-case alnum",
+      "note": "Distinct from dpsk-comcast-xfinity-legacy which covers HOME-XXXX. XFINITY-XXXX-labeled SSIDs are the guest / hotspot slice; the customer's private SSID is HOME-XXXX or the customer name.",
+      "target_availability_2026": "still very common on US cable",
+      "entropy_bits": 55
+    }
+  },
+  {
+    "id": "dpsk-dlink-arc",
+    "name": "D-Link ARC / PIN default PSK",
+    "category": "default_psk",
+    "region": "universal",
+    "era_bounds": [
+      "2012",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "wps-vendor-pin-derivation"
+    ],
+    "technical_body": {
+      "vendor": "D-Link",
+      "ssid_regex": "^dlink-\\w{4}$|^DIR-\\w{3,4}$",
+      "psk_shape": "8-char mixed alnum (older) / label 10-char (newer)",
+      "note": "Older DIR-6xx / DIR-8xx generations shipped WPS PIN + PSK both derivable from MAC via the ARC (Alpha Reduced Charset) pattern.",
+      "entropy_bits": 30
+    }
+  },
+  {
+    "id": "dpsk-dlink-wep-legacy",
+    "name": "D-Link WEP legacy default PSK",
+    "category": "default_psk",
+    "region": "universal",
+    "era_bounds": [
+      "2004",
+      "2012"
+    ],
+    "still_effective_2026": false,
+    "confidence": "community",
+    "citations": [
+      "wright-hacking-exposed-wireless-3e"
+    ],
+    "technical_body": {
+      "vendor": "D-Link",
+      "ssid_regex": "^dlink$",
+      "psk_shape": "10 hex (WEP-104) or default '1234567890' style",
+      "note": "Historic D-Link WEP-era default keys. WEP itself is broken (see cipher-wep-104). Still occasionally seen on abandoned SOHO gear.",
+      "entropy_bits": 12
+    }
+  },
+  {
+    "id": "dpsk-vodafone-station",
+    "name": "Vodafone Station / MyBox default PSK",
+    "category": "default_psk",
+    "region": "EU",
+    "era_bounds": [
+      "2015",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "community",
+    "citations": [
+      "upc-keys-repo"
+    ],
+    "technical_body": {
+      "vendor": "Vodafone (Arris / Sercomm / Sagemcom)",
+      "ssid_regex": "^Vodafone-\\w{6}$|^MyBox-\\w{6}$|^Vodafone_Station.+",
+      "psk_shape": "12-char mixed-alnum printed on label",
+      "note": "Widespread on Italian, Spanish, German Vodafone deployments. Various generations; some derivable from MAC (Arcadyan / Sercomm), others random.",
+      "entropy_bits": 55
+    }
+  },
+  {
+    "id": "dpsk-belkin-mac-derived",
+    "name": "Belkin MAC-derived default PSK (Heffner surprise)",
+    "category": "default_psk",
+    "region": "universal",
+    "era_bounds": [
+      "2010",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "wfa-wps-2-0"
+    ],
+    "see_also": [
+      "dpsk-belkin",
+      "wps-vendor-pin-derivation"
+    ],
+    "technical_body": {
+      "vendor": "Belkin (Foxconn / Linksys divisions)",
+      "ssid_regex": "^Belkin.\\w{4}$|^belkin\\.\\w{3}$",
+      "psk_shape": "8-char uppercase hex derivable from last 6 of MAC",
+      "derivation_tool": "Craig Heffner's belkin_psk.py \u2014 feed the BSSID, get one candidate PSK",
+      "algorithm_note": "Belkin surprise: PSK derived from last 6 bytes of MAC via a fixed lookup + XOR \u2014 Heffner published the reverse-engineered algorithm around 2015.",
+      "target_availability_2026": "long tail \u2014 many Belkin routers still deployed",
+      "entropy_bits": 15
+    }
   }
 ]

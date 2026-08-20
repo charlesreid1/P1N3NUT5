@@ -30,7 +30,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "Non-overlapping with 6 and 11 at 20 MHz. Overlapping at 40 MHz."
+      "notes": "Non-overlapping with 6 and 11 at 20 MHz. Overlapping at 40 MHz.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -63,7 +68,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -97,7 +107,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "Highest US channel \u2014 12 and 13 are EU/JP only; 14 is JP-only 802.11b at 2484 MHz."
+      "notes": "Highest US channel \u2014 12 and 13 are EU/JP only; 14 is JP-only 802.11b at 2484 MHz.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -130,7 +145,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -163,7 +183,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -195,7 +220,12 @@
         "JP": "802.11b only"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -229,7 +259,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -262,7 +297,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -296,7 +336,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -329,7 +374,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -363,7 +413,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -396,7 +451,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -430,7 +490,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -463,7 +528,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -497,7 +567,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -530,7 +605,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -564,7 +644,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -597,7 +682,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -631,7 +721,12 @@
       },
       "dfs_required": false,
       "tpc_required": false,
-      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots."
+      "notes": "40 MHz bonded operation on 2.4 GHz; discouraged in dense environments due to only three non-overlapping 20 MHz slots.",
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -664,7 +759,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -697,7 +797,12 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US": 36,
+        "EU": 20,
+        "JP": 20
+      }
     }
   },
   {
@@ -732,7 +837,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -800,7 +909,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -903,7 +1016,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -971,7 +1088,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1078,7 +1199,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1146,7 +1271,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1249,7 +1378,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1317,7 +1450,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1385,7 +1522,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1453,7 +1594,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1556,7 +1701,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1624,7 +1773,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -1659,7 +1812,11 @@
         "JP": "forbidden"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_P2MP": 36,
+        "US_indoor": 30
+      }
     }
   },
   {
@@ -1727,7 +1884,11 @@
         "JP": "forbidden"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_P2MP": 36,
+        "US_indoor": 30
+      }
     }
   },
   {
@@ -1830,7 +1991,11 @@
         "JP": "forbidden"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_P2MP": 36,
+        "US_indoor": 30
+      }
     }
   },
   {
@@ -1898,7 +2063,11 @@
         "JP": "forbidden"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_P2MP": 36,
+        "US_indoor": 30
+      }
     }
   },
   {
@@ -1963,7 +2132,11 @@
         "JP": "forbidden"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_P2MP": 36,
+        "US_indoor": 30
+      }
     }
   },
   {
@@ -1998,7 +2171,11 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_indoor_only": 30,
+        "EU": 23
+      }
     }
   },
   {
@@ -2066,7 +2243,11 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_indoor_only": 30,
+        "EU": 23
+      }
     }
   },
   {
@@ -2169,7 +2350,11 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_indoor_only": 30,
+        "EU": 23
+      }
     }
   },
   {
@@ -2237,7 +2422,11 @@
         "JP": "allowed"
       },
       "dfs_required": false,
-      "tpc_required": false
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_indoor_only": 30,
+        "EU": 23
+      }
     }
   },
   {
@@ -2312,7 +2501,11 @@
       },
       "dfs_required": true,
       "tpc_required": true,
-      "notes": "DFS radar-avoidance mandatory. Radios must vacate on radar detection."
+      "notes": "DFS radar-avoidance mandatory. Radios must vacate on radar detection.",
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -2380,7 +2573,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -2483,7 +2680,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -2551,7 +2752,11 @@
         "JP": "allowed (DFS+TPC)"
       },
       "dfs_required": true,
-      "tpc_required": true
+      "tpc_required": true,
+      "max_eirp_dbm": {
+        "US_DFS": 30,
+        "EU": 30
+      }
     }
   },
   {
@@ -2586,7 +2791,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": "6 GHz mandates WPA3-Personal or WPA3-Enterprise; no WPA2 downgrade."
+      "notes": "6 GHz mandates WPA3-Personal or WPA3-Enterprise; no WPA2 downgrade.",
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2620,7 +2831,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2655,7 +2873,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2689,7 +2913,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2722,7 +2952,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2756,7 +2992,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2789,7 +3031,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2828,7 +3076,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2862,7 +3116,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2895,7 +3155,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2929,7 +3195,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2964,7 +3237,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -2998,7 +3277,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3031,7 +3316,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3065,7 +3356,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3099,7 +3396,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3133,7 +3436,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3166,7 +3475,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3200,7 +3515,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3235,7 +3557,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3269,7 +3597,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3302,7 +3636,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3336,7 +3676,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3375,7 +3721,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3409,7 +3761,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3442,7 +3800,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3476,7 +3840,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3515,7 +3886,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3550,7 +3927,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3584,7 +3967,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3617,7 +4006,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3651,7 +4046,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3698,7 +4099,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz."
+      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz.",
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3732,7 +4139,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3765,7 +4178,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3799,7 +4218,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3834,7 +4260,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3868,7 +4300,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3902,7 +4340,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3935,7 +4379,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -3969,7 +4419,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4008,7 +4464,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4042,7 +4504,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4075,7 +4543,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4109,7 +4583,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4144,7 +4625,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4178,7 +4665,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4211,7 +4704,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4245,7 +4744,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4278,7 +4783,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4312,7 +4823,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4345,7 +4862,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4379,7 +4902,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4414,7 +4944,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4448,7 +4984,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4481,7 +5023,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4515,7 +5063,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4554,7 +5108,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4588,7 +5148,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4622,7 +5188,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4655,7 +5228,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4689,7 +5268,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4724,7 +5310,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4758,7 +5350,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4791,7 +5389,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4825,7 +5429,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4859,7 +5469,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4892,7 +5508,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4926,7 +5548,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4961,7 +5590,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -4996,7 +5631,13 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": "Highest US 6 GHz channel \u2014 7115 MHz center. Above this is not FCC-allocated."
+      "notes": "Highest US 6 GHz channel \u2014 7115 MHz center. Above this is not FCC-allocated.",
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5030,7 +5671,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5063,7 +5710,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5097,7 +5750,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5130,7 +5789,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5177,7 +5842,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz."
+      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz.",
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5211,7 +5882,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5244,7 +5921,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5278,7 +5961,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5313,7 +6003,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5347,7 +6043,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5380,7 +6082,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5414,7 +6122,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5453,7 +6167,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5487,7 +6207,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5521,7 +6247,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5554,7 +6287,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5588,7 +6327,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5623,7 +6369,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5657,7 +6409,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5690,7 +6448,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5724,7 +6488,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5758,7 +6528,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5791,7 +6567,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5825,7 +6607,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5860,7 +6649,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5895,7 +6690,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5929,7 +6730,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5962,7 +6769,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -5996,7 +6809,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6035,7 +6854,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6069,7 +6894,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6102,7 +6933,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6136,7 +6973,14 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "is_psc": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6171,7 +7015,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6205,7 +7055,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6239,7 +7095,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6272,7 +7134,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6306,7 +7174,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "LPI only (5945\u20136425)"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6353,7 +7227,13 @@
         "EU": "LPI only (5945\u20136425)"
       },
       "wpa3_only": true,
-      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz."
+      "notes": "Wi-Fi 7 (802.11be) introduces 320 MHz bonded on 6 GHz.",
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6387,7 +7267,13 @@
         "US": "LPI/SP/VLP tiers",
         "EU": "not allocated"
       },
-      "wpa3_only": true
+      "wpa3_only": true,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
     }
   },
   {
@@ -6420,7 +7306,84 @@
         "EU": "not allocated"
       },
       "wpa3_only": true,
-      "notes": null
+      "notes": null,
+      "max_eirp_dbm": {
+        "US_LPI": 30,
+        "US_SP_via_AFC": 36,
+        "EU_LPI": 23
+      },
+      "power_class_note": "US FCC 2024: 'Low Power Indoor' (LPI, 30 dBm PSD-limited, no AFC required) vs 'Standard Power' (SP, up to 36 dBm outdoor / higher indoor, requires AFC coordination) vs 'Very Low Power' (VLP, 14 dBm portable). WPA3 mandatory on 6 GHz."
+    }
+  },
+  {
+    "id": "ch-5-169-unii-4",
+    "name": "5 GHz channel 169 (UNII-4)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 169,
+      "center_mhz": 5845,
+      "widths_mhz": [
+        20,
+        40
+      ],
+      "unii_subband": "UNII-4",
+      "regulatory": {
+        "US": "allowed (FCC 2020 rule extending UNII-4)",
+        "EU": "forbidden",
+        "JP": "forbidden"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_indoor": 30
+      },
+      "notes": "US FCC 2020 extended UNII-4 (5850-5895 MHz) for unlicensed WLAN by carving from ITS (Intelligent Transportation Systems) band. Deployed on some newer US routers."
+    }
+  },
+  {
+    "id": "ch-5-173-unii-4",
+    "name": "5 GHz channel 173 (UNII-4)",
+    "category": "band_and_channel",
+    "region": "US",
+    "era_bounds": [
+      "2020",
+      null
+    ],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": [
+      "fcc-part-15"
+    ],
+    "technical_body": {
+      "band_ghz": 5,
+      "channel": 173,
+      "center_mhz": 5865,
+      "widths_mhz": [
+        20
+      ],
+      "unii_subband": "UNII-4",
+      "regulatory": {
+        "US": "allowed (FCC 2020)",
+        "EU": "forbidden",
+        "JP": "forbidden"
+      },
+      "dfs_required": false,
+      "tpc_required": false,
+      "max_eirp_dbm": {
+        "US_indoor": 30
+      },
+      "notes": "US UNII-4 extension per FCC 2020. Rare in the wild."
     }
   }
 ]

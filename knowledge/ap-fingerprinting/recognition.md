@@ -24,9 +24,15 @@ Order to check IEs, from cheapest to most-specific:
    - `00:50:F2` type 1 — Microsoft WPA1 (legacy)
    - `00:50:F2` type 2 — Microsoft WMM
    - `00:50:F2` type 4 — WPS
-   - `00:10:18` — Broadcom
-   - `00:00:0C` — Cisco Aironet
-   - `00:04:96` — Aruba / Alcatel-Lucent
+   - `00:10:18` — Broadcom (modern consumer CPE; `00:1E:D3` also)
+   - `00:90:4C` — legacy Epigram / early Broadcom-b silicon (Broadcom
+     bought Epigram in 2000). Not a modern Broadcom OUI.
+   - `00:00:0C`, `00:40:96` — Cisco Aironet (legacy). Modern Cisco APs
+     use `00:23:04`, `00:0C:85`, `00:1B:D4`, and many more.
+   - `00:0B:86`, `94:B4:0F` — Aruba (HPE). Note: `00:04:96` is
+     Extreme Networks (Enterasys legacy), NOT Aruba.
+   - `4C:B1:6C`, `8C:0F:6F`, `C0:C5:22` — Ruckus. Note: `94:BF:C4`
+     belongs to Ubiquiti, NOT Ruckus.
    - `50:6F:9A` — Wi-Fi Alliance (Passpoint, WPS, WFA)
 
 ## Vendor → attack surface map (recognition targets)
@@ -37,9 +43,9 @@ Order to check IEs, from cheapest to most-specific:
 | Netgear "Genie" firmware WPS strings | Vendor PIN derivation; historical Broadpwn candidate on some BCM chipsets |
 | ASUS RT-N/AC/AX series | Broadcom + Realtek hybrids; WPS behavior varies by generation |
 | Ubiquiti / EdgeMax + `ubnt` in Vendor-IE | Enterprise-ish consumer; PMF often optional; 11r/11k common |
-| Cisco Aironet / Meraki | Enterprise EAP surface primary; PMF often required; less classic-attack surface |
-| Aruba (00:04:96) | Enterprise EAP; PMF and 11r frequently on |
-| Ruckus (94:BF:C4) | Enterprise; unique beacon-encryption "BeamFlex" quirks |
+| Cisco Aironet / Meraki (00:40:96 legacy; modern 00:23:04, 00:0C:85, 00:1B:D4) | Enterprise EAP surface primary; PMF often required; less classic-attack surface |
+| Aruba (00:0B:86, 94:B4:0F — HPE) | Enterprise EAP; PMF and 11r frequently on. `00:04:96` is Extreme, not Aruba |
+| Ruckus (4C:B1:6C, 8C:0F:6F, C0:C5:22) | Enterprise; unique beacon-encryption "BeamFlex" quirks. `94:BF:C4` is Ubiquiti, not Ruckus |
 | Sagemcom / Livebox brand strings | Default-PSK derivation candidate (`default_psks.json`) |
 | UPC*/UBEE-\d+ SSID prefix | UPC default-PSK derivation candidate |
 | Sky Home Hub brand strings | Sky Broadband default-PSK candidate |

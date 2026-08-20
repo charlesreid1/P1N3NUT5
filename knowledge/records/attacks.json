@@ -30,7 +30,7 @@
       "enough weak-IV frames (~250k for 40-bit, ~500k+ for 104-bit)",
       "target AP still speaks WEP-40 or WEP-104",
       "monitor+injection-capable interface within RF range",
-      "enough weak-IV frames captured (~250k for 40-bit, ~500k+ for 104-bit) — usually via ARP-replay"
+      "enough weak-IV frames captured (~250k for 40-bit, ~500k+ for 104-bit) \u2014 usually via ARP-replay"
     ],
     "tools": [
       "airodump-ng",
@@ -71,7 +71,7 @@
       "WEP AP",
       "sufficient unique IVs",
       "target AP still speaks WEP-40 or WEP-104",
-      "sufficient unique IVs (fewer than FMS requires — KoreK's 17 biases cut the count)",
+      "sufficient unique IVs (fewer than FMS requires \u2014 KoreK's 17 biases cut the count)",
       "monitor-mode interface in range"
     ],
     "tools": [
@@ -115,22 +115,24 @@
     ],
     "preconditions": [
       "WEP AP",
-      "~40k–85k unique IVs",
+      "~40k\u201385k unique IVs",
       "target AP still speaks WEP-104",
-      "~40k–85k unique IVs captured",
+      "~40k\u201385k unique IVs captured",
       "monitor+injection-capable interface within RF range"
     ],
     "tools": [
       "aircrack-ng",
       "airodump-ng (capture IVs)",
       "aireplay-ng -3 (ARP-replay for IV acceleration)",
-      "aircrack-ng -z (PTW attack mode — default)"
+      "aircrack-ng -z (PTW attack mode \u2014 default)"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
     "notes": "aircrack-ng's default WEP attack. Sub-minute recovery when ARP-request replay accelerates IV generation.",
-    "flag_signature": null,
-    "mitigation": null
+    "flag_signature": "recovered WEP-104 key decrypts the target frame or is the flag itself",
+    "mitigation": [
+      "retire WEP; any WPA generation defeats PTW"
+    ]
   },
   {
     "id": "wep-arp-request-replay",
@@ -169,7 +171,7 @@
     "hashcat_mode": null,
     "transport": "ssh",
     "notes": "Replaying a captured ARP request generates fresh encrypted responses at line rate, feeding FMS/KoreK/PTW.",
-    "flag_signature": "not itself a flag — feeds FMS/KoreK/PTW, whose recovered WEP key is the flag",
+    "flag_signature": "not itself a flag \u2014 feeds FMS/KoreK/PTW, whose recovered WEP key is the flag",
     "mitigation": [
       "retire WEP",
       "disable ARP responses on the AP where possible (rare on APs)"
@@ -215,13 +217,13 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "target_availability_2026": "rare — TKIP effectively extinct on modern infrastructure",
+    "target_availability_2026": "rare \u2014 TKIP effectively extinct on modern infrastructure",
     "notes": "Record exists, technique works where TKIP survives (legacy WPA1). Rarely reached for.",
     "flag_signature": "recovered Michael MIC key lets you inject one QoS ARP-length frame per rekey window; flag lands if the puzzle rewards a plaintext-injection primitive",
     "mitigation": [
       "retire TKIP",
       "use CCMP/GCMP only",
-      "reduce Michael MIC failure countermeasure window to zero seconds is not enough — the leak still occurs"
+      "reduce Michael MIC failure countermeasure window to zero seconds is not enough \u2014 the leak still occurs"
     ]
   },
   {
@@ -321,7 +323,7 @@
       "strong PSK"
     ],
     "flag_signature": "PSK is the flag",
-    "notes": "Faster than 4-way capture — no client needed. Vendor adoption of the mitigation is uneven; many consumer APs in 2026 still leak PMKID."
+    "notes": "Faster than 4-way capture \u2014 no client needed. Vendor adoption of the mitigation is uneven; many consumer APs in 2026 still leak PMKID."
   },
   {
     "id": "wps-reaver-online",
@@ -414,7 +416,7 @@
       "disable WPS"
     ],
     "notes": "Offline recovery of the WPS PIN from E-S1/E-S2; not every chipset is vulnerable.",
-    "flag_signature": "recovered WPS PIN → PSK → flag"
+    "flag_signature": "recovered WPS PIN \u2192 PSK \u2192 flag"
   },
   {
     "id": "wps-null-pin",
@@ -494,7 +496,7 @@
   },
   {
     "id": "krack-client-key-reinstall",
-    "name": "KRACK — client-side pairwise key reinstall (M3 replay)",
+    "name": "KRACK \u2014 client-side pairwise key reinstall (M3 replay)",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -522,7 +524,7 @@
     ],
     "tools": [
       "krackattacks-scripts",
-      "krackattacks-scripts (Vanhoef PoC — sets up MC-MitM and replays M3)",
+      "krackattacks-scripts (Vanhoef PoC \u2014 sets up MC-MitM and replays M3)",
       "airodump-ng (verify nonce reuse)",
       "wireshark (decrypt with recovered PTK)"
     ],
@@ -531,11 +533,11 @@
     "mitigation": [
       "patched client (KB4041676/Android 6.0.1+ etc.)"
     ],
-    "flag_signature": "decrypted client traffic contains the flag; on some Linux clients the PTK is reinstalled to all-zero → trivial decrypt"
+    "flag_signature": "decrypted client traffic contains the flag; on some Linux clients the PTK is reinstalled to all-zero \u2192 trivial decrypt"
   },
   {
     "id": "krack-linux-all-zero-ptk",
-    "name": "KRACK — Linux/Android wpa_supplicant all-zero PTK reinstall",
+    "name": "KRACK \u2014 Linux/Android wpa_supplicant all-zero PTK reinstall",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -554,9 +556,9 @@
       "km-wpa2-psk"
     ],
     "preconditions": [
-      "unpatched wpa_supplicant ≤2.6",
+      "unpatched wpa_supplicant \u22642.6",
       "MitM replays M3",
-      "unpatched wpa_supplicant ≤ 2.6 on the target client",
+      "unpatched wpa_supplicant \u2264 2.6 on the target client",
       "MitM position that lets attacker replay M3",
       "attacker in RF range for both channels"
     ],
@@ -566,16 +568,16 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "notes": "Extreme version of KRACK — PTK is reinstalled to all-zero, decryption is trivial.",
-    "flag_signature": "post-M3-replay client traffic decrypts with the all-zero PTK — plaintext bytes are the flag",
+    "notes": "Extreme version of KRACK \u2014 PTK is reinstalled to all-zero, decryption is trivial.",
+    "flag_signature": "post-M3-replay client traffic decrypts with the all-zero PTK \u2014 plaintext bytes are the flag",
     "mitigation": [
-      "patched wpa_supplicant (≥ 2.7)",
+      "patched wpa_supplicant (\u2265 2.7)",
       "OCI in the 4-way handshake blocks the MC-MitM prerequisite"
     ]
   },
   {
     "id": "krack-ft-reassoc",
-    "name": "KRACK — FT reassociation PTK reinstall (AP-side)",
+    "name": "KRACK \u2014 FT reassociation PTK reinstall (AP-side)",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -617,7 +619,7 @@
   },
   {
     "id": "dragonblood-sidechannel",
-    "name": "Dragonblood — SAE cache-based side channel",
+    "name": "Dragonblood \u2014 SAE cache-based side channel",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -639,7 +641,7 @@
     "preconditions": [
       "co-located attack surface (adjacent process on same host, or timing over LAN)",
       "target AP uses WPA3-SAE (AKM 8) without H2E (RSNXE H2E bit clear)",
-      "co-located attack surface — adjacent process on same host or precise timing over LAN",
+      "co-located attack surface \u2014 adjacent process on same host or precise timing over LAN",
       "vulnerable SAE implementation (hunt-and-peck without cache partitioning)"
     ],
     "tools": [
@@ -652,11 +654,11 @@
     "mitigation": [
       "SAE-PT / H2E (km-wpa3-sae-ext-key)"
     ],
-    "flag_signature": "recovered SAE password element via side-channel timing → PSK, PSK is the flag"
+    "flag_signature": "recovered SAE password element via side-channel timing \u2192 PSK, PSK is the flag"
   },
   {
     "id": "dragonblood-timing",
-    "name": "Dragonblood — SAE MODP timing oracle",
+    "name": "Dragonblood \u2014 SAE MODP timing oracle",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -682,12 +684,12 @@
     ],
     "tools": [
       "dragontime",
-      "dragontime (Vanhoef PoC — measures MODP handshake time)",
+      "dragontime (Vanhoef PoC \u2014 measures MODP handshake time)",
       "custom analysis scripts to solve the password from timing samples"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "recovered SAE password element via MODP timing oracle → PSK, PSK is the flag",
+    "flag_signature": "recovered SAE password element via MODP timing oracle \u2192 PSK, PSK is the flag",
     "mitigation": [
       "disable MODP groups (ECC-only)",
       "hostapd `sae_groups` set to 19 / 20 / 21 only"
@@ -743,7 +745,7 @@
   },
   {
     "id": "kr00k-broadcom-cve-2019-15126",
-    "name": "Kr00k (Broadcom/Cypress) — all-zero PTK on disassoc",
+    "name": "Kr00k (Broadcom/Cypress) \u2014 all-zero PTK on disassoc",
     "aliases": [
       "kr00k"
     ],
@@ -774,7 +776,7 @@
       "monitor+injection-capable interface"
     ],
     "tools": [
-      "aireplay-ng --disassoc",
+      "aireplay-ng -0 (deauth; --disassoc does not exist) or mdk4 mode d / scapy Dot11Disas",
       "airodump-ng",
       "wireshark (decrypt with all-zero PTK)"
     ],
@@ -785,7 +787,7 @@
     ],
     "flag_signature": "post-disassoc tail frames decrypt with the zero key; typically a few TCP/UDP payload bytes",
     "target_availability_2026": "flagship phones patched; older Echo/Kindle/WiFi cameras still vulnerable",
-    "notes": "Paper: 'KrØØk — CVE-2019-15126: Serious vulnerability deep inside your Wi-Fi encryption' (ESET, RSA 2020). Chipset side: Broadcom / Cypress. Still lands in 2026 because Echo, Kindle, and cheap IP cameras from the 2016–2019 generation shipped with vulnerable firmware and never received the fix."
+    "notes": "Paper: 'Kr\u00d8\u00d8k \u2014 CVE-2019-15126: Serious vulnerability deep inside your Wi-Fi encryption' (ESET, RSA 2020). Chipset side: Broadcom / Cypress. Still lands in 2026 because Echo, Kindle, and cheap IP cameras from the 2016\u20132019 generation shipped with vulnerable firmware and never received the fix."
   },
   {
     "id": "kr00k-qca-cve-2020-3702",
@@ -814,7 +816,7 @@
       "monitor-capable interface for post-disassoc capture"
     ],
     "tools": [
-      "aireplay-ng --disassoc",
+      "aireplay-ng -0 (deauth; --disassoc does not exist) or mdk4 mode d / scapy Dot11Disas",
       "airodump-ng",
       "wireshark (all-zero PTK decrypt)"
     ],
@@ -826,12 +828,12 @@
     ],
     "notes": "Paper: ESET 2020 follow-up disclosing the Qualcomm-Atheros variant. Same all-zero-PTK primitive on QCA-based clients. Still relevant in 2026 for embedded / IoT gear that predates the 2020 firmware update wave.",
     "aliases": [
-      "kr00k-qualcomm-cve-2020-3702"
+      "kr00k-qca-cve-2020-3702"
     ]
   },
   {
     "id": "fragattacks-plaintext-inject",
-    "name": "FragAttacks — A-MSDU flag confusion plaintext injection",
+    "name": "FragAttacks \u2014 A-MSDU flag confusion plaintext injection",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -871,7 +873,7 @@
   },
   {
     "id": "fragattacks-mixed-key",
-    "name": "FragAttacks — mixed-key fragment cache",
+    "name": "FragAttacks \u2014 mixed-key fragment cache",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -901,7 +903,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "victim's decrypted frame reassembled from fragments encrypted under different keys — flag is the leaked plaintext",
+    "flag_signature": "victim's decrypted frame reassembled from fragments encrypted under different keys \u2014 flag is the leaked plaintext",
     "mitigation": [
       "patched client + AP for CVE-2020-24587",
       "clear the fragmentation cache on rekey"
@@ -909,7 +911,7 @@
   },
   {
     "id": "ssid-confusion-cve-2023-52424",
-    "name": "SSID Confusion — 4-way handshake does not authenticate SSID",
+    "name": "SSID Confusion \u2014 4-way handshake does not authenticate SSID",
     "aliases": [
       "ssid-confusion"
     ],
@@ -941,7 +943,7 @@
     "tools": [
       "custom hostapd fork advertising the target SSID over a different network",
       "custom hostapd fork advertising the target SSID over a different network (same PSK)",
-      "aireplay-ng (optional — force roam)",
+      "aireplay-ng (optional \u2014 force roam)",
       "wireshark (observe the client's higher-layer policy response)"
     ],
     "hashcat_mode": null,
@@ -954,7 +956,7 @@
   },
   {
     "id": "framing-frames-power-save-poison",
-    "name": "Framing Frames — power-save queue poisoning (Vanhoef 2023)",
+    "name": "Framing Frames \u2014 power-save queue poisoning (Vanhoef 2023)",
     "aliases": [
       "framing-frames"
     ],
@@ -996,11 +998,11 @@
       "AP-side patched hostapd (2023-Q4+)",
       "802.11-2024 draft binding of PM-bit state to the 4-way session"
     ],
-    "notes": "Paper: Vanhoef et al., 'Framing Frames: Bypassing Wi-Fi Encryption by Manipulating Transmit Queues' (USENIX Security 2023). Still lands in 2026 because AP-side fixes rolled in gradually across hostapd forks — many production APs, especially consumer models, are unpatched or partially patched."
+    "notes": "Paper: Vanhoef et al., 'Framing Frames: Bypassing Wi-Fi Encryption by Manipulating Transmit Queues' (USENIX Security 2023). Still lands in 2026 because AP-side fixes rolled in gradually across hostapd forks \u2014 many production APs, especially consumer models, are unpatched or partially patched."
   },
   {
     "id": "macstealer-mac-hijack",
-    "name": "MacStealer — MAC-based traffic hijack (Vanhoef 2023)",
+    "name": "MacStealer \u2014 MAC-based traffic hijack (Vanhoef 2023)",
     "aliases": [
       "macstealer"
     ],
@@ -1025,7 +1027,7 @@
     "preconditions": [
       "attacker on same network; client MAC known",
       "attacker is on the same network as the victim (has PSK, or network is Open/OWE)",
-      "victim MAC is known (trivial — passive observation)",
+      "victim MAC is known (trivial \u2014 passive observation)",
       "AP-side client isolation is either off or implemented naively (MAC-keyed, not session-keyed)"
     ],
     "tools": [
@@ -1035,12 +1037,12 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "return-traffic destined for the victim MAC delivered to the attacker instead — flag lives in the captured payload",
+    "flag_signature": "return-traffic destined for the victim MAC delivered to the attacker instead \u2014 flag lives in the captured payload",
     "mitigation": [
       "AP-side client isolation that binds the isolation state to the 4-way session, not the MAC",
       "patched client that clears its cached AP-side association on reauth"
     ],
-    "notes": "Paper: Vanhoef, 'MacStealer' (BlackHat Asia 2023). Client-side flaw — even fully patched APs cannot fully defend when the client stack accepts stale MAC-keyed state. Still lands in 2026 across the same client generations that inherit the SSID-confusion attack surface."
+    "notes": "Paper: Vanhoef, 'MacStealer' (BlackHat Asia 2023). Client-side flaw \u2014 even fully patched APs cannot fully defend when the client stack accepts stale MAC-keyed state. Still lands in 2026 across the same client generations that inherit the SSID-confusion attack surface."
   },
   {
     "id": "wifi7-mlo-link-desync",
@@ -1074,7 +1076,7 @@
     ],
     "tools": [
       "research PoCs, evolving",
-      "research PoCs — evolving",
+      "research PoCs \u2014 evolving",
       "MLO-capable AP + client testbed (as of 2026, no public tool ships with automated exploitation)"
     ],
     "hashcat_mode": null,
@@ -1132,7 +1134,7 @@
       "strong PSK on FT-PSK deployments",
       "FT-802.1X (Enterprise) rather than FT-PSK where fleet-wide compromise risk matters"
     ],
-    "notes": "Primary sources: IEEE 802.11-2020 §13 (Fast BSS Transition), hashcat mode 22000 docs. Frontier-adjacent — still lands in 2026 because FT-PSK captures are hashcat-crackable identically to plain 4-way captures, and enterprise FT-PSK deployments continue to grow."
+    "notes": "Primary sources: IEEE 802.11-2020 \u00a713 (Fast BSS Transition), hashcat mode 22000 docs. Frontier-adjacent \u2014 still lands in 2026 because FT-PSK captures are hashcat-crackable identically to plain 4-way captures, and enterprise FT-PSK deployments continue to grow."
   },
   {
     "id": "btm-forced-roam",
@@ -1171,8 +1173,8 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "notes": "Crafted BTM Request from a rogue shoves the client onto the attacker BSSID with the client's cooperation. PMF does not protect BTM Action frames as of 802.11-2020 §11.24 for all vendors.",
-    "flag_signature": "victim's client associates to the attacker BSSID under its own cooperation — flag lives in post-association traffic captured on the rogue",
+    "notes": "Crafted BTM Request from a rogue shoves the client onto the attacker BSSID with the client's cooperation. PMF does not protect BTM Action frames as of 802.11-2020 \u00a711.24 for all vendors.",
+    "flag_signature": "victim's client associates to the attacker BSSID under its own cooperation \u2014 flag lives in post-association traffic captured on the rogue",
     "mitigation": [
       "PMF-required blocks unsolicited BTM Requests from a rogue on older client stacks",
       "client-side ignore-BTM policy for enterprise-managed devices"
@@ -1212,7 +1214,7 @@
     "hashcat_mode": null,
     "transport": "ssh",
     "notes": "Steer the target into associating with your BSSID by naming it as a preferred neighbor.",
-    "flag_signature": "same as btm-forced-roam — client roams onto attacker BSSID and its traffic is captured",
+    "flag_signature": "same as btm-forced-roam \u2014 client roams onto attacker BSSID and its traffic is captured",
     "mitigation": [
       "PMF-required blocks unsolicited Neighbor Report Response frames",
       "client-side neighbor-report validation against the associated ESS's known BSSID set"
@@ -1338,7 +1340,7 @@
     "hashcat_mode": null,
     "transport": "ssh",
     "notes": "Underlies KRACK. Useful standalone in modern evil-twin work when band-steering / 11k/11v steer clients across bands.",
-    "flag_signature": "primitive — flag depends on the follow-on attack (KRACK reinstall, deauth-driven reassociation, band-forced roam)",
+    "flag_signature": "primitive \u2014 flag depends on the follow-on attack (KRACK reinstall, deauth-driven reassociation, band-forced roam)",
     "mitigation": [
       "OCI in the 4-way handshake (blocks the channel-mismatch primitive)",
       "PMF-required limits deauth-driven MC-MitM setup"
@@ -1453,7 +1455,7 @@
       "attacker can spoof or inject disassoc frames"
     ],
     "tools": [
-      "aireplay-ng --disassoc",
+      "aireplay-ng -0 (deauth; --disassoc does not exist) or mdk4 mode d / scapy Dot11Disas",
       "airodump-ng (capture the resulting tail on Kr00k targets)"
     ],
     "hashcat_mode": null,
@@ -1494,10 +1496,10 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "confusion / decoy — some CTF scoring bots use beacon count as a signal",
+    "flag_signature": "confusion / decoy \u2014 some CTF scoring bots use beacon count as a signal",
     "mitigation": [
       "WIDS beacon-flood detection with automated alert",
-      "not a data-plane attack — mitigation is detection, not blocking"
+      "not a data-plane attack \u2014 mitigation is detection, not blocking"
     ]
   },
   {
@@ -1528,7 +1530,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "AP probe-response rate collapses; airodump-ng shows the target AP dropping legitimate probes while the attacker interface emits ~5k probes/s",
     "mitigation": [
       "WIDS probe-flood alert; AP-side rate limit on probe processing"
     ]
@@ -1562,7 +1564,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "burst of Auth-Request frames (subtype 11) from randomized source MACs; AP association table fills and legit clients get status code 30 (assoc-denied resource unavailable)",
     "mitigation": [
       "AP-side auth-frame rate limit; PMF-required (auth is not covered but post-auth is)"
     ]
@@ -1591,7 +1593,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "burst of Assoc-Request frames from randomized MACs following a successful Auth; AP association slots exhausted; legit clients get status code 17 (too-many-STA)",
     "mitigation": [
       "AP-side assoc-frame rate limit"
     ],
@@ -1628,7 +1630,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "flood of EAPOL-Start frames arriving faster than the authenticator can bind supplicant state; radius accounting shows piled-up half-open 802.1X sessions",
     "mitigation": [
       "authenticator-side EAPOL-Start rate limit",
       "RADIUS Accounting-Start rate limit"
@@ -1658,12 +1660,12 @@
       "km-wpa2-psk"
     ],
     "tools": [
-      "mdk4 v",
+      "scapy CTS-to-self flood (Dot11 subtype 12, Duration/ID=0x7FFF) \u2014 mdk4 has no `v` mode",
       "airodump-ng (verify airtime collapse)"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "RTS/CTS frames with Duration values approaching 32767 microseconds addressed to nonexistent RA; channel utilization on the target frequency spikes toward 100% with almost no data throughput",
     "mitigation": [
       "ignore excessive NAV on Duration/ID field at driver level; airtime fairness"
     ],
@@ -1695,7 +1697,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "CTS frames whose RA matches the attacker's own TA \u2014 a valid CTS-to-self silences all NAV-respecting radios on-channel for the Duration",
     "mitigation": [
       "same as RTS/CTS NAV DoS mitigation"
     ],
@@ -1742,7 +1744,7 @@
   },
   {
     "id": "evil-twin-clone",
-    "name": "Evil-twin — clone SSID+BSSID+channel of a target AP",
+    "name": "Evil-twin \u2014 clone SSID+BSSID+channel of a target AP",
     "aliases": [
       "evil-twin"
     ],
@@ -1788,7 +1790,7 @@
   },
   {
     "id": "mana-karma",
-    "name": "MANA — per-STA SSID-pool probe response (SensePost 2014)",
+    "name": "MANA \u2014 per-STA SSID-pool probe response (SensePost 2014)",
     "aliases": [
       "mana"
     ],
@@ -1830,7 +1832,7 @@
   },
   {
     "id": "mana-loud",
-    "name": "MANA Loud — broadcast union of all seen probes",
+    "name": "MANA Loud \u2014 broadcast union of all seen probes",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -1866,7 +1868,7 @@
   },
   {
     "id": "mana-known-beacons",
-    "name": "MANA Known Beacons — dictionary-broadcast SSID pool",
+    "name": "MANA Known Beacons \u2014 dictionary-broadcast SSID pool",
     "aliases": [
       "known-beacons"
     ],
@@ -1945,12 +1947,12 @@
     "flag_signature": "flag is whatever the user types in the login form (WCTF classic)",
     "mitigation": [
       "clients that refuse to submit credentials to unauthenticated portals",
-      "user hygiene — don't type primary credentials into a WiFi portal"
+      "user hygiene \u2014 don't type primary credentials into a WiFi portal"
     ]
   },
   {
     "id": "rogue-radius-hostapd-wpe",
-    "name": "Rogue RADIUS — hostapd-wpe inner-EAP capture",
+    "name": "Rogue RADIUS \u2014 hostapd-wpe inner-EAP capture",
     "aliases": [
       "hostapd-wpe"
     ],
@@ -1989,7 +1991,7 @@
     ],
     "hashcat_mode": 5500,
     "transport": "ssh",
-    "flag_signature": "MSCHAPv2 challenge-response captured → hashcat 5500 / asleap → password",
+    "flag_signature": "MSCHAPv2 challenge-response captured \u2192 hashcat 5500 / asleap \u2192 password",
     "mitigation": [
       "RADIUS server certificate pinning on every client profile (MDM-enforced)",
       "disable PEAP inner-method downgrade to GTC"
@@ -1997,7 +1999,7 @@
   },
   {
     "id": "rogue-radius-eaphammer",
-    "name": "Rogue RADIUS — eaphammer end-to-end",
+    "name": "Rogue RADIUS \u2014 eaphammer end-to-end",
     "aliases": [
       "eaphammer"
     ],
@@ -2040,7 +2042,7 @@
   },
   {
     "id": "cert-phish-eaphammer-weak-validation",
-    "name": "Cert-phishing — weak client cert validation",
+    "name": "Cert-phishing \u2014 weak client cert validation",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2070,7 +2072,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "victim client without server-cert pinning completes EAP against the attacker — inner credentials or OTP is the flag",
+    "flag_signature": "victim client without server-cert pinning completes EAP against the attacker \u2014 inner credentials or OTP is the flag",
     "mitigation": [
       "server-cert pinning is the load-bearing defense",
       "EAP-TLS with mutual auth eliminates the primitive"
@@ -2078,7 +2080,7 @@
   },
   {
     "id": "eap-inner-downgrade-peap-mschapv2",
-    "name": "EAP inner-method downgrade — PEAP → MSCHAPv2",
+    "name": "EAP inner-method downgrade \u2014 PEAP \u2192 MSCHAPv2",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2098,12 +2100,12 @@
       "km-wpa2-eap"
     ],
     "tools": [
-      "eaphammer --negotiate downgrade",
+      "eaphammer --negotiate weakest",
       "hostapd-wpe"
     ],
     "hashcat_mode": 5500,
     "transport": "ssh",
-    "flag_signature": "MSCHAPv2 challenge/response captured under downgrade — hashcat 5500 recovers the flag",
+    "flag_signature": "MSCHAPv2 challenge/response captured under downgrade \u2014 hashcat 5500 recovers the flag",
     "mitigation": [
       "disable PEAP inner-method downgrade",
       "server-cert pinning stops the tunnel establishment"
@@ -2115,7 +2117,7 @@
   },
   {
     "id": "eap-inner-downgrade-peap-gtc",
-    "name": "EAP inner-method downgrade — PEAP → GTC (plaintext token)",
+    "name": "EAP inner-method downgrade \u2014 PEAP \u2192 GTC (plaintext token)",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2134,13 +2136,17 @@
       "km-wpa2-eap"
     ],
     "tools": [
-      "eaphammer --negotiate gtc",
+      "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
       "hostapd-wpe (alternate rogue-RADIUS with GTC inner)"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
     "flag_signature": "plaintext OTP (RSA / Duo / Yubico) captured within its validity window",
-    "mitigation": null,
+    "mitigation": [
+      "pin server certificate CN + issuing CA on the supplicant",
+      "refuse EAP method changes mid-conversation",
+      "set eap_workaround=0 on hostapd-wpe-hardened supplicants"
+    ],
     "preconditions": [
       "victim client that accepts PEAP inner-method downgrade to GTC",
       "rogue-RADIUS with the GTC inner offered"
@@ -2148,7 +2154,7 @@
   },
   {
     "id": "asleap-mschapv2-crack",
-    "name": "asleap — offline MSCHAPv2 crack",
+    "name": "asleap \u2014 offline MSCHAPv2 crack",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2186,7 +2192,7 @@
   },
   {
     "id": "hashcat-5500-mschapv2-crack",
-    "name": "hashcat 5500 — offline MSCHAPv2 crack",
+    "name": "hashcat 5500 \u2014 offline MSCHAPv2 crack",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2247,7 +2253,7 @@
     ],
     "hashcat_mode": 5500,
     "transport": "analysis",
-    "target_availability_2026": "rare — LEAP mostly extinct; some legacy WLCs still surface",
+    "target_availability_2026": "rare \u2014 LEAP mostly extinct; some legacy WLCs still surface",
     "flag_signature": "recovered LEAP password (the flag) via asleap or hashcat 5500",
     "mitigation": [
       "retire LEAP (PEAP or EAP-TLS)"
@@ -2259,7 +2265,7 @@
   },
   {
     "id": "default-psk-upc-ubee",
-    "name": "Default-PSK derivation — UPC/UBEE",
+    "name": "Default-PSK derivation \u2014 UPC/UBEE",
     "aliases": [
       "upc-keys"
     ],
@@ -2282,7 +2288,7 @@
     ],
     "preconditions": [
       "target SSID matches /^UPC\\d{7}$/",
-      "no radio time required — pure passive derivation"
+      "no radio time required \u2014 pure passive derivation"
     ],
     "tools": [
       "upc_keys",
@@ -2292,7 +2298,7 @@
     ],
     "hashcat_mode": null,
     "transport": "analysis",
-    "flag_signature": "PSK derived from SSID — validate against a captured PMKID or handshake",
+    "flag_signature": "PSK derived from SSID \u2014 validate against a captured PMKID or handshake",
     "notes": "No radio time required. Common WCTF sleeper puzzle.",
     "mitigation": [
       "change PSK from vendor default",
@@ -2301,7 +2307,7 @@
   },
   {
     "id": "default-psk-thomson-speedtouch",
-    "name": "Default-PSK derivation — Thomson Speedtouch (SSID suffix hash)",
+    "name": "Default-PSK derivation \u2014 Thomson Speedtouch (SSID suffix hash)",
     "category": "attack",
     "region": "EU",
     "era_bounds": [
@@ -2319,7 +2325,7 @@
     "preconditions": [
       "target SSID matches SpeedTouch prefix + 6-digit hash",
       "target SSID matches SpeedTouch<hex-suffix> pattern",
-      "no radio time required — pure passive derivation"
+      "no radio time required \u2014 pure passive derivation"
     ],
     "tools": [
       "stkeys",
@@ -2329,7 +2335,7 @@
     ],
     "hashcat_mode": null,
     "transport": "analysis",
-    "flag_signature": "PSK derived from the SSID suffix — validate against a captured PMKID or handshake",
+    "flag_signature": "PSK derived from the SSID suffix \u2014 validate against a captured PMKID or handshake",
     "mitigation": [
       "change PSK from vendor default",
       "vendor pushes non-derivable factory PSKs on newer firmware generations"
@@ -2362,13 +2368,17 @@
     ],
     "tools": [
       "PineAP module (WebUI or /api/pineap/*)",
-      "PineAP module — Logging tab (WebUI)",
+      "PineAP module \u2014 Logging tab (WebUI)",
       "/api/pineap/probes (API)"
     ],
     "hashcat_mode": null,
     "transport": "api",
     "flag_signature": "target's preferred-network SSID leaks in its probe request",
-    "mitigation": null
+    "mitigation": [
+      "disable probe-request broadcast on client devices where possible",
+      "use MAC randomization + per-SSID randomization (default on Android 10+ / iOS 14+)",
+      "strip preferred-network-list of long-abandoned SSIDs"
+    ]
   },
   {
     "id": "pineap-active-karma",
@@ -2404,13 +2414,13 @@
     ],
     "tools": [
       "PineAP module",
-      "PineAP module — Karma toggle (WebUI)",
+      "PineAP module \u2014 Karma toggle (WebUI)",
       "/api/pineap/settings (API)"
     ],
     "hashcat_mode": null,
     "transport": "api",
     "caveat": "Transmitting probe responses to real clients; needs airspace authorization.",
-    "flag_signature": "victim client associates believing it's on a preferred network — flag lives in captured post-association traffic (DNS lookups, HTTP, mail credentials)",
+    "flag_signature": "victim client associates believing it's on a preferred network \u2014 flag lives in captured post-association traffic (DNS lookups, HTTP, mail credentials)",
     "mitigation": [
       "client-side probe-request MAC randomization + 'associate only on explicit selection'",
       "WIDS KARMA-response detection at the venue"
@@ -2442,8 +2452,8 @@
       "SSID pool populated"
     ],
     "tools": [
-      "PineAP module → SSID Pool → Broadcast SSID pool",
-      "PineAP module — SSID Pool → Broadcast (WebUI)",
+      "PineAP module \u2192 SSID Pool \u2192 Broadcast SSID pool",
+      "PineAP module \u2014 SSID Pool \u2192 Broadcast (WebUI)",
       "/api/pineap/pool/add + settings.broadcast_ssid_pool (API)"
     ],
     "hashcat_mode": null,
@@ -2485,17 +2495,17 @@
     ],
     "tools": [
       "research PoCs",
-      "research PoCs — no shipping tool ships as of 2026",
+      "research PoCs \u2014 no shipping tool ships as of 2026",
       "scapy (craft HE TWT Setup Action frames)"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "primitive — target client is starved of receive time. Not itself a flag; enables other attacks (deauth-driven roam without the client responding, delayed-response race conditions)",
+    "flag_signature": "primitive \u2014 target client is starved of receive time. Not itself a flag; enables other attacks (deauth-driven roam without the client responding, delayed-response race conditions)",
     "mitigation": [
       "client-side ignore-TWT policy for managed devices",
       "AP-side TWT authentication (MFP-protected Action frames)"
     ],
-    "notes": "Primary source: IEEE 802.11ax-2021 §26.8 (TWT). Attack surface first surveyed in 'Wi-Fi 6 security — TWT abuse' academic papers 2021–2023. Still lands in 2026 because AP-side MFP protection for TWT Setup Action frames is not consistently deployed."
+    "notes": "Primary source: IEEE 802.11ax-2021 \u00a726.8 (TWT). Attack surface first surveyed in 'Wi-Fi 6 security \u2014 TWT abuse' academic papers 2021\u20132023. Still lands in 2026 because AP-side MFP protection for TWT Setup Action frames is not consistently deployed."
   },
   {
     "id": "rnr-6ghz-enumeration",
@@ -2532,8 +2542,11 @@
     "hashcat_mode": null,
     "transport": "analysis",
     "flag_signature": "6 GHz BSSID recovered without a 6 GHz-capable radio",
-    "mitigation": null,
-    "notes": "Primary source: IEEE 802.11ax-2021 §9.4.2.170 (RNR element). Not a vulnerability — a design feature. Still WCTF-relevant in 2026 because 6 GHz targets remain enumerable from 2.4/5 GHz beacons without a 6 GHz capable card."
+    "mitigation": [
+      "disable Reduced Neighbor Report advertising cross-band 6 GHz BSSIDs when not needed",
+      "use co-located Multi-Link with hidden 6 GHz BSSID to remove the 2.4/5 GHz beacon leak"
+    ],
+    "notes": "Primary source: IEEE 802.11ax-2021 \u00a79.4.2.170 (RNR element). Not a vulnerability \u2014 a design feature. Still WCTF-relevant in 2026 because 6 GHz targets remain enumerable from 2.4/5 GHz beacons without a 6 GHz capable card."
   },
   {
     "id": "ru-based-ofdma-dos",
@@ -2555,12 +2568,12 @@
     ],
     "tools": [
       "research PoCs",
-      "research PoCs — no shipping tool as of 2026",
+      "research PoCs \u2014 no shipping tool as of 2026",
       "custom scapy patch for HE Trigger frames"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "malformed Trigger frames (ctrl subtype 2) with impossible RU allocation causing 802.11ax STAs to fail UL OFDMA and fall back to legacy contention",
     "mitigation": [
       "AP-side detection of malformed Trigger frames",
       "WIDS OFDMA-anomaly alert"
@@ -2569,7 +2582,7 @@
       "target Wi-Fi 6/6E AP with OFDMA scheduling enabled",
       "monitor+injection-capable Wi-Fi 6/6E interface"
     ],
-    "notes": "Community research surface — 'malformed OFDMA Trigger frame DoS.' No canonical paper as of mid-2026; expect defensive research at WISEC / USENIX 2026. Still WCTF-relevant if a puzzle tests DoS-detection instrumentation."
+    "notes": "Community research surface \u2014 'malformed OFDMA Trigger frame DoS.' No canonical paper as of mid-2026; expect defensive research at WISEC / USENIX 2026. Still WCTF-relevant if a puzzle tests DoS-detection instrumentation."
   },
   {
     "id": "packet-inject-arbitrary",
@@ -2601,7 +2614,7 @@
     "hashcat_mode": null,
     "transport": "ssh",
     "caveat": "Transmitting. Only fire with airspace authorization.",
-    "flag_signature": null,
+    "flag_signature": "aireplay-ng -2/-9 or scapy sendp() injecting frames the AP or client acts on \u2014 success is observing the injected frame's effect in the next capture window",
     "mitigation": [
       "MFP-required for management",
       "encrypted control frames not yet standardized (802.11-2024 draft)"
@@ -2644,7 +2657,10 @@
     "hashcat_mode": null,
     "transport": "analysis",
     "flag_signature": "flag concatenated in a custom OUI Vendor-Specific IE across many beacons",
-    "mitigation": null
+    "mitigation": [
+      "WIDS parses Vendor-Specific IEs and alerts on unrecognized OUI patterns",
+      "strip unknown Vendor-Specific IEs in enterprise beacon templates"
+    ]
   },
   {
     "id": "wps-negative-pin",
@@ -2711,7 +2727,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "notes": "Most consumer AP firmware resets WPS-Locked after 60–300 s. Wait, resume.",
+    "notes": "Most consumer AP firmware resets WPS-Locked after 60\u2013300 s. Wait, resume.",
     "flag_signature": "recovered PSK after waiting through lockout cycles",
     "mitigation": [
       "disable WPS",
@@ -2747,11 +2763,15 @@
     "transport": "ssh",
     "flag_signature": "PSK returned when the attacker enrolls as any Enrollee during the open window",
     "notes": "Requires social-engineering the button press or a very lucky observation.",
-    "mitigation": null
+    "mitigation": [
+      "disable WPS entirely (best)",
+      "if WPS required, keep PBC window <= 120s and require physical button press per session",
+      "monitor WPS session logs for out-of-window activations"
+    ]
   },
   {
     "id": "krack-groupkey-reinstall",
-    "name": "KRACK — Group key reinstall (GK1 replay)",
+    "name": "KRACK \u2014 Group key reinstall (GK1 replay)",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2788,7 +2808,7 @@
   },
   {
     "id": "krack-wnm-reinstall",
-    "name": "KRACK — WNM Sleep Mode key reinstall",
+    "name": "KRACK \u2014 WNM Sleep Mode key reinstall",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2826,7 +2846,7 @@
   },
   {
     "id": "fragattacks-cache-poisoning",
-    "name": "FragAttacks — fragmentation cache not cleared on connect",
+    "name": "FragAttacks \u2014 fragmentation cache not cleared on connect",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2856,7 +2876,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "victim reassembles attacker plaintext with legitimate ciphertext across (re)connect — flag is the injected payload delivered up-stack",
+    "flag_signature": "victim reassembles attacker plaintext with legitimate ciphertext across (re)connect \u2014 flag is the injected payload delivered up-stack",
     "mitigation": [
       "patched client for CVE-2020-24586",
       "clear the fragmentation cache on (re)connect"
@@ -2896,7 +2916,7 @@
     "hashcat_mode": null,
     "transport": "analysis",
     "notes": "H2E mitigates the 2019 hunt-and-peck timing oracle; some 2021+ implementations still leak under narrower conditions.",
-    "flag_signature": "recovered SAE password element via residual timing leak → PSK is the flag",
+    "flag_signature": "recovered SAE password element via residual timing leak \u2192 PSK is the flag",
     "mitigation": [
       "SAE-PT with cache-partitioned math paths",
       "constant-time SAE implementation audits"
@@ -2904,7 +2924,7 @@
   },
   {
     "id": "dragonblood-modp-downgrade",
-    "name": "Dragonblood — MODP-group downgrade",
+    "name": "Dragonblood \u2014 MODP-group downgrade",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -2970,13 +2990,17 @@
       "hcxpcapngtool",
       "airodump-ng (capture FT reassoc on any BSSID in the mobility domain)",
       "hcxpcapngtool (convert to 22000)",
-      "hashcat -m 22000 (crack — one PSK works for the whole fleet)"
+      "hashcat -m 22000 (crack \u2014 one PSK works for the whole fleet)"
     ],
     "hashcat_mode": 22000,
     "transport": "ssh",
     "flag_signature": "one recovered PSK unlocks every BSSID in the mobility domain",
     "notes": "The catastrophic 11r failure mode.",
-    "mitigation": null
+    "mitigation": [
+      "deploy per-AP PMK-R0 keys (not a shared fleet R0KH)",
+      "rotate PMK-R0 secret on WLC firmware refresh",
+      "enforce 12+ char high-entropy PSK to raise offline crack cost"
+    ]
   },
   {
     "id": "eap-gtc-plaintext-token-capture",
@@ -3000,21 +3024,21 @@
       "km-wpa2-eap"
     ],
     "preconditions": [
-      "client tolerates PEAP → GTC inner-method downgrade",
+      "client tolerates PEAP \u2192 GTC inner-method downgrade",
       "target uses OTP-style GTC token (RSA / Duo / Yubico)"
     ],
     "tools": [
-      "eaphammer --negotiate gtc",
+      "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
       "airodump-ng (capture EAP inner exchange)"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "plaintext OTP captured inside the rogue PEAP tunnel; usable within its validity window (typically 30–60 s)",
+    "flag_signature": "plaintext OTP captured inside the rogue PEAP tunnel; usable within its validity window (typically 30\u201360 s)",
     "mitigation": [
       "server-cert pinning stops the outer tunnel",
-      "disable PEAP → GTC inner-method downgrade"
+      "disable PEAP \u2192 GTC inner-method downgrade"
     ],
-    "notes": "Primary sources: RFC 3748 §5.3 (EAP-GTC), Gabriel Ryan's eaphammer README (2017–). Still lands in 2026 in enterprise networks that permit PEAP → GTC downgrade for RSA / Duo / Yubico OTP flows."
+    "notes": "Primary sources: RFC 3748 \u00a75.3 (EAP-GTC), Gabriel Ryan's eaphammer README (2017\u2013). Still lands in 2026 in enterprise networks that permit PEAP \u2192 GTC downgrade for RSA / Duo / Yubico OTP flows."
   },
   {
     "id": "mdm-profile-theft-captive-portal",
@@ -3053,7 +3077,7 @@
       "MDM-enforced profile pinning; block user-installed profiles on managed devices",
       "certificate pinning on the MDM enrollment endpoint"
     ],
-    "notes": "Community research surface — no single canonical paper. Primary vector: Apple's mobile config profile install prompt + Android profile intents. Still lands in 2026 wherever MDM enrollment can be initiated from a captive portal on managed devices."
+    "notes": "Community research surface \u2014 no single canonical paper. Primary vector: Apple's mobile config profile install prompt + Android profile intents. Still lands in 2026 wherever MDM enrollment can be initiated from a captive portal on managed devices."
   },
   {
     "id": "mschapv2-challenge-response-capture",
@@ -3096,7 +3120,7 @@
   },
   {
     "id": "default-psk-bt-home-hub",
-    "name": "Default-PSK derivation — BT Home Hub",
+    "name": "Default-PSK derivation \u2014 BT Home Hub",
     "category": "attack",
     "region": "EU",
     "era_bounds": [
@@ -3117,7 +3141,7 @@
     "preconditions": [
       "target SSID matches BTHub<N>-.+",
       "target SSID matches BTHub<N>-.+ pattern",
-      "no radio time required — pure passive derivation"
+      "no radio time required \u2014 pure passive derivation"
     ],
     "tools": [
       "candidate PSK generators",
@@ -3134,7 +3158,7 @@
   },
   {
     "id": "default-psk-sky-broadband",
-    "name": "Default-PSK derivation — Sky Broadband",
+    "name": "Default-PSK derivation \u2014 Sky Broadband",
     "category": "attack",
     "region": "EU",
     "era_bounds": [
@@ -3155,7 +3179,7 @@
     "preconditions": [
       "SSID matches ^SKY[0-9A-Z]{5}$",
       "target SSID matches ^SKY[0-9A-Z]{5}$",
-      "no radio time required — pure passive derivation"
+      "no radio time required \u2014 pure passive derivation"
     ],
     "tools": [
       "candidate PSK generators",
@@ -3172,7 +3196,7 @@
   },
   {
     "id": "default-psk-livebox-sagemcom",
-    "name": "Default-PSK derivation — Livebox / Sagemcom",
+    "name": "Default-PSK derivation \u2014 Livebox / Sagemcom",
     "category": "attack",
     "region": "EU",
     "era_bounds": [
@@ -3193,7 +3217,7 @@
     "preconditions": [
       "SSID matches ^Livebox-.{4}$",
       "target SSID matches ^Livebox-.{4}$",
-      "no radio time required — pure passive derivation"
+      "no radio time required \u2014 pure passive derivation"
     ],
     "tools": [
       "candidate PSK generators",
@@ -3210,7 +3234,7 @@
   },
   {
     "id": "default-psk-netgear-genie",
-    "name": "Default-PSK derivation — Netgear Genie",
+    "name": "Default-PSK derivation \u2014 Netgear Genie",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -3230,7 +3254,7 @@
     ],
     "preconditions": [
       "SSID matches ^NETGEAR\\d{2}$",
-      "AP is a Netgear from the 2011–2020 Genie firmware generation"
+      "AP is a Netgear from the 2011\u20132020 Genie firmware generation"
     ],
     "tools": [
       "candidate PSK generators (adjective+noun+3digits pattern)",
@@ -3247,7 +3271,7 @@
   },
   {
     "id": "default-psk-technicolor",
-    "name": "Default-PSK derivation — Technicolor",
+    "name": "Default-PSK derivation \u2014 Technicolor",
     "category": "attack",
     "region": "EU",
     "era_bounds": [
@@ -3268,7 +3292,7 @@
     "preconditions": [
       "SSID matches ^Technicolor.+$",
       "target SSID matches ^Technicolor.+$",
-      "no radio time required — pure passive derivation"
+      "no radio time required \u2014 pure passive derivation"
     ],
     "tools": [
       "candidate PSK generators",
@@ -3355,7 +3379,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": null,
+    "flag_signature": "forged WNM-Sleep Mode Response causes a client to enter extended sleep, missing broadcast rekey and creating a decrypt-tail window",
     "mitigation": [
       "patched client for the WNM CVEs"
     ]
@@ -3391,7 +3415,7 @@
     "notes": "Break the TDLS peer link with an injected teardown; forces STA-to-STA traffic back through the AP where it can be observed.",
     "flag_signature": "STA-to-STA traffic that had been direct now traverses the AP; observable frames may carry the flag",
     "mitigation": [
-      "PMF-protected TDLS teardown (802.11-2020 §11.20)",
+      "PMF-protected TDLS teardown (802.11-2020 \u00a711.20)",
       "AP-side monitoring of unexpected TDLS teardowns"
     ]
   },
@@ -3424,7 +3448,7 @@
     "hashcat_mode": null,
     "transport": "ssh",
     "notes": "Not gone. Some cheap consumer client stacks still OOM.",
-    "flag_signature": null,
+    "flag_signature": "AP disappears from the air after receiving a probe/assoc-request with a malformed IE (typically a length-mismatched HT/VHT/HE Capabilities IE); recovery = reboot",
     "mitigation": [
       "driver / firmware update; IE-size sanity checks in the parser"
     ]
@@ -3460,9 +3484,13 @@
     ],
     "hashcat_mode": null,
     "transport": "analysis",
-    "notes": "Diagnostic — detect whether a KRACK attempt fired successfully by looking for reused PN values on the AP-to-STA data stream.",
-    "flag_signature": "diagnostic — the fact of nonce reuse is the flag for detection puzzles",
-    "mitigation": null
+    "notes": "Diagnostic \u2014 detect whether a KRACK attempt fired successfully by looking for reused PN values on the AP-to-STA data stream.",
+    "flag_signature": "diagnostic \u2014 the fact of nonce reuse is the flag for detection puzzles",
+    "mitigation": [
+      "patch clients to KRACK-fixed drivers (iOS 11.1+, Android P2017+ patch level, wpa_supplicant 2.7+)",
+      "enable hostapd wpa_disable_eapol_key_retries=1 on the AP side",
+      "require PMF (MFPR=1) to prevent forged deauth from re-triggering the 4-way"
+    ]
   },
   {
     "id": "band-steering-abuse",
@@ -3487,13 +3515,12 @@
       "attacker can jam or spoof congestion on the target's preferred band"
     ],
     "tools": [
-      "mdk4 v (NAV) on 5 GHz + rogue 2.4 GHz AP",
-      "mdk4 v (5 GHz NAV)",
+      "scapy CTS-to-self NAV flood on 5 GHz (Dot11 subtype 12, Duration=0x7FFF) \u2014 mdk4 has no `v` mode",
       "hostapd (rogue on 2.4 GHz)"
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "notes": "Companion to MC-MitM — drives clients to the band you control.",
+    "notes": "Companion to MC-MitM \u2014 drives clients to the band you control.",
     "flag_signature": "victim client drops to 2.4 GHz where attacker AP is waiting; flag is captured post-association traffic",
     "mitigation": [
       "detect on-channel jamming at the WIDS",
@@ -3502,7 +3529,7 @@
   },
   {
     "id": "krack-groupkey-broadcast-replay",
-    "name": "KRACK — Broadcast GTK replay against unpatched clients",
+    "name": "KRACK \u2014 Broadcast GTK replay against unpatched clients",
     "category": "attack",
     "region": "universal",
     "era_bounds": [
@@ -3532,7 +3559,7 @@
     ],
     "hashcat_mode": null,
     "transport": "ssh",
-    "flag_signature": "replayed broadcast frame accepted by unpatched client — flag is the plaintext contents",
+    "flag_signature": "replayed broadcast frame accepted by unpatched client \u2014 flag is the plaintext contents",
     "mitigation": [
       "patched client for CVE-2017-13080"
     ]
@@ -3569,7 +3596,7 @@
     ],
     "hashcat_mode": 22000,
     "transport": "ssh",
-    "notes": "Aggressive-capture mode from hcxtools — sweeps channels, collects PMKIDs and WPS fragments in one pass.",
+    "notes": "Aggressive-capture mode from hcxtools \u2014 sweeps channels, collects PMKIDs and WPS fragments in one pass.",
     "flag_signature": "recovered PSK from PMKID capture; WPS side yields PIN on vulnerable chipsets",
     "mitigation": [
       "disable WPS; strong PSK; PMF-required"
@@ -3577,7 +3604,7 @@
   },
   {
     "id": "pmk-crack-mask-attack",
-    "name": "PSK crack — hashcat mask attack against a captured 22000 line",
+    "name": "PSK crack \u2014 hashcat mask attack against a captured 22000 line",
     "aliases": [
       "pmk-mask",
       "hashcat-mask-wpa"
@@ -3617,11 +3644,11 @@
       "strong PSK (12+ chars mixed alpha+digit+symbol) makes a mask impractical"
     ],
     "flag_signature": "recovered PSK (the WCTF flag), assuming the mask covers the true shape",
-    "notes": "The default-PSK sibling of the straight-wordlist attack. Load-bearing whenever the target is a router with a documented factory PSK format — the mask attack outpaces any wordlist on that shape."
+    "notes": "The default-PSK sibling of the straight-wordlist attack. Load-bearing whenever the target is a router with a documented factory PSK format \u2014 the mask attack outpaces any wordlist on that shape."
   },
   {
     "id": "pmk-crack-hybrid",
-    "name": "PSK crack — hashcat hybrid (wordlist + mask) against a captured 22000 line",
+    "name": "PSK crack \u2014 hashcat hybrid (wordlist + mask) against a captured 22000 line",
     "aliases": [
       "pmk-hybrid"
     ],
@@ -3657,14 +3684,14 @@
     "hashcat_mode": 22000,
     "transport": "analysis",
     "mitigation": [
-      "strong PSK — the hybrid attack targets 'realword + suffix' patterns"
+      "strong PSK \u2014 the hybrid attack targets 'realword + suffix' patterns"
     ],
     "flag_signature": "recovered PSK (the WCTF flag)",
     "notes": "Second workhorse after straight -a 0. Load-bearing for 'password2024', 'admin1234', 'CONFERENCE!2026' style PSKs."
   },
   {
     "id": "pmk-crack-hashcat",
-    "name": "PSK crack — hashcat straight-wordlist against a captured 22000 line",
+    "name": "PSK crack \u2014 hashcat straight-wordlist against a captured 22000 line",
     "aliases": [
       "pmk-straight",
       "hashcat-wpa"
@@ -3746,12 +3773,12 @@
       "AP-side rate limit on TIM anomalies at the WIDS",
       "client-side ignore-suspicious-TIM heuristics (rare)"
     ],
-    "flag_signature": null,
-    "notes": "Precursor to Framing Frames. DoS-flavored — clients that trust the TIM bitmap can be starved of receive time by malformed or attacker-forged beacon TIM entries."
+    "flag_signature": "crafted beacons with TIM bitmap flipped for the target AID cause the client to miss buffered broadcast/multicast \u2014 DHCP renew, GTK rekey, ARP fail intermittently",
+    "notes": "Precursor to Framing Frames. DoS-flavored \u2014 clients that trust the TIM bitmap can be starved of receive time by malformed or attacker-forged beacon TIM entries."
   },
   {
     "id": "snoopy-track",
-    "name": "Snoopy — geographic probe-request tracking (SensePost 2012)",
+    "name": "Snoopy \u2014 geographic probe-request tracking (SensePost 2012)",
     "aliases": [
       "snoopy"
     ],
@@ -3785,17 +3812,18 @@
     "hashcat_mode": null,
     "transport": "analysis",
     "mitigation": [
-      "client-side probe-request MAC randomization (mitigates but does not fully prevent — sequence number continuity across randomizations is a residual signal)",
+      "client-side probe-request MAC randomization (mitigates but does not fully prevent \u2014 sequence number continuity across randomizations is a residual signal)",
       "'associate only on explicit selection' policy"
     ],
     "flag_signature": "target device's location trajectory inferred from probe-history correlation across sensor points",
     "notes": "Older recon primitive but 2026-relevant because IE ordering and sequence-number continuity still allow cross-randomization correlation on many stacks. See client_fingerprints.json."
   },
   {
-    "id": "broadpwn-broadcom-cve-2017-11120",
-    "name": "Broadpwn — Broadcom Wi-Fi firmware RCE (CVE-2017-11120)",
+    "id": "broadpwn-broadcom-cve-2017-9417",
+    "name": "Broadpwn \u2014 Broadcom BCM43xx Wi-Fi firmware RCE (CVE-2017-9417)",
     "aliases": [
-      "broadpwn"
+      "broadpwn",
+      "broadpwn-broadcom-cve-2017-11120"
     ],
     "category": "attack",
     "region": "universal",
@@ -3810,6 +3838,7 @@
     ],
     "see_also": [
       "chipset-broadcom-bcm43xx-broadpwn",
+      "cve-2017-9417",
       "cve-2017-11120",
       "frame-mgmt-assoc-request"
     ],
@@ -3830,12 +3859,12 @@
     "mitigation": [
       "patched Broadcom firmware (Apple iOS 10.3.3, Android Aug 2017 security bulletin)"
     ],
-    "flag_signature": "code execution in the Broadcom Wi-Fi firmware — flag depends on the WCTF puzzle (e.g. attacker-controlled memory read, association-time RCE payload delivered)",
+    "flag_signature": "code execution in the Broadcom Wi-Fi firmware \u2014 flag depends on the WCTF puzzle (e.g. attacker-controlled memory read, association-time RCE payload delivered)",
     "notes": "Legacy but still lands in 2026 against the same unpatched IoT / older Android generation that hosts kr00k. Included for chipset-vuln coverage across the era-authentic hits Appendix B calls out."
   },
   {
     "id": "realtek-rtl87xx-cve-2021-28492",
-    "name": "Realtek RTL8xxx family — Wi-Fi driver stack overflow (CVE-2021-28492)",
+    "name": "Realtek RTL8xxx family \u2014 Wi-Fi driver stack overflow (CVE-2021-28492)",
     "aliases": [
       "realtek-rtl87xx-cve"
     ],
@@ -3871,7 +3900,7 @@
     "mitigation": [
       "patched Realtek driver / firmware"
     ],
-    "flag_signature": "stack-overflow-driven code execution or crash in the vulnerable driver — flag is puzzle-specific",
+    "flag_signature": "stack-overflow-driven code execution or crash in the vulnerable driver \u2014 flag is puzzle-specific",
     "notes": "Cheap IoT gear and consumer routers on Realtek chipsets remain in the field. Legacy-adjacent primitive, but useful in a WCTF that surfaces a chipset-fingerprint recognition path first."
   },
   {
@@ -3911,9 +3940,9 @@
     "hashcat_mode": null,
     "transport": "ssh",
     "mitigation": [
-      "detection-only — the primitive is 'attacker emits a legal 802.11 frame with attacker content in the Vendor-Specific IE'; there is no cryptographic defense"
+      "detection-only \u2014 the primitive is 'attacker emits a legal 802.11 frame with attacker content in the Vendor-Specific IE'; there is no cryptographic defense"
     ],
     "flag_signature": "flag reassembled from a custom OUI Vendor-Specific IE across many beacons (companion to beacon-stego-vendor-ie which describes the capture side)",
-    "notes": "The scapy-crafted-beacon variant Appendix B names distinct from the passive-capture beacon-stego-vendor-ie record. This one covers the attacker's transmit workflow — how to author, encode, and beacon a multi-frame payload from a laptop or Pineapple."
+    "notes": "The scapy-crafted-beacon variant Appendix B names distinct from the passive-capture beacon-stego-vendor-ie record. This one covers the attacker's transmit workflow \u2014 how to author, encode, and beacon a multi-frame payload from a laptop or Pineapple."
   }
 ]
