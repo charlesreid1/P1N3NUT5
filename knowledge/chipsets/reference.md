@@ -13,8 +13,9 @@ KRACK-class flaw in its silicon or driver?).
 ### Atheros (ath9k / ath10k / ath11k)
 
 - **ath9k** (802.11n and older) — reliable monitor+injection, works
-  with aircrack-ng out of the box. Both Pineapple Mk VII radios are
-  ath9k on 2.4 GHz; wlan1 is ath10k on 5 GHz.
+  with aircrack-ng out of the box. Earlier Hak5 hardware (Pineapple
+  Nano/Tetra) used ath9k on 2.4 GHz; the Mark VII moved to MediaTek —
+  see the MediaTek section below and `pineapple-mk7/reference.md`.
 - **ath10k** (802.11ac) — firmware-driven; monitor mode works but
   packet injection has quirks (some frames silently rewritten by
   firmware; some driver versions strip the RadioTap header on inject).
@@ -24,8 +25,11 @@ KRACK-class flaw in its silicon or driver?).
 ### Broadcom / Cypress
 
 - **BCM43xx family** — historically the biggest attack surface.
-  Broadpwn (CVE-2017-11120), Kr00k (CVE-2019-15126). Cypress
-  inherited these when they spun out.
+  Broadpwn (CVE-2017-9417 — Nitay Artenstein, Black Hat 2017, heap
+  corruption in BCM43xx firmware reachable from an unauthenticated
+  attacker on air), Kr00k (CVE-2019-15126). Cypress inherited these
+  when they spun out. CVE-2017-11120 is a separate Broadcom Wi-Fi
+  RCE from the same era — don't conflate them.
 - **BCM43602, BCM4359, BCM4375** — flagship phone silicon; core
   Kr00k CVE largely patched by 2020 but IoT/embedded uses linger.
 - **BCM4335, BCM4339** — older; still deployed on IoT (Ring, Wyze,
@@ -44,6 +48,11 @@ KRACK-class flaw in its silicon or driver?).
   well-supported.
 - **MT7612U** — dual-band, monitor+injection reliable. Popular in
   Alfa AWUS036ACM.
+- **MT7628AN** — SoC + integrated 2.4 GHz 802.11n radio. Pineapple
+  Mark VII's main SoC; wlan0 is this radio. mt76 driver in-tree.
+- **MT7615** — 5 GHz (also 2.4) 802.11ac radio; the Mark VII's wlan1.
+  See `pineapple-mk7/reference.md` for the authoritative Mark VII
+  hardware breakdown.
 - **MT7921** — Wi-Fi 6; upstream mt76 driver. Some 6 GHz support in
   2024+ kernels.
 - **MT7996** — Wi-Fi 7. Early adopter silicon; driver maturing.
@@ -86,8 +95,10 @@ Common families you'll see at DEF CON:
 - **Kr00k CVE-2019-15126** → Broadcom/Cypress BCM43xx, older
   generations. `chipset_vulns.json`, `attacks.json:kr00k-broadcom-*`.
 - **Kr00k CVE-2020-3702** → Qualcomm QCA variant.
-- **Broadpwn CVE-2017-11120** → Broadcom BCM4335/BCM4339 on iOS 9/10
-  and some Android. RCE from the air.
+- **Broadpwn CVE-2017-9417** → Broadcom BCM4335/BCM4339 on iOS 9/10
+  and some Android. Heap-corruption RCE from the air (Artenstein,
+  Black Hat USA 2017). CVE-2017-11120 is a related but distinct
+  Broadcom Wi-Fi RCE (Project Zero) — mapping is in cves.json.
 - **Realtek RTL87xx CVE-2021-28492 family** — several stack overflows
   in the driver + firmware.
 - **Cypress firmware bugs** — inherited from Broadcom lineage; some

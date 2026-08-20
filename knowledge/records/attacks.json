@@ -2098,7 +2098,7 @@
       "km-wpa2-eap"
     ],
     "tools": [
-      "eaphammer --negotiate downgrade",
+      "eaphammer --negotiate weakest",
       "hostapd-wpe"
     ],
     "hashcat_mode": 5500,
@@ -2134,7 +2134,7 @@
       "km-wpa2-eap"
     ],
     "tools": [
-      "eaphammer --negotiate gtc",
+      "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
       "hostapd-wpe (alternate rogue-RADIUS with GTC inner)"
     ],
     "hashcat_mode": null,
@@ -3004,7 +3004,7 @@
       "target uses OTP-style GTC token (RSA / Duo / Yubico)"
     ],
     "tools": [
-      "eaphammer --negotiate gtc",
+      "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
       "airodump-ng (capture EAP inner exchange)"
     ],
     "hashcat_mode": null,

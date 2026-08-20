@@ -4,8 +4,17 @@ Just the alphabet-soup. Every entry links to a deeper doc where one
 exists.
 
 - **AKM** — Authentication and Key Management. Suite in the RSN IE.
-  AKM 2 = PSK; 8 = SAE; 12 = OWE; 18 = SAE-EXT-KEY (H2E). See
-  `wpa2/reference.md`.
+  Per IEEE 802.11-2020 Table 9-151, the wire selector's trailing byte
+  is the AKM number *in hex*: AKM 2 = PSK (0x02); AKM 8 = SAE (0x08);
+  AKM 12 = 802.1X Suite-B 192 (0x0C); AKM 18 = OWE (0x12); AKM 24 =
+  SAE-EXT-KEY (0x18). H2E is signaled via RSNXE (IE 244) bit 5, NOT
+  by any distinct AKM number. See `wpa2/reference.md`,
+  [[akm-selector-glossary]].
+- **AKM-selector encoding** — the byte `00-0F-AC:XX` is a decimal
+  AKM number **written in hex**. 0x12 = 18 (OWE); 0x18 = 24
+  (SAE-EXT-KEY). The most common corpus-wide error is to read the
+  hex byte as a decimal ("AKM 18 = SAE-EXT-KEY"). Confirm against
+  `records/security_suites.json`.
 - **ANonce** — AP-side nonce in the 4-way handshake (M1, M3).
 - **ANQP** — Access Network Query Protocol (802.11u). Pre-association
   recon. See `hotspot2/`.
@@ -26,8 +35,10 @@ exists.
   00-0F-AC:08 / 09.
 - **GTK** — Group Temporal Key. Broadcast/multicast data key. Delivered
   in M3.
-- **H2E** — Hash-to-Element. Dragonblood mitigation for SAE PWE
-  derivation. AKM 18 (SAE-EXT-KEY). See `dragonblood-deep/`.
+- **H2E** — Hash-to-Element (Simplified SWU / SSWU). Dragonblood
+  mitigation for SAE PWE derivation — constant-time password-to-curve
+  mapping. Signaled by the **RSNXE (IE 244) H2E-only capability
+  bit**, NOT by any AKM number. See `dragonblood-deep/`.
 - **hcxdumptool** — the modern PMKID + 4-way capture tool. See
   `hcx-tools/`.
 - **IE** — Information Element. Every non-fixed part of a beacon /

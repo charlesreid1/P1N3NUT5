@@ -32,5 +32,6 @@ other.
 ## Cite
 
 - Vanhoef 2023 — Framing Frames, USENIX Security.
+- CVE-2022-47522 — Framing Frames power-save queue tap.
 - IEEE Std 802.11-2020 §11.2 (Power management).
 - attacks.json: `framing-frames-power-save-poison`.

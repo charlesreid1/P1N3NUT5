@@ -11,7 +11,7 @@
     "citations": ["ieee-802-11-2020", "wright-asleap"],
     "see_also": ["eap-leap", "leap-legacy-crack", "ie-vendor-specific", "def-wids-deauth-flood", "def-rogue-radius-hardening"],
     "technical_body": {
-      "vendor_oui_examples": ["00-40-96", "00-1B-D4"],
+      "vendor_oui_examples": ["00-40-96 (legacy Aironet)", "00-23-04", "00-0C-85", "00-1B-D4"],
       "roles": ["enterprise WLC", "campus AP", "SMB Meraki cloud AP"],
       "era_footprint": {
         "wpa2_era": "widespread on enterprise WLCs; canonical LEAP deployments",

@@ -1,5 +1,7 @@
 # wifite2 — walkthrough
 
+**Verified against:** wifite2 (kimocoder fork) 2.7.0
+
 Auto-orchestrator. Enumerate APs → pick one → try WPS Pixie → WPS
 PIN brute → PMKID → 4-way + deauth → hashcat. One command line, no
 manual pivoting.
@@ -36,10 +38,11 @@ Cracked keys land in `hs/cracked.json` and a per-target
 ## Path B — Target a specific BSSID
 
 ```
-sudo wifite --dict rockyou.txt --bssid AA:BB:CC:DD:EE:FF
+sudo wifite --dict rockyou.txt -b AA:BB:CC:DD:EE:FF
 ```
 
-Skips scan/selection; goes straight after that BSSID.
+Skips scan/selection; goes straight after that BSSID. (`-b` is the
+short form; wifite2 does not accept `--bssid`.)
 
 ## Path C — Skip WPS, PMKID-first
 
@@ -52,29 +55,35 @@ Skip the WPS phase and use hcxdumptool for PMKID capture.
 ## Path D — Configure the cracker
 
 ```
-sudo wifite --dict rockyou.txt --hashcat --gpu 0
+sudo wifite --dict rockyou.txt --hashcat
 ```
 
-Passes cracks to hashcat instead of aircrack-ng. `--gpu 0` = first
-GPU.
+Passes cracks to hashcat instead of aircrack-ng. wifite2 has no GPU
+selector of its own — hashcat picks the device automatically, or you
+can force one by exporting `HASHCAT_OPTS="-d 1"` (or by editing
+`~/.wifite/config.json`) before launching wifite.
 
 ## Path E — Increase the deauth aggression
 
 ```
-sudo wifite --dict rockyou.txt --deauths 5 --anon
+sudo wifite --dict rockyou.txt --num-deauths 5 --random-mac
 ```
 
-`--deauths 5` = 5 deauths per burst. `--anon` = spoof MAC before
-starting.
+`--num-deauths 5` = 5 deauth frames per burst (default is 1).
+`--random-mac` = randomize the adapter's MAC before starting. (Older
+wifite builds spelled the deauth counter `--deauth-count`; the current
+kimocoder fork uses `--num-deauths`.)
 
 ## Path F — Wardrive mode (many targets)
 
 ```
-sudo wifite --dict rockyou.txt --wpa --power 40 --num 20
+sudo wifite --dict rockyou.txt --wpa --power 40 --first 20
 ```
 
-`--power 40` = attack only APs with RSSI > -40 dBm. `--num 20` =
-first 20 sorted by RSSI.
+`--power 40` = attack only APs with RSSI > -40 dBm. `--first 20` =
+attack the first 20 in the target list (sorted by RSSI). wifite2
+does not have a `--num` flag; use `--first N` for a cap, or `--all`
+to attack everything without prompting.
 
 ## Path G — Read the harvest
 

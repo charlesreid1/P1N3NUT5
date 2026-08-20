@@ -8,8 +8,8 @@
 | 2501 | WPA-EAPOL-PMK | | Legacy PMK-side. |
 | 16800 | WPA-PMKID-PBKDF2 (legacy) | hcxpcaptool | Superseded by 22000. |
 | 16801 | WPA-PMKID-PMK | | Legacy PMK-side. |
-| 5500 | NetNTLMv1 / MSCHAPv2 | hostapd-wpe, eaphammer | Inner MSCHAPv2 challenge/response. |
-| 4800 | iSCSI CHAP / LEAP | asleap format | Legacy Cisco LEAP. |
+| 5500 | NetNTLMv1 / MSCHAPv2 / LEAP | hostapd-wpe, eaphammer, asleap | Inner MSCHAPv2 challenge/response. Also the correct mode for legacy Cisco LEAP (LEAP uses MSCHAPv2 internally → NetNTLMv1). |
+| 4800 | iSCSI CHAP / EAP-MD5 (MD5(chal+pass+salt)) | | Not LEAP — LEAP is 5500. |
 
 ## Ergonomics
 

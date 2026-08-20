@@ -82,8 +82,10 @@ hashcat --session=defcon --restore
 
 - `-w 4` — insane workload (max card utilization).
 - `-O` — optimized kernel; caps password length but is faster.
-  hashcat 22000 optimized-kernel max length is 63 (the WPA/WPA2
-  passphrase spec cap) — always safe.
+  For `-m 22000 -O` the optimized-kernel cap is **32 characters**
+  (not 63). The WPA/WPA2 passphrase spec allows up to 63 ASCII
+  chars — so `-O` will silently miss any candidate longer than 32.
+  Drop `-O` if the target password space might exceed 32 chars.
 - `--status --status-timer=5` — periodic ETA output.
 - `--gpu-temp-abort=90` — safety cap on toaster laptops.
 

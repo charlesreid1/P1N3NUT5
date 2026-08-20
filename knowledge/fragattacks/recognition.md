@@ -75,5 +75,7 @@ Rarer implementation bug. Vulnerable-then-not signal:
 - Vanhoef 2020 — Fragment and Forge.
 - vanhoefm/fragattacks — `test-tool` for per-target vulnerability
   probing.
-- CVE-2020-24586..24588 (12 CVEs total).
+- Full family (12 CVEs). Design: CVE-2020-24586, 24587, 24588.
+  Implementation: CVE-2020-26139, 26140, 26141, 26142, 26143, 26144,
+  26145, 26146, 26147.
 - IEEE Std 802.11-2020, §9.7 (fragmentation), §5.1.5 (A-MSDU).

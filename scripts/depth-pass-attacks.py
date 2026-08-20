@@ -1039,11 +1039,11 @@ TOOLS: dict[str, list[str]] = {
         "airodump-ng (target-client selection)",
     ],
     "eap-inner-downgrade-peap-mschapv2": [
-        "eaphammer --negotiate downgrade",
+        "eaphammer --negotiate weakest",
         "hostapd-wpe (alternate)",
     ],
     "eap-inner-downgrade-peap-gtc": [
-        "eaphammer --negotiate gtc",
+        "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
     ],
     "asleap-mschapv2-crack": [
         "asleap -C <challenge> -R <response> -W <wordlist>",
@@ -1128,7 +1128,7 @@ TOOLS: dict[str, list[str]] = {
         "hashcat -m 22000 (crack — one PSK works for the whole fleet)",
     ],
     "eap-gtc-plaintext-token-capture": [
-        "eaphammer --negotiate gtc",
+        "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
         "airodump-ng (capture EAP inner exchange)",
     ],
     "mdm-profile-theft-captive-portal": [
@@ -1204,7 +1204,7 @@ TOOLS: dict[str, list[str]] = {
         "airodump-ng (observe the union-broadcast beacons)",
     ],
     "eap-inner-downgrade-peap-gtc": [
-        "eaphammer --negotiate gtc",
+        "eaphammer --negotiate manual --phase-1-methods PEAP --phase-2-methods GTC",
         "hostapd-wpe (alternate rogue-RADIUS with GTC inner)",
     ],
     "asleap-mschapv2-crack": [

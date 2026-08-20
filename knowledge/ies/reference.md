@@ -110,8 +110,11 @@ The corpus tracks well-known ones:
 
 - **OUI 00-50-F2 (Microsoft)** — WPA1 (subtype 1), WPS (subtype 4).
 - **OUI 00-0F-AC (IEEE)** — used inside RSN cipher/AKM selectors.
-- **OUI 00-40-96 (Cisco/Aironet)** — CCX extensions.
-- **OUI 00-90-4C (Broadcom)** — proprietary vendor extensions.
+- **OUI 00-40-96 (Cisco/Aironet, legacy)** — CCX extensions. Modern
+  Cisco APs use `00-23-04`, `00-0C-85`, `00-1B-D4`, etc.
+- **OUI 00-90-4C (legacy Epigram / early Broadcom)** — proprietary
+  vendor extensions from Broadcom's Epigram-inherited 802.11b silicon.
+  Modern Broadcom consumer CPEs surface `00-10-18` and `00-1E-D3`.
 - **OUI 8C-FD-F0 (Apple)** — beacon-time Apple markers.
 
 Vendor-Specific IEs are also where **beacon-stego WCTF flags** hide.

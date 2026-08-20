@@ -66,22 +66,22 @@ against a remote target. For a WCTF this is usually not the fastest
 path — but recognize the fingerprint:
 
 - Long, variable-latency Commit response times = still using hunt-and-peck.
-- Constant-time Commit response = H2E (AKM 18) or SAE-PT — timing
-  oracle is gone; move on.
+- Constant-time Commit response = H2E / SAE-PT (RSNXE H2E bit set,
+  or AKM 24 SAE-EXT-KEY) — timing oracle is gone; move on.
 
 Tools published with the paper: `dragondrain` (co-location cache
 probe), `dragontime` (timing collection).
 
 ## Recognition — is this target vulnerable?
 
-- **AKM 8 alone** → check for H2E support (an AKM 18 offer). Absent
-  H2E, the timing oracle is on the table.
-- **AKM 18 present** → SAE-PT / H2E — hunt loop is gone. Attack the
-  transition-mode side (AKM 2) if it exists.
-- **AKM 8 + AKM 18** → mixed; the client may pick either. Weak
-  clients pick 8 and remain oracle-exposed.
+- **AKM 8 alone, RSNXE H2E bit clear (or RSNXE absent)** → hunt-and-peck
+  is live and the timing oracle is on the table.
+- **AKM 8 + RSNXE H2E bit set** → SAE-PT / H2E; hunt loop is gone.
+  Attack the transition-mode side (AKM 2) if it exists.
+- **AKM 24 (SAE-EXT-KEY, 0x18) present** → GCMP-256 extended-key SAE.
+  Implies H2E; hardened.
 - **AKM 8 + AKM 2** → transition mode. Downgrade path is open.
-- **AKM 8 only + AKM 18 + PMF-required** → hardened. Move on.
+- **AKM 24 alone + PMF-required + RSNXE H2E bit** → hardened. Move on.
 
 ## Failure modes
 

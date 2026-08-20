@@ -1,9 +1,14 @@
 # kismet — walkthrough
 
+**Verified against:** kismet 2023-07-R1
+
 The passive-collection workhorse. Long-running, database-backed,
 alert-driven. Reach for it when you want to collect an
 uninterrupted picture of an RF environment for hours, and query it
 later with SQL.
+
+Note: the `kismet_server`/`kismet_client` split was retired in the
+2019 rewrite. Everything below drives the single `kismet` binary.
 
 ## Preconditions
 
@@ -16,11 +21,11 @@ later with SQL.
 
 ```
 # On the Pineapple over SSH:
-opkg update && opkg install kismet-server kismet-plugins
+opkg update && opkg install kismet
 # (Skip if the community module already ships it.)
 
-# Start:
-kismet_server -c wlan1mon
+# Start (single binary; -c takes a source, repeatable):
+kismet -c wlan1mon
 ```
 
 Web UI on `http://172.16.42.1:2501/` (kismet's default). Log in with
@@ -39,7 +44,7 @@ source=wlan0:name=r1-2g
 source=wlan1:name=r2-5g
 hop_channels=1,6,11,36,44,52,60,100,116,149,161
 
-kismet_server -c wlan0mon -c wlan1mon
+kismet -c wlan0mon -c wlan1mon
 ```
 
 ## Path C — GPS wardriving
@@ -65,32 +70,61 @@ kismetdb_dump_devices --in kismet.log \
 
 ## Path D — Query the .kismet DB
 
-Kismet's DB is SQLite. All the tables are queryable.
+Kismet's DB is SQLite. The real tables are `devices`, `packets`,
+`data`, `alerts`, `messages`, and `snapshots`. The `devices` row's
+per-device state is stored in a JSON blob in the `device` column;
+scalar columns cover time / signal / geo only. There is no
+`avg_signal` column and no `probed_ssids` table — probed SSIDs live
+inside `device` under `$.dot11.device.probed_ssid_map`.
+
+Signal fields on `devices` are `min_signal`, `max_signal`,
+`avg_signal_dbm` (JSON — inside the blob) and the scalar
+`strongest_signal`. Use `strongest_signal` for a stable RSSI sort.
 
 ```
 sqlite3 kismet.log <<'SQL'
 .mode column
 .headers on
-SELECT devkey, phyname, macaddr, first_time, last_time, avg_signal
+SELECT devkey, phyname, devmac, first_time, last_time, strongest_signal
 FROM devices
 WHERE type = 'Wi-Fi AP'
-  AND macaddr LIKE '00:03:7F:%'      -- Atheros OUI
-ORDER BY avg_signal DESC LIMIT 20;
+  AND devmac LIKE '00:03:7F:%'          -- Atheros OUI
+ORDER BY strongest_signal DESC
+LIMIT 20;
 SQL
 ```
 
-Common queries:
+Common queries (all against the JSON blob via `json_extract`):
 
 ```
--- All clients probing for a specific SSID
-SELECT devkey, macaddr FROM devices d
-JOIN probed_ssids p ON d.devkey = p.devkey
-WHERE p.ssid = 'CorporateGuest';
+-- All clients probing for a specific SSID.
+-- probed_ssid_map is an object keyed by SSID hash; iterate with json_each.
+SELECT d.devmac, je.value AS probed_ssid
+FROM devices d,
+     json_each(json_extract(d.device,
+                            '$.dot11.device.probed_ssid_map')) je
+WHERE je.value = 'CorporateGuest';
 
--- Clients seen at multiple locations (mobile devices)
-SELECT macaddr, COUNT(DISTINCT ROUND(lat, 3) || ROUND(lon, 3))
-FROM devices GROUP BY macaddr HAVING COUNT(*) > 5;
+-- Every SSID a given client has ever probed for.
+SELECT je.value AS ssid
+FROM devices d,
+     json_each(json_extract(d.device,
+                            '$.dot11.device.probed_ssid_map')) je
+WHERE d.devmac = 'AA:BB:CC:DD:EE:FF';
+
+-- Mobile devices — seen at >1 rounded geo cluster.
+SELECT devmac,
+       COUNT(DISTINCT ROUND(avg_lat, 3) || '/' || ROUND(avg_lon, 3)) AS locs
+FROM devices
+GROUP BY devmac
+HAVING locs > 5;
 ```
+
+If `json_extract` returns `NULL`, the device blob wasn't fully
+populated (short capture window or non-802.11 phy). Fall back to
+`json_extract(device, '$.dot11.device.last_probed_ssid_csum')` +
+matching against `dot11.device.advertised_ssid_map` on APs to link
+probes to observed SSIDs.
 
 ## Path E — Alerts / WIDS engine
 
@@ -114,9 +148,9 @@ SELECT ts_sec, header, brief FROM alerts;
 Feed kismet a pcap; it runs the alert engine as if live.
 
 ```
-kismet_server --no-ncurses \
-              --pcapfile capture.pcapng \
-              --log-prefix /tmp/replay
+kismet --no-ncurses \
+       --source=pcapfile:capture.pcapng \
+       --log-prefix=/tmp/replay
 ```
 
 Useful for post-CTF forensics on someone else's dump.

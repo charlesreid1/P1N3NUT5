@@ -154,11 +154,13 @@
   },
   {
     "id": "hashcat-mode-5500",
-    "name": "hashcat mode 5500 — NetNTLMv1 / MSCHAPv2 challenge/response",
+    "name": "hashcat mode 5500 — NetNTLMv1 / MSCHAPv2 / LEAP",
     "aliases": [
       "5500",
       "netntlmv1",
-      "mschapv2"
+      "mschapv2",
+      "leap",
+      "cisco-leap"
     ],
     "category": "hashcat_mode",
     "region": "universal",
@@ -175,15 +177,18 @@
     ],
     "technical_body": {
       "mode": 5500,
-      "note": "MSCHAPv2 challenge-response captured from PEAP / EAP-TTLS inner exchanges via hostapd-wpe or eaphammer. asleap is the classic offline cracker for the same input.",
+      "note": "MSCHAPv2 challenge-response captured from PEAP / EAP-TTLS inner exchanges via hostapd-wpe or eaphammer. Also the correct mode for **legacy Cisco LEAP** — LEAP uses MSCHAPv2 internally, so its challenge-response has the same NetNTLMv1 shape. asleap is the classic offline cracker for both.",
+      "aliases_note": "LEAP goes here, not in mode 4800.",
       "example_command": "hashcat -m 5500 mschapv2.txt rockyou.txt -w 4 -r rules/best64.rule"
     }
   },
   {
     "id": "hashcat-mode-4800",
-    "name": "hashcat mode 4800 — iSCSI CHAP authentication (also LEAP)",
+    "name": "hashcat mode 4800 — iSCSI CHAP authentication / EAP-MD5 (MD5(chal+pass+salt))",
     "aliases": [
-      "4800"
+      "4800",
+      "iscsi-chap",
+      "eap-md5"
     ],
     "category": "hashcat_mode",
     "region": "universal",
@@ -192,15 +197,14 @@
       null
     ],
     "still_effective_2026": true,
-    "confidence": "community",
+    "confidence": "primary",
     "citations": [
-      "hashcat-modes",
-      "wright-asleap"
+      "hashcat-modes"
     ],
     "technical_body": {
       "mode": 4800,
-      "note": "Cisco LEAP challenge-response variant; mostly historical but still surfaces on legacy WLC deployments.",
-      "example_command": "hashcat -m 4800 leap.txt rockyou.txt -w 4"
+      "note": "iSCSI CHAP / EAP-MD5 challenge-response of shape MD5(chal + pass + salt). **NOT LEAP.** LEAP is hashcat mode 5500 (NetNTLMv1 shape). This mode used to be widely mislabeled as LEAP in older writeups.",
+      "example_command": "hashcat -m 4800 iscsi-chap.txt rockyou.txt -w 4"
     }
   },
   {

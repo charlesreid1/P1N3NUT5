@@ -30,12 +30,32 @@ The 4-way still runs — the AP has to prove it knows the PMK too — but
 the PMK is now unique per session, so capturing 4-way frames gains
 you nothing offline.
 
-## H2E / SAE-EXT-KEY (AKM 18)
+## H2E (Hash-to-Element) — signaled via RSNXE, not AKM
 
-Dragonblood mitigation. Replaces the "hunt-and-peck" PWE (password element)
-loop with Hash-to-Element (SAE-PT construction). The hunt loop's timing
-oracle disappears. `RSN AKM 00-0F-AC:18` is the H2E variant; presence in
-the beacon means the AP supports the mitigated construction.
+Dragonblood mitigation. Replaces the "hunt-and-peck" PWE (password
+element) loop with Hash-to-Element (SAE-PT construction). The hunt
+loop's timing oracle disappears.
+
+**How H2E is signaled on the wire.** Per WFA WPA3 Specification and
+IEEE 802.11-2020 §9.4.2.241 RSNX Element: the **RSN Extension
+Element (RSNXE, IE 244)** carries an "SAE Hash-to-Element only" bit
+(bit 5 of the RSNX Capabilities field). H2E is enabled by that bit —
+it is NOT a distinct AKM number. Any SAE AKM (AKM 8 or AKM 24) can
+use H2E if both peers set the RSNXE bit; conversely an AKM 8 client
+without RSNXE runs hunt-and-peck.
+
+## SAE-EXT-KEY (AKM 24, 0x18) — extended-key derivation
+
+Per IEEE 802.11-2020 Table 9-151: AKM 24 (wire byte `00-0F-AC:18`)
+= SAE-EXT-KEY. This AKM extends the SAE PMK-derivation KDF to
+384-bit output for use with GCMP-256 pairwise cipher (WPA3-Enterprise
+192-bit-suite compatibility). SAE-EXT-KEY implies H2E, but H2E does
+not imply SAE-EXT-KEY. Do not confuse the two.
+
+**Common mistake.** AKM decimal-vs-hex: AKM 18 = 0x12 = OWE (not
+SAE-EXT-KEY). AKM 24 = 0x18 = SAE-EXT-KEY. Every beacon-selector byte
+in the corpus follows this rule; see [[akm-selector-glossary]] and
+records/security_suites.json.
 
 ## PMF-required
 

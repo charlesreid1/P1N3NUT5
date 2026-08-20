@@ -9,10 +9,11 @@ any station that supplies the right MAC in Address 1. An attacker who is
 on the network (has the PSK, or the network is Open / OWE) and knows the
 victim's MAC can hijack the victim's return traffic.
 
-Not filed with a single CVE — the paper documents the primitive as a class
-that affects multiple implementations. Vendor-side fixes rolled out
-piecewise across 2023–2024; the client-side residual is what still lands
-in 2026.
+Filed under CVE-2022-47521 (Linux mac80211 mishandling) with the
+sibling power-save-queue tap tracked as CVE-2022-47522 (Framing Frames);
+the paper documents the primitive as a class that affects multiple
+implementations. Vendor-side fixes rolled out piecewise across
+2023–2024; the client-side residual is what still lands in 2026.
 
 ## Primitive at the byte level
 
@@ -68,6 +69,8 @@ clients is still vulnerable.
 ## Cite
 
 - Vanhoef, "MacStealer" — BlackHat Asia 2023 slides + paper.
+- CVE-2022-47521 (MacStealer / Linux mac80211).
+- CVE-2022-47522 (companion Framing Frames power-save queue tap).
 - IEEE Std 802.11-2020 §12 (data confidentiality — PTK binding).
 - `attacks.json: macstealer-mac-hijack`.
 - Companion: `attacks.json: ssid-confusion-cve-2023-52424`,

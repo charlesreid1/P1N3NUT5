@@ -28,6 +28,14 @@ PMK  ──►  PMK-R0  ──►  PMK-R1  ──►  PTK
 3. **KRACK against FT reassoc.** CVE-2017-13082 — replaying an FT
    Reassociation Request causes the AP to reinstall the PTK.
 
+4. **hostapd FT source-address spoof (CVE-2019-16275).** hostapd
+   pre-2.10 accepted FT Reassociation frames whose transmitter MAC
+   (Address 2) did not match the frame's source association. An
+   on-network attacker could push a crafted FT reassoc under any
+   legitimate STA's identity and shift that STA's session state.
+   Not a PSK crack — a session hijack primitive on FT-enabled
+   deployments running old hostapd.
+
 ## Recognition — is this AP FT-capable?
 
 Look for the **Mobility Domain Element (MDE, IE 54)** in the beacon.

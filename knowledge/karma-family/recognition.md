@@ -38,9 +38,13 @@ another team's rogue AP among the beacons.
 
 ## PineAP-specific tells
 
-- **BSSID = the Pineapple's factory MAC-prefix** (Atheros AR9K
-  family — `00:13:37:*` in some Mark VII generations). Not universal
-  but a hint.
+- **BSSID matches the Pineapple's factory MAC-prefix.** Confirm on
+  your own device (`ip link show wlan0/wlan1`) — the Mark VII's
+  radios are MediaTek MT7628 + MT7615, so any real prefix hint has
+  to come from MediaTek's assigned OUI ranges, not Atheros. Note:
+  `00:13:37` is often cited as a mnemonic ("leet") in CTF material,
+  but the OUI is registered to Kelkea Inc — not Hak5, not Atheros.
+  Don't rely on it as a tell.
 - **Beacon interval = 100 ms exactly** — canonical hostapd default.
   Real ISP APs vary.
 

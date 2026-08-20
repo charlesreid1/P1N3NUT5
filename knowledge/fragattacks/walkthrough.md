@@ -103,6 +103,8 @@ For WCTF, the flag surface is usually:
 
 - Vanhoef 2020 — Fragment and Forge (USENIX Security 2021).
 - vanhoefm/fragattacks GitHub — PoC scripts.
-- CVE-2020-24586..24588.
+- Design CVEs: CVE-2020-24586, 24587, 24588. Implementation CVEs:
+  CVE-2020-26139, 26140, 26141, 26142, 26143, 26144, 26145, 26146,
+  26147. 12 total.
 - attacks.json: `fragattacks-plaintext-inject`,
   `fragattacks-mixed-key`, `fragattacks-cache-poisoning`.

@@ -60,5 +60,7 @@ Two approaches:
 
 - Vanhoef & Piessens 2017 — KRACK.
 - `krack-test-client.py` — safe vulnerability probe.
-- CVE-2017-13077..13088.
+- Primary 10 KRACK CVEs: CVE-2017-13077, 13078, 13079, 13080, 13081,
+  13082, 13084, 13086, 13087, 13088; plus CVE-2017-13083 and
+  CVE-2017-13085 added later.
 - IEEE Std 802.11-2020 §12.7 (4-way).

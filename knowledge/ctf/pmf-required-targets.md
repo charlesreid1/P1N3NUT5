@@ -3,8 +3,8 @@
 ## Recognition
 
 Beacon RSN Capabilities:
-- Bit 6 MFPC (Management Frame Protection Capable) = 1
-- Bit 7 MFPR (Management Frame Protection Required) = 1
+- Bit 6 MFPR (Management Frame Protection Required) = 1
+- Bit 7 MFPC (Management Frame Protection Capable) = 1
 
 Both set = PMF is required. Broadcast deauth / disassoc from an
 unassociated attacker will not disturb this AP or its clients.

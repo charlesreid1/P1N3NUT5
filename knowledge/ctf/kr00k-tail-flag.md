@@ -51,10 +51,14 @@ run_sequence([
 
 ## Manual decrypt (tshark)
 
+Kr00k zeroes the **TK** (temporal key), not the PMK/PSK. Use tshark
+key type `tk` — 16 hex zero bytes for CCMP-128 / TKIP, 32 hex zero
+bytes for GCMP-256 or CCMP-256.
+
 ```
 tshark -r kr00k.pcapng \
   -o "wlan.enable_decryption:TRUE" \
-  -o "uat:80211_keys:\"wpa-psk\",\"00000000000000000000000000000000\"" \
+  -o "uat:80211_keys:\"tk\",\"00000000000000000000000000000000\"" \
   -Y "ip or http or dns" \
   -V
 ```

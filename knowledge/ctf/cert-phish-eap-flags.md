@@ -26,7 +26,9 @@ run_sequence([
      "essid": "<target ESSID>",
      "auth": "wpa-eap",
      "channel": 6,
-     "negotiate_downgrade": "peap-mschapv2",
+     "negotiate": "manual",
+     "phase_1_methods": "PEAP",
+     "phase_2_methods": "MSCHAPV2",
      "hostile_portal": False,
      "cert_cn": "<pick a plausible CN — e.g. attwifi.att.net>"},
 
@@ -55,7 +57,7 @@ run_sequence([
   Windows validate strictly. Attack does not fire. Need a matching
   cert (extracted from a phishing kit or a domain the client trusts).
 - **PEAP peer refuses downgrade.** Some clients pin the inner method
-  in the profile. `--negotiate downgrade` in eaphammer offers PEAP
+  in the profile. `--negotiate weakest` in eaphammer offers PEAP
   → GTC / MSCHAPv2 / MD5; the client may reject.
 - **No 802.1X clients probing.** WCTF puzzles usually seed the
   puzzle with a target STA; if you see none, the puzzle is not

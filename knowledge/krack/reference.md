@@ -1,7 +1,9 @@
 # KRACK — Key Reinstallation Attacks
 
-Vanhoef & Piessens 2017 (ACM CCS). A family of 10 CVEs
-(CVE-2017-13077..13088) exploiting a common flaw: WPA2 supplicants
+Vanhoef & Piessens 2017 (ACM CCS). A family of 10 primary KRACK CVEs
+(CVE-2017-13077, 13078, 13079, 13080, 13081, 13082, 13084, 13086,
+13087, 13088) plus CVE-2017-13083 and CVE-2017-13085 that were added
+later — 12 total in the extended family. Common flaw: WPA2 supplicants
 and authenticators, if they see a **retransmission** of a handshake
 message they have already processed, **reinstall** the associated
 key — resetting the packet number counter to zero.
@@ -50,6 +52,8 @@ Patched on flagship OS since ~2018. Remaining vulnerable population:
 ## Cite
 
 - Vanhoef & Piessens 2017 — KRACK.
-- CVE-2017-13077..13088.
+- Primary 10 KRACK CVEs: CVE-2017-13077, 13078, 13079, 13080, 13081,
+  13082, 13084, 13086, 13087, 13088; plus CVE-2017-13083 and
+  CVE-2017-13085 added later.
 - attacks.json: `krack-client-key-reinstall`,
   `krack-linux-all-zero-ptk`, `krack-ft-reassoc`.

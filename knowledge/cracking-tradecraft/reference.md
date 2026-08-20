@@ -58,8 +58,12 @@ The difference is capture-side ergonomics, not crack-side speed.
   for mode 22000.
 - **rockyou.txt straight** ≈ 6 seconds for 14M candidates.
 - **rockyou × OneRule** ≈ 100 minutes.
-- **`?a?a?a?a?a?a?a?a` full 8-char printable brute** ≈ 33 days at
-  2.4 MH/s. Move to masks / SSID-derived wordlists instead.
+- **`?a?a?a?a?a?a?a?a` full 8-char printable brute** ≈ **87 years**
+  at 2.4 MH/s. Math: 95^8 = 6.634 × 10^15 candidates; 2.4 × 10^6
+  H/s × 86 400 s/day = 2.0736 × 10^11 candidates/day; 6.634e15 /
+  2.0736e11 ≈ 31 990 days ≈ 87 years. Move to masks / SSID-derived
+  wordlists instead — the printable 8-char brute is out of reach on
+  a single-GPU rig for a 2026 WCTF window.
 
 ## Wordlist ingredients
 

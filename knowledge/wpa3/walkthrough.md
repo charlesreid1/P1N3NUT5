@@ -31,8 +31,9 @@ hashcat -m 22000 /tmp/hs.22000 rockyou.txt
 
 ## Path B — Dragonblood side channels
 
-Only useful when the target advertises AKM 8 without AKM 18 (H2E).
-See `dragonblood-deep/walkthrough.md`.
+Only useful when the target advertises SAE (AKM 8) **without** the
+RSNXE H2E bit set. H2E is signaled by RSNXE bit 5, not by an AKM
+number. See `dragonblood-deep/walkthrough.md`.
 
 ## Path C — Force a fresh SAE handshake, harvest for correctness
 
@@ -71,8 +72,9 @@ are in `wpa3/reference.md`.
 - **PMF-required is truly enforced.** Broadcast deauth is a no-op;
   you cannot force a reassoc. Only naturally-roaming clients yield
   a capture.
-- **AKM 18 alone, no AKM 2 or AKM 8.** Hardened. Move on unless the
-  client has a weak-cert-validation issue (enterprise path — see
+- **AKM 24 (SAE-EXT-KEY) alone, no AKM 2 or AKM 8.** Hardened
+  (implies H2E and GCMP-256). Move on unless the client has a
+  weak-cert-validation issue (enterprise path — see
   `cert-phish-eaphammer-weak-validation`).
 - **Client rejects transition-mode.** 2024+ enterprise supplicants
   reject transition-mode APs entirely. Path A closes.

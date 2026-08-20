@@ -185,7 +185,7 @@
         "Group Cipher Suite (OUI 00-0F-AC:x)",
         "Pairwise Cipher Suite Count + list",
         "AKM Suite Count + list",
-        "RSN Capabilities (MFPR/MFPC bits, PMF, replay counters)",
+        "RSN Capabilities (MFPR bit 6, MFPC bit 7, PMF, replay counters)",
         "PMKID Count + list (M1 or reassoc)",
         "Group Management Cipher Suite (for PMF)"
       ],
@@ -273,7 +273,7 @@
           "name": "RSN Capabilities",
           "offset_bytes": null,
           "length_bytes": 2,
-          "notes": "MFPR/MFPC (bits 6/7), PeerKey / SPP-A-MSDU / …"
+          "notes": "MFPR = bit 6, MFPC = bit 7 (per 802.11-2020 §9.4.2.24.4); PeerKey / SPP-A-MSDU / …"
         },
         {
           "name": "PMKID Count",
@@ -560,8 +560,8 @@
       "notable_ouis": {
         "00-50-F2:01": "Microsoft WPA (legacy WPA1 IE — TKIP)",
         "00-50-F2:04": "WPS",
-        "00-90-4C": "Broadcom",
-        "00-40-96": "Cisco"
+        "00-90-4C": "legacy Epigram / early Broadcom-b silicon (Broadcom acquired Epigram in 2000); modern Broadcom CPEs use 00-10-18, 00-1E-D3",
+        "00-40-96": "Cisco Aironet (legacy); modern Cisco APs use 00-23-04, 00-0C-85, 00-1B-D4, and more"
       },
       "wctf_uses": [
         "beacon-IE stego",
@@ -573,7 +573,7 @@
           "name": "Vendor OUI",
           "offset_bytes": 0,
           "length_bytes": 3,
-          "notes": "identifies the vendor (00-50-F2 Microsoft, 00-90-4C Broadcom, 00-40-96 Cisco)"
+          "notes": "identifies the vendor (00-50-F2 Microsoft, 00-90-4C legacy Epigram/early-Broadcom, 00-40-96 legacy Cisco Aironet)"
         },
         {
           "name": "OUI Type",

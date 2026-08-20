@@ -119,7 +119,7 @@ freeradius-wpe:
 
 - **Cert rejected.** Client strictly validates. Retry with Path B
   (target CA).
-- **`--negotiate downgrade` refused.** Client profile pins the inner
+- **`--negotiate weakest` refused.** Client profile pins the inner
   method. Only that method opens.
 - **eaphammer's setup script fails.** Distro-specific dep problem.
   `./kali-setup` targets Kali; on Ubuntu use `./ubuntu-setup`; on

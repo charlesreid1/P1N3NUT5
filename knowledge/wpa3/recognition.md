@@ -2,12 +2,22 @@
 
 ## AKM suite selectors in the RSN IE
 
-- **`00-0F-AC:08`** — SAE (Dragonfly hunt-and-peck; original).
-- **`00-0F-AC:18` = 24 decimal** — SAE-EXT-KEY (H2E — Dragonblood
-  mitigation).
-- **`00-0F-AC:0C` = 12 decimal** — OWE (Opportunistic Wireless
+Per IEEE 802.11-2020 Table 9-151. Wire byte hex → decimal AKM number:
+
+- **`00-0F-AC:08` = AKM 8** — SAE (original Dragonfly). Uses
+  hunt-and-peck PWE **unless** the RSNXE H2E bit is also set.
+- **`00-0F-AC:18` = AKM 24** — SAE-EXT-KEY. Extended-key SAE with
+  HMAC-SHA-384 KDF, paired with GCMP-256. Implies H2E.
+- **`00-0F-AC:12` = AKM 18** — OWE (Opportunistic Wireless
   Encryption). Not a passphrase mode; treat separately.
-- **`00-0F-AC:02` = 2** alongside AKM 8 — transition mode. Fast lane.
+- **`00-0F-AC:0C` = AKM 12** — 802.1X Suite-B-192 (WPA3-Enterprise
+  192-bit). NOT OWE.
+- **`00-0F-AC:02` = AKM 2** alongside AKM 8 — WPA3 transition mode.
+  Fast lane; attack the WPA2 side.
+
+**Common mistake.** The hex byte in the wire selector is the same
+decimal as the AKM number (0x18 = 24, 0x12 = 18, 0x0C = 12). AKM 18
+= OWE ≠ AKM 24 = SAE-EXT-KEY. See [[akm-selector-glossary]].
 
 ## Transition vs. WPA3-only
 
@@ -19,8 +29,8 @@
 
 WPA3 mandates PMF-required. In the RSN Capabilities field:
 
-- **MFPR bit (bit 7) = 1** — Management Frame Protection Required.
-- **MFPC bit (bit 6) = 1** — MFP Capable.
+- **MFPR bit (bit 6) = 1** — Management Frame Protection Required.
+- **MFPC bit (bit 7) = 1** — MFP Capable.
 
 Both should be set on a spec-compliant WPA3 beacon. If MFPR=0 on a
 "WPA3-only" AP, that's a misconfiguration.
@@ -32,12 +42,20 @@ Both should be set on a spec-compliant WPA3 beacon. If MFPR=0 on a
 - Legacy MODP: **22, 23, 24** — presence means the hunt-loop timing
   oracle is live (Dragonblood-timing applies).
 
-## H2E on the wire
+## H2E on the wire — RSNXE, not AKM
 
-- **AKM 24 (SAE-EXT-KEY)** — H2E capable. Constant-time PWE.
-- **AKM 8 without AKM 24** — hunt-and-peck PWE. Vulnerable to the
-  original Dragonblood side channels.
-- **Both present** — mixed; the client picks. Weak clients pick 8.
+H2E (Hash-to-Element / SAE-PT) is signaled by the **RSN Extension
+Element (RSNXE, IE 244)** — specifically bit 5 of the RSNX
+Capabilities field ("SAE H2E only"). It is NOT a separate AKM
+number.
+
+- **AKM 8 + RSNXE H2E bit set** — SAE with constant-time PWE.
+- **AKM 8, RSNXE absent or bit clear** — hunt-and-peck PWE.
+  Vulnerable to the original Dragonblood side channels.
+- **AKM 24 (SAE-EXT-KEY)** — extended-key SAE for GCMP-256; implies
+  H2E.
+- **AKM 8 and AKM 24 both present** — mixed; the client picks. Weak
+  clients pick 8 with hunt-and-peck.
 
 ## 6 GHz — WPA3-only
 

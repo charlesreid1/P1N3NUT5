@@ -6,10 +6,12 @@ PEAP inner-method downgrade knobs, cert phishing hooks.
 
 ## What WPE adds
 
-- **`--negotiate downgrade` behavior** — the WPE variant of hostapd
+- **Inner-method downgrade behavior** — the WPE variant of hostapd
   accepts inner-method downgrade offers from clients even when they
   requested a stronger inner method. Clients with weak cert
-  validation get pushed onto MSCHAPv2 (or worse, GTC).
+  validation get pushed onto MSCHAPv2 (or worse, GTC). (eaphammer
+  exposes this as `--negotiate weakest`; hostapd-wpe's config-file
+  `eap_user` list drives the equivalent behavior.)
 - **Challenge/response logging** — every captured MSCHAPv2 exchange
   is written to `/var/log/hostapd-wpe.log` in a format that both
   `asleap` and `hashcat -m 5500` accept as input.

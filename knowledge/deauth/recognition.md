@@ -13,7 +13,10 @@ Filter `wlan.fc.type_subtype == 12` (deauthentication) or `== 10`
   `3` (leaving BSS), `4` (inactivity). Attack tools default:
   - `aireplay-ng -0` → reason `7` ("class 3 frame from nonassociated STA")
   - `mdk4 d` → reason `1` unless overridden
-  - `hcxdumptool` client kick → reason `2`
+  - `hcxdumptool` (6.x+) → does **not** send deauths at all; active
+    attack modes were removed in 6.x. If a capture using hcxdumptool
+    coincides with deauths, they are coming from a separately-driven
+    tool (mdk4, aireplay-ng, scapy) on the same operator's rig.
   Reason `7` in volume is a near-certain fingerprint of an old-school
   `aireplay -0`.
 - **Address triple.** Broadcast deauth: DA = `FF:FF:FF:FF:FF:FF`,
@@ -54,8 +57,9 @@ Filter `wlan.fc.type_subtype == 12` (deauthentication) or `== 10`
 
 - Constant reason=7 + tight timing + broadcast DA → `aireplay-ng -0`.
 - Reason=1, bursty timing, seq gaps → `mdk4 d`.
-- Reason=2, targeted, coincides with an `hcxdumptool`
-  channel-locked capture → PMKID/handshake pipeline.
+- Reason=1/7 from an aireplay-ng or mdk4 process running alongside
+  an `hcxdumptool` channel-locked capture → the PMKID/handshake
+  pipeline, since 6.x hcxdumptool itself no longer deauths.
 - Reason=3, one-shot per STA, immediately followed by an M1 from
   the same BSSID → someone driving a WPA2 4-way capture.
 

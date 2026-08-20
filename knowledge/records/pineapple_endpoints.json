@@ -248,10 +248,10 @@
     ],
     "primary": "ssh",
     "ssh": {
-      "cmd": "hcxdumptool -i <iface> -o <out.pcapng> --enable_status=1 [--filter=<bssidlist>]",
+      "cmd": "hcxdumptool -i <iface> -w <out.pcapng> --enable_status=3 [--bpf=<compiled_bpf>]",
       "requires_root": true,
       "requires_monitor": false,
-      "notes": "hcxdumptool manages monitor mode itself; do not pre-set with airmon-ng."
+      "notes": "hcxdumptool 7.3 CLI: -w (not -o); --bpf=<compiled_bpf> replaces --filterlist_ap/--filtermode. hcxdumptool manages monitor mode itself; do not pre-set with airmon-ng. Active deauth was removed in 6.x — pair with mdk4/aireplay-ng if a reassoc is needed."
     },
     "firmware_min": "3.0.0",
     "firmware_max": null

