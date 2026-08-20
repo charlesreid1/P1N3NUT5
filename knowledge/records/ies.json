@@ -190,13 +190,18 @@
         "Group Management Cipher Suite (for PMF)"
       ],
       "cipher_suites": {
+        "0": "Use-group-cipher (pseudo)",
         "1": "WEP-40",
         "2": "TKIP",
         "4": "CCMP-128",
         "5": "WEP-104",
+        "6": "BIP-CMAC-128 (group mgmt)",
         "8": "GCMP-128",
         "9": "GCMP-256",
-        "6": "BIP-CMAC-128 (group mgmt)"
+        "10": "CCMP-256",
+        "11": "BIP-GMAC-128 (group mgmt)",
+        "12": "BIP-GMAC-256 (group mgmt)",
+        "13": "BIP-CMAC-256 (group mgmt)"
       },
       "akm_suites": {
         "1": "802.1X (Enterprise, PMKSA cache)",
@@ -205,11 +210,22 @@
         "4": "FT-PSK",
         "5": "802.1X-SHA256",
         "6": "PSK-SHA256",
+        "7": "TDLS",
         "8": "SAE",
         "9": "FT-SAE",
-        "11": "Suite B 192-bit",
-        "12": "OWE",
-        "18": "SAE-EXT-KEY (H2E)"
+        "10": "APPeerKey",
+        "11": "802.1X Suite-B 128-bit (SHA-256)",
+        "12": "802.1X Suite-B 192-bit (SHA-384) / WPA3-Enterprise 192-bit",
+        "13": "FT-802.1X-SHA384",
+        "14": "FILS-SHA256",
+        "15": "FILS-SHA384",
+        "16": "FT-FILS-SHA256",
+        "17": "FT-FILS-SHA384",
+        "18": "OWE",
+        "19": "FT-PSK-SHA384",
+        "20": "PSK-SHA384",
+        "24": "SAE-EXT-KEY (GCMP-256/SHA-384 extended-key derivation)",
+        "25": "FT-SAE-EXT-KEY"
       },
       "wctf_uses": [
         "beacon-RSN inspection is the first-60-seconds triage",
@@ -227,7 +243,7 @@
           "name": "Group Cipher Suite",
           "offset_bytes": 2,
           "length_bytes": 4,
-          "notes": "OUI (3B: 00-0F-AC) + Suite Type (1B): 1=WEP-40 2=TKIP 4=CCMP-128 5=WEP-104 6=BIP-CMAC-128 8=GCMP-128 9=GCMP-256"
+          "notes": "OUI (3B: 00-0F-AC) + Suite Type (1B): 1=WEP-40 2=TKIP 4=CCMP-128 5=WEP-104 6=BIP-CMAC-128 8=GCMP-128 9=GCMP-256 10=CCMP-256 11=BIP-GMAC-128 12=BIP-GMAC-256 13=BIP-CMAC-256"
         },
         {
           "name": "Pairwise Cipher Suite Count",
@@ -251,7 +267,7 @@
           "name": "AKM Suite List",
           "offset_bytes": null,
           "length_bytes": null,
-          "notes": "N × 4 bytes: 1=802.1X, 2=PSK, 3=FT-802.1X, 4=FT-PSK, 5=802.1X-SHA256, 6=PSK-SHA256, 8=SAE, 9=FT-SAE, 11=Suite B 192, 12=OWE, 18=SAE-EXT-KEY (H2E)"
+          "notes": "N × 4 bytes (OUI + Suite Type). Per IEEE 802.11-2020 Table 9-151: 1=802.1X 2=PSK 3=FT-802.1X 4=FT-PSK 5=802.1X-SHA256 6=PSK-SHA256 7=TDLS 8=SAE 9=FT-SAE 11=Suite-B-128 (SHA-256) 12=Suite-B-192 (SHA-384) 13=FT-802.1X-SHA384 14=FILS-SHA256 15=FILS-SHA384 16=FT-FILS-SHA256 17=FT-FILS-SHA384 18=OWE 19=FT-PSK-SHA384 20=PSK-SHA384 24=SAE-EXT-KEY 25=FT-SAE-EXT-KEY. NOTE: hex byte in the wire suite selector = decimal AKM. AKM 18 = 0x12 (OWE), AKM 24 = 0x18 (SAE-EXT-KEY) — a common source of confusion."
         },
         {
           "name": "RSN Capabilities",

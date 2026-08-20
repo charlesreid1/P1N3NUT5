@@ -76,7 +76,7 @@
     "technical_body": {
       "trigger": "STA sends GAS Initial Request with ANQP query IDs; AP responds",
       "shape": "Action frames (Category 4 Public Action, Action 10=GAS Initial Request / 11=GAS Initial Response)",
-      "queryable": ["Venue Name (257)", "NAI Realm (261)", "Roaming Consortium (259)", "Domain Name (265)"],
+      "queryable": ["Venue Name (259)", "Network Auth Type (261)", "Roaming Consortium (262)", "NAI Realm (264)", "3GPP Cellular Network (265)", "Domain Name (269)"],
       "attack_surface": ["recon pre-association", "Realm/Domain string exfil from a puzzle AP"]
     }
   },
@@ -177,7 +177,7 @@
     "confidence": "primary",
     "citations": ["ieee-802-11-2020"],
     "see_also": ["anqp-realm-enum"],
-    "technical_body": {"anqp_id": 261, "returns": "list of NAI Realms + EAP methods supported"}
+    "technical_body": {"anqp_id": 264, "returns": "list of NAI Realms + EAP methods supported. Per IEEE 802.11-2020 Table 9-271: ANQP element 264 = NAI Realm."}
   },
   {
     "id": "roaming-anqp-venue",
@@ -188,7 +188,7 @@
     "still_effective_2026": true,
     "confidence": "primary",
     "citations": ["ieee-802-11-2020"],
-    "technical_body": {"anqp_id": 258, "returns": "list of Venue Name entries with language codes"}
+    "technical_body": {"anqp_id": 259, "returns": "list of Venue Name entries with language codes. Per IEEE 802.11-2020 Table 9-271: ANQP element 259 = Venue Name."}
   },
   {
     "id": "roaming-anqp-3gpp",
@@ -199,7 +199,29 @@
     "still_effective_2026": true,
     "confidence": "primary",
     "citations": ["ieee-802-11-2020"],
-    "technical_body": {"anqp_id": 264, "returns": "PLMN list — the mobile carrier IDs the AP offloads for"}
+    "technical_body": {"anqp_id": 265, "returns": "PLMN list — the mobile carrier IDs the AP offloads for. Per IEEE 802.11-2020 Table 9-271: ANQP element 265 = 3GPP Cellular Network."}
+  },
+  {
+    "id": "roaming-anqp-domain-name",
+    "name": "ANQP Domain Name query",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"anqp_id": 269, "returns": "AP's DNS domain name. Per IEEE 802.11-2020 Table 9-271: ANQP element 269 = Domain Name."}
+  },
+  {
+    "id": "roaming-anqp-roaming-consortium",
+    "name": "ANQP Roaming Consortium query",
+    "category": "roaming",
+    "region": "universal",
+    "era_bounds": ["2011", null],
+    "still_effective_2026": true,
+    "confidence": "primary",
+    "citations": ["ieee-802-11-2020"],
+    "technical_body": {"anqp_id": 262, "returns": "list of Roaming Consortium OIs (3-15 bytes each). Per IEEE 802.11-2020 Table 9-271: ANQP element 262 = Roaming Consortium."}
   },
   {
     "id": "roaming-fast-transition-r0kh-r1kh",
