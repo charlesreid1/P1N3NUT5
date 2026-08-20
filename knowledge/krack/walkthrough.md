@@ -6,8 +6,10 @@ legacy embedded stack. Modern flagship OSes are patched. The bar is
 
 ## Preconditions
 
-- Target client with WPA2 supplicant vulnerable to at least one
-  CVE-2017-13077..13088.
+- Target client with WPA2 supplicant vulnerable to at least one of
+  the 10 primary KRACK CVEs (CVE-2017-13077, 13078, 13079, 13080,
+  13081, 13082, 13084, 13086, 13087, 13088) — or the later-filed
+  13083 / 13085.
 - Multi-Channel MitM setup (see `mc-mitm/walkthrough.md`).
 - Monitor+injection interface on the attacker.
 
@@ -101,7 +103,9 @@ Vulnerable population in 2026:
 
 - Vanhoef & Piessens 2017 — KRACK (ACM CCS).
 - krackattacks-scripts GitHub (Vanhoef).
-- CVE-2017-13077..13088.
+- Primary 10 KRACK CVEs: CVE-2017-13077, 13078, 13079, 13080, 13081,
+  13082, 13084, 13086, 13087, 13088; plus CVE-2017-13083 and
+  CVE-2017-13085 added later.
 - attacks.json: `krack-client-key-reinstall`,
   `krack-linux-all-zero-ptk`, `krack-ft-reassoc`,
   `krack-groupkey-reinstall`, `krack-groupkey-broadcast-replay`,
