@@ -38,6 +38,24 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+`anqp_query` and `anqp_read` are **not in `src/`**. Drive `wpa_cli`
+directly on the Pineapple (or the attack host) — see the manual
+section below. The full one-shot sequence should be treated as
+pseudocode until an MCP wrapper exists.
+
+**Fallback shell chain (equivalent to the sequence above):**
+
+```bash
+# wpa_supplicant must be running on wlan0 for wpa_cli to work.
+wpa_cli -i wlan0 scan
+sleep 5
+wpa_cli -i wlan0 anqp_get AA:BB:CC:DD:EE:FF 257,258,259,261,265
+sleep 2
+wpa_cli -i wlan0 bss AA:BB:CC:DD:EE:FF   # prints the cached ANQP data
+```
+
 ## Manual — wpa_cli
 
 ```

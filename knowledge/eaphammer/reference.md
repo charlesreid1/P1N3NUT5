@@ -1,5 +1,7 @@
 # eaphammer — the modern enterprise-evil-twin standard
 
+**Verified against:** eaphammer 1.14 as of 2026-Q3
+
 Gabriel Ryan's tool. Higher-level than hostapd-wpe: generates certs,
 templates hostile portals, drives multiple attack profiles from a
 single CLI invocation.

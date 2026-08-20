@@ -1,5 +1,7 @@
 # enterprise — recognition
 
+**Verified against:** hostapd 2.10 / freeradius 3.0.x / hashcat 6.2.x as of 2026-Q3
+
 Distinguish enterprise from PSK by the RSN IE, then predict which
 inner method a client will negotiate by initial-EAP fingerprint.
 

