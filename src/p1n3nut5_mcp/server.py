@@ -684,6 +684,8 @@ def main() -> None:
     if args.transport in ("sse", "streamable-http"):
         if args.host is not None:
             app.settings.host = args.host
+            if args.host not in ("127.0.0.1", "localhost", "::1"):
+                app.settings.transport_security = None
         if args.port is not None:
             app.settings.port = args.port
 

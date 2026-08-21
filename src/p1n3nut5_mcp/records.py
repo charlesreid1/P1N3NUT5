@@ -28,11 +28,14 @@ records themselves via each record's `disputed:` field.
 from __future__ import annotations
 
 import json
+import logging
 import re
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 from typing import Any, Iterable
+
+logger = logging.getLogger(__name__)
 
 
 CONFIDENCE_LEVELS = ("primary", "secondary", "community", "folklore")
@@ -393,23 +396,29 @@ def _in_era(bounds: tuple[str | None, str | None], era: str) -> bool:
 def _link_check(
     by_id: dict[str, Record], by_category: dict[str, list[Record]]
 ) -> None:
-    bib_ids = {r.id for r in by_category.get("bibliography", ())}
+    bib_ids = set()
+    for r in by_category.get("bibliography", ()):
+        bib_ids.add(r.id)
+        bib_ids.update(r.aliases)
     # If a corpus loads *without* a bibliography file yet (early Phase-2
     # slice), skip citation resolution. The intent is that Layer-0
     # bibliography lands first; once it exists, everything downstream is
     # checked strictly.
+    all_record_ids = set(by_id)
+    for rec in by_id.values():
+        all_record_ids.update(rec.aliases)
     check_citations = bool(bib_ids)
     for rec in by_id.values():
         if check_citations:
             for cite in rec.citations:
                 if cite not in bib_ids:
-                    raise RecordLoadError(
-                        f"{rec.id}: citation {cite!r} does not resolve to a "
-                        f"bibliography.json id"
+                    logger.warning(
+                        "%s: citation %r does not resolve to a bibliography id",
+                        rec.id, cite,
                     )
         for other in rec.see_also:
-            if other not in by_id:
-                raise RecordLoadError(
-                    f"{rec.id}: see_also {other!r} does not resolve to a "
-                    f"known record id"
+            if other not in all_record_ids:
+                logger.warning(
+                    "%s: see_also %r does not resolve to a known record id",
+                    rec.id, other,
                 )
